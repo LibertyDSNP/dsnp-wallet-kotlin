@@ -1,0 +1,83 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+    id 'org.jetbrains.kotlin.android'
+}
+
+
+android {
+    compileSdk build_versions.compile_sdk
+
+    defaultConfig {
+        applicationId "com.unfinished.dsnp_wallet_kotlin"
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation deps.support.core_ktx
+    implementation deps.support.app_compat
+    implementation deps.support.material
+    implementation deps.support.constraint_layout
+
+    implementation deps.test.junit
+    implementation deps.test.ext_junit
+    implementation deps.test.espresso_core
+
+    implementation deps.navigation.navigation_fragment_ktx
+    implementation deps.navigation.navigation_ui_ktx
+
+    implementation deps.extension.viewmodel_ktx
+    implementation deps.extension.livedata_ktx
+    implementation deps.extension.fragment_ktx
+    implementation 'androidx.core:core-ktx:+'
+
+    kapt deps.lifecycle_compiler
+
+    implementation deps.daggerHilt.hilt_android
+    //implementation deps.daggerHilt.viewmodel
+    kapt deps.daggerHilt.android_compiler
+    kapt deps.daggerHilt.hilt_compiler
+
+    implementation deps.retrofit.okhttp
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.converter_gson
+    implementation deps.retrofit.converter_scalars
+    implementation deps.retrofit.interceptor
+
+    implementation deps.glides.glide
+    annotationProcessor deps.glides.glide_compiler
+
+    implementation deps.timber
+
+    implementation project(":ccodepicker")
+
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+}

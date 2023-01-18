@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/look_up_bg"
+    tools:context=".ui.onboarding.LookupFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
+        android:text="@string/lookup_title"
+        android:textColor="@color/text_black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sub_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="48dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="@string/lookup_sub_title"
+        android:textColor="@color/text_black"
+        android:textSize="12sp"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/look_up_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:text="@string/lookup_label"
+        android:textColor="@color/text_orange"
+        android:textSize="16dp"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sub_title" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_button_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="30sp"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/look_up_label">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/lookup_email_btn"
+            style="@style/ToggleButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/button_color"
+            android:text="@string/lookup_email_btn" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/lookup_phone_btn"
+            style="@style/ToggleButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/text_black"
+            android:text="@string/lookup_phone_btn" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <TextView
+        android:id="@+id/textinput_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="left"
+        android:text="@string/lookup_label"
+        android:textColor="@color/text_orange"
+        android:textSize="12dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/toggle_button_group"
+        app:layout_constraintStart_toStartOf="@+id/toggle_button_group"
+        app:layout_constraintTop_toBottomOf="@+id/toggle_button_group" />
+
+    <ViewSwitcher
+        android:id="@+id/input_field_switcher"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_goneMarginTop="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/toggle_button_group"
+        app:layout_constraintStart_toStartOf="@+id/toggle_button_group"
+        app:layout_constraintTop_toBottomOf="@+id/textinput_error">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_regular"
+                android:paddingVertical="10dp"
+                android:hint="@string/hint_email"
+                android:background="@color/look_up_bg"/>
+
+            <View
+                android:id="@+id/email_baseline"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/input_field_line" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/country_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:fontFamily="@font/poppins_regular"
+                android:drawablePadding="18dp"
+                android:gravity="center"
+                android:drawableRight="@drawable/arrow_down"
+                android:text="+1"
+                android:textColor="@color/text_black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/country_code_baseline"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/input_field_line"
+                app:layout_constraintEnd_toEndOf="@+id/country_code"
+                app:layout_constraintStart_toStartOf="@+id/country_code"
+                app:layout_constraintTop_toBottomOf="@+id/country_code" />
+
+            <EditText
+                android:id="@+id/phone_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:paddingStart="8dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:text="+1323 32 3232 "
+                android:textColor="@color/text_black"
+                android:textSize="14sp"
+                android:background="@color/look_up_bg"
+                app:layout_constraintBottom_toBottomOf="@+id/country_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/country_code"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/phone_baseline"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/input_field_line"
+                app:layout_constraintEnd_toEndOf="@+id/phone_no"
+                app:layout_constraintStart_toStartOf="@+id/phone_no"
+                app:layout_constraintTop_toBottomOf="@+id/phone_no" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ViewSwitcher>
+
+    <ViewSwitcher
+        android:id="@+id/button_switcher"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_field_switcher">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/send_auth_code"
+            style="@style/ActionButtonMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lookup_send_auth_code"
+            android:textColor="@color/text_black"
+            app:strokeColor="@color/orange"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/button_secondary_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/try_again"
+                style="@style/ActionButtonMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:text="@string/lookup_try_again"
+                android:textColor="@color/text_white"
+                android:backgroundTint="@color/button_color" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/create_new_id"
+                style="@style/ActionButtonMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:text="@string/lookup_create_new_id"
+                android:textColor="@color/text_black"
+                app:strokeColor="@color/button_color"
+                app:strokeWidth="1dp"
+                android:backgroundTint="@color/look_up_bg" />
+
+        </LinearLayout>
+
+    </ViewSwitcher>
+
+    <TextView
+        android:id="@+id/lookup_restore_dsnp_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="@string/landing_restore_dsnp_id"
+        android:textColor="@color/text_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_switcher" />
+
+    <TextView
+        android:id="@+id/lookup_privacy_policy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="54dp"
+        android:lineSpacingExtra="4dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="@string/landing_privacy_policy"
+        android:textColor="@color/text_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lookup_restore_dsnp_id" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

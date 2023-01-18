@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <include
+        android:id="@+id/header_layout"
+        layout="@layout/header_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/content_nsv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_layout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="33dp">
+
+            <TextView
+                android:id="@+id/profile_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="23dp"
+                android:text="@string/profile"
+                android:textColor="@color/title_text"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/profile_name"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="22dp"
+                android:background="@drawable/round_3dp_rect_white"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/profile_label"
+                app:layout_constraintTop_toBottomOf="@+id/profile_label" />
+
+            <TextView
+                android:id="@+id/permission_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/permission_label"
+                android:textColor="@color/title_text"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_name" />
+
+            <View
+                android:id="@+id/permission_label_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@+id/profile_name"
+                app:layout_constraintStart_toStartOf="@+id/profile_label"
+                app:layout_constraintTop_toBottomOf="@+id/permission_label" />
+
+            <TextView
+                android:id="@+id/permission1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="@string/permission1"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/permission_label"
+                app:layout_constraintTop_toBottomOf="@+id/permission_label_divider" />
+
+            <View
+                android:id="@+id/permission1_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="19dp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@+id/profile_name"
+                app:layout_constraintStart_toStartOf="@+id/profile_label"
+                app:layout_constraintTop_toBottomOf="@+id/permission1" />
+
+            <TextView
+                android:id="@+id/permission2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="@string/permission1"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/profile_label"
+                app:layout_constraintTop_toBottomOf="@+id/permission1_divider" />
+
+            <View
+                android:id="@+id/permission2_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="19dp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@+id/profile_name"
+                app:layout_constraintStart_toStartOf="@+id/profile_label"
+                app:layout_constraintTop_toBottomOf="@+id/permission2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="85dp"
+                android:paddingVertical="14dp"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/save_button"
+                app:cornerRadius="3dp"
+                app:layout_constraintEnd_toEndOf="@+id/profile_name"
+                app:layout_constraintStart_toStartOf="@+id/profile_label"
+                app:layout_constraintTop_toBottomOf="@+id/permission2_divider" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

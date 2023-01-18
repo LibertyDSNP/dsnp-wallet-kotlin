@@ -1,0 +1,102 @@
+ext.deps = [:]
+def versions = [:]
+
+versions.android_gradle_plugin = '2.43.2'
+versions.args_gradle_plugin = '2.4.1'
+
+versions.core_ktx = '1.7.0'
+versions.appcompat = '1.4.1'
+versions.material = '1.5.0'
+versions.constraintlayout = '2.1.3'
+
+versions.junit = '4.13.2'
+versions.ext_junit = '1.1.3'
+versions.espresso_core = '3.4.0'
+
+versions.navigation_fragment_ktx = '2.4.1'
+versions.navigation_ui_ktx = '2.4.1'
+
+versions.viewmodel_ktx = '2.4.1'
+versions.livedata_ktx = '2.4.1'
+versions.fragment_ktx = '1.4.1'
+
+versions.lifecycle_compiler = '2.4.1'
+
+versions.hilt_android = '2.43.2'
+versions.viewmodel = '1.0.0-alpha03'
+versions.android_compiler = '2.43.2'
+versions.hilt_compiler = '1.0.0'
+
+versions.okhttp = '5.0.0-alpha.2'
+versions.retrofit = '2.9.0'
+versions.converter_gson = '2.9.0'
+versions.converter_scalars = '2.9.0'
+versions.interceptor = '5.0.0-alpha.2'
+
+versions.glide = '4.12.0'
+versions.glide_compiler = '4.12.0'
+
+versions.timber = '4.7.1'
+
+ext.versions = versions
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.compile_sdk = 33
+build_versions.target_sdk = 33
+ext.build_versions = build_versions
+
+def plugin = [:]
+plugin.android_gradle_plugin = "com.google.dagger:hilt-android-gradle-plugin:$versions.android_gradle_plugin"
+plugin.args_gradle_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.args_gradle_plugin"
+deps.plugin = plugin
+
+def support = [:]
+support.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+support.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"
+support.material = "com.google.android.material:material:$versions.material"
+support.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+deps.support = support
+
+def test = [:]
+test.junit = "junit:junit:$versions.junit"
+test.ext_junit = "androidx.test.ext:junit:$versions.ext_junit"
+test.espresso_core = "androidx.test.espresso:espresso-core:$versions.espresso_core"
+deps.test = test
+
+def navigation = [:]
+navigation.navigation_fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.navigation_fragment_ktx"
+navigation.navigation_ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.navigation_ui_ktx"
+deps.navigation = navigation
+
+def extension = [:]
+extension.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewmodel_ktx"
+extension.livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.livedata_ktx"
+extension.fragment_ktx = "androidx.fragment:fragment-ktx:$versions.fragment_ktx"
+deps.extension = extension
+
+deps.lifecycle_compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle_compiler"
+
+def daggerHilt = [:]
+daggerHilt.hilt_android = "com.google.dagger:hilt-android:$versions.hilt_android"
+//daggerHilt.viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:$versions.viewmodel"
+daggerHilt.android_compiler = "com.google.dagger:hilt-android-compiler:$versions.android_compiler"
+daggerHilt.hilt_compiler = "androidx.hilt:hilt-compiler:$versions.hilt_compiler"
+deps.daggerHilt = daggerHilt
+
+def retrofit = [:]
+retrofit.okhttp =  "com.squareup.okhttp3:okhttp:$versions.okhttp"
+retrofit.retrofit =  "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.converter_gson =  "com.squareup.retrofit2:converter-gson:$versions.converter_gson"
+retrofit.converter_scalars =  "com.squareup.retrofit2:converter-scalars:$versions.converter_scalars"
+retrofit.interceptor =  "com.squareup.okhttp3:logging-interceptor:$versions.interceptor"
+deps.retrofit = retrofit
+
+def glides = [:]
+glides.glide = "com.github.bumptech.glide:glide:$versions.glide"
+glides.glide_compiler = "com.github.bumptech.glide:compiler:$versions.glide_compiler"
+deps.glides = glides
+
+deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+
+ext.deps = deps

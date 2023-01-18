@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="background">#3C4240</color>
+    <color name="text_black">#3C4240</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_orange">#DA5E3A</color>
+    <color name="orange">#DA5E3A</color>
+    <color name="green">#4CAF50</color>
+    <color name="button_color">#017A86</color>
+    <color name="look_up_bg">#FAF7F3</color>
+    <color name="input_field_line">#AEAFAB</color>
+    <color name="line_default">#AEAFAB</color>
+    <color name="line_selected">#4CAF50</color>
+    <color name="line_focused">#4CAF50</color>
+
+  ``
+
+    <color name="primary">#232330</color>>
+    <color name="primary_variant">#232330</color>
+    <color name="secondary">#AEAFAB</color>
+    <color name="secondary_variant">#6EE9D1</color>
+    <color name="nav_item_unselected">#999999</color>
+    <color name="nav_item_selected">#FF633D</color>
+    <color name="title_text">#52E1C5</color>
+
+    <color name="divider">#80DADADA</color>
+    <color name="save_button">#AFB2B8</color>
+
+
+</resources>

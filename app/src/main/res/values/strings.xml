@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">dsnp-wallet-kotlin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="homeFragment">Home</string>
+    <string name="profileFragment">Profile</string>
+    <string name="keysFragment">Keys</string>
+    <string name="logo">Logo</string>
+    <string name="smart_id">Smart ID</string>
+    <string name="name">Name</string>
+    <string name="token">dslakfdjasl23</string>
+    <string name="content_block">Content Block</string>
+    <string name="profile">Profile</string>
+    <string name="permission_label">Permissions</string>
+    <string name="permission1">MeWe</string>
+    <string name="save">Save</string>
+    <string name="connect_device">Connect Device</string>
+    <string name="my_keys_label">My Keys</string>
+    <string name="root_key_label">Root Key</string>
+    <string name="root_key_placeholder">0x54...987498</string>
+    <string name="backup">Backup</string>
+    <string name="connect_device_label">Connect Device</string>
+    <string name="share">Share</string>
+    <string name="copy">Copy</string>
+    <string name="backup_label_label">backup_label</string>
+    <string name="backup_label">Backup</string>
+    <string name="view_seed_phrase">View my Seed Phrase</string>
+    <string name="info">BAcking up your keys is very important dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum</string>
+    <string name="google_drive">Google Drive</string>
+    <string name="email">Email</string>
+    <string name="save_to_device">Save to Device</string>
+
+    <string name="landing_title">Welcome \nto Sage</string>
+    <string name="landing_sub_title">"A little bit about what the wallet is and does etc. A little bit about what the wallet is "</string>
+    <string name="landing_let_started_label">Let’s get started</string>
+    <string name="landing_dsnp_id">I have a  DSNP ID</string>
+    <string name="landing_create_dsnp_id">Create DSNP ID</string>
+    <string name="landing_restore_dsnp_id"><u>Restore DSNP Wallet</u></string>
+    <string name="landing_privacy_policy">By signing up, you agree our <font color="#DA5E3A">Terms</font> and \n<font color="#DA5E3A">Privacy Policy</font></string>
+
+    <string name="lookup_title">Welcome to Sage</string>
+    <string name="lookup_sub_title">"A little bit about what the wallet is and does etc. A little bit about what the wallet is "</string>
+    <string name="lookup_label">We’ll look up you account</string>
+    <string name="lookup_email_btn">Email</string>
+    <string name="lookup_phone_btn">Phone</string>
+    <string name="hint_email">name@gmail.com</string>
+    <string name="lookup_send_auth_code">Send Auth Code</string>
+    <string name="lookup_create_new_id">Create New ID</string>
+    <string name="lookup_try_again">Try Again</string>
+    <string name="enter_email">Enter email</string>
+    <string name="invalid_email">Invalid email entered</string>
+    <string name="enter_phone">Enter phone no</string>
+    <string name="lookup_temp_error">Your ID was not found</string>
+    <string name="enter_code">Please enter the code sent to</string>
+    <string name="temp_email">tester@gmail.com</string>
+    <string name="invalid_code">Invalid code, please try again</string>
+    <string name="temp_verify_success">Verify success</string>
+
+</resources>
