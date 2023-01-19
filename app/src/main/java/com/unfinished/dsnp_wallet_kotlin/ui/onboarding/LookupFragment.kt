@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ccodepicker.Country
 import com.unfinished.dsnp_wallet_kotlin.ccodepicker.CountryCodeSheet
@@ -57,7 +58,6 @@ class LookupFragment : Fragment() {
                 }else if (binding.inputField.text.toString().startsWith("test")){
                     showEmailErrorUI()
                 }else {
-                    toast("Success")
                     showVerifyCodeFragment()
                 }
             }
@@ -65,11 +65,8 @@ class LookupFragment : Fragment() {
 
         binding.tryAgain.setOnClickListener {
             showDefaultUI()
-            toast("Success")
-            showVerifyCodeFragment()
         }
     }
-
 
     private fun showDefaultUI(){
         binding.textinputError.setText(getText(R.string.lookup_temp_error))
@@ -124,6 +121,12 @@ class LookupFragment : Fragment() {
         else binding.phoneNo.text.toString()
         val icon = if (isEmail) R.drawable.baseline_email_24
         else R.drawable.baseline_smartphone_24
-        VerifyCodeFragment(text,icon).show(childFragmentManager,"verify_code_frag")
+        val verifyCodeFragment= VerifyCodeFragment(text,icon)
+        verifyCodeFragment.setDismissListener {
+            if (it){
+                findNavController().navigate(R.id.action_lookupFragment_to_seedPhraseFragment)
+            }
+        }
+        verifyCodeFragment.show(childFragmentManager,"verify_code_frag")
     }
 }

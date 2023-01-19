@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.data.model.MnemonicWord
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentSeedPhraseBinding
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase.adapter.SeedPhraseAdapter
+import com.unfinished.dsnp_wallet_kotlin.util.setOnSafeClickListener
 
 class SeedPhraseFragment : Fragment() {
 
@@ -41,6 +44,21 @@ class SeedPhraseFragment : Fragment() {
         binding.seedPhraseRv.apply {
             layoutManager = GridLayoutManager(requireContext(),2)
             adapter = SeedPhraseAdapter(words)
+        }
+        binding.seedPhraseBtn.setOnSafeClickListener {
+           val notifySeedPhraseFragment = NotifySeedPhraseFragment()
+            notifySeedPhraseFragment.setDismissListener {
+                when(it){
+                    NotifySeedPhraseButton.YES -> {
+                        notifySeedPhraseFragment.dismiss()
+                        findNavController().navigate(R.id.action_seedPhraseFragment_to_confirmSeedPhraseFragment)
+                    }
+                    NotifySeedPhraseButton.CHECK_AGAIN -> {
+                        notifySeedPhraseFragment.dismiss()
+                    }
+                }
+            }
+            notifySeedPhraseFragment.show(childFragmentManager,"notify_seed_phrase")
         }
     }
 

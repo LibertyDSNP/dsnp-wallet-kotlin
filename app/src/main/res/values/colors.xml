@@ -10,6 +10,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background">#3C4240</color>
     <color name="text_black">#3C4240</color>
+    <color name="verify_dialog_bg">#BF1E1E1E</color>
+    <color name="verify_dialog_btn">#0A84FF</color>
     <color name="text_white">#FFFFFF</color>
     <color name="text_orange">#DA5E3A</color>
     <color name="seed_phrase_cell">#DA5E3A</color>

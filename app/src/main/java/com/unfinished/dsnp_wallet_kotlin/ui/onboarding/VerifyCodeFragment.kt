@@ -19,6 +19,7 @@ class VerifyCodeFragment(private val inputText: String, private val icon: Int) :
 
     val TAG: String = "VerifyCodeFrag"
     lateinit var binding: FragmentVerifyCodeBinding
+    var isVerify = false
     var closeFunction: ((Boolean) -> Unit)? = null
 
     override fun onCreateView(
@@ -44,9 +45,10 @@ class VerifyCodeFragment(private val inputText: String, private val icon: Int) :
                 if (count == 6){
                     if (s.toString().equals("000000")){
                         binding.error.show()
+                        isVerify = false
                     }else {
+                        isVerify = true
                         binding.error.hide()
-                        toast(getString(R.string.temp_verify_success))
                         this@VerifyCodeFragment.dismiss()
                     }
                 }
@@ -66,6 +68,6 @@ class VerifyCodeFragment(private val inputText: String, private val icon: Int) :
     }
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        closeFunction?.invoke(true)
+        closeFunction?.invoke(isVerify)
     }
 }

@@ -106,9 +106,9 @@ class ConfirmSeedPhraseFragment : Fragment() {
 
         binding.confirmSeedPhraseBtn.setOnSafeClickListener {
             if (validateMnemonicPhrase()){
-                toast("Success!")
+                toast("Success! In progress other screens")
             }else{
-                toast("Mnemonice phrase not matched")
+                toast("Mnemonice phrase not matched!")
             }
         }
     }

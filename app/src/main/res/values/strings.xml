@@ -61,5 +61,9 @@
     <string name="confirm_seed_phrase_title">This is the test</string>
     <string name="confirm_seed_phrase_sub_title">Tap the words in numerical order (1-12) to verify your recovery phrase</string>
     <string name="confirm_seed_phrase_btn">Continue</string>
+    <string name="notify_seed_phrase_dialog_title">Written the Secret Phrase down?</string>
+    <string name="notify_seed_phrase_dialog_sub_title">Without the secret recovery phrase you will not able to access your key or any assets associated with it.</string>
+    <string name="notify_seed_phrase_dilog_check_again">Check Again</string>
+    <string name="notify_seed_phrase_dilog_yes">Yes</string>
 
 </resources>
