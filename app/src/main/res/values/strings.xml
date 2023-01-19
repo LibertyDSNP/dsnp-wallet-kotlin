@@ -55,5 +55,8 @@
     <string name="temp_email">tester@gmail.com</string>
     <string name="invalid_code">Invalid code, please try again</string>
     <string name="temp_verify_success">Verify success</string>
+    <string name="seed_phrase_title">There will be a test</string>
+    <string name="seed_phrase_sub_title">Please carefully write down these 12 words below in numerical order (1-12) and store your secret phrase securely.\n\nYou will confirm them <font color="#DA5E3A">in order</font> on the next screen.</string>
+    <string name="seed_phrase_btn">I’ve written it down</string>
 
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/lookupFragment">
+    app:startDestination="@id/seedPhraseFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -34,6 +34,11 @@
         android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LookupFragment"
         android:label="fragment_lookup"
         tools:layout="@layout/fragment_lookup" />
+    <fragment
+        android:id="@+id/seedPhraseFragment"
+        android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase.SeedPhraseFragment"
+        android:label="fragment_seed_phrase"
+        tools:layout="@layout/fragment_seed_phrase" />
 
 
 </navigation>
