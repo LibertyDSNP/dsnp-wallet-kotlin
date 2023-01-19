@@ -29,7 +29,8 @@ class LookupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.inputField.requestFocus()
+        binding.inputField.showSoftKeyboard()
         binding.toggleButtonGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (checkedId == binding.lookupEmailBtn.id){
                 binding.inputFieldSwitcher.displayedChild = 0

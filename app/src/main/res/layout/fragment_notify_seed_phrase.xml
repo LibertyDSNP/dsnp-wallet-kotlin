@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
     android:background="@drawable/verify_bottom_sheet_bg"
     android:backgroundTint="@color/text_black"
     tools:context=".ui.onboarding.seedphrase.NotifySeedPhraseFragment">
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginHorizontal="48dp"
@@ -25,7 +26,7 @@
 
     <TextView
         android:id="@+id/sub_title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="48dp"
         android:fontFamily="@font/poppins_regular"
@@ -59,7 +60,7 @@
 
     <TextView
         android:id="@+id/check_again"
-        android:layout_width="0dp"
+        android:layout_width="190dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="8dp"
         android:fontFamily="@font/poppins_semibold"
@@ -74,7 +75,7 @@
 
     <TextView
         android:id="@+id/yes"
-        android:layout_width="0dp"
+        android:layout_width="190dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="8dp"
         android:fontFamily="@font/poppins_semibold"

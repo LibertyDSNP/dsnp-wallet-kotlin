@@ -26,10 +26,10 @@ class LandingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.landingCreateDsnpId.setOnSafeClickListener {
-            toast("In Progress")
+            findNavController().navigate(R.id.action_landingFragment_to_lookupFragment)
         }
         binding.landingDsnpId.setOnSafeClickListener {
-            findNavController().navigate(R.id.action_landingFragment_to_lookupFragment)
+            toast("In Progress")
         }
     }
 
