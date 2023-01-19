@@ -37,6 +37,8 @@
     <string name="landing_create_dsnp_id">Create DSNP ID</string>
     <string name="landing_restore_dsnp_id"><u>Restore DSNP Wallet</u></string>
     <string name="landing_privacy_policy">By signing up, you agree our <font color="#DA5E3A">Terms</font> and \n<font color="#DA5E3A">Privacy Policy</font></string>
+    <string name="terms">Terms</string>
+    <string name="privacy_policy">Privacy Policy</string>
 
     <string name="lookup_title">Welcome to Sage</string>
     <string name="lookup_sub_title">"A little bit about what the wallet is and does etc. A little bit about what the wallet is "</string>
@@ -55,5 +57,18 @@
     <string name="temp_email">tester@gmail.com</string>
     <string name="invalid_code">Invalid code, please try again</string>
     <string name="temp_verify_success">Verify success</string>
+    <string name="seed_phrase_title">There will be a test</string>
+    <string name="seed_phrase_sub_title">Please carefully write down these 12 words below in numerical order (1-12) and store your secret phrase securely.\n\nYou will confirm them <font color="#DA5E3A">in order</font> on the next screen.</string>
+    <string name="seed_phrase_btn">I’ve written it down</string>
+    <string name="confirm_seed_phrase_title">This is the test</string>
+    <string name="confirm_seed_phrase_sub_title">Tap the words in numerical order (1-12) to verify your recovery phrase</string>
+    <string name="confirm_seed_phrase_btn">Continue</string>
+    <string name="notify_seed_phrase_dialog_title">Written the Secret Phrase down?</string>
+    <string name="notify_seed_phrase_dialog_sub_title">Without the secret recovery phrase you will not able to access your key or any assets associated with it.</string>
+    <string name="notify_seed_phrase_dilog_check_again">Check Again</string>
+    <string name="notify_seed_phrase_dilog_yes">Yes</string>
+    <string name="common_cannot_open_link">Cannot open this link</string>
+    <string name="terms_link">https://www.dsnp.org/privacy.html</string>
+    <string name="privacy_policy_link">https://www.dsnp.org/privacy.html</string>
 
 </resources>
