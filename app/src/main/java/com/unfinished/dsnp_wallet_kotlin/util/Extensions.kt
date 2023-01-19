@@ -6,6 +6,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -100,3 +101,16 @@ fun View.setOnSafeClickListener(timeGap: Long, block: (View) -> Unit) {
 
 fun String.isValidEmail() =
     isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+fun View.setVisible(visible: Boolean, falseState: Int = View.GONE) {
+    visibility = if (visible) View.VISIBLE else falseState
+}
+
+fun TextView.setTextOrHide(newText: String?) {
+    if (newText != null) {
+        text = newText
+        setVisible(true)
+    } else {
+        setVisible(false)
+    }
+}

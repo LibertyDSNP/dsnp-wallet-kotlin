@@ -58,5 +58,8 @@
     <string name="seed_phrase_title">There will be a test</string>
     <string name="seed_phrase_sub_title">Please carefully write down these 12 words below in numerical order (1-12) and store your secret phrase securely.\n\nYou will confirm them <font color="#DA5E3A">in order</font> on the next screen.</string>
     <string name="seed_phrase_btn">I’ve written it down</string>
+    <string name="confirm_seed_phrase_title">This is the test</string>
+    <string name="confirm_seed_phrase_sub_title">Tap the words in numerical order (1-12) to verify your recovery phrase</string>
+    <string name="confirm_seed_phrase_btn">Continue</string>
 
 </resources>

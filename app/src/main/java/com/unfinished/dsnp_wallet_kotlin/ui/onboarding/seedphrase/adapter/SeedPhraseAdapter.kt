@@ -1,12 +1,13 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase
+package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.unfinished.dsnp_wallet_kotlin.data.model.MnemonicWord
 import com.unfinished.dsnp_wallet_kotlin.databinding.SeedPhraseItemLayoutBinding
 
 class SeedPhraseAdapter(
-    private var list: List<String>
+    private var list: List<MnemonicWord>
 ) : RecyclerView.Adapter<SeedPhraseAdapter.MyViewHolder>() {
 
 
@@ -25,8 +26,8 @@ class SeedPhraseAdapter(
     }
 
     inner class MyViewHolder(private val binding: SeedPhraseItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) {
-            binding.item.setText(item)
+        fun bind(item: MnemonicWord) {
+            binding.item.setText("${item.id} ${item.content}")
         }
     }
 }

@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.data.model.MnemonicWord
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentSeedPhraseBinding
+import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase.adapter.SeedPhraseAdapter
 
 class SeedPhraseFragment : Fragment() {
 
@@ -23,19 +24,19 @@ class SeedPhraseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val words = listOf<String>(
-            "01 Satisy",
-            "02 Spike",
-            "03 Lake",
-            "04 Cupcake",
-            "05 Bag",
-            "06 Turmoil",
-            "07 Sunny",
-            "08 Rainbow",
-            "09 Truck",
-            "10 Train",
-            "11 Running",
-            "12 Spin"
+        val words = listOf<MnemonicWord>(
+            MnemonicWord(id = "01", content = "Satisy", indexDisplay = "",false),
+            MnemonicWord(id = "02", content = "Spike", indexDisplay = "",false),
+            MnemonicWord(id = "03", content = "Lake", indexDisplay = "",false),
+            MnemonicWord(id = "04", content = "Cupcake", indexDisplay = "",false),
+            MnemonicWord(id = "05", content = "Bag", indexDisplay = "",false),
+            MnemonicWord(id = "06", content = "Turmoil", indexDisplay = "",false),
+            MnemonicWord(id = "07", content = "Sunny", indexDisplay = "",false),
+            MnemonicWord(id = "08", content = "Rainbow", indexDisplay = "",false),
+            MnemonicWord(id = "09", content = "Truck", indexDisplay = "",false),
+            MnemonicWord(id = "10", content = "Train", indexDisplay = "",false),
+            MnemonicWord(id = "11", content = "Running", indexDisplay = "",false),
+            MnemonicWord(id = "12", content = "Spin", indexDisplay = "",false),
         )
         binding.seedPhraseRv.apply {
             layoutManager = GridLayoutManager(requireContext(),2)
