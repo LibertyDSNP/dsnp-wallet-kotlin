@@ -37,6 +37,8 @@
     <string name="landing_create_dsnp_id">Create DSNP ID</string>
     <string name="landing_restore_dsnp_id"><u>Restore DSNP Wallet</u></string>
     <string name="landing_privacy_policy">By signing up, you agree our <font color="#DA5E3A">Terms</font> and \n<font color="#DA5E3A">Privacy Policy</font></string>
+    <string name="terms">Terms</string>
+    <string name="privacy_policy">Privacy Policy</string>
 
     <string name="lookup_title">Welcome to Sage</string>
     <string name="lookup_sub_title">"A little bit about what the wallet is and does etc. A little bit about what the wallet is "</string>
@@ -65,5 +67,8 @@
     <string name="notify_seed_phrase_dialog_sub_title">Without the secret recovery phrase you will not able to access your key or any assets associated with it.</string>
     <string name="notify_seed_phrase_dilog_check_again">Check Again</string>
     <string name="notify_seed_phrase_dilog_yes">Yes</string>
+    <string name="common_cannot_open_link">Cannot open this link</string>
+    <string name="terms_link">https://www.dsnp.org/privacy.html</string>
+    <string name="privacy_policy_link">https://www.dsnp.org/privacy.html</string>
 
 </resources>

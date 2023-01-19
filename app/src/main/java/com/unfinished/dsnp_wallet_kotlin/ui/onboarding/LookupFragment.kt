@@ -1,10 +1,13 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ccodepicker.Country
@@ -67,6 +70,12 @@ class LookupFragment : Fragment() {
         binding.tryAgain.setOnClickListener {
             showDefaultUI()
         }
+
+        configureTermsAndPrivacy(
+            sourceText = getString(R.string.landing_privacy_policy),
+            terms = getString(R.string.terms),
+            privacy = getString(R.string.privacy_policy)
+        )
     }
 
     private fun showDefaultUI(){
@@ -115,6 +124,25 @@ class LookupFragment : Fragment() {
             }
         }
         return isValid
+    }
+
+    private fun configureTermsAndPrivacy(sourceText: String, terms: String, privacy: String) {
+        binding.lookupPrivacyPolicy.apply {
+            linksClickable = true
+            isClickable = true
+            movementMethod = LinkMovementMethod.getInstance()
+            text = createSpannable(
+                content = sourceText,
+                typeface = ResourcesCompat.getFont(requireContext(),R.font.poppins_semibold),
+                highlightTextColor = ContextCompat.getColor(requireContext(),R.color.orange))  {
+                clickable(terms) {
+                    showBrowser(getString(R.string.terms_link))
+                }
+                clickable(privacy) {
+                    showBrowser(getString(R.string.privacy_policy_link))
+                }
+            }
+        }
     }
 
     private fun showVerifyCodeFragment(){

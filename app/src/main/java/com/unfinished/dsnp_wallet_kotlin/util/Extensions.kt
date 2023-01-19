@@ -1,10 +1,13 @@
 package com.unfinished.dsnp_wallet_kotlin.util
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -128,4 +131,17 @@ fun View.showSoftKeyboard() {
     val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun Fragment.showBrowser(link: String) = requireContext().showBrowser(link)
+
+fun Context.showBrowser(link: String) {
+    val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(link) }
+
+    try {
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        Toast.makeText(this, R.string.common_cannot_open_link, Toast.LENGTH_SHORT)
+            .show()
+    }
 }
