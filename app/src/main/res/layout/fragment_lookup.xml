@@ -120,6 +120,7 @@
                 android:textSize="12sp"
                 android:fontFamily="@font/poppins_regular"
                 android:paddingVertical="10dp"
+                android:inputType="textEmailAddress"
                 android:hint="@string/hint_email"
                 android:background="@color/look_up_bg"/>
 
@@ -168,9 +169,10 @@
                 android:paddingStart="8dp"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center_vertical"
-                android:text="+1323 32 3232 "
+                android:hint="323 32 3232 "
                 android:textColor="@color/text_black"
                 android:textSize="14sp"
+                android:inputType="phone"
                 android:background="@color/look_up_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/country_code"
                 app:layout_constraintEnd_toEndOf="parent"

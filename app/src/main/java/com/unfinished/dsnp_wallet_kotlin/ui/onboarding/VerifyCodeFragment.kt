@@ -19,6 +19,7 @@ class VerifyCodeFragment(private val inputText: String, private val icon: Int) :
 
     val TAG: String = "VerifyCodeFrag"
     lateinit var binding: FragmentVerifyCodeBinding
+    var isVerify = false
     var closeFunction: ((Boolean) -> Unit)? = null
 
     override fun onCreateView(
@@ -39,18 +40,19 @@ class VerifyCodeFragment(private val inputText: String, private val icon: Int) :
         binding.firstPinView.setAnimationEnable(true)
         binding.firstPinView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(s: Editable) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (count == 6){
+            override fun afterTextChanged(s: Editable) {
+                if (s.length == 6){
                     if (s.toString().equals("000000")){
                         binding.error.show()
+                        isVerify = false
                     }else {
+                        isVerify = true
                         binding.error.hide()
-                        toast(getString(R.string.temp_verify_success))
                         this@VerifyCodeFragment.dismiss()
                     }
                 }
             }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
     }
 
@@ -66,6 +68,6 @@ class VerifyCodeFragment(private val inputText: String, private val icon: Int) :
     }
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        closeFunction?.invoke(true)
+        closeFunction?.invoke(isVerify)
     }
 }

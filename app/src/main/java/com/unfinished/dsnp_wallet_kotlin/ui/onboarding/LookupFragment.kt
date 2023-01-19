@@ -1,10 +1,14 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ccodepicker.Country
 import com.unfinished.dsnp_wallet_kotlin.ccodepicker.CountryCodeSheet
@@ -28,7 +32,8 @@ class LookupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.inputField.requestFocus()
+        binding.inputField.showSoftKeyboard()
         binding.toggleButtonGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (checkedId == binding.lookupEmailBtn.id){
                 binding.inputFieldSwitcher.displayedChild = 0
@@ -57,7 +62,6 @@ class LookupFragment : Fragment() {
                 }else if (binding.inputField.text.toString().startsWith("test")){
                     showEmailErrorUI()
                 }else {
-                    toast("Success")
                     showVerifyCodeFragment()
                 }
             }
@@ -65,11 +69,14 @@ class LookupFragment : Fragment() {
 
         binding.tryAgain.setOnClickListener {
             showDefaultUI()
-            toast("Success")
-            showVerifyCodeFragment()
         }
-    }
 
+        configureTermsAndPrivacy(
+            sourceText = getString(R.string.landing_privacy_policy),
+            terms = getString(R.string.terms),
+            privacy = getString(R.string.privacy_policy)
+        )
+    }
 
     private fun showDefaultUI(){
         binding.textinputError.setText(getText(R.string.lookup_temp_error))
@@ -119,11 +126,36 @@ class LookupFragment : Fragment() {
         return isValid
     }
 
+    private fun configureTermsAndPrivacy(sourceText: String, terms: String, privacy: String) {
+        binding.lookupPrivacyPolicy.apply {
+            linksClickable = true
+            isClickable = true
+            movementMethod = LinkMovementMethod.getInstance()
+            text = createSpannable(
+                content = sourceText,
+                typeface = ResourcesCompat.getFont(requireContext(),R.font.poppins_semibold),
+                highlightTextColor = ContextCompat.getColor(requireContext(),R.color.orange))  {
+                clickable(terms) {
+                    showBrowser(getString(R.string.terms_link))
+                }
+                clickable(privacy) {
+                    showBrowser(getString(R.string.privacy_policy_link))
+                }
+            }
+        }
+    }
+
     private fun showVerifyCodeFragment(){
         val text = if (isEmail) binding.inputField.text.toString()
         else binding.phoneNo.text.toString()
         val icon = if (isEmail) R.drawable.baseline_email_24
         else R.drawable.baseline_smartphone_24
-        VerifyCodeFragment(text,icon).show(childFragmentManager,"verify_code_frag")
+        val verifyCodeFragment= VerifyCodeFragment(text,icon)
+        verifyCodeFragment.setDismissListener {
+            if (it){
+                findNavController().navigate(R.id.action_lookupFragment_to_seedPhraseFragment)
+            }
+        }
+        verifyCodeFragment.show(childFragmentManager,"verify_code_frag")
     }
 }
