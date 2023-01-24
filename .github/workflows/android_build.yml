@@ -78,7 +78,7 @@ jobs:
         path: ${{ env.main_project_module }}/build/outputs/bundle/release/
         
     - name: Upload APK Debug to App Center
-      uses: wzieba/AppCenter-Github-Action@v1
+      uses: joabalea/App-Center-action@v1.0.2
       with:
         appName: DSNP Wallet Kotlin
         token: ${{secrets.APP_CENTER_TOKEN}}
@@ -86,3 +86,4 @@ jobs:
         file: ${{ env.main_project_module }}/build/outputs/apk/debug/${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
         notifyTesters: true
         debug: false
+      
