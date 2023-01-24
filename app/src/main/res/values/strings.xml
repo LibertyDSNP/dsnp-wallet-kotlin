@@ -25,7 +25,7 @@
     <string name="backup_label_label">backup_label</string>
     <string name="backup_label">Backup</string>
     <string name="view_seed_phrase">View my Seed Phrase</string>
-    <string name="info">BAcking up your keys is very important dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum</string>
+    <string name="info">Backing up your keys is very important dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum</string>
     <string name="google_drive">Google Drive</string>
     <string name="email">Email</string>
     <string name="save_to_device">Save to Device</string>
