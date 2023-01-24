@@ -37,13 +37,12 @@ jobs:
         with:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
-
+          
       - name: Post to a Slack channel
-          id: slack
-          uses: slackapi/slack-github-action@v1.18.0
-
-          with:
-            channel-id: 'android-release'
-            slack-message: "Test message"
-          env:
-            SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN_ONLY_WRITE_PERMISSION }}
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          channel-id: 'android-release'
+          slack-message: "Does it Work"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN_ONLY_WRITE_PERMISSION }}
