@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:cursorVisible="true"
-        android:inputType="text"
+        android:inputType="number"
         android:textColor="@color/text_black"
         android:textSize="18sp"
         android:textStyle="bold"

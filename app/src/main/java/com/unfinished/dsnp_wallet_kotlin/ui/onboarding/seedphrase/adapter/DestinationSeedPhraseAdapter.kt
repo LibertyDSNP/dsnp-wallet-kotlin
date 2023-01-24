@@ -1,20 +1,16 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.data.model.MnemonicWord
 import com.unfinished.dsnp_wallet_kotlin.databinding.DestinationSeedPhraseItemLayoutBinding
 import com.unfinished.dsnp_wallet_kotlin.util.list.DiffCallback
-import com.unfinished.dsnp_wallet_kotlin.util.list.PayloadGenerator
 import com.unfinished.dsnp_wallet_kotlin.util.list.resolvePayload
-import com.unfinished.dsnp_wallet_kotlin.util.setTextOrHide
-import com.unfinished.dsnp_wallet_kotlin.util.setVisible
+import com.unfinished.dsnp_wallet_kotlin.util.setOnSafeClickListener
 
 class DestinationSeedPhraseAdapter(
     val onItemClicked: ((Int, MnemonicWord) -> Unit)? = null,
@@ -54,10 +50,6 @@ class DestinationSeedPhraseAdapter(
     inner class MyViewHolder(private val binding: DestinationSeedPhraseItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: MnemonicWord) = with(binding) {
-            this.item.text = "${ 
-                if ( adapterPosition > 8) adapterPosition + 1
-                else "0${adapterPosition + 1}"
-            } ${item.content}"
             bindState(item)
         }
 
@@ -67,17 +59,19 @@ class DestinationSeedPhraseAdapter(
             root.isEnabled = hasWord
 
             if (item.removed) {
+                this.item.text = "${item.indexDisplay} ${item.content}"
                 binding.item.background = ContextCompat.getDrawable(
                     binding.root.context,
                     R.drawable.seed_phrase_empty_bg
                 )
                 root.setOnClickListener(null)
             } else {
+                this.item.text = "${item.indexDisplay} ${item.content}"
                 binding.item.background = ContextCompat.getDrawable(
                     binding.root.context,
                     R.drawable.seed_phrase_fill_bg
                 )
-                root.setOnClickListener {  onItemClicked?.invoke(adapterPosition,item) }
+                root.setOnSafeClickListener {  onItemClicked?.invoke(adapterPosition,item) }
             }
         }
     }

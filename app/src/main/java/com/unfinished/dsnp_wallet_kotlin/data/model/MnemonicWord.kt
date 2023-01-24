@@ -1,8 +1,8 @@
 package com.unfinished.dsnp_wallet_kotlin.data.model
 
 data class MnemonicWord(
-    val id: String,
+    var id: String,
     val content: String,
-    val indexDisplay: String?,
+    var indexDisplay: String?,
     val removed: Boolean
 )
