@@ -10,8 +10,7 @@ import com.unfinished.dsnp_wallet_kotlin.data.model.MnemonicWord
 import com.unfinished.dsnp_wallet_kotlin.databinding.SourceSeedPhraseItemLayoutBinding
 import com.unfinished.dsnp_wallet_kotlin.util.list.DiffCallback
 import com.unfinished.dsnp_wallet_kotlin.util.list.resolvePayload
-import com.unfinished.dsnp_wallet_kotlin.util.setTextOrHide
-import com.unfinished.dsnp_wallet_kotlin.util.setVisible
+import com.unfinished.dsnp_wallet_kotlin.util.setOnSafeClickListener
 
 class SourceSeedPhraseAdapter(
     val onItemClicked: ((Int, MnemonicWord) -> Unit)? = null,
@@ -51,7 +50,7 @@ class SourceSeedPhraseAdapter(
 
     inner class MyViewHolder(private val binding: SourceSeedPhraseItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MnemonicWord) = with(binding) {
-            this.item.text = "${item.content}"
+            this.item.text = item.content
             bindState(item)
         }
 
@@ -61,6 +60,7 @@ class SourceSeedPhraseAdapter(
             root.isEnabled = hasWord
 
             if (item.removed) {
+                binding.item.text = ""
                 binding.item.background = ContextCompat.getDrawable(
                     binding.root.context,
                     R.drawable.seed_phrase_empty_dot_bg
@@ -71,7 +71,7 @@ class SourceSeedPhraseAdapter(
                     binding.root.context,
                     R.drawable.seed_phrase_fill_bg
                 )
-                root.setOnClickListener {  onItemClicked?.invoke(adapterPosition,item) }
+                root.setOnSafeClickListener {  onItemClicked?.invoke(adapterPosition,item) }
             }
         }
     }
