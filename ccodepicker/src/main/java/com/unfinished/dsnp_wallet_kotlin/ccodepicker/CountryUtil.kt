@@ -1,5 +1,6 @@
 package com.unfinished.dsnp_wallet_kotlin.ccodepicker
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -29,6 +30,7 @@ fun getJsonDataFromAsset(context: Context, fileName: String): String? {
     return jsonString
 }
 
+@SuppressLint("NewApi")
 fun List<Country>.searchCountryList(countryName: String): MutableList<Country> {
     val countryList = mutableListOf<Country>()
     this.forEach {

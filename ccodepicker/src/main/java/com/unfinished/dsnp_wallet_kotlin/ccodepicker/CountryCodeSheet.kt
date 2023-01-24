@@ -48,9 +48,7 @@ class CountryCodeSheet : BottomSheetDialogFragment() {
             if (it.toString().isNullOrEmpty()){
                 countryAdapter.updateList(countryList)
             }else{
-                val filteredList = countryList.filter {country ->
-                    country.name.lowercase().contains(it.toString().lowercase())
-                }
+                val filteredList = countryList.searchCountryList(it.toString())
                 countryAdapter.updateList(filteredList)
             }
         }
