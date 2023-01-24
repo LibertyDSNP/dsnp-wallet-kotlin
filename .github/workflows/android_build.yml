@@ -12,6 +12,10 @@ jobs:
    steps:
     - uses: actions/checkout@v3
 
+     # Set main_project_module
+    - name: Set current date as env variable
+      run: echo "main_project_module=app" >> $GITHUB_ENV
+
     # Set Current Date As Env Variable
     - name: Set current date as env variable
       run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
