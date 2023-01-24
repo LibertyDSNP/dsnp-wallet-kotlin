@@ -75,6 +75,25 @@ fun List<MnemonicWord>.sortByIndexOrder(): List<MnemonicWord> {
     return this
 }
 
+fun List<MnemonicWord>.reArrangeWords(): List<MnemonicWord> {
+    var oddIndex = 1
+    var evenIndex = 7
+    val words = arrayListOf<MnemonicWord>()
+    forEachIndexed { index, _ ->
+        if ( index == 0 || index%2 == 0){
+            this[oddIndex - 1].indexDisplay = "0$oddIndex"
+            words.add(this[oddIndex - 1])
+            oddIndex += 1
+        }else {
+            this[evenIndex - 1].indexDisplay = if (evenIndex >= 10)
+                "$evenIndex" else "0$evenIndex"
+            words.add(this[evenIndex -1])
+            evenIndex += 1
+        }
+    }
+    return words
+}
+
 fun List<MnemonicWord>.findNextIndexForAdd(): Int {
     val firstColumn = destinationWords.filterIndexed { index, _ -> (index == 0 || index % 2 == 0) }
     val secondColumn = destinationWords.filterIndexed { index, _ -> index % 2 != 0 }

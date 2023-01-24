@@ -14,9 +14,7 @@ import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.data.model.MnemonicWord
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentSeedPhraseBinding
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase.adapter.SeedPhraseAdapter
-import com.unfinished.dsnp_wallet_kotlin.util.createSpannable
-import com.unfinished.dsnp_wallet_kotlin.util.setOnSafeClickListener
-import com.unfinished.dsnp_wallet_kotlin.util.showBrowser
+import com.unfinished.dsnp_wallet_kotlin.util.*
 
 class SeedPhraseFragment : Fragment() {
 
@@ -32,20 +30,7 @@ class SeedPhraseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val words = listOf<MnemonicWord>(
-            MnemonicWord(id = "01", content = "Satisy", indexDisplay = "",false),
-            MnemonicWord(id = "02", content = "Spike", indexDisplay = "",false),
-            MnemonicWord(id = "03", content = "Lake", indexDisplay = "",false),
-            MnemonicWord(id = "04", content = "Cupcake", indexDisplay = "",false),
-            MnemonicWord(id = "05", content = "Bag", indexDisplay = "",false),
-            MnemonicWord(id = "06", content = "Turmoil", indexDisplay = "",false),
-            MnemonicWord(id = "07", content = "Sunny", indexDisplay = "",false),
-            MnemonicWord(id = "08", content = "Rainbow", indexDisplay = "",false),
-            MnemonicWord(id = "09", content = "Truck", indexDisplay = "",false),
-            MnemonicWord(id = "10", content = "Train", indexDisplay = "",false),
-            MnemonicWord(id = "11", content = "Running", indexDisplay = "",false),
-            MnemonicWord(id = "12", content = "Spin", indexDisplay = "",false),
-        )
+
         binding.subTitle.apply {
             linksClickable = false
             isClickable = false
@@ -59,7 +44,7 @@ class SeedPhraseFragment : Fragment() {
         }
         binding.seedPhraseRv.apply {
             layoutManager = GridLayoutManager(requireContext(),2)
-            adapter = SeedPhraseAdapter(words)
+            adapter = SeedPhraseAdapter(orignalMnemonicWords.reArrangeWords())
         }
         binding.seedPhraseBtn.setOnSafeClickListener {
            val notifySeedPhraseFragment = NotifySeedPhraseFragment()
