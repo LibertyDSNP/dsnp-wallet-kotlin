@@ -44,6 +44,7 @@ def build_versions = [:]
 build_versions.min_sdk = 21
 build_versions.compile_sdk = 33
 build_versions.target_sdk = 33
+build_versions.versionName = '1.0'
 ext.build_versions = build_versions
 
 def plugin = [:]

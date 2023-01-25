@@ -1,11 +1,13 @@
 buildscript {
     apply from: 'versions.gradle'
     ext {
-        kotlin_version = '1.8.0'
+        kotlin_version = '1.7.20'
+        versionName = build_versions.versionName
     }
     dependencies {
         classpath(deps.plugin.android_gradle_plugin)
         classpath(deps.plugin.args_gradle_plugin)
+        classpath 'org.mozilla.rust-android-gradle:plugin:0.9.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
     repositories {
