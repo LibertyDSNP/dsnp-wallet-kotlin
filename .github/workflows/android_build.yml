@@ -2,7 +2,9 @@ name: Build & Upload
 
 on:
   push:
-    branches: [ feature/github-action-build-apk ]
+  pull_request:
+    branches:
+      - staging
 
 jobs:
   build:
