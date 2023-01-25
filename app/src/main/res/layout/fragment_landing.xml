@@ -18,7 +18,7 @@
         <RelativeLayout
             android:id="@+id/top_bg"
             android:layout_width="match_parent"
-            android:layout_height="370dp"
+            android:layout_height="340dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +26,6 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="-16dp"
                 android:background="@drawable/landing_top_bg"/>
 
         </RelativeLayout>
@@ -49,7 +48,6 @@
             android:id="@+id/sub_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginHorizontal="48dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
@@ -65,7 +63,7 @@
             android:id="@+id/let_started_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_bold"
             android:gravity="center"
             android:text="@string/landing_let_started_label"
@@ -104,7 +102,7 @@
             android:id="@+id/landing_restore_dsnp_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="14dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
             android:text="@string/landing_restore_dsnp_id"
@@ -119,7 +117,7 @@
             android:id="@+id/landing_privacy_policy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="12dp"
             android:layout_marginHorizontal="54dp"
             android:lineSpacingExtra="4dp"
             android:fontFamily="@font/poppins_regular"
