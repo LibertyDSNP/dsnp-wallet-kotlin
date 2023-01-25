@@ -18,7 +18,7 @@ android {
         targetSdk build_versions.target_sdk
         versionCode 1
         versionName build_versions.versionName
-
+        ndkVersion "25.1.8937393"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
