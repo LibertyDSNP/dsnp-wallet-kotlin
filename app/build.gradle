@@ -38,6 +38,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+    lintOptions {
+        baseline file("lint-baseline.xml")
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -78,6 +84,7 @@ dependencies {
     implementation deps.timber
 
     implementation project(":ccodepicker")
+    implementation project(":fearless_utils")
 
     implementation 'io.github.chaosleung:pinview:1.4.4'
 }

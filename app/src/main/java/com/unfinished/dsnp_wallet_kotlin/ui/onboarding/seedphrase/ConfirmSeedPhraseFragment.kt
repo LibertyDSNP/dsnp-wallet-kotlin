@@ -62,7 +62,7 @@ class ConfirmSeedPhraseFragment : Fragment() {
             if (validateMnemonicPhrase()){
                 toast("Success! In progress other screens")
             }else{
-                toast("Mnemonice phrase not matched!")
+                toast("Mnemonics phrase not matched!")
             }
         }
     }
