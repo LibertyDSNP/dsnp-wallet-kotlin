@@ -101,7 +101,7 @@ fun String.nullIfEmpty(): String? = if (isEmpty()) null else this
 
 fun String.ensureSuffix(suffix: String) = if (endsWith(suffix)) this else this + suffix
 
-private val NAMED_PATTERN_REGEX = "\\{([a-zA-z]+)\\}".toRegex()
+private val NAMED_PATTERN_REGEX = "\\{([a-zA-z]+)}".toRegex()
 
 fun String.formatNamed(vararg values: Pair<String, String>) = formatNamed(values.toMap())
 

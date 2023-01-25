@@ -149,3 +149,5 @@ private fun List<MnemonicWord>.fixIndices(): List<MnemonicWord> {
         word.copy(indexDisplay = (index + 1).toString())
     }
 }
+
+//Test Github Action
