@@ -15,20 +15,26 @@
         android:background="@color/background"
         tools:context=".ui.onboarding.LandingFragment">
 
-        <ImageView
+        <RelativeLayout
             android:id="@+id/top_bg"
-            android:layout_width="wrap_content"
-            android:layout_height="590dp"
-            android:background="@drawable/landing_top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/landing_top_bg"/>
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="48dp"
             android:fontFamily="@font/poppins_bold"
             android:includeFontPadding="false"
@@ -42,22 +48,22 @@
             android:id="@+id/sub_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginHorizontal="48dp"
             android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
             android:text="@string/landing_sub_title"
             android:textColor="@color/text_white"
             android:textSize="12sp"
             android:translationZ="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+            app:layout_constraintTop_toBottomOf="@+id/top_bg" />
 
         <TextView
             android:id="@+id/let_started_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_bold"
             android:gravity="center"
             android:text="@string/landing_let_started_label"
@@ -96,7 +102,7 @@
             android:id="@+id/landing_restore_dsnp_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="14dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
             android:text="@string/landing_restore_dsnp_id"
@@ -111,7 +117,7 @@
             android:id="@+id/landing_privacy_policy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="12dp"
             android:layout_marginHorizontal="54dp"
             android:lineSpacingExtra="4dp"
             android:fontFamily="@font/poppins_regular"
@@ -127,17 +133,10 @@
         <View
             android:id="@+id/bottom_space"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/landing_privacy_policy" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.567" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
