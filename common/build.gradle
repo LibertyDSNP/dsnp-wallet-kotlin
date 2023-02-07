@@ -1,0 +1,119 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk build_versions.compile_sdk
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "WEBSITE_URL", "\"https://novawallet.io\""
+        buildConfigField "String", "PRIVACY_URL", "\"https://novawallet.io/privacy\""
+        buildConfigField "String", "TERMS_URL", "\"https://novawallet.io/terms\""
+        buildConfigField "String", "GITHUB_URL", "\"https://github.com/nova-wallet\""
+        buildConfigField "String", "TELEGRAM_URL", "\"https://t.me/novawallet\""
+        buildConfigField "String", "TWITTER_URL", "\"https://twitter.com/novawalletapp\""
+        buildConfigField "String", "RATE_URL", "\"market://details?id=${rootProject.applicationId}.${releaseApplicationSuffix}\""
+        buildConfigField "String", "EMAIL", "\"support@novawallet.io\""
+        buildConfigField "String", "YOUTUBE_URL", "\"https://www.youtube.com/channel/UChoQr3YPETJKKVvhQ0AfV6A\""
+
+        buildConfigField "String", "TWITTER_ACCOUNT_TEMPLATE", "\"https://twitter.com/%s\""
+        buildConfigField "String", "RECOMMENDED_VALIDATORS_LEARN_MORE", "\"https://github.com/nova-wallet/nova-utils/wiki/Recommended-validators-in-Nova-Wallet\""
+
+        buildConfigField "String", "PAYOUTS_LEARN_MORE", "\"https://wiki.polkadot.network/docs/en/learn-simple-payouts\""
+
+        buildConfigField "String", "SET_CONTROLLER_LEARN_MORE", "\"https://wiki.polkadot.network/docs/en/maintain-guides-how-to-nominate-polkadot#setting-up-stash-and-controller-keys\""
+
+        buildConfigField "String", "PARITY_SIGNER_TROUBLESHOOTING", "\"https://github.com/nova-wallet/nova-utils/wiki/Parity-Signer-troubleshooting\""
+        buildConfigField "String", "LEDGER_BLEUTOOTH_GUIDE", "\"https://support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection\""
+    }
+
+    buildTypes {
+        debug {
+
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation(name: 'renderscript-toolkit', ext: 'aar')
+
+    api project(":core-api")
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
+
+    implementation deps.support.core_ktx
+    implementation deps.support.app_compat
+    implementation deps.support.material
+    implementation deps.support.constraint_layout
+
+    implementation "org.bouncycastle:bcprov-jdk15on:1.65"
+
+    implementation "io.github.nova-wallet:substrate-sdk-android:1.6.3"
+
+    // viewModelScope
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    // liveData builder
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    // lifecycle scopes
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.3"
+
+    implementation "com.google.dagger:dagger:2.43.2"
+    implementation "com.google.dagger:dagger-compiler:2.43.2"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-compiler:2.2.0"
+
+    implementation deps.retrofit.okhttp
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.converter_gson
+    implementation deps.retrofit.converter_scalars
+    implementation deps.retrofit.interceptor
+
+    implementation "com.google.zxing:core:3.5.0"
+    implementation "com.journeyapps:zxing-android-embedded:3.5.0@aar"
+
+    implementation "com.github.razir.progressbutton:progressbutton:2.1.0"
+
+    implementation "com.neovisionaries:nv-websocket-client:2.10"
+
+    implementation "dev.chrisbanes.insetter:insetter-widgets:0.5.0"
+
+    implementation "io.coil-kt:coil:1.2.1"
+    implementation "io.coil-kt:coil-svg:1.2.1"
+
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
+
+    implementation "junit:junit:4.12"
+    implementation "org.mockito:mockito-inline:4.6.1"
+
+    testImplementation project(':test-shared')
+
+    implementation "com.github.florent37:runtime-permission-kotlin:1.1.2"
+    implementation "com.google.android.flexbox:flexbox:3.0.0"
+}

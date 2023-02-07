@@ -18,7 +18,7 @@ android {
         targetSdk build_versions.target_sdk
         versionCode 1
         versionName build_versions.versionName
-        ndkVersion "25.1.8937393"
+        ndkVersion build_versions.ndk_version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -82,8 +82,9 @@ dependencies {
 
     implementation deps.timber
 
-    implementation project(":ccodepicker")
-    implementation project(":fearless-utils")
+    implementation deps.pincode_view
 
-    implementation 'io.github.chaosleung:pinview:1.4.4'
+    implementation project(":ccodepicker")
+
+
 }

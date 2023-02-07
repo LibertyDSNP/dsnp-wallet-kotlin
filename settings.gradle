@@ -12,9 +12,15 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url "https://plugins.gradle.org/m2/" }
+        flatDir { dirs "$rootDir/common/libs" }
     }
 }
 rootProject.name = "dsnp-wallet-kotlin"
 include ':app'
 include ':ccodepicker'
-include ':fearless-utils'
+include ':common'
+include ':test-shared'
+include ':core-api'
+include ':core-db'
+include ':runtime'
+include ':feature_account'

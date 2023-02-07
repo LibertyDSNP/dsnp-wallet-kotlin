@@ -37,6 +37,7 @@ versions.glide = '4.12.0'
 versions.glide_compiler = '4.12.0'
 
 versions.timber = '4.7.1'
+versions.pincode_view = '1.4.4'
 
 ext.versions = versions
 
@@ -45,6 +46,7 @@ build_versions.min_sdk = 21
 build_versions.compile_sdk = 33
 build_versions.target_sdk = 33
 build_versions.versionName = '1.0'
+build_versions.ndk_version = '25.1.8937393'
 ext.build_versions = build_versions
 
 def plugin = [:]
@@ -99,5 +101,6 @@ glides.glide_compiler = "com.github.bumptech.glide:compiler:$versions.glide_comp
 deps.glides = glides
 
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+deps.pincode_view = "io.github.chaosleung:pinview:$versions.pincode_view"
 
 ext.deps = deps

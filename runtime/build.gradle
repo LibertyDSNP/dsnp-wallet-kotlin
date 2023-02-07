@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk build_versions.compile_sdk
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "CHAINS_URL", "\"https://raw.githubusercontent.com/nova-wallet/nova-utils/master/chains/v5/chains_dev.json\""
+
+        buildConfigField "String", "TEST_CHAINS_URL", "\"https://raw.githubusercontent.com/nova-wallet/nova-utils/master/tests/chains_for_testBalance.json\""
+    }
+
+    buildTypes {
+        debug {
+
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "CHAINS_URL", "\"https://raw.githubusercontent.com/nova-wallet/nova-utils/master/chains/v5/chains.json\""
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":common")
+    implementation project(":core-db")
+
+    implementation project(":core-api")
+
+    implementation deps.retrofit.converter_gson
+    implementation "io.github.nova-wallet:substrate-sdk-android:1.6.3"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3"
+
+    implementation deps.retrofit.retrofit
+
+    implementation "com.google.dagger:dagger:2.43.2"
+    implementation "com.google.dagger:dagger-compiler:2.43.2"
+
+    testImplementation project(':test-shared')
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    implementation 'androidx.test:runner:1.4.0'
+    implementation 'androidx.test:rules:1.4.0'
+    implementation 'androidx.test.ext:junit:1.1.3'
+
+}
