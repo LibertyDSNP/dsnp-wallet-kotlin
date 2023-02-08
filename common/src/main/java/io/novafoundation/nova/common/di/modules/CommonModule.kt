@@ -9,6 +9,8 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.novafoundation.nova.common.address.AddressIconGenerator
 import io.novafoundation.nova.common.address.CachingAddressIconGenerator
 import io.novafoundation.nova.common.address.StatelessAddressIconGenerator
@@ -58,6 +60,7 @@ const val SHARED_PREFERENCES_FILE = "fearless_prefs"
 annotation class Caching
 
 @Module
+@InstallIn(SingletonComponent::class)
 class CommonModule {
 
     @Provides

@@ -3,6 +3,8 @@ package io.novafoundation.nova.runtime.di
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.novafoundation.nova.common.data.network.NetworkApiCreator
 import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.common.interfaces.FileProvider
@@ -27,6 +29,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Provider
 
 @Module
+@InstallIn(SingletonComponent::class)
 class ChainRegistryModule {
 
     @Provides

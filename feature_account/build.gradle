@@ -37,56 +37,47 @@ android {
 
 dependencies {
 
+    implementation project(':core-db')
+    implementation project(':common')
+    implementation project(':runtime')
+
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
     implementation deps.support.material
     implementation deps.support.constraint_layout
 
+    implementation deps.daggerHilt.hilt_android
+    kapt deps.daggerHilt.android_compiler
+    kapt deps.daggerHilt.hilt_compiler
+
+    implementation deps.room.runtime
+    implementation deps.room.ktx
+    annotationProcessor deps.room.compiler
+
+    implementation deps.test.mockito_inline
     implementation deps.test.junit
     implementation deps.test.ext_junit
     implementation deps.test.espresso_core
 
-    implementation project(':core-db')
-    implementation project(':common')
-    implementation project(':runtime')
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
-
-    implementation "io.github.nova-wallet:substrate-sdk-android:1.6.3"
-
-    implementation "com.google.dagger:dagger:2.43.2"
-    implementation "com.google.dagger:dagger-compiler:2.43.2"
-
-    implementation  "androidx.room:room-runtime:2.4.3"
-    implementation  "androidx.room:room-ktx:2.4.3"
-    implementation  "androidx.room:room-compiler:2.4.3"
-
-
-    implementation "junit:junit:4.12"
-    implementation "org.mockito:mockito-inline:4.6.1"
-
     implementation deps.retrofit.converter_gson
 
-    // viewModelScope
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    // liveData builder
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    // lifecycle scopes
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+    implementation deps.extension.viewmodel_ktx
+    implementation deps.extension.livedata_ktx
+    implementation deps.extension.fragment_ktx
+    implementation deps.extension.lifecycle_ktx
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3"
+    implementation deps.coroutines.core
+    implementation deps.coroutines.android
 
-    implementation "org.bouncycastle:bcprov-jdk15on:1.65"
+    implementation deps.other.bouncycastle
+    implementation deps.nova.fearless_utils
 
-    implementation "com.google.zxing:core:3.5.0"
-    implementation "com.journeyapps:zxing-android-embedded:3.5.0@aar"
+    implementation deps.support.biometric
 
-
-    implementation "androidx.biometric:biometric:1.0.1"
-
-    implementation "io.coil-kt:coil:1.2.1"
-    implementation "io.coil-kt:coil-svg:1.2.1"
+    implementation deps.other.zxing
+    implementation deps.other.zxing_android
+    implementation deps.other.coil
+    implementation deps.other.coil_svg
 
     implementation deps.navigation.navigation_fragment_ktx
     implementation deps.navigation.navigation_ui_ktx

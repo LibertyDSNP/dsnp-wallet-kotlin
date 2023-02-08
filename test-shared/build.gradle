@@ -24,17 +24,17 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
-
     implementation project(':common')
 
-    implementation "junit:junit:4.12"
-    implementation "org.mockito:mockito-inline:4.6.1"
-
-    implementation "com.neovisionaries:nv-websocket-client:2.10"
+    implementation deps.test.mockito_inline
+    implementation deps.test.junit
 
     implementation deps.retrofit.converter_gson
-    implementation "io.github.nova-wallet:substrate-sdk-android:1.6.3"
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3"
+    implementation deps.coroutines.test
+
+    implementation deps.nova.fearless_utils
+
+    implementation deps.other.websocket
+
 }

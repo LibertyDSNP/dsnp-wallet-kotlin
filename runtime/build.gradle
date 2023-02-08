@@ -40,27 +40,25 @@ dependencies {
 
     implementation project(":common")
     implementation project(":core-db")
-
     implementation project(":core-api")
+    testImplementation project(':test-shared')
 
     implementation deps.retrofit.converter_gson
-    implementation "io.github.nova-wallet:substrate-sdk-android:1.6.3"
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
+    implementation deps.nova.fearless_utils
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3"
+    implementation deps.coroutines.core
 
     implementation deps.retrofit.retrofit
 
-    implementation "com.google.dagger:dagger:2.43.2"
-    implementation "com.google.dagger:dagger-compiler:2.43.2"
+    implementation deps.daggerHilt.hilt_android
+    kapt deps.daggerHilt.android_compiler
+    kapt deps.daggerHilt.hilt_compiler
 
-    testImplementation project(':test-shared')
+    implementation deps.lifecycle.extensions
 
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-
-    implementation 'androidx.test:runner:1.4.0'
-    implementation 'androidx.test:rules:1.4.0'
-    implementation 'androidx.test.ext:junit:1.1.3'
+    implementation deps.test.runner
+    implementation deps.test.rules
+    implementation deps.test.ext_junit
 
 }

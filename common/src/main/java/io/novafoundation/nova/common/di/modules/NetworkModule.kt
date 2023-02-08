@@ -5,6 +5,8 @@ import com.google.gson.Gson
 import com.neovisionaries.ws.client.WebSocketFactory
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.novafoundation.nova.common.BuildConfig
 import io.novafoundation.nova.common.data.network.AndroidLogger
 import io.novafoundation.nova.common.data.network.AppLinksProvider
@@ -34,6 +36,7 @@ private const val CACHE_SIZE = 50L * 1024L * 1024L // 50 MiB
 private const val TIMEOUT_SECONDS = 20L
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
 
     @Provides

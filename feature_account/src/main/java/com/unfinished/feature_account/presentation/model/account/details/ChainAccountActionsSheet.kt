@@ -7,9 +7,9 @@ import com.unfinished.feature_account.presentation.action.ExternalActions
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.castOrNull
 import io.novafoundation.nova.common.view.bottomSheet.list.fixed.item
-import io.novafoundation.nova.feature_account_api.presenatation.actions.CopyCallback
-import io.novafoundation.nova.feature_account_api.presenatation.actions.ExternalActionsSheet
-import io.novafoundation.nova.feature_account_api.presenatation.actions.ExternalViewCallback
+import com.unfinished.feature_account.presentation.action.CopyCallback
+import com.unfinished.feature_account.presentation.action.ExternalActionsSheet
+import com.unfinished.feature_account.presentation.action.ExternalViewCallback
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 
 class ChainAccountActionsSheet(

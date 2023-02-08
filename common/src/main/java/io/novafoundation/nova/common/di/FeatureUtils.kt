@@ -19,7 +19,7 @@ object FeatureUtils {
     }
 
     fun <T> getFeature(fragment: Fragment, key: Class<*>): T {
-        return getHolder(fragment.context!!).getFeature(key)
+        return getHolder(fragment.requireContext()).getFeature(key)
     }
 
     fun releaseFeature(context: Context, key: Class<*>) {
@@ -31,7 +31,7 @@ object FeatureUtils {
     }
 
     fun releaseFeature(fragment: Fragment, key: Class<*>) {
-        getHolder(fragment.context!!).releaseFeature(key)
+        getHolder(fragment.requireContext()).releaseFeature(key)
     }
 
     private fun getHolder(context: Context): FeatureContainer {

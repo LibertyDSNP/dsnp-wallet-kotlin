@@ -1,4 +1,4 @@
-package io.novafoundation.nova.feature_account_api.presenatation.actions
+package com.unfinished.feature_account.presentation.action
 
 import android.content.Context
 import androidx.lifecycle.lifecycleScope

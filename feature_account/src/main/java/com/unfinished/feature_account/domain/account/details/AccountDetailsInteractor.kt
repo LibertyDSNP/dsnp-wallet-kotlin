@@ -12,9 +12,9 @@ import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.accountIdIn
 import com.unfinished.feature_account.domain.model.addressIn
 import com.unfinished.feature_account.domain.model.hasChainAccountIn
-import com.unfinished.feature_account.presenatation.account.add.SecretType
 import com.unfinished.feature_account.domain.account.details.AccountInChain.From
-import io.novafoundation.nova.feature_ledger_api.sdk.application.substrate.SubstrateApplicationConfig
+import com.unfinished.feature_account.domain.validation.SubstrateApplicationConfig
+import com.unfinished.feature_account.presentation.model.account.add.SecretType
 import io.novafoundation.nova.runtime.ext.defaultComparatorFrom
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain

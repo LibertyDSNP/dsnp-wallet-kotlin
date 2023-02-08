@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.WithContextExtensions
 import io.novafoundation.nova.common.utils.getColorFromAttr
@@ -64,11 +65,11 @@ class ButtonLarge @kotlin.jvm.JvmOverloads constructor(
 
     private fun setStyle(style: Style) = with(context) {
         val backgroundColor = when (style) {
-            Style.PRIMARY -> context.getColor(R.color.button_background_primary)
-            Style.SECONDARY -> context.getColor(R.color.button_background_secondary)
+            Style.PRIMARY -> ContextCompat.getColor(context,R.color.button_background_primary)
+            Style.SECONDARY -> ContextCompat.getColor(context,R.color.button_background_secondary)
         }
 
-        val rippleColor = getColorFromAttr(R.attr.colorControlHighlight)
+        val rippleColor = getColorFromAttr(androidx.appcompat.R.attr.colorControlHighlight)
         val baseBackground = context.getRoundedCornerDrawableFromColors(backgroundColor)
 
         background = addRipple(baseBackground, mask = null, rippleColor = rippleColor)
