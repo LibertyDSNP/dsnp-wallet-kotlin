@@ -136,7 +136,7 @@ class PrimaryButton @JvmOverloads constructor(
             idleDrawable = activeState
         )
 
-        val rippleColor = getColorFromAttr(R.attr.colorControlHighlight)
+        val rippleColor = getColorFromAttr(androidx.appcompat.R.attr.colorControlHighlight)
         val background = addRipple(baseBackground, mask = null, rippleColor = rippleColor)
 
         setBackground(background)

@@ -52,8 +52,9 @@ dependencies {
 
     implementation deps.retrofit.retrofit
 
-    implementation "com.google.dagger:dagger:2.43.2"
-    implementation "com.google.dagger:dagger-compiler:2.43.2"
+    implementation deps.daggerHilt.hilt_android
+    kapt deps.daggerHilt.android_compiler
+    kapt deps.daggerHilt.hilt_compiler
 
     testImplementation project(':test-shared')
 

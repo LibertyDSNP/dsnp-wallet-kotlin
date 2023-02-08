@@ -66,10 +66,10 @@ fun Context.getColorFromAttr(
 }
 
 @ColorInt
-fun Context.getPrimaryColor() = getColorFromAttr(R.attr.colorPrimary)
+fun Context.getPrimaryColor() = getColorFromAttr(androidx.appcompat.R.attr.colorPrimary)
 
 @ColorInt
-fun Context.getAccentColor() = getColorFromAttr(R.attr.colorAccent)
+fun Context.getAccentColor() = getColorFromAttr(androidx.appcompat.R.attr.colorAccent)
 
 @ColorRes
 fun Context.getColorResFromAttr(
@@ -82,7 +82,7 @@ fun Context.getColorResFromAttr(
 }
 
 @ColorRes
-fun Context.getAccentColorRes() = getColorResFromAttr(R.attr.colorAccent)
+fun Context.getAccentColorRes() = getColorResFromAttr(androidx.appcompat.R.attr.colorAccent)
 
 fun Context.themed(@StyleRes themeId: Int): Context = ContextThemeWrapper(this, themeId)
 

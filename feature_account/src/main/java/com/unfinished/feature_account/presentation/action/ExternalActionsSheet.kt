@@ -1,18 +1,16 @@
-package io.novafoundation.nova.feature_account_api.presenatation.actions
+package com.unfinished.feature_account.presentation.action
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.TextView
+import com.unfinished.feature_account.R
+import com.unfinished.feature_account.databinding.BottomSheetExternalActionsBinding
 import io.novafoundation.nova.common.utils.makeGone
 import io.novafoundation.nova.common.utils.makeVisible
 import io.novafoundation.nova.common.view.bottomSheet.list.fixed.FixedListBottomSheet
 import io.novafoundation.nova.common.view.bottomSheet.list.fixed.item
-import io.novafoundation.nova.feature_account_api.R
 import io.novafoundation.nova.runtime.ext.availableExplorersFor
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
-import kotlinx.android.synthetic.main.bottom_sheet_external_actions.externalActionsChain
-import kotlinx.android.synthetic.main.bottom_sheet_external_actions.externalActionsContainer
-import kotlinx.android.synthetic.main.bottom_sheet_external_actions.externalActionsIcon
-import kotlinx.android.synthetic.main.bottom_sheet_external_actions.externalActionsValue
 
 typealias ExternalViewCallback = (Chain.Explorer, ExternalActions.Type) -> Unit
 typealias CopyCallback = (String) -> Unit
@@ -24,28 +22,32 @@ open class ExternalActionsSheet(
     val onViewExternal: ExternalViewCallback,
 ) : FixedListBottomSheet(
     context,
-    viewConfiguration = ViewConfiguration(
-        layout = R.layout.bottom_sheet_external_actions,
-        title = { externalActionsValue },
-        container = { externalActionsContainer }
-    )
+//    viewConfiguration = ViewConfiguration(
+//        layout = R.layout.bottom_sheet_external_actions,
+//        title = {   },
+//        container = {   }
+//    )
 ) {
+
+    lateinit var binding: BottomSheetExternalActionsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = BottomSheetExternalActionsBinding.inflate(layoutInflater)
+
         if (payload.chainUi != null) {
-            externalActionsChain.makeVisible()
-            externalActionsChain.setChain(payload.chainUi)
+            binding.externalActionsChain.makeVisible()
+            binding.externalActionsChain.setChain(payload.chainUi)
         } else {
-            externalActionsChain.makeGone()
+            binding.externalActionsChain.makeGone()
         }
 
         if (payload.icon != null) {
-            externalActionsIcon.makeVisible()
-            externalActionsIcon.setImageDrawable(payload.icon)
+            binding.externalActionsIcon.makeVisible()
+            binding.externalActionsIcon.setImageDrawable(payload.icon)
         } else {
-            externalActionsIcon.makeGone()
+            binding.externalActionsIcon.makeGone()
         }
 
         val primaryValue = payload.type.primaryValue
@@ -53,7 +55,7 @@ open class ExternalActionsSheet(
         setTitle(primaryValue)
 
         primaryValue?.let {
-            item(R.drawable.ic_copy_outline, payload.copyLabelRes) {
+            item(io.novafoundation.nova.common.R.drawable.ic_copy_outline, payload.copyLabelRes) {
                 onCopy(primaryValue)
             }
 
@@ -65,9 +67,9 @@ open class ExternalActionsSheet(
         payload.chain
             .availableExplorersFor(payload.type.explorerTemplateExtractor)
             .forEach { explorer ->
-                val title = context.getString(R.string.transaction_details_view_explorer, explorer.name)
+                val title = context.getString(io.novafoundation.nova.common.R.string.transaction_details_view_explorer, explorer.name)
 
-                item(R.drawable.ic_browser_outline, title, showArrow = true) {
+                item(io.novafoundation.nova.common.R.drawable.ic_browser_outline, title, showArrow = true) {
                     onViewExternal(explorer, payload.type)
                 }
             }

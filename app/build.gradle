@@ -48,6 +48,9 @@ android {
 
 dependencies {
 
+    implementation project(":ccodepicker")
+    implementation project(":feature_account")
+
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
     implementation deps.support.material
@@ -64,10 +67,10 @@ dependencies {
     implementation deps.extension.livedata_ktx
     implementation deps.extension.fragment_ktx
 
-    kapt deps.lifecycle_compiler
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.compiler
 
     implementation deps.daggerHilt.hilt_android
-    //implementation deps.daggerHilt.viewmodel
     kapt deps.daggerHilt.android_compiler
     kapt deps.daggerHilt.hilt_compiler
 
@@ -83,8 +86,4 @@ dependencies {
     implementation deps.timber
 
     implementation deps.pincode_view
-
-    implementation project(":ccodepicker")
-
-
 }
