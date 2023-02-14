@@ -6,6 +6,7 @@ import com.neovisionaries.ws.client.WebSocketFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.novafoundation.nova.common.BuildConfig
 import io.novafoundation.nova.common.data.network.AndroidLogger
@@ -14,7 +15,6 @@ import io.novafoundation.nova.common.data.network.HttpExceptionHandler
 import io.novafoundation.nova.common.data.network.NetworkApiCreator
 import io.novafoundation.nova.common.data.network.TimeHeaderInterceptor
 import io.novafoundation.nova.common.data.network.rpc.SocketSingleRequestExecutor
-import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.common.mixin.api.NetworkStateMixin
 import io.novafoundation.nova.common.mixin.impl.NetworkStateProvider
 import io.novafoundation.nova.common.resources.ContextManager
@@ -30,6 +30,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.File
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 private const val HTTP_CACHE = "http_cache"
 private const val CACHE_SIZE = 50L * 1024L * 1024L // 50 MiB
@@ -40,7 +41,7 @@ private const val TIMEOUT_SECONDS = 20L
 class NetworkModule {
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideAppLinksProvider(): AppLinksProvider {
         return AppLinksProvider(
             termsUrl = BuildConfig.TERMS_URL,
@@ -62,9 +63,9 @@ class NetworkModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideOkHttpClient(
-        context: Context
+        @ApplicationContext context: Context
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
@@ -82,11 +83,11 @@ class NetworkModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideLogger(): Logger = AndroidLogger(debug = BuildConfig.DEBUG)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideApiCreator(
         okHttpClient: OkHttpClient
     ): NetworkApiCreator {
@@ -94,13 +95,13 @@ class NetworkModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun httpExceptionHandler(
         resourceManager: ResourceManager
     ): HttpExceptionHandler = HttpExceptionHandler(resourceManager)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideSocketFactory() = WebSocketFactory()
 
     @Provides
@@ -119,7 +120,7 @@ class NetworkModule {
     ): SocketService = SocketService(mapper, logger, socketFactory, reconnector, requestExecutor)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideSocketSingleRequestExecutor(
         mapper: Gson,
         logger: Logger,
@@ -131,11 +132,11 @@ class NetworkModule {
     fun provideNetworkStateMixin(): NetworkStateMixin = NetworkStateProvider()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideJsonMapper() = Gson()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideBluetoothManager(
         contextManager: ContextManager
     ): BluetoothManager = RealBluetoothManager(contextManager)

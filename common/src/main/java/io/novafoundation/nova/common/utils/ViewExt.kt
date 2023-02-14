@@ -355,3 +355,12 @@ fun ImageView.setImageResource(@DrawableRes imageRes: Int?) = if (imageRes == nu
 }
 
 fun EditText.moveCursorToTheEnd() = setSelection(length())
+
+
+fun View.setOnSafeClickListener(block: (View) -> Unit) {
+    setOnClickListener(SafeClickListener { block(it) })
+}
+
+fun View.setOnSafeClickListener(timeGap: Long, block: (View) -> Unit) {
+    setOnClickListener(SafeClickListener(timeGap) { block(it) })
+}

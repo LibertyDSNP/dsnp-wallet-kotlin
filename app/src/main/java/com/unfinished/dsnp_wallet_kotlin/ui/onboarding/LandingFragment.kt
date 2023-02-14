@@ -13,10 +13,13 @@ import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLandingBinding
 import com.unfinished.dsnp_wallet_kotlin.util.createSpannable
-import com.unfinished.dsnp_wallet_kotlin.util.setOnSafeClickListener
 import com.unfinished.dsnp_wallet_kotlin.util.showBrowser
 import com.unfinished.dsnp_wallet_kotlin.util.toast
+import dagger.hilt.android.AndroidEntryPoint
+import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import io.novafoundation.nova.common.R as commonR
 
+@AndroidEntryPoint
 class LandingFragment : Fragment() {
 
     lateinit var binding: FragmentLandingBinding
@@ -52,8 +55,8 @@ class LandingFragment : Fragment() {
             movementMethod = LinkMovementMethod.getInstance()
             text = createSpannable(
                 content = sourceText,
-                typeface = ResourcesCompat.getFont(requireContext(),R.font.poppins_semibold),
-                highlightTextColor = ContextCompat.getColor(requireContext(),R.color.orange))  {
+                typeface = ResourcesCompat.getFont(requireContext(),commonR.font.poppins_semibold),
+                highlightTextColor = ContextCompat.getColor(requireContext(),commonR.color.orange))  {
                 clickable(terms) {
                     showBrowser(getString(R.string.terms_link))
                 }

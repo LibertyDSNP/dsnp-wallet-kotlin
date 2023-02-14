@@ -4,17 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import io.novafoundation.nova.common.R
 import com.unfinished.feature_account.databinding.FragmentExportSeedBinding
 import com.unfinished.feature_account.presentation.export.ExportFragment
 import com.unfinished.feature_account.presentation.export.ExportPayload
+import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.view.shape.getRoundedCornerDrawable
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.seed.ExportSeedViewModel
 
 private const val PAYLOAD_KEY = "PAYLOAD_KEY"
 
+@AndroidEntryPoint
 class ExportSeedFragment : ExportFragment<ExportSeedViewModel>() {
 
+    override val viewModel by viewModels<ExportSeedViewModel>()
     lateinit var binding: FragmentExportSeedBinding
 
     companion object {
@@ -31,6 +35,8 @@ class ExportSeedFragment : ExportFragment<ExportSeedViewModel>() {
     }
 
     override fun initViews() {
+        viewModel.init(argument(PAYLOAD_KEY))
+
         binding.exportSeedToolbar.setHomeButtonListener { viewModel.back() }
 
         binding.exportSeedToolbar.setRightActionClickListener { viewModel.optionsClicked() }

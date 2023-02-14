@@ -2,6 +2,8 @@ package com.unfinished.feature_account.data.mappers
 
 import io.novafoundation.nova.common.R
 import com.unfinished.feature_account.domain.model.*
+import com.unfinished.feature_account.presentation.mixin.AccountNameChooserMixin
+import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import com.unfinished.feature_account.presentation.model.advance.encryption.CryptoTypeModel
 import com.unfinished.feature_account.presentation.model.advance.network.NetworkModel
 import com.unfinished.feature_account.presentation.model.advance.network.NodeModel
@@ -174,4 +176,24 @@ fun mapChainAccountToAccount(
         position = 0,
         network = stubNetwork(chain.id),
     )
+}
+
+
+fun mapAddAccountPayloadToAddAccountType(
+    payload: AddAccountPayload,
+    accountNameState: AccountNameChooserMixin.State,
+): AddAccountType {
+    return when (payload) {
+        AddAccountPayload.MetaAccount -> {
+            require(accountNameState is AccountNameChooserMixin.State.Input) { "Name input should be present for meta account" }
+
+            AddAccountType.MetaAccount(accountNameState.value)
+        }
+        is AddAccountPayload.ChainAccount -> AddAccountType.ChainAccount(payload.chainId, payload.metaId)
+    }
+}
+
+fun mapOptionalNameToNameChooserState(name: String?) = when (name) {
+    null -> AccountNameChooserMixin.State.NoInput
+    else -> AccountNameChooserMixin.State.Input(name)
 }

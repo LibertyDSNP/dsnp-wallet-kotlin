@@ -27,6 +27,10 @@
         tools:layout="@layout/fragment_landing" >
         <action
             android:id="@+id/action_landingFragment_to_lookupFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/lookupFragment" />
     </fragment>
     <fragment
@@ -34,24 +38,17 @@
         android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LookupFragment"
         android:label="fragment_lookup"
         tools:layout="@layout/fragment_lookup" >
-        <action
-            android:id="@+id/action_lookupFragment_to_seedPhraseFragment"
-            app:destination="@id/seedPhraseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/seedPhraseFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase.SeedPhraseFragment"
-        android:label="fragment_seed_phrase"
-        tools:layout="@layout/fragment_seed_phrase" >
-        <action
-            android:id="@+id/action_seedPhraseFragment_to_confirmSeedPhraseFragment"
-            app:destination="@id/confirmSeedPhraseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/confirmSeedPhraseFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.seedphrase.ConfirmSeedPhraseFragment"
-        android:label="fragment_confirm_seed_phrase"
-        tools:layout="@layout/fragment_confirm_seed_phrase" />
 
+        <action
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            android:id="@+id/action_lookupFragment_to_mnemonic_nav_graph"
+            app:destination="@id/mnemonic_nav_graph" />
+
+    </fragment>
+
+    <include app:graph="@navigation/mnemonic_nav_graph" />
 
 </navigation>

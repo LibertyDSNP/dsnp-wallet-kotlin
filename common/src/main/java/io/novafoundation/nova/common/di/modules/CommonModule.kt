@@ -10,6 +10,7 @@ import coil.decode.SvgDecoder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.novafoundation.nova.common.address.AddressIconGenerator
 import io.novafoundation.nova.common.address.CachingAddressIconGenerator
@@ -26,7 +27,6 @@ import io.novafoundation.nova.common.data.storage.PreferencesImpl
 import io.novafoundation.nova.common.data.storage.encrypt.EncryptedPreferences
 import io.novafoundation.nova.common.data.storage.encrypt.EncryptedPreferencesImpl
 import io.novafoundation.nova.common.data.storage.encrypt.EncryptionUtil
-import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.common.interfaces.FileCache
 import io.novafoundation.nova.common.interfaces.FileProvider
 import io.novafoundation.nova.common.interfaces.InternalFileSystemCache
@@ -52,6 +52,7 @@ import jp.co.soramitsu.fearless_utils.icon.IconGenerator
 import java.security.SecureRandom
 import java.util.Random
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 const val SHARED_PREFERENCES_FILE = "fearless_prefs"
 
@@ -64,43 +65,43 @@ annotation class Caching
 class CommonModule {
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideComputationalCache(): ComputationalCache = RealComputationalCache()
 
     @Provides
-    @ApplicationScope
-    fun imageLoader(context: Context) = ImageLoader.Builder(context)
+    @Singleton
+    fun imageLoader(@ApplicationContext context: Context) = ImageLoader.Builder(context)
         .componentRegistry {
             add(SvgDecoder(context))
         }
         .build()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideResourceManager(contextManager: ContextManager): ResourceManager {
         return ResourceManagerImpl(contextManager)
     }
 
     @Provides
-    @ApplicationScope
-    fun provideSharedPreferences(context: Context): SharedPreferences {
+    @Singleton
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences(SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE)
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun providePreferences(sharedPreferences: SharedPreferences): Preferences {
         return PreferencesImpl(sharedPreferences)
     }
 
     @Provides
-    @ApplicationScope
-    fun provideEncryptionUtil(context: Context): EncryptionUtil {
+    @Singleton
+    fun provideEncryptionUtil(@ApplicationContext context: Context): EncryptionUtil {
         return EncryptionUtil(context)
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideEncryptedPreferences(
         preferences: Preferences,
         encryptionUtil: EncryptionUtil,
@@ -109,38 +110,38 @@ class CommonModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideSigner(): Signer {
         return Signer
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideIconGenerator(): IconGenerator {
         return IconGenerator()
     }
 
     @Provides
-    @ApplicationScope
-    fun provideClipboardManager(context: Context): ClipboardManager {
+    @Singleton
+    fun provideClipboardManager(@ApplicationContext context: Context): ClipboardManager {
         return ClipboardManager(context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
     }
 
     @Provides
-    @ApplicationScope
-    fun provideDeviceVibrator(context: Context): DeviceVibrator {
+    @Singleton
+    fun provideDeviceVibrator(@ApplicationContext context: Context): DeviceVibrator {
         val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         return DeviceVibrator(vibrator)
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideLanguagesHolder(): LanguagesHolder {
         return LanguagesHolder()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideAddressModelCreator(
         resourceManager: ResourceManager,
         iconGenerator: IconGenerator,
@@ -153,86 +154,96 @@ class CommonModule {
     ): AddressIconGenerator = CachingAddressIconGenerator(delegate)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideQrCodeGenerator(): QrCodeGenerator {
         return QrCodeGenerator(Color.BLACK, Color.WHITE)
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
+    fun provideContextManager(
+        @ApplicationContext context: Context,
+        languagesHolder: LanguagesHolder
+    ): ContextManager {
+        return ContextManager(context,languagesHolder)
+    }
+
+    @Provides
+    @Singleton
     fun provideFileProvider(contextManager: ContextManager): FileProvider {
         return FileProviderImpl(contextManager.getApplicationContext())
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRandom(): Random = SecureRandom()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideContentResolver(
-        context: Context,
+        @ApplicationContext context: Context,
     ): ContentResolver {
         return context.contentResolver
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideDefaultPagedKeysRetriever(): BulkRetriever {
         return BulkRetriever()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideValidationExecutor(): ValidationExecutor {
         return ValidationExecutor()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideSecretStoreV1(
         encryptedPreferences: EncryptedPreferences,
     ): SecretStoreV1 = SecretStoreV1Impl(encryptedPreferences)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideSecretStoreV2(
         encryptedPreferences: EncryptedPreferences,
     ) = SecretStoreV2(encryptedPreferences)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideCustomDialogDisplayer(): CustomDialogDisplayer.Presentation = CustomDialogProvider()
 
     @Provides
-    @ApplicationScope
-    fun provideAppVersionsProvider(context: Context): AppVersionProvider {
+    @Singleton
+    fun provideAppVersionsProvider(@ApplicationContext context: Context): AppVersionProvider {
         return OSAppVersionProvider(context)
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideSystemCallExecutor(
         contextManager: ContextManager
     ): SystemCallExecutor = SystemCallExecutor(contextManager)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun actionAwaitableMixinFactory(): ActionAwaitableMixin.Factory = ActionAwaitableProvider
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun resourcesHintsMixinFactory(
         resourceManager: ResourceManager,
     ) = ResourcesHintsMixinFactory(resourceManager)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideFileCache(fileProvider: FileProvider): FileCache = InternalFileSystemCache(fileProvider)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun providePermissionAskerFactory(
         actionAwaitableMixinFactory: ActionAwaitableMixin.Factory
     ) = PermissionsAskerFactory(actionAwaitableMixinFactory)
+
 }

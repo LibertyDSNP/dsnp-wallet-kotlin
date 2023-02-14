@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/backupMnemonicFragment"
+    android:id="@+id/mnemonic_nav_graph">
+
+    <fragment
+        android:id="@+id/backupMnemonicFragment"
+        android:name="com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicFragment"
+        android:label="fragment_backup_mnemonic"
+        tools:layout="@layout/fragment_backup_mnemonic">
+
+         <action
+            android:id="@+id/action_backupMnemonicFragment_to_confirmMnemonicFragment"
+            app:destination="@id/confirmMnemonicFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/confirmMnemonicFragment"
+        android:name="com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicFragment"
+        android:label="fragment_confirm_mnemonic"
+        tools:layout="@layout/fragment_confirm_mnemonic">
+
+        <action
+            android:id="@+id/action_confirmMnemonicFragment_to_pincodeFragment"
+            app:destination="@id/pincodeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/landingFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/pincodeFragment"
+        android:name="com.unfinished.feature_account.presentation.pincode.PincodeFragment"
+        android:label="PincodeFragment" />
+
+</navigation>

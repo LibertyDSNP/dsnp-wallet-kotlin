@@ -3,7 +3,6 @@ package io.novafoundation.nova.common.resources
 import io.novafoundation.nova.core.model.Language
 import javax.inject.Singleton
 
-@Singleton
 class LanguagesHolder {
 
     companion object {

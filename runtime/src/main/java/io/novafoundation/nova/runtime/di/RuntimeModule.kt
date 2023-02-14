@@ -7,7 +7,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.novafoundation.nova.common.data.network.rpc.BulkRetriever
 import io.novafoundation.nova.common.data.storage.Preferences
-import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.core.storage.StorageCache
 import io.novafoundation.nova.core_db.dao.ChainDao
 import io.novafoundation.nova.core_db.dao.StorageDao
@@ -37,6 +36,7 @@ import io.novafoundation.nova.runtime.storage.source.LocalStorageSource
 import io.novafoundation.nova.runtime.storage.source.RemoteStorageSource
 import io.novafoundation.nova.runtime.storage.source.StorageDataSource
 import javax.inject.Named
+import javax.inject.Singleton
 
 const val LOCAL_STORAGE_SOURCE = "LOCAL_STORAGE_SOURCE"
 const val REMOTE_STORAGE_SOURCE = "REMOTE_STORAGE_SOURCE"
@@ -46,7 +46,7 @@ const val REMOTE_STORAGE_SOURCE = "REMOTE_STORAGE_SOURCE"
 class RuntimeModule {
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideExtrinsicBuilderFactory(
         rpcCalls: RpcCalls,
         chainRegistry: ChainRegistry,
@@ -58,14 +58,14 @@ class RuntimeModule {
     )
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideStorageCache(
         storageDao: StorageDao,
     ): StorageCache = DbStorageCache(storageDao)
 
     @Provides
     @Named(LOCAL_STORAGE_SOURCE)
-    @ApplicationScope
+    @Singleton
     fun provideLocalStorageSource(
         chainRegistry: ChainRegistry,
         storageCache: StorageCache,
@@ -73,21 +73,21 @@ class RuntimeModule {
 
     @Provides
     @Named(REMOTE_STORAGE_SOURCE)
-    @ApplicationScope
+    @Singleton
     fun provideRemoteStorageSource(
         chainRegistry: ChainRegistry,
         bulkRetriever: BulkRetriever,
     ): StorageDataSource = RemoteStorageSource(chainRegistry, bulkRetriever)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideSampledBlockTimeStorage(
         gson: Gson,
         preferences: Preferences,
     ): SampledBlockTimeStorage = PrefsSampledBlockTimeStorage(gson, preferences)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideChainStateRepository(
         @Named(LOCAL_STORAGE_SOURCE) localStorageSource: StorageDataSource,
         sampledBlockTimeStorage: SampledBlockTimeStorage,
@@ -95,31 +95,31 @@ class RuntimeModule {
     ) = ChainStateRepository(localStorageSource, sampledBlockTimeStorage, chainRegistry)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideMortalityProvider(
         chainStateRepository: ChainStateRepository,
         rpcCalls: RpcCalls,
     ) = MortalityConstructor(rpcCalls, chainStateRepository)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideSubstrateCalls(
         chainRegistry: ChainRegistry
     ) = RpcCalls(chainRegistry)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     @ExtrinsicSerialization
     fun provideExtrinsicGson() = ExtrinsicSerializers.gson()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRuntimeVersionsRepository(
         chainDao: ChainDao
     ): RuntimeVersionsRepository = DbRuntimeVersionsRepository(chainDao)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideEventsRepository(
         rpcCalls: RpcCalls,
         chainRegistry: ChainRegistry,
@@ -127,29 +127,29 @@ class RuntimeModule {
     ): EventsRepository = RemoteEventsRepository(rpcCalls, chainRegistry, remoteStorageSource)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideMultiChainQrSharingFactory() = MultiChainQrSharingFactory()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideParachainInfoRepository(
         @Named(REMOTE_STORAGE_SOURCE) remoteStorageSource: StorageDataSource
     ): ParachainInfoRepository = RealParachainInfoRepository(remoteStorageSource)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideExtrinsicValidityUseCase(
         mortalityConstructor: MortalityConstructor
     ): ExtrinsicValidityUseCase = RealExtrinsicValidityUseCase(mortalityConstructor)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideTimestampRepository(
         @Named(REMOTE_STORAGE_SOURCE) remoteStorageSource: StorageDataSource,
     ): TimestampRepository = RemoteTimestampRepository(remoteStorageSource)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideTotalIssuanceRepository(
         @Named(LOCAL_STORAGE_SOURCE) localStorageSource: StorageDataSource,
     ): TotalIssuanceRepository = RealTotalIssuanceRepository(localStorageSource)

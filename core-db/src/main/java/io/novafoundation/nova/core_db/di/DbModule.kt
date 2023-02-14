@@ -4,8 +4,8 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.core_db.AppDatabase
 import io.novafoundation.nova.core_db.dao.AccountDao
 import io.novafoundation.nova.core_db.dao.AccountStakingDao
@@ -26,129 +26,130 @@ import io.novafoundation.nova.core_db.dao.PhishingSitesDao
 import io.novafoundation.nova.core_db.dao.StakingTotalRewardDao
 import io.novafoundation.nova.core_db.dao.StorageDao
 import io.novafoundation.nova.core_db.dao.TokenDao
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class DbModule {
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideAppDatabase(
-        context: Context
+        @ApplicationContext context: Context
     ): AppDatabase {
         return AppDatabase.get(context)
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideUserDao(appDatabase: AppDatabase): AccountDao {
         return appDatabase.userDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideNodeDao(appDatabase: AppDatabase): NodeDao {
         return appDatabase.nodeDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideAssetDao(appDatabase: AppDatabase): AssetDao {
         return appDatabase.assetDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideLockDao(appDatabase: AppDatabase): LockDao {
         return appDatabase.lockDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideContributionDao(appDatabase: AppDatabase): ContributionDao {
         return appDatabase.contributionDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideOperationHistoryDao(appDatabase: AppDatabase): OperationDao {
         return appDatabase.operationDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun providePhishingAddressDao(appDatabase: AppDatabase): PhishingAddressDao {
         return appDatabase.phishingAddressesDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideStorageDao(appDatabase: AppDatabase): StorageDao {
         return appDatabase.storageDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideTokenDao(appDatabase: AppDatabase): TokenDao {
         return appDatabase.tokenDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideAccountStakingDao(appDatabase: AppDatabase): AccountStakingDao {
         return appDatabase.accountStakingDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideStakingTotalRewardDao(appDatabase: AppDatabase): StakingTotalRewardDao {
         return appDatabase.stakingTotalRewardDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideChainDao(appDatabase: AppDatabase): ChainDao {
         return appDatabase.chainDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideMetaAccountDao(appDatabase: AppDatabase): MetaAccountDao {
         return appDatabase.metaAccountDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideDappAuthorizationDao(appDatabase: AppDatabase): DappAuthorizationDao {
         return appDatabase.dAppAuthorizationDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideNftDao(appDatabase: AppDatabase): NftDao {
         return appDatabase.nftDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun providePhishingSitesDao(appDatabase: AppDatabase): PhishingSitesDao {
         return appDatabase.phishingSitesDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideFavouriteDappsDao(appDatabase: AppDatabase): FavouriteDAppsDao {
         return appDatabase.favouriteDAppsDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideCurrencyDao(appDatabase: AppDatabase): CurrencyDao {
         return appDatabase.currencyDao()
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideGovernanceDAppDao(appDatabase: AppDatabase): GovernanceDAppsDao {
         return appDatabase.governanceDAppsDao()
     }

@@ -2,6 +2,7 @@ package com.unfinished.feature_account.presentation.action
 
 import androidx.lifecycle.MutableLiveData
 import com.unfinished.feature_account.data.mappers.mapChainToUi
+import com.unfinished.feature_account.presentation.icon.createAccountAddressModel
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.address.AddressIconGenerator
 import io.novafoundation.nova.common.resources.ClipboardManager
@@ -15,6 +16,7 @@ import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 class ExternalActionsProvider(
     private val clipboardManager: ClipboardManager,
     private val resourceManager: ResourceManager,
+    private val addressIconGenerator: AddressIconGenerator,
 ) : ExternalActions.Presentation {
 
     override val openBrowserEvent = MutableLiveData<Event<String>>()
@@ -51,8 +53,7 @@ class ExternalActionsProvider(
         // only show icon for address as for now
         val icon = when (type) {
             is ExternalActions.Type.Address -> if (type.address != null) {
-                //addressIconGenerator.createAccountAddressModel(chain, type.address, name = null).image
-                resourceManager.getDrawable(R.drawable.ic_identicon_placeholder)
+                addressIconGenerator.createAccountAddressModel(chain, type.address, name = null).image
             } else {
                 resourceManager.getDrawable(R.drawable.ic_identicon_placeholder)
             }

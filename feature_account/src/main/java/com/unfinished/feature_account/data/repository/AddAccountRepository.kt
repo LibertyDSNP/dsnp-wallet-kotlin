@@ -8,7 +8,7 @@ import io.novafoundation.nova.core.model.CryptoType
 import com.unfinished.feature_account.domain.interfaces.AccountAlreadyExistsException
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.ImportJsonMetaData
-import com.unfinished.feature_account.data.repository.datasource.AccountDataSource
+import com.unfinished.feature_account.domain.interfaces.AccountDataSource
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryption
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecoder

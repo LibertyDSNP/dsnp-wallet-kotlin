@@ -27,7 +27,7 @@ import com.unfinished.feature_account.domain.model.multiChainEncryptionIn
 import com.unfinished.feature_account.domain.model.publicKeyIn
 import com.unfinished.feature_account.data.mappers.mapNodeLocalToNode
 import com.unfinished.feature_account.data.blockchain.AccountSubstrateSource
-import com.unfinished.feature_account.data.repository.datasource.AccountDataSource
+import com.unfinished.feature_account.domain.interfaces.AccountDataSource
 import io.novafoundation.nova.runtime.ext.genesisHash
 import io.novafoundation.nova.runtime.ext.isValidAddress
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain

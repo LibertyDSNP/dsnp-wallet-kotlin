@@ -4,18 +4,18 @@ import android.graphics.drawable.Drawable
 import android.text.format.DateUtils
 import androidx.core.content.ContextCompat
 import io.novafoundation.nova.common.R
-import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.common.utils.daysFromMillis
 import io.novafoundation.nova.common.utils.formatting.format
 import io.novafoundation.nova.common.utils.formatting.formatDateTime
 import io.novafoundation.nova.common.utils.getDrawableCompat
 import io.novafoundation.nova.common.utils.readText
+import javax.inject.Singleton
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 import kotlin.time.milliseconds
 
 @OptIn(ExperimentalTime::class)
-@ApplicationScope
+@Singleton
 class ResourceManagerImpl(
     private val contextManager: ContextManager
 ) : ResourceManager {

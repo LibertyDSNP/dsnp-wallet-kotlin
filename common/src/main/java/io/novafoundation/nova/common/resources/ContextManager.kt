@@ -6,10 +6,10 @@ import io.novafoundation.nova.common.data.storage.PreferencesImpl
 import io.novafoundation.nova.common.di.modules.SHARED_PREFERENCES_FILE
 import io.novafoundation.nova.common.utils.SingletonHolder
 import java.util.Locale
+import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class ContextManager private constructor(
+class ContextManager @Inject constructor(
     private var context: Context,
     private val languagesHolder: LanguagesHolder
 ) {

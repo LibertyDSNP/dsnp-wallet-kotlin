@@ -50,6 +50,7 @@ dependencies {
 
     implementation project(":ccodepicker")
     implementation project(":feature_account")
+    implementation project(":common")
 
     implementation deps.support.core_ktx
     implementation deps.support.app_compat

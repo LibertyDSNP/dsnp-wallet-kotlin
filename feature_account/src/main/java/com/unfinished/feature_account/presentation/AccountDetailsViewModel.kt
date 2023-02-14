@@ -9,7 +9,6 @@ import com.unfinished.feature_account.domain.model.LightMetaAccount
 import com.unfinished.feature_account.presentation.action.ExternalActions
 import com.unfinished.feature_account.presentation.export.ExportPayload
 import com.unfinished.feature_account.presentation.mixin.importType.ImportTypeChooserMixin
-import com.unfinished.feature_account.presentation.model.account.add.AddAccountLauncherMixin
 import com.unfinished.feature_account.presentation.model.account.add.SecretType
 import com.unfinished.feature_account.presentation.model.account.details.AccountTypeAlert
 import com.unfinished.feature_account.presentation.model.account.details.ChainAccountActionsSheet
@@ -49,11 +48,9 @@ class AccountDetailsViewModel(
     private val externalActions: ExternalActions.Presentation,
     private val chainRegistry: ChainRegistry,
     private val importTypeChooserMixin: ImportTypeChooserMixin.Presentation,
-    private val addAccountLauncherMixin: AddAccountLauncherMixin.Presentation,
 ) : BaseViewModel(),
     ExternalActions by externalActions,
-    ImportTypeChooserMixin by importTypeChooserMixin,
-    AddAccountLauncherMixin by addAccountLauncherMixin {
+    ImportTypeChooserMixin by importTypeChooserMixin {
 
     val accountNameFlow: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -158,9 +155,7 @@ class AccountDetailsViewModel(
     }
 
     fun changeChainAccountClicked(inChain: Chain) {
-        launch {
-            addAccountLauncherMixin.initiateLaunch(inChain, metaAccount())
-        }
+
     }
 
     private fun availableAccountActions(accountType: LightMetaAccount.Type): Set<ChainAccountActionsSheet.AccountAction> {

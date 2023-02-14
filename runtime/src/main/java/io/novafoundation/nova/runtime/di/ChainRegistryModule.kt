@@ -6,7 +6,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.novafoundation.nova.common.data.network.NetworkApiCreator
-import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.common.interfaces.FileProvider
 import io.novafoundation.nova.core_db.dao.ChainDao
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
@@ -27,17 +26,18 @@ import io.novafoundation.nova.runtime.multiNetwork.runtime.types.TypesFetcher
 import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Provider
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class ChainRegistryModule {
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideChainFetcher(apiCreator: NetworkApiCreator) = apiCreator.create(ChainFetcher::class.java)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideChainSyncService(
         dao: ChainDao,
         chainFetcher: ChainFetcher,
@@ -45,7 +45,7 @@ class ChainRegistryModule {
     ) = ChainSyncService(dao, chainFetcher, gson)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRuntimeFactory(
         runtimeFilesCache: RuntimeFilesCache,
         chainDao: ChainDao,
@@ -55,19 +55,19 @@ class ChainRegistryModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRuntimeFilesCache(
         fileProvider: FileProvider,
     ) = RuntimeFilesCache(fileProvider)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideTypesFetcher(
         networkApiCreator: NetworkApiCreator,
     ) = networkApiCreator.create(TypesFetcher::class.java)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRuntimeSyncService(
         typesFetcher: TypesFetcher,
         runtimeFilesCache: RuntimeFilesCache,
@@ -75,14 +75,14 @@ class ChainRegistryModule {
     ) = RuntimeSyncService(typesFetcher, runtimeFilesCache, chainDao)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideBaseTypeSynchronizer(
         typesFetcher: TypesFetcher,
         runtimeFilesCache: RuntimeFilesCache,
     ) = BaseTypeSynchronizer(runtimeFilesCache, typesFetcher)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRuntimeProviderPool(
         runtimeFactory: RuntimeFactory,
         runtimeSyncService: RuntimeSyncService,
@@ -90,17 +90,17 @@ class ChainRegistryModule {
     ) = RuntimeProviderPool(runtimeFactory, runtimeSyncService, baseTypeSynchronizer)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideAutoBalanceProvider() = AutoBalanceStrategyProvider()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideNodeAutoBalancer(
         autoBalanceStrategyProvider: AutoBalanceStrategyProvider,
     ) = NodeAutobalancer(autoBalanceStrategyProvider)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideChainConnectionFactory(
         socketProvider: Provider<SocketService>,
         externalRequirementsFlow: MutableStateFlow<ChainConnection.ExternalRequirement>,
@@ -112,22 +112,22 @@ class ChainRegistryModule {
     )
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideConnectionPool(chainConnectionFactory: ChainConnectionFactory) = ConnectionPool(chainConnectionFactory)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRuntimeVersionSubscriptionPool(
         chainDao: ChainDao,
         runtimeSyncService: RuntimeSyncService,
     ) = RuntimeSubscriptionPool(chainDao, runtimeSyncService)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideExternalRequirementsFlow() = MutableStateFlow(ChainConnection.ExternalRequirement.FORBIDDEN)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideChainRegistry(
         runtimeProviderPool: RuntimeProviderPool,
         chainConnectionPool: ConnectionPool,

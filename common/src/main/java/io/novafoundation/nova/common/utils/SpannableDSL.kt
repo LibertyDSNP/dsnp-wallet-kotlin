@@ -1,5 +1,6 @@
 package io.novafoundation.nova.common.utils
 
+import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -15,6 +16,22 @@ import io.novafoundation.nova.common.resources.ResourceManager
 private fun clickableSpan(onClick: () -> Unit) = object : ClickableSpan() {
     override fun updateDrawState(ds: TextPaint) {
         ds.isUnderlineText = false
+    }
+
+    override fun onClick(widget: View) {
+        onClick()
+    }
+}
+
+private fun clickableSpan(
+    typeface: Typeface? = null,
+    @ColorRes highlightTextColor: Int? = null,
+    onClick: () -> Unit
+) = object : ClickableSpan() {
+    override fun updateDrawState(ds: TextPaint) {
+        ds.typeface = typeface
+        ds.isUnderlineText = false
+        highlightTextColor?.let { ds.color = it }
     }
 
     override fun onClick(widget: View) {
@@ -50,6 +67,7 @@ class SpannableStyler(val content: String) {
     fun build() = buildingSpannable
 }
 
+
 fun styleText(content: String, block: SpannableStyler.() -> Unit): Spannable {
     val builder = SpannableStyler(content)
 
@@ -83,8 +101,45 @@ class SpannableBuilder(private val resourceManager: ResourceManager) {
     }
 }
 
+class SpannableBuilder2(
+    val content: String,
+    val typeface: Typeface? = null,
+    @ColorRes val highlightTextColor: Int? = null
+) {
+
+    private val buildingSpannable = SpannableString(content)
+
+    fun clickable(text: String, onClick: () -> Unit) {
+        val startIndex = content.indexOf(text)
+
+        if (startIndex == -1) {
+            return
+        }
+
+        val endIndex = startIndex + text.length
+
+        buildingSpannable.setSpan(clickableSpan(typeface,highlightTextColor,onClick), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+
+    fun build() = buildingSpannable
+}
+
 fun buildSpannable(resourceManager: ResourceManager, block: SpannableBuilder.() -> Unit): Spannable {
     val builder = SpannableBuilder(resourceManager).apply(block)
+
+    return builder.build()
+}
+
+
+fun createSpannable(
+    content: String,
+    typeface: Typeface? = null,
+    @ColorRes highlightTextColor: Int? = null,
+    block: SpannableBuilder2.() -> Unit
+): Spannable {
+    val builder = SpannableBuilder2(content, typeface, highlightTextColor)
+
+    builder.block()
 
     return builder.build()
 }

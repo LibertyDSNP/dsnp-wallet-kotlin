@@ -9,6 +9,7 @@ import com.unfinished.feature_account.domain.account.export.json.validations.map
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.export.ExportPayload
 import com.unfinished.feature_account.presentation.export.json.confirm.ExportJsonConfirmPayload
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.common.mixin.api.Validatable
 import io.novafoundation.nova.common.presentation.DescriptiveButtonState
@@ -19,16 +20,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ExportJsonPasswordViewModel(
+@HiltViewModel
+class ExportJsonPasswordViewModel @Inject constructor(
     private val router: AccountRouter,
     private val interactor: ExportJsonInteractor,
     private val resourceManager: ResourceManager,
     private val validationExecutor: ValidationExecutor,
-    private val validationSystem: ExportJsonPasswordValidationSystem,
-    private val payload: ExportPayload,
+    private val validationSystem: ExportJsonPasswordValidationSystem
 ) : BaseViewModel(),
     Validatable by validationExecutor {
+
+    lateinit var payload: ExportPayload
 
     val passwordFlow = MutableStateFlow("")
     val passwordConfirmationFlow = MutableStateFlow("")
@@ -49,6 +53,10 @@ class ExportJsonPasswordViewModel(
                 resourceManager.getString(R.string.common_continue)
             )
         }
+    }
+
+    fun init(payload: ExportPayload){
+        this.payload = payload
     }
 
     fun back() {

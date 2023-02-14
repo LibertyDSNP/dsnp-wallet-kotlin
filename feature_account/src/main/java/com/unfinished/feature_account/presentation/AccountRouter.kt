@@ -1,19 +1,20 @@
 package com.unfinished.feature_account.presentation
 
-import android.provider.Settings.Secure
-import com.unfinished.feature_account.app.DelayedNavigation
-import com.unfinished.feature_account.app.PinRequired
-import com.unfinished.feature_account.app.SecureRouter
 import com.unfinished.feature_account.presentation.export.ExportPayload
 import com.unfinished.feature_account.presentation.export.json.confirm.ExportJsonConfirmPayload
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
-import com.unfinished.feature_account.presentation.model.mnemonic.ConfirmMnemonicPayload
 import io.novafoundation.nova.common.navigation.ReturnableRouter
+import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload
+import io.novafoundation.nova.common.navigation.DelayedNavigation
+import io.novafoundation.nova.common.navigation.PinRequired
+import io.novafoundation.nova.common.navigation.SecureRouter
 
-interface AccountRouter :SecureRouter, ReturnableRouter {
+interface AccountRouter : SecureRouter, ReturnableRouter {
 
     fun openMain()
+
+    fun openCreatePincode()
 
     fun openMnemonicScreen(accountName: String?, payload: AddAccountPayload)
 
