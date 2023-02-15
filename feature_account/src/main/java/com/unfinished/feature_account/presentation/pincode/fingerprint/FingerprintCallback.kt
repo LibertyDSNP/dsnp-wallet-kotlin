@@ -3,26 +3,25 @@ package com.unfinished.feature_account.presentation.pincode.fingerprint
 import androidx.biometric.BiometricConstants
 import androidx.biometric.BiometricPrompt
 import com.unfinished.feature_account.presentation.pincode.PinCodeViewModel
+import com.unfinished.feature_account.presentation.pincode.PincodeFragment
 import javax.inject.Inject
 
-class FingerprintCallback : BiometricPrompt.AuthenticationCallback() {
-
-    @Inject lateinit var pinCodeViewModel: PinCodeViewModel
+class FingerprintCallback(val fragment: PincodeFragment) : BiometricPrompt.AuthenticationCallback() {
 
     override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
         if (errMsgId != BiometricConstants.ERROR_CANCELED &&
             errMsgId != BiometricConstants.ERROR_NEGATIVE_BUTTON &&
             errMsgId != BiometricConstants.ERROR_USER_CANCELED
         ) {
-            pinCodeViewModel.onAuthenticationError(errString.toString())
+            fragment.viewModel.onAuthenticationError(errString.toString())
         }
     }
 
     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-        pinCodeViewModel.biometryAuthenticationSucceeded()
+        fragment.viewModel.biometryAuthenticationSucceeded()
     }
 
     override fun onAuthenticationFailed() {
-        pinCodeViewModel.biometryAuthenticationFailed()
+        fragment.viewModel.biometryAuthenticationFailed()
     }
 }

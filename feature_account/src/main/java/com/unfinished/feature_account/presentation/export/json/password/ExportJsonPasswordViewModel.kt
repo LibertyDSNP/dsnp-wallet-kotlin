@@ -1,5 +1,7 @@
 package com.unfinished.feature_account.presentation.export.json.password
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import io.novafoundation.nova.common.R
 import com.unfinished.feature_account.domain.account.export.json.ExportJsonInteractor
@@ -9,6 +11,10 @@ import com.unfinished.feature_account.domain.account.export.json.validations.map
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.export.ExportPayload
 import com.unfinished.feature_account.presentation.export.json.confirm.ExportJsonConfirmPayload
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicPayload
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.common.mixin.api.Validatable
@@ -22,17 +28,15 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class ExportJsonPasswordViewModel @Inject constructor(
+class ExportJsonPasswordViewModel @AssistedInject constructor(
     private val router: AccountRouter,
     private val interactor: ExportJsonInteractor,
     private val resourceManager: ResourceManager,
     private val validationExecutor: ValidationExecutor,
-    private val validationSystem: ExportJsonPasswordValidationSystem
+    private val validationSystem: ExportJsonPasswordValidationSystem,
+    @Assisted private val payload: ExportPayload
 ) : BaseViewModel(),
     Validatable by validationExecutor {
-
-    lateinit var payload: ExportPayload
 
     val passwordFlow = MutableStateFlow("")
     val passwordConfirmationFlow = MutableStateFlow("")
@@ -53,10 +57,6 @@ class ExportJsonPasswordViewModel @Inject constructor(
                 resourceManager.getString(R.string.common_continue)
             )
         }
-    }
-
-    fun init(payload: ExportPayload){
-        this.payload = payload
     }
 
     fun back() {
@@ -91,5 +91,21 @@ class ExportJsonPasswordViewModel @Inject constructor(
             .onFailure { it.message?.let(::showError) }
 
         jsonGenerationInProgressFlow.value = false
+    }
+
+    companion object {
+        fun provideFactory(
+            assistedFactory: AssistedFactory,
+            payload: ExportPayload
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.injectPayload(payload) as T
+            }
+        }
+    }
+
+    @dagger.assisted.AssistedFactory
+    interface AssistedFactory {
+        fun injectPayload(payload: ExportPayload): ExportJsonPasswordViewModel
     }
 }

@@ -88,4 +88,5 @@ open class BaseViewModel : ViewModel(), CoroutineScope, WithCoroutineScopeExtens
     )
 
     private fun shouldIgnore(exception: Throwable) = exception is SigningCancelledException
+
 }

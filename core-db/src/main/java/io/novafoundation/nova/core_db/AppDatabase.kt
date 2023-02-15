@@ -31,33 +31,6 @@ import io.novafoundation.nova.core_db.dao.PhishingSitesDao
 import io.novafoundation.nova.core_db.dao.StakingTotalRewardDao
 import io.novafoundation.nova.core_db.dao.StorageDao
 import io.novafoundation.nova.core_db.dao.TokenDao
-import io.novafoundation.nova.core_db.migrations.AddAdditionalFieldToChains_12_13
-import io.novafoundation.nova.core_db.migrations.AddBuyProviders_7_8
-import io.novafoundation.nova.core_db.migrations.AddChainColor_4_5
-import io.novafoundation.nova.core_db.migrations.AddContributions_23_24
-import io.novafoundation.nova.core_db.migrations.AddCurrencies_18_19
-import io.novafoundation.nova.core_db.migrations.AddDAppAuthorizations_1_2
-import io.novafoundation.nova.core_db.migrations.AddFavouriteDApps_9_10
-import io.novafoundation.nova.core_db.migrations.AddGovernanceDapps_25_26
-import io.novafoundation.nova.core_db.migrations.AddGovernanceExternalApiToChain_27_28
-import io.novafoundation.nova.core_db.migrations.AddGovernanceFlagToChains_24_25
-import io.novafoundation.nova.core_db.migrations.AddLocks_22_23
-import io.novafoundation.nova.core_db.migrations.AddMetaAccountType_14_15
-import io.novafoundation.nova.core_db.migrations.AddNfts_5_6
-import io.novafoundation.nova.core_db.migrations.AddSitePhishing_6_7
-import io.novafoundation.nova.core_db.migrations.AssetTypes_2_3
-import io.novafoundation.nova.core_db.migrations.BetterChainDiffing_8_9
-import io.novafoundation.nova.core_db.migrations.ChangeAsset_3_4
-import io.novafoundation.nova.core_db.migrations.ChangeChainNodes_20_21
-import io.novafoundation.nova.core_db.migrations.ChangeDAppAuthorization_10_11
-import io.novafoundation.nova.core_db.migrations.ChangeTokens_19_20
-import io.novafoundation.nova.core_db.migrations.FixMigrationConflicts_13_14
-import io.novafoundation.nova.core_db.migrations.GovernanceFlagToEnum_26_27
-import io.novafoundation.nova.core_db.migrations.NullableSubstrateAccountId_21_22
-import io.novafoundation.nova.core_db.migrations.NullableSubstratePublicKey_15_16
-import io.novafoundation.nova.core_db.migrations.RemoveChainForeignKeyFromChainAccount_11_12
-import io.novafoundation.nova.core_db.migrations.RemoveColorFromChains_17_18
-import io.novafoundation.nova.core_db.migrations.WatchOnlyChainAccounts_16_17
 import io.novafoundation.nova.core_db.model.AccountLocal
 import io.novafoundation.nova.core_db.model.AccountStakingLocal
 import io.novafoundation.nova.core_db.model.AssetLocal
@@ -84,7 +57,7 @@ import io.novafoundation.nova.core_db.model.chain.ChainRuntimeInfoLocal
 import io.novafoundation.nova.core_db.model.chain.MetaAccountLocal
 
 @Database(
-    version = 28,
+    version = 1,
     entities = [
         AccountLocal::class,
         NodeLocal::class,
@@ -137,15 +110,6 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app.db"
                 )
-                    .addMigrations(AddDAppAuthorizations_1_2, AssetTypes_2_3, ChangeAsset_3_4)
-                    .addMigrations(AddChainColor_4_5, AddNfts_5_6, AddSitePhishing_6_7, AddBuyProviders_7_8, BetterChainDiffing_8_9)
-                    .addMigrations(AddFavouriteDApps_9_10, ChangeDAppAuthorization_10_11, RemoveChainForeignKeyFromChainAccount_11_12)
-                    .addMigrations(AddAdditionalFieldToChains_12_13, FixMigrationConflicts_13_14, AddMetaAccountType_14_15)
-                    .addMigrations(NullableSubstratePublicKey_15_16, WatchOnlyChainAccounts_16_17, RemoveColorFromChains_17_18)
-                    .addMigrations(AddCurrencies_18_19, ChangeTokens_19_20, ChangeChainNodes_20_21)
-                    .addMigrations(NullableSubstrateAccountId_21_22, AddLocks_22_23, AddContributions_23_24)
-                    .addMigrations(AddGovernanceFlagToChains_24_25, AddGovernanceDapps_25_26, GovernanceFlagToEnum_26_27)
-                    .addMigrations(AddGovernanceExternalApiToChain_27_28)
                     .fallbackToDestructiveMigration()
                     .build()
             }

@@ -3,17 +3,22 @@ package com.unfinished.dsnp_wallet_kotlin.root
 import android.os.Bundle
 import androidx.navigation.NavController
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.OnboardingRouter
+import com.unfinished.dsnp_wallet_kotlin.ui.main.RootRouter
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.export.ExportPayload
 import com.unfinished.feature_account.presentation.export.json.confirm.ExportJsonConfirmFragment
 import com.unfinished.feature_account.presentation.export.json.confirm.ExportJsonConfirmPayload
 import com.unfinished.feature_account.presentation.export.json.password.ExportJsonPasswordFragment
 import com.unfinished.feature_account.presentation.export.seed.ExportSeedFragment
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicFragment
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicPayload
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicFragment
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload
 import io.novafoundation.nova.common.navigation.DelayedNavigation
+import io.novafoundation.nova.common.utils.postToUiThread
 import kotlinx.parcelize.Parcelize
 
 
@@ -23,13 +28,20 @@ class NavComponentDelayedNavigation(val globalActionId: Int, val extras: Bundle?
 
 class Navigator(
     private val navigationHolder: NavigationHolder,
-) : AccountRouter {
+) : AccountRouter, OnboardingRouter, RootRouter {
 
     private val navController: NavController?
         get() = navigationHolder.navController
 
     override fun openMain() {
 //        navController?.navigate(R.id.action_open_main)
+    }
+
+    override fun returnToWallet() {
+        // to achieve smooth animation
+        postToUiThread {
+            navController?.navigate(R.id.action_return_to_wallet)
+        }
     }
 
     override fun openCreatePincode() {
@@ -82,16 +94,22 @@ class Navigator(
 
     }
 
+    override fun openCreateAccount(addAccountPayload: AddAccountPayload) {
+        val payload = BackupMnemonicPayload.Create(null, addAccountPayload)
+        navController?.navigate(R.id.action_lookupFragment_to_mnemonic_nav_graph, BackupMnemonicFragment.getBundle(payload))
+    }
+
+    override fun openLookupScreen() {
+         navController?.navigate(R.id.action_landingFragment_to_lookupFragment)
+    }
+
     override fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload) {
-//        val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
-//            R.id.welcomeFragment -> R.id.action_welcomeFragment_to_mnemonic_nav_graph
-//            R.id.createAccountFragment -> R.id.action_createAccountFragment_to_mnemonic_nav_graph
-//            R.id.accountDetailsFragment -> R.id.action_accountDetailsFragment_to_mnemonic_nav_graph
-//            else -> throw IllegalArgumentException("Unknown current destination to open mnemonic screen: $currentDestinationId")
-//        }
-//
-//        val payload = BackupMnemonicPayload.Create(accountName, addAccountPayload)
-//        navController?.navigate(destination, BackupMnemonicFragment.getBundle(payload))
+        val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
+            R.id.lookupFragment -> R.id.action_lookupFragment_to_mnemonic_nav_graph
+            else -> throw IllegalArgumentException("Unknown current destination to open mnemonic screen: $currentDestinationId")
+        }
+        val payload = BackupMnemonicPayload.Create(accountName, addAccountPayload)
+        navController?.navigate(destination, BackupMnemonicFragment.getBundle(payload))
     }
 
     override fun openAccountDetails(metaAccountId: Long) {

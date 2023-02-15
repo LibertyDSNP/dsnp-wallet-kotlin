@@ -42,7 +42,7 @@ object PinCodeModule {
     }
 
     @Provides
-    fun provideFingerprintListener(): FingerprintCallback {
-        return FingerprintCallback()
+    fun provideFingerprintListener(fragment: Fragment): FingerprintCallback {
+        return FingerprintCallback(fragment as PincodeFragment)
     }
 }

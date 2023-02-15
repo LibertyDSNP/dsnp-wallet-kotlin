@@ -16,7 +16,7 @@ interface AccountRouter : SecureRouter, ReturnableRouter {
 
     fun openCreatePincode()
 
-    fun openMnemonicScreen(accountName: String?, payload: AddAccountPayload)
+    fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload)
 
     fun openConfirmMnemonicOnCreate(confirmMnemonicPayload: ConfirmMnemonicPayload)
 

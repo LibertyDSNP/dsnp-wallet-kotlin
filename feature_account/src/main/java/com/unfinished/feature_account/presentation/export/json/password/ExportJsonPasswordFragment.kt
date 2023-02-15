@@ -9,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import com.unfinished.feature_account.databinding.FragmentExportJsonPasswordBinding
 import com.unfinished.feature_account.presentation.export.ExportPayload
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicFragment
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
@@ -22,10 +24,14 @@ private const val PAYLOAD_KEY = "PAYLOAD_KEY"
 @AndroidEntryPoint
 class ExportJsonPasswordFragment : BaseFragment<ExportJsonPasswordViewModel>() {
 
-    override val viewModel by viewModels<ExportJsonPasswordViewModel>()
-    @Inject
+     @Inject
     lateinit var imageLoader: ImageLoader
     lateinit var binding: FragmentExportJsonPasswordBinding
+    @Inject
+    lateinit var viewModelFactory: ExportJsonPasswordViewModel.AssistedFactory
+    override val viewModel: ExportJsonPasswordViewModel by viewModels {
+        ExportJsonPasswordViewModel.provideFactory(viewModelFactory, argument(PAYLOAD_KEY))
+    }
 
     companion object {
         fun getBundle(exportPayload: ExportPayload): Bundle {

@@ -9,17 +9,25 @@ import io.novafoundation.nova.common.R
 import com.unfinished.feature_account.databinding.FragmentExportSeedBinding
 import com.unfinished.feature_account.presentation.export.ExportFragment
 import com.unfinished.feature_account.presentation.export.ExportPayload
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicFragment
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.view.shape.getRoundedCornerDrawable
+import javax.inject.Inject
 
 private const val PAYLOAD_KEY = "PAYLOAD_KEY"
 
 @AndroidEntryPoint
 class ExportSeedFragment : ExportFragment<ExportSeedViewModel>() {
 
-    override val viewModel by viewModels<ExportSeedViewModel>()
     lateinit var binding: FragmentExportSeedBinding
+    @Inject
+    lateinit var viewModelFactory: ExportSeedViewModel.AssistedFactory
+
+    override val viewModel: ExportSeedViewModel by viewModels {
+        ExportSeedViewModel.provideFactory(viewModelFactory,  argument(PAYLOAD_KEY))
+    }
 
     companion object {
         fun getBundle(exportPayload: ExportPayload): Bundle {
@@ -35,8 +43,6 @@ class ExportSeedFragment : ExportFragment<ExportSeedViewModel>() {
     }
 
     override fun initViews() {
-        viewModel.init(argument(PAYLOAD_KEY))
-
         binding.exportSeedToolbar.setHomeButtonListener { viewModel.back() }
 
         binding.exportSeedToolbar.setRightActionClickListener { viewModel.optionsClicked() }
@@ -46,7 +52,6 @@ class ExportSeedFragment : ExportFragment<ExportSeedViewModel>() {
 
     override fun subscribe(viewModel: ExportSeedViewModel) {
         super.subscribe(viewModel)
-
         viewModel.seedFlow.observe(binding.exportSeedValue::setText)
     }
 }

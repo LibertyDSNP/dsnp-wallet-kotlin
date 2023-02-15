@@ -1,11 +1,13 @@
 package com.unfinished.feature_account.presentation.pincode
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import io.novafoundation.nova.common.R as commonR
 import com.unfinished.feature_account.domain.interfaces.AccountInteractor
 import com.unfinished.feature_account.presentation.AccountRouter
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicPayload
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.common.resources.ResourceManager
@@ -14,15 +16,13 @@ import io.novafoundation.nova.common.vibration.DeviceVibrator
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class PinCodeViewModel @Inject constructor(
+class PinCodeViewModel @AssistedInject constructor(
     private val interactor: AccountInteractor,
     private val router: AccountRouter,
     private val deviceVibrator: DeviceVibrator,
     private val resourceManager: ResourceManager,
+    @Assisted private val pinCodeAction: PinCodeAction
 ) : BaseViewModel() {
-
-    lateinit var pinCodeAction: PinCodeAction
 
     sealed class ScreenState {
         object Creating : ScreenState()
@@ -53,10 +53,6 @@ class PinCodeViewModel @Inject constructor(
 
     private var fingerPrintAvailable = false
     private var currentState: ScreenState? = null
-
-    fun init(pinCodeAction: PinCodeAction){
-        this.pinCodeAction = pinCodeAction
-    }
 
     fun startAuth() {
         when (pinCodeAction) {
@@ -205,5 +201,21 @@ class PinCodeViewModel @Inject constructor(
 
             authSuccess()
         }
+    }
+
+    companion object {
+        fun provideFactory(
+            assistedFactory: AssistedFactory,
+            payload: PinCodeAction
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.injectPayload(payload) as T
+            }
+        }
+    }
+
+    @dagger.assisted.AssistedFactory
+    interface AssistedFactory {
+        fun injectPayload(payload: PinCodeAction): PinCodeViewModel
     }
 }

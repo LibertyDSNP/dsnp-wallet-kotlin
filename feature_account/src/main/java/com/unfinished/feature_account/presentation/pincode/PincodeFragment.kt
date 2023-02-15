@@ -10,18 +10,21 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.novafoundation.nova.common.R
 import com.unfinished.feature_account.databinding.FragmentPincodeBinding
-import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicViewModel
 import com.unfinished.feature_account.presentation.pincode.fingerprint.FingerprintWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.di.FeatureUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class PincodeFragment : BaseFragment<PinCodeViewModel>() {
 
     lateinit var binding: FragmentPincodeBinding
-    override val viewModel by viewModels<PinCodeViewModel>()
+    @Inject
+    lateinit var viewModelFactory: PinCodeViewModel.AssistedFactory
+
+    override val viewModel: PinCodeViewModel by viewModels {
+        PinCodeViewModel.provideFactory(viewModelFactory,  argument(PincodeFragment.KEY_PINCODE_ACTION))
+    }
 
     companion object {
         private const val KEY_PINCODE_ACTION = "pincode_action"
@@ -47,8 +50,6 @@ class PincodeFragment : BaseFragment<PinCodeViewModel>() {
     }
 
     override fun initViews() {
-        viewModel.init(argument(KEY_PINCODE_ACTION))
-
         requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
 
         binding.toolbar.setHomeButtonListener { viewModel.backPressed() }
@@ -64,9 +65,11 @@ class PincodeFragment : BaseFragment<PinCodeViewModel>() {
     }
 
     override fun subscribe(viewModel: PinCodeViewModel) {
+        /*
         viewModel.pinCodeAction.toolbarConfiguration.titleRes?.let {
             binding.toolbar.setTitle(getString(it))
         }
+        */
 
         viewModel.startFingerprintScannerEventLiveData.observeEvent {
             if (fingerprintWrapper.isAuthReady()) {

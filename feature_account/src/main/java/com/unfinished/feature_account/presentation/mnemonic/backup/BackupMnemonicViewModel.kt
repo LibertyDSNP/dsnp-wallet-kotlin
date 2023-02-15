@@ -2,6 +2,8 @@ package com.unfinished.feature_account.presentation.mnemonic.backup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import io.novafoundation.nova.common.R
 import com.unfinished.feature_account.domain.account.export.mnemonic.ExportMnemonicInteractor
 import com.unfinished.feature_account.domain.interactor.AdvancedEncryptionInteractor
@@ -20,6 +22,8 @@ import io.novafoundation.nova.common.utils.sendEvent
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload.CreateExtras
 import com.unfinished.feature_account.presentation.mnemonic.confirm.MnemonicWord
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -27,24 +31,22 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class BackupMnemonicViewModel @Inject constructor(
+class BackupMnemonicViewModel @AssistedInject constructor(
     private val interactor: AccountInteractor,
     private val exportMnemonicInteractor: ExportMnemonicInteractor,
     private val router: AccountRouter,
     private val advancedEncryptionInteractor: AdvancedEncryptionInteractor,
     private val resourceManager: ResourceManager,
-    private val advancedEncryptionCommunicator: AdvancedEncryptionCommunicator
+    private val advancedEncryptionCommunicator: AdvancedEncryptionCommunicator,
+    @Assisted private val payload: BackupMnemonicPayload
 ) : BaseViewModel() {
-
-    lateinit var payload: BackupMnemonicPayload
 
     private val mnemonicFlow by lazy {
         flowOf {
             when (payload) {
                 is BackupMnemonicPayload.Confirm -> exportMnemonicInteractor.getMnemonic(
-                    (payload as BackupMnemonicPayload.Confirm).metaAccountId,
-                    (payload as BackupMnemonicPayload.Confirm).chainId
+                    payload.metaAccountId,
+                    payload.chainId
                 )
                 is BackupMnemonicPayload.Create -> interactor.generateMnemonic()
             }
@@ -79,10 +81,6 @@ class BackupMnemonicViewModel @Inject constructor(
         .inBackground()
         .share()
 
-    fun init(payload: BackupMnemonicPayload) {
-        this.payload = payload
-    }
-
     fun showWarningDialog() {
         _showMnemonicWarningDialog.sendEvent()
     }
@@ -94,10 +92,10 @@ class BackupMnemonicViewModel @Inject constructor(
     fun optionsClicked() {
         val advancedEncryptionPayload = when (payload) {
             is BackupMnemonicPayload.Confirm -> AdvancedEncryptionPayload.View(
-                (payload as BackupMnemonicPayload.Confirm).metaAccountId,
-                (payload as BackupMnemonicPayload.Confirm).chainId
+                payload.metaAccountId,
+                payload.chainId
             )
-            is BackupMnemonicPayload.Create -> AdvancedEncryptionPayload.Change((payload as BackupMnemonicPayload.Create).addAccountPayload)
+            is BackupMnemonicPayload.Create -> AdvancedEncryptionPayload.Change((payload).addAccountPayload)
         }
 
         advancedEncryptionCommunicator.openRequest(advancedEncryptionPayload)
@@ -150,5 +148,21 @@ class BackupMnemonicViewModel @Inject constructor(
             }
         }
         return words
+    }
+
+    companion object {
+        fun provideFactory(
+            assistedFactory: AssistedFactory,
+            payload: BackupMnemonicPayload
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.injectPayload(payload) as T
+            }
+        }
+    }
+
+    @dagger.assisted.AssistedFactory
+    interface AssistedFactory {
+        fun injectPayload(payload: BackupMnemonicPayload): BackupMnemonicViewModel
     }
 }

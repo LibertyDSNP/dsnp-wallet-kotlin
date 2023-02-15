@@ -53,7 +53,7 @@ dependencies {
 
     implementation deps.room.runtime
     implementation deps.room.ktx
-    annotationProcessor deps.room.compiler
+    kapt deps.room.compiler
 
     implementation deps.test.mockito_inline
     implementation deps.test.junit

@@ -13,13 +13,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.utils.ItemOffsetDecoration
 import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import javax.inject.Inject
 import io.novafoundation.nova.common.R as commonR
 
 @AndroidEntryPoint
 class ConfirmMnemonicFragment : BaseFragment<ConfirmMnemonicViewModel>() {
 
     lateinit var binding: FragmentConfirmMnemonicBinding
-    override val viewModel by viewModels<ConfirmMnemonicViewModel>()
+    @Inject
+    lateinit var viewModelFactory: ConfirmMnemonicViewModel.AssistedFactory
+
+    override val viewModel: ConfirmMnemonicViewModel by viewModels {
+        ConfirmMnemonicViewModel.provideFactory(viewModelFactory,  argument(ConfirmMnemonicFragment.KEY_PAYLOAD))
+    }
 
     val destinationAdapter: DestinationWordAdapter by lazy {
         DestinationWordAdapter(
@@ -53,7 +59,6 @@ class ConfirmMnemonicFragment : BaseFragment<ConfirmMnemonicViewModel>() {
     }
 
     override fun initViews() {
-        viewModel.init(argument(KEY_PAYLOAD))
         //binding.confirmMnemonicToolbar.setHomeButtonListener { viewModel.homeButtonClicked() }
         //binding.confirmMnemonicToolbar.setRightActionClickListener { viewModel.reset() }
         //binding.conformMnemonicSkip.setOnClickListener { viewModel.skipClicked() }

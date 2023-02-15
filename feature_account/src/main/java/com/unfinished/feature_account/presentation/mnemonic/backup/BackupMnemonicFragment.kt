@@ -23,12 +23,19 @@ import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.createSpannable
 import io.novafoundation.nova.common.utils.setOnSafeClickListener
 import io.novafoundation.nova.common.view.dialog.dialog
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupMnemonicFragment : BaseFragment<BackupMnemonicViewModel>() {
 
     lateinit var binding: FragmentBackupMnemonicBinding
-    override val viewModel by viewModels<BackupMnemonicViewModel>()
+
+    @Inject
+    lateinit var viewModelFactory: BackupMnemonicViewModel.AssistedFactory
+
+    override val viewModel: BackupMnemonicViewModel by viewModels {
+        BackupMnemonicViewModel.provideFactory(viewModelFactory,  argument(KEY_ADD_ACCOUNT_PAYLOAD))
+    }
 
     companion object {
 
@@ -51,7 +58,6 @@ class BackupMnemonicFragment : BaseFragment<BackupMnemonicViewModel>() {
     }
 
     override fun initViews() {
-        viewModel.init(argument(KEY_ADD_ACCOUNT_PAYLOAD))
         //binding.backupMnemonicToolbar.setHomeButtonListener { viewModel.homeButtonClicked() }
         //binding.backupMnemonicToolbar.setRightActionClickListener { viewModel.optionsClicked() }
 

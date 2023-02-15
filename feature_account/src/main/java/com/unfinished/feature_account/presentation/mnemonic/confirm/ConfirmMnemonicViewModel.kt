@@ -1,9 +1,6 @@
 package com.unfinished.feature_account.presentation.mnemonic.confirm
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.unfinished.feature_account.data.mappers.mapAddAccountPayloadToAddAccountType
 import com.unfinished.feature_account.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
 import com.unfinished.feature_account.data.mappers.mapOptionalNameToNameChooserState
@@ -12,6 +9,10 @@ import com.unfinished.feature_account.domain.account.add.AddAccountInteractor
 import com.unfinished.feature_account.domain.interfaces.AccountInteractor
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.mnemonic.*
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicPayload
+import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.common.resources.ResourceManager
@@ -27,17 +28,15 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class ConfirmMnemonicViewModel @Inject constructor(
+class ConfirmMnemonicViewModel @AssistedInject constructor(
     private val interactor: AccountInteractor,
     private val addAccountInteractor: AddAccountInteractor,
     private val router: AccountRouter,
     private val deviceVibrator: DeviceVibrator,
     private val resourceManager: ResourceManager,
     private val config: ConfirmMnemonicConfig,
+    @Assisted private val payload: ConfirmMnemonicPayload
 ) : BaseViewModel() {
-
-    lateinit var payload: ConfirmMnemonicPayload
 
     private val originMnemonic by lazy { payload.mnemonic }
 
@@ -63,10 +62,6 @@ class ConfirmMnemonicViewModel @Inject constructor(
 
     private val _matchingMnemonicErrorAnimationEvent = MutableLiveData<Event<Unit>>()
     val matchingMnemonicErrorAnimationEvent: LiveData<Event<Unit>> = _matchingMnemonicErrorAnimationEvent
-
-    fun init(payload: ConfirmMnemonicPayload){
-        this.payload = payload
-    }
 
     fun homeButtonClicked() {
         router.back()
@@ -196,5 +191,21 @@ class ConfirmMnemonicViewModel @Inject constructor(
         } else {
             router.openCreatePincode()
         }
+    }
+
+    companion object {
+        fun provideFactory(
+            assistedFactory: AssistedFactory,
+            payload: ConfirmMnemonicPayload
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.injectPayload(payload) as T
+            }
+        }
+    }
+
+    @dagger.assisted.AssistedFactory
+    interface AssistedFactory {
+        fun injectPayload(payload: ConfirmMnemonicPayload): ConfirmMnemonicViewModel
     }
 }

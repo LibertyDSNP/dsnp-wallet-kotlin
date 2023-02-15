@@ -58,7 +58,7 @@ dependencies {
 
     implementation deps.room.runtime
     implementation deps.room.ktx
-    annotationProcessor deps.room.compiler
+    kapt deps.room.compiler
     implementation deps.room.testing
 
     implementation deps.test.junit

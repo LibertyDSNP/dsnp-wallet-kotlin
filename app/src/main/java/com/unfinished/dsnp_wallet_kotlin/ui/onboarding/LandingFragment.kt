@@ -2,26 +2,28 @@ package com.unfinished.dsnp_wallet_kotlin.ui.onboarding
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.Placeholder
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLandingBinding
 import com.unfinished.dsnp_wallet_kotlin.util.createSpannable
 import com.unfinished.dsnp_wallet_kotlin.util.showBrowser
-import com.unfinished.dsnp_wallet_kotlin.util.toast
+import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import dagger.hilt.android.AndroidEntryPoint
+import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.utils.setOnSafeClickListener
 import io.novafoundation.nova.common.R as commonR
 
 @AndroidEntryPoint
-class LandingFragment : Fragment() {
+class LandingFragment : BaseFragment<LandingViewModel>() {
 
+    override val viewModel by activityViewModels<LandingViewModel>()
     lateinit var binding: FragmentLandingBinding
 
     override fun onCreateView(
@@ -32,13 +34,12 @@ class LandingFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
         binding.landingCreateDsnpId.setOnSafeClickListener {
-            toast("In Progress")
+            viewModel.openLookupScreen()
         }
         binding.landingDsnpId.setOnSafeClickListener {
-            findNavController().navigate(R.id.action_landingFragment_to_lookupFragment)
+            viewModel.importAccountClicked()
         }
 
         configureTermsAndPrivacy(
@@ -46,6 +47,11 @@ class LandingFragment : Fragment() {
             terms = getString(R.string.terms),
             privacy = getString(R.string.privacy_policy)
         )
+    }
+
+    override fun subscribe(viewModel: LandingViewModel) {
+        observeBrowserEvents(viewModel)
+        viewModel.setAccountPayload(AddAccountPayload.MetaAccount)
     }
 
     private fun configureTermsAndPrivacy(sourceText: String, terms: String, privacy: String) {
@@ -66,6 +72,7 @@ class LandingFragment : Fragment() {
             }
         }
     }
+
 
 
 }

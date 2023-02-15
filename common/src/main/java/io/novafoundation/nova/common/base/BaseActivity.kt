@@ -4,15 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import io.novafoundation.nova.common.di.FeatureContainer
-import javax.inject.Inject
+import io.novafoundation.nova.common.di.CommonApi
 
-abstract class BaseActivity<T : BaseViewModel> : AppCompatActivity() {
-
-    @Inject protected open lateinit var viewModel: T
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun attachBaseContext(base: Context) {
-        val commonApi = (base.applicationContext as FeatureContainer).commonApi()
+        val commonApi = (base.applicationContext as CommonApi)
         val contextManager = commonApi.contextManager()
         applyOverrideConfiguration(contextManager.setLocale(base).resources.configuration)
         super.attachBaseContext(contextManager.setLocale(base))
@@ -26,21 +23,16 @@ abstract class BaseActivity<T : BaseViewModel> : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             )
-
         setContentView(layoutResource())
-
-        inject()
         initViews()
-        subscribe(viewModel)
+        subscribe()
     }
 
-    abstract fun inject()
-
-    abstract fun layoutResource(): Int
+    abstract fun layoutResource(): View
 
     abstract fun initViews()
 
-    abstract fun subscribe(viewModel: T)
+    abstract fun subscribe()
 
     abstract fun changeLanguage()
 }

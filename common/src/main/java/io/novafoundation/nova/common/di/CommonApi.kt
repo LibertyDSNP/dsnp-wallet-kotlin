@@ -46,8 +46,6 @@ interface CommonApi {
 
     fun imageLoader(): ImageLoader
 
-    fun context(): Context
-
     fun provideResourceManager(): ResourceManager
 
     fun provideNetworkApiCreator(): NetworkApiCreator
@@ -107,17 +105,15 @@ interface CommonApi {
 
     fun appVersionsProvider(): AppVersionProvider
 
-    val systemCallExecutor: SystemCallExecutor
+    fun systemCallExecutor(): SystemCallExecutor
 
-    val actionAwaitableMixinFactory: ActionAwaitableMixin.Factory
+    fun actionAwaitableMixinFactory(): ActionAwaitableMixin.Factory
 
-    val resourcesHintsMixinFactory: ResourcesHintsMixinFactory
 
-    val okHttpClient: OkHttpClient
+    fun okHttpClient(): OkHttpClient
 
-    val fileCache: FileCache
+    fun fileCache(): FileCache
 
-    val permissionsAskerFactory: PermissionsAskerFactory
 
-    val bluetoothManager: BluetoothManager
+    fun bluetoothManager(): BluetoothManager
 }

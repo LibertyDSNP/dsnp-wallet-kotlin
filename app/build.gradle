@@ -51,6 +51,9 @@ dependencies {
     implementation project(":ccodepicker")
     implementation project(":feature_account")
     implementation project(":common")
+    implementation project(':core-db')
+    implementation project(':core-api')
+    implementation project(':runtime')
 
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
@@ -87,4 +90,10 @@ dependencies {
     implementation deps.timber
 
     implementation deps.pincode_view
+
+    implementation deps.other.coil
+    implementation deps.other.coil_svg
+
+    implementation deps.nova.fearless_utils
+
 }

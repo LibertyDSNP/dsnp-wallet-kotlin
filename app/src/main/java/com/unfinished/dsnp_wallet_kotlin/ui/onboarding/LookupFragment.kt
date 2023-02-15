@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ccodepicker.Country
@@ -15,12 +17,15 @@ import com.unfinished.dsnp_wallet_kotlin.ccodepicker.CountryCodeSheet
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLookupBinding
 import com.unfinished.dsnp_wallet_kotlin.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.R as commonR
 
 
 @AndroidEntryPoint
-class LookupFragment : Fragment() {
+class LookupFragment : BaseFragment<LandingViewModel>() {
 
+    override val viewModel by activityViewModels<LandingViewModel>()
     lateinit var binding: FragmentLookupBinding
     private var selectedCountry: Country? = null
     private var isEmail: Boolean = true
@@ -33,8 +38,7 @@ class LookupFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews(){
         binding.inputField.requestFocus()
         binding.inputField.showSoftKeyboard()
         binding.toggleButtonGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
@@ -148,6 +152,10 @@ class LookupFragment : Fragment() {
         }
     }
 
+    override fun subscribe(viewModel: LandingViewModel) {
+         observeBrowserEvents(viewModel)
+    }
+
     private fun showVerifyCodeFragment(){
         val text = if (isEmail) binding.inputField.text.toString()
         else binding.phoneNo.text.toString()
@@ -156,7 +164,7 @@ class LookupFragment : Fragment() {
         val verifyCodeFragment= VerifyCodeFragment(text,icon)
         verifyCodeFragment.setDismissListener {
             if (it){
-                findNavController().navigate(R.id.action_lookupFragment_to_mnemonic_nav_graph)
+                viewModel.createAccountClicked()
             }
         }
         verifyCodeFragment.show(childFragmentManager,"verify_code_frag")
