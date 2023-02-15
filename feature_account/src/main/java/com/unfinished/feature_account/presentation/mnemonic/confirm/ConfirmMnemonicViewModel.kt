@@ -54,8 +54,8 @@ class ConfirmMnemonicViewModel @AssistedInject constructor(
     private val _destinationWords = MutableStateFlow(destinationSourceWords())
     val destinationWords: Flow<List<MnemonicWord>> = _destinationWords
 
-    val nextButtonEnabled = _destinationWords.map {
-        originWordList.validateMnemonicPhrase(it)
+    val nextButtonEnabled = destinationWords.map {
+        originWordList.size == it.size
     }
 
     val skipVisible = payload.createExtras != null && config.allowShowingSkip

@@ -60,7 +60,7 @@ class BackupMnemonicFragment : BaseFragment<BackupMnemonicViewModel>() {
     override fun initViews() {
         //binding.backupMnemonicToolbar.setHomeButtonListener { viewModel.homeButtonClicked() }
         //binding.backupMnemonicToolbar.setRightActionClickListener { viewModel.optionsClicked() }
-
+        viewModel.warningAccepted()
         binding.subTitle.apply {
             linksClickable = false
             isClickable = false

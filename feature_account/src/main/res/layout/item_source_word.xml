@@ -13,6 +13,8 @@
         android:fontFamily="@font/space_mono_regular"
         android:textColor="@color/white"
         android:textSize="17sp"
+        android:lines="1"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

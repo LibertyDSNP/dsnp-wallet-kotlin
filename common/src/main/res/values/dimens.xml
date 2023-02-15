@@ -32,7 +32,7 @@
     <dimen name="border_radius">12dp</dimen>
 
     <dimen name="confirm_seed_phrase_item_width">130dp</dimen>
-    <dimen name="seed_phrase_item_width">100dp</dimen>
+    <dimen name="seed_phrase_item_width">110dp</dimen>
     <dimen name="item_offset">4dp</dimen>
 
 </resources>
