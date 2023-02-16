@@ -7,7 +7,7 @@ interface OnboardingRouter {
 
     fun openLookupScreen()
 
-    fun openCreateAccount(addAccountPayload: AddAccountPayload)
+    fun openCreateAccount(accountName: String?, addAccountPayload: AddAccountPayload)
 
     fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload)
 

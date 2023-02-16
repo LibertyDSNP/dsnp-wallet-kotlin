@@ -2,6 +2,7 @@ package com.unfinished.dsnp_wallet_kotlin.root
 
 import android.os.Bundle
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.OnboardingRouter
 import com.unfinished.dsnp_wallet_kotlin.ui.main.RootRouter
@@ -46,24 +47,22 @@ class Navigator(
 
     override fun openCreatePincode() {
         val bundle = buildCreatePinBundle()
-
         when (navController?.currentDestination?.id) {
-
+            R.id.confirmMnemonicFragment -> navController?.navigate(R.id.action_confirmMnemonicFragment_to_pincodeFragment, bundle)
         }
     }
 
     override fun openAfterPinCode(delayedNavigation: DelayedNavigation) {
-//        require(delayedNavigation is NavComponentDelayedNavigation)
-//
-//        val navOptions = NavOptions.Builder()
-//            .setPopUpTo(R.id.pincodeFragment, true)
-//            .setEnterAnim(R.anim.fragment_open_enter)
-//            .setExitAnim(R.anim.fragment_open_exit)
-//            .setPopEnterAnim(R.anim.fragment_close_enter)
-//            .setPopExitAnim(R.anim.fragment_close_exit)
-//            .build()
-//
-//        navController?.navigate(delayedNavigation.globalActionId, delayedNavigation.extras, navOptions)
+        require(delayedNavigation is NavComponentDelayedNavigation)
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.pincodeFragment, true)
+            .setEnterAnim(androidx.transition.R.anim.fragment_open_enter)
+            .setExitAnim(androidx.transition.R.anim.fragment_open_exit)
+            .setPopEnterAnim(androidx.transition.R.anim.fragment_close_enter)
+            .setPopExitAnim(androidx.transition.R.anim.fragment_close_exit)
+            .build()
+
+        navController?.navigate(delayedNavigation.globalActionId, delayedNavigation.extras, navOptions)
     }
 
     override fun back() {
@@ -94,8 +93,8 @@ class Navigator(
 
     }
 
-    override fun openCreateAccount(addAccountPayload: AddAccountPayload) {
-        val payload = BackupMnemonicPayload.Create(null, addAccountPayload)
+    override fun openCreateAccount(accountName: String?, addAccountPayload: AddAccountPayload) {
+        val payload = BackupMnemonicPayload.Create(accountName, addAccountPayload)
         navController?.navigate(R.id.action_lookupFragment_to_mnemonic_nav_graph, BackupMnemonicFragment.getBundle(payload))
     }
 

@@ -164,8 +164,8 @@ class PinCodeViewModel @AssistedInject constructor(
 
     private fun authSuccess() {
         when (pinCodeAction) {
-            is PinCodeAction.Create -> router.openAfterPinCode((pinCodeAction as PinCodeAction.Create).delayedNavigation)
-            is PinCodeAction.Check -> router.openAfterPinCode((pinCodeAction as PinCodeAction.Check).delayedNavigation)
+            is PinCodeAction.Create -> router.openAfterPinCode(pinCodeAction.delayedNavigation)
+            is PinCodeAction.Check -> router.openAfterPinCode(pinCodeAction.delayedNavigation)
             is PinCodeAction.Change -> {
                 when (currentState) {
                     is ScreenState.Checking -> {

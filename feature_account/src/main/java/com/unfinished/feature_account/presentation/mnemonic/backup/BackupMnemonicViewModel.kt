@@ -131,7 +131,7 @@ class BackupMnemonicViewModel @AssistedInject constructor(
         router.openConfirmMnemonicOnCreate(payload)
     }
 
-    fun List<MnemonicWord>.reArrangeWords(): List<MnemonicWord> {
+    private fun List<MnemonicWord>.reArrangeWords(): List<MnemonicWord> {
         var oddIndex = 1
         var evenIndex = 7
         val words = arrayListOf<MnemonicWord>()
@@ -166,3 +166,4 @@ class BackupMnemonicViewModel @AssistedInject constructor(
         fun injectPayload(payload: BackupMnemonicPayload): BackupMnemonicViewModel
     }
 }
+// attract off bird unit zellct page correct zebra skate alcohao tred sing

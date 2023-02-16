@@ -21,6 +21,7 @@ class LandingViewModel @Inject constructor(
     Browserable {
 
     lateinit var addAccountPayload: AddAccountPayload
+    var walletName = "TEST"
 
     override val openBrowserEvent = MutableLiveData<Event<String>>()
 
@@ -34,8 +35,8 @@ class LandingViewModel @Inject constructor(
 
     fun createAccountClicked() {
         when (addAccountPayload) {
-            is AddAccountPayload.MetaAccount -> router.openCreateAccount(addAccountPayload)
-            is AddAccountPayload.ChainAccount -> router.openMnemonicScreen(accountName = null, addAccountPayload)
+            is AddAccountPayload.MetaAccount -> router.openCreateAccount(accountName = walletName,addAccountPayload)
+            is AddAccountPayload.ChainAccount -> router.openMnemonicScreen(accountName = walletName, addAccountPayload)
         }
     }
 
