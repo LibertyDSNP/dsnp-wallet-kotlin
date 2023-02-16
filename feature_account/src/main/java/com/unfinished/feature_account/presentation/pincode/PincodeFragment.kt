@@ -23,7 +23,7 @@ class PincodeFragment : BaseFragment<PinCodeViewModel>() {
     lateinit var viewModelFactory: PinCodeViewModel.AssistedFactory
 
     override val viewModel: PinCodeViewModel by viewModels {
-        PinCodeViewModel.provideFactory(viewModelFactory,  argument(PincodeFragment.KEY_PINCODE_ACTION))
+        PinCodeViewModel.provideFactory(viewModelFactory, argument(PincodeFragment.KEY_PINCODE_ACTION))
     }
 
     companion object {

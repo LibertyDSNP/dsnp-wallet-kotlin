@@ -4,6 +4,7 @@ import com.unfinished.dsnp_wallet_kotlin.root.NavigationHolder
 import com.unfinished.dsnp_wallet_kotlin.root.Navigator
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.OnboardingRouter
 import com.unfinished.dsnp_wallet_kotlin.ui.main.RootRouter
+import com.unfinished.dsnp_wallet_kotlin.ui.splash.SplashRouter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,10 +37,9 @@ class NavigationModule {
     @Singleton
     fun provideRootRouter(navigator: Navigator): RootRouter = navigator
 
-    /*
     @Provides
     @Singleton
     fun provideSplashRouter(navigator: Navigator): SplashRouter = navigator
-    */
+
 
 }

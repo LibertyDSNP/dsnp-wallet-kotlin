@@ -21,11 +21,14 @@ class LandingViewModel @Inject constructor(
     Browserable {
 
     lateinit var addAccountPayload: AddAccountPayload
+    var shouldShowBack: Boolean = false
+
     var walletName = "TEST"
 
     override val openBrowserEvent = MutableLiveData<Event<String>>()
 
-    fun setAccountPayload(addAccountPayload: AddAccountPayload){
+    fun setBundleArguments(shouldShowBack: Boolean, addAccountPayload: AddAccountPayload){
+        this.shouldShowBack = shouldShowBack
         this.addAccountPayload = addAccountPayload
     }
 

@@ -26,6 +26,25 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
     override val viewModel by activityViewModels<LandingViewModel>()
     lateinit var binding: FragmentLandingBinding
 
+    companion object {
+        private const val KEY_DISPLAY_BACK = "display_back"
+        private const val KEY_ADD_ACCOUNT_PAYLOAD = "add_account_payload"
+
+        fun bundle(displayBack: Boolean): Bundle {
+            return Bundle().apply {
+                putBoolean(KEY_DISPLAY_BACK, displayBack)
+                putParcelable(KEY_ADD_ACCOUNT_PAYLOAD, AddAccountPayload.MetaAccount)
+            }
+        }
+
+        fun bundle(payload: AddAccountPayload): Bundle {
+            return Bundle().apply {
+                putBoolean(KEY_DISPLAY_BACK, true)
+                putParcelable(KEY_ADD_ACCOUNT_PAYLOAD, payload)
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +70,7 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
 
     override fun subscribe(viewModel: LandingViewModel) {
         observeBrowserEvents(viewModel)
-        viewModel.setAccountPayload(AddAccountPayload.MetaAccount)
+        viewModel.setBundleArguments(argument(KEY_DISPLAY_BACK),argument(KEY_ADD_ACCOUNT_PAYLOAD))
     }
 
     private fun configureTermsAndPrivacy(sourceText: String, terms: String, privacy: String) {

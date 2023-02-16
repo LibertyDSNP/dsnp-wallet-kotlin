@@ -2,24 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/onboarding_nav_graph"
     app:startDestination="@id/landingFragment">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.home.HomeFragment"
-        android:label="@string/homeFragment"
-        tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.profile.ProfileFragment"
-        android:label="@string/profileFragment"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/keysFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.keys.KeysFragment"
-        android:label="@string/keysFragment"
-        tools:layout="@layout/fragment_keys" />
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingFragment"
@@ -33,6 +18,7 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/lookupFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/lookupFragment"
         android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LookupFragment"
@@ -48,17 +34,5 @@
             app:destination="@id/mnemonic_nav_graph" />
 
     </fragment>
-
-    <include app:graph="@navigation/mnemonic_nav_graph" />
-
-    <action
-        android:id="@+id/action_return_to_wallet"
-        app:destination="@id/landingFragment"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:launchSingleTop="true"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@id/landingFragment" />
 
 </navigation>

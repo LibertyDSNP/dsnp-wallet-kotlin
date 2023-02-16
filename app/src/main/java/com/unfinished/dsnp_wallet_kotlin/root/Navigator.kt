@@ -6,6 +6,8 @@ import androidx.navigation.NavOptions
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.OnboardingRouter
 import com.unfinished.dsnp_wallet_kotlin.ui.main.RootRouter
+import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingFragment
+import com.unfinished.dsnp_wallet_kotlin.ui.splash.SplashRouter
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.export.ExportPayload
 import com.unfinished.feature_account.presentation.export.json.confirm.ExportJsonConfirmFragment
@@ -18,6 +20,9 @@ import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemo
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload
+import com.unfinished.feature_account.presentation.pincode.PinCodeAction
+import com.unfinished.feature_account.presentation.pincode.PincodeFragment
+import com.unfinished.feature_account.presentation.pincode.ToolbarConfiguration
 import io.novafoundation.nova.common.navigation.DelayedNavigation
 import io.novafoundation.nova.common.utils.postToUiThread
 import kotlinx.parcelize.Parcelize
@@ -29,13 +34,13 @@ class NavComponentDelayedNavigation(val globalActionId: Int, val extras: Bundle?
 
 class Navigator(
     private val navigationHolder: NavigationHolder,
-) : AccountRouter, OnboardingRouter, RootRouter {
+) : AccountRouter, OnboardingRouter, RootRouter, SplashRouter {
 
     private val navController: NavController?
         get() = navigationHolder.navController
 
     override fun openMain() {
-//        navController?.navigate(R.id.action_open_main)
+        navController?.navigate(R.id.action_open_main)
     }
 
     override fun returnToWallet() {
@@ -45,9 +50,21 @@ class Navigator(
         }
     }
 
+    override fun openAddFirstAccount() {
+        navController?.navigate(R.id.action_splashFragment_to_landingFragment, LandingFragment.bundle(true))
+    }
+
+
+    override fun openInitialCheckPincode() {
+        val action = PinCodeAction.Check(NavComponentDelayedNavigation(R.id.action_open_main), ToolbarConfiguration())
+        val bundle = PincodeFragment.getPinCodeBundle(action)
+        navController?.navigate(R.id.action_splashFragment_to_pincodeFragment, bundle)
+    }
+
     override fun openCreatePincode() {
         val bundle = buildCreatePinBundle()
         when (navController?.currentDestination?.id) {
+            R.id.splashFragment -> navController?.navigate(R.id.action_splashFragment_to_pincodeFragment, bundle)
             R.id.confirmMnemonicFragment -> navController?.navigate(R.id.action_confirmMnemonicFragment_to_pincodeFragment, bundle)
         }
     }
@@ -56,10 +73,10 @@ class Navigator(
         require(delayedNavigation is NavComponentDelayedNavigation)
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.pincodeFragment, true)
-            .setEnterAnim(androidx.transition.R.anim.fragment_open_enter)
-            .setExitAnim(androidx.transition.R.anim.fragment_open_exit)
-            .setPopEnterAnim(androidx.transition.R.anim.fragment_close_enter)
-            .setPopExitAnim(androidx.transition.R.anim.fragment_close_exit)
+//            .setEnterAnim(androidx.transition.R.anim.fragment_open_enter)
+//            .setExitAnim(androidx.transition.R.anim.fragment_open_exit)
+//            .setPopEnterAnim(androidx.transition.R.anim.fragment_close_enter)
+//            .setPopExitAnim(androidx.transition.R.anim.fragment_close_exit)
             .build()
 
         navController?.navigate(delayedNavigation.globalActionId, delayedNavigation.extras, navOptions)
@@ -163,9 +180,8 @@ class Navigator(
     }
 
     private fun buildCreatePinBundle(): Bundle {
-//        val delayedNavigation = NavComponentDelayedNavigation(R.id.action_open_main)
-//        val action = PinCodeAction.Create(delayedNavigation)
-//        return PincodeFragment.getPinCodeBundle(action)
-        return Bundle()
+        val delayedNavigation = NavComponentDelayedNavigation(R.id.action_open_main)
+        val action = PinCodeAction.Create(delayedNavigation)
+        return PincodeFragment.getPinCodeBundle(action)
     }
 }
