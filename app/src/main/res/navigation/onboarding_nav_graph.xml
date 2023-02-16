@@ -5,6 +5,8 @@
     android:id="@+id/onboarding_nav_graph"
     app:startDestination="@id/landingFragment">
 
+    <include app:graph="@navigation/mnemonic_nav_graph" />
+
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingFragment"

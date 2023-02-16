@@ -12,4 +12,9 @@
     <string name="notify_seed_phrase_dilog_check_again">Check Again</string>
     <string name="notify_seed_phrase_dilog_yes">Yes</string>
     <string name="seed_phrase_sub_title_highlight">in order</string>
+    <string name="cong_dialog_title">Congratulation!</string>
+    <string name="cong_dialog_subtitle">"Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut  "</string>
+    <string name="cong_dialog_desc">This extra layer of security helps prevent someone with your phone from accessing your funds</string>
+    <string name="cong_dialog_create">Create Pin Code</string>
+    <string name="cong_dialog_skip"><u>Skip for now</u></string>
 </resources>

@@ -63,6 +63,9 @@ class ConfirmMnemonicViewModel @AssistedInject constructor(
     private val _matchingMnemonicErrorAnimationEvent = MutableLiveData<Event<Unit>>()
     val matchingMnemonicErrorAnimationEvent: LiveData<Event<Unit>> = _matchingMnemonicErrorAnimationEvent
 
+    private val _showCongDialogEvent = MutableLiveData<Event<Unit>>()
+    val showCongDialogEvent: LiveData<Event<Unit>> = _showCongDialogEvent
+
     fun homeButtonClicked() {
         router.back()
     }
@@ -185,11 +188,15 @@ class ConfirmMnemonicViewModel @AssistedInject constructor(
         reset()
     }
 
+    fun openPinCodeScreen(){
+        router.openCreatePincode()
+    }
+
     private suspend fun continueBasedOnCodeStatus() {
         if (interactor.isCodeSet()) {
             router.openMain()
         } else {
-            router.openCreatePincode()
+            _showCongDialogEvent.sendEvent()
         }
     }
 

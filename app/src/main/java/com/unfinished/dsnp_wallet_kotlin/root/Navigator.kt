@@ -86,7 +86,6 @@ class Navigator(
         navigationHolder.executeBack()
     }
 
-
     override fun openConfirmMnemonicOnCreate(confirmMnemonicPayload: ConfirmMnemonicPayload) {
         val bundle = ConfirmMnemonicFragment.getBundle(confirmMnemonicPayload)
 

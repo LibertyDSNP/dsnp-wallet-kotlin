@@ -166,4 +166,3 @@ class BackupMnemonicViewModel @AssistedInject constructor(
         fun injectPayload(payload: BackupMnemonicPayload): BackupMnemonicViewModel
     }
 }
-// attract off bird unit zellct page correct zebra skate alcohao tred sing

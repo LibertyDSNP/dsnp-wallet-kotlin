@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.unfinished.feature_account.databinding.FragmentConfirmMnemonicBinding
+import com.unfinished.feature_account.presentation.mnemonic.SharedMnemonicViewModel
+import com.unfinished.feature_account.presentation.mnemonic.WarningDialogButton
+import com.unfinished.feature_account.presentation.mnemonic.WarningDialogFragment
 import com.unfinished.feature_account.presentation.mnemonic.adapter.DestinationWordAdapter
 import com.unfinished.feature_account.presentation.mnemonic.adapter.SourceWordAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,9 +24,9 @@ import io.novafoundation.nova.common.R as commonR
 class ConfirmMnemonicFragment : BaseFragment<ConfirmMnemonicViewModel>() {
 
     lateinit var binding: FragmentConfirmMnemonicBinding
+    val sharedViewModel: SharedMnemonicViewModel by activityViewModels()
     @Inject
     lateinit var viewModelFactory: ConfirmMnemonicViewModel.AssistedFactory
-
     override val viewModel: ConfirmMnemonicViewModel by viewModels {
         ConfirmMnemonicViewModel.provideFactory(viewModelFactory,  argument(ConfirmMnemonicFragment.KEY_PAYLOAD))
     }
@@ -94,9 +98,24 @@ class ConfirmMnemonicFragment : BaseFragment<ConfirmMnemonicViewModel>() {
             destinationAdapter.updateList(it)
         }
 
+        viewModel.showCongDialogEvent.observeEvent {
+            showCongratulationDialog()
+        }
+
+        sharedViewModel.congDialogAction.observeEvent {
+            when(it){
+                CongratulationDialogButton.CREATE_PINCODE -> viewModel.openPinCodeScreen()
+                CongratulationDialogButton.SKIP -> {}
+            }
+        }
         viewModel.matchingMnemonicErrorAnimationEvent.observeEvent {
 
         }
+    }
+
+    private fun showCongratulationDialog() {
+        val congratulationFragment = CongratulationFragment()
+        congratulationFragment.show(childFragmentManager,"congratulation_dialog")
     }
 
 
