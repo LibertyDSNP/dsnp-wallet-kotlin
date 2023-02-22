@@ -57,7 +57,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AccountFeatureModule {
+object AccountFeatureModule {
 
     @Provides
     fun provideExtrinsicService(
