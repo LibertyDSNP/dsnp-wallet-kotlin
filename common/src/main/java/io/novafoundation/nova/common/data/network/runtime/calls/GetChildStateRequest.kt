@@ -9,3 +9,10 @@ class GetChildStateRequest(
     method = "childstate_getStorage",
     params = listOf(childKey, storageKey)
 )
+
+class GetStateRequest(
+    storageKey: String
+) : RuntimeRequest(
+    method = "state_getStorage",
+    params = listOf(storageKey)
+)

@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 import javax.inject.Provider
 
 class ChainConnectionFactory(
@@ -92,7 +93,6 @@ class ChainConnection internal constructor(
 
     fun finish() {
         cancel()
-
         socketService.stop()
     }
 

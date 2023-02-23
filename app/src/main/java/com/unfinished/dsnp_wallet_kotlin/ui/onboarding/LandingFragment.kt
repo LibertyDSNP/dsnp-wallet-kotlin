@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLandingBinding
 import com.unfinished.dsnp_wallet_kotlin.util.createSpannable
@@ -60,7 +61,9 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
         binding.landingDsnpId.setOnSafeClickListener {
             viewModel.importAccountClicked()
         }
-
+        binding.landingRestoreDsnpId.setOnSafeClickListener {
+            findNavController().navigate(R.id.action_landingFragment_to_testFragment)
+        }
         configureTermsAndPrivacy(
             sourceText = getString(R.string.landing_privacy_policy),
             terms = getString(R.string.terms),

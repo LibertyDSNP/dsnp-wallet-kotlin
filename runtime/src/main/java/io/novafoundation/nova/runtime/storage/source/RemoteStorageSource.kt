@@ -15,8 +15,9 @@ import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.storage.storageChang
 import jp.co.soramitsu.fearless_utils.wsrpc.subscriptionFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RemoteStorageSource(
+class RemoteStorageSource @Inject constructor(
     chainRegistry: ChainRegistry,
     private val bulkRetriever: BulkRetriever,
 ) : BaseStorageSource(chainRegistry) {

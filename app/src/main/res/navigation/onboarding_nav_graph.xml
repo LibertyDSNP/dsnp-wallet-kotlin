@@ -19,6 +19,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/lookupFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_testFragment"
+            app:destination="@id/testFragment" />
     </fragment>
 
     <fragment
@@ -36,5 +39,9 @@
             app:destination="@id/mnemonic_nav_graph" />
 
     </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.unfinished.feature_account.presentation.test.TestFragment"
+        android:label="TestFragment" />
 
 </navigation>
