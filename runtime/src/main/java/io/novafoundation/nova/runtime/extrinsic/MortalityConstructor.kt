@@ -5,9 +5,8 @@ import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
 import io.novafoundation.nova.runtime.network.rpc.RpcCalls
 import io.novafoundation.nova.runtime.repository.ChainStateRepository
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Era
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.withContext
+import jp.co.soramitsu.fearless_utils.wsrpc.exception.RpcException
+import kotlinx.coroutines.*
 import java.lang.Integer.min
 
 private const val FALLBACK_MAX_HASH_COUNT = 250
@@ -29,9 +28,10 @@ class MortalityConstructor(
         val bestHeader = async { rpcCalls.getBlockHeader(chainId) }
         val finalizedHeader = async { rpcCalls.getBlockHeader(chainId, finalizedHash()) }
 
-        val currentHeader = async { bestHeader().parentHash?.let { rpcCalls.getBlockHeader(chainId, it) } ?: bestHeader() }
+        //Parent hash throwing exception
+        //val currentHeader = async { bestHeader().parentHash?.let { rpcCalls.getBlockHeader(chainId, it) } ?: bestHeader() }
 
-        val currentNumber = currentHeader().number
+        val currentNumber = bestHeader().number
         val finalizedNumber = finalizedHeader().number
 
         val startBlockNumber = if (currentNumber - finalizedNumber > MAX_FINALITY_LAG) currentNumber else finalizedNumber

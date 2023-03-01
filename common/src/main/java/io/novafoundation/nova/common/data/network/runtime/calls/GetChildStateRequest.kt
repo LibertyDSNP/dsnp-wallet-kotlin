@@ -1,6 +1,7 @@
 package io.novafoundation.nova.common.data.network.runtime.calls
 
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.RuntimeRequest
+import org.json.JSONArray
 
 class GetChildStateRequest(
     storageKey: String,
@@ -10,9 +11,4 @@ class GetChildStateRequest(
     params = listOf(childKey, storageKey)
 )
 
-class GetStateRequest(
-    storageKey: String
-) : RuntimeRequest(
-    method = "state_getStorage",
-    params = listOf(storageKey)
-)
+class StateGetRuntimeVersion : RuntimeRequest("state_getRuntimeVersion", listOf())

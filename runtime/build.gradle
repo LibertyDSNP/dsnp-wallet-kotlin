@@ -13,7 +13,7 @@ android {
 
         buildConfigField "String", "CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/chains/v5/chains.json\""
 
-        buildConfigField "String", "TEST_CHAINS_URL", "\"https://raw.githubusercontent.com/nova-wallet/nova-utils/master/tests/chains_for_testBalance.json\""
+        buildConfigField "String", "TEST_CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/tests/chains_for_testBalance.json\""
     }
 
     buildTypes {
@@ -25,7 +25,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", "CHAINS_URL", "\"https://raw.githubusercontent.com/nova-wallet/nova-utils/master/chains/v5/chains.json\""
+            buildConfigField "String", "CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/chains/v5/chains.json\""
         }
     }
 

@@ -1,6 +1,7 @@
 package com.unfinished.feature_account.presentation.test
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,6 @@ class TestFragment : BaseFragment<TestViewModel>() {
 
     override val viewModel: TestViewModel by viewModels()
     lateinit var binding: FragmentTestBinding
-    val mnemonic = "frost awake stairs almost focus denial survey elevator among floor pond ketchup"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,44 +35,56 @@ class TestFragment : BaseFragment<TestViewModel>() {
     override fun initViews() {
         binding.fireExtrinsics.setOnSafeClickListener {
             lifecycleScope.launchWhenResumed {
-                val result = viewModel.getScretes(
-                    derivationPaths = AdvancedEncryption.DerivationPaths("","//44//60//0/0/0"),
-                    addAccountType = AddAccountType.MetaAccount("test"),
-                    accountSource = AccountSecretsFactory.AccountSource.Mnemonic(CryptoType.SR25519,mnemonic)
-                )
-                when(result.first){
-                    true -> {
-                        val data = result.second
-                        data?.let { secrets ->
-                            //public keys
-                            val substratePublicKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
-                            val ethereumPublicKey = secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
-                            //private keys
-                            val substratePrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
-                            val ethereumPrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
-
-                        }
-                    }
-                    false ->  {
-                        val data = result.third
-                        data?.let { secrets ->
-                            //public keys
-                            val substratePublicKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
-                            val ethereumPublicKey = secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
-                            //private keys
-                            val substratePrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
-                            val ethereumPrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
-                        }
-                    }
+                viewModel.getChain()?.let {
+//                    viewModel.executeGetStorageRequest(it)
+//                    viewModel.getRuntimeVersion(it)
+//                    viewModel.getBlock(it)
+//                    viewModel.getGenesisHash(it)
+//                    viewModel.getStateRuntimeVersion(it)
+                    viewModel.testTransfer(it)
                 }
-
-                viewModel.executeGetStateRequest()
             }
+        }
+        binding.createAccount.setOnSafeClickListener {
+            createMetaAccount()
         }
     }
 
-    override fun subscribe(viewModel: TestViewModel) {
+    override fun subscribe(viewModel: TestViewModel) {}
 
+    fun createMetaAccount(){
+        lifecycleScope.launchWhenResumed {
+            val result = viewModel.getScretes(
+                derivationPaths = AdvancedEncryption.DerivationPaths("","//44//60//0/0/0"),
+                addAccountType = AddAccountType.MetaAccount("test"),
+                accountSource = AccountSecretsFactory.AccountSource.Mnemonic(CryptoType.SR25519,viewModel.mnemonic)
+            )
+            when(result.first){
+                true -> {
+                    val data = result.second
+                    data?.let { secrets ->
+                        //public keys
+                        val substratePublicKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
+                        val ethereumPublicKey = secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
+                        //private keys
+                        val substratePrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+                        val ethereumPrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+
+                    }
+                }
+                false ->  {
+                    val data = result.third
+                    data?.let { secrets ->
+                        //public keys
+                        val substratePublicKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
+                        val ethereumPublicKey = secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
+                        //private keys
+                        val substratePrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+                        val ethereumPrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+                    }
+                }
+            }
+        }
     }
 
 }

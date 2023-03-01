@@ -9,6 +9,7 @@ import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import io.novafoundation.nova.runtime.network.rpc.RpcCalls
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Era
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.ExtrinsicBuilder
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.Signer
 
@@ -50,7 +51,7 @@ class ExtrinsicBuilderFactory(
             runtime = runtime,
             nonce = nonce,
             runtimeVersion = runtimeVersion,
-            genesisHash = chain.genesisHash.fromHex(),
+            genesisHash = "0xce5d4fe1b183df0434514ebc38f28f1227df817d74b48a979cf5d2cf8e86b7d7".fromHex(),
             blockHash = mortality.blockHash.fromHex(),
             era = mortality.era,
             customSignedExtensions = CustomSignedExtensions.extensionsWithValues(runtime),
