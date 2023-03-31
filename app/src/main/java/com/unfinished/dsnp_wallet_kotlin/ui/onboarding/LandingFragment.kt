@@ -61,7 +61,7 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
         binding.landingDsnpId.setOnSafeClickListener {
             viewModel.importAccountClicked()
         }
-        binding.landingRestoreDsnpId.setOnSafeClickListener {
+        binding.landingTestScreen.setOnSafeClickListener {
             findNavController().navigate(R.id.action_landingFragment_to_testFragment)
         }
         configureTermsAndPrivacy(

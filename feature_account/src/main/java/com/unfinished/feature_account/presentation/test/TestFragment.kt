@@ -52,6 +52,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
 
         }
         binding.fireStorageQuery.setOnSafeClickListener {
+            if (!isAccountExists()) return@setOnSafeClickListener
             lifecycleScope.launchWhenResumed {
                 viewModel.getChain()?.let { chain ->
                     viewModel.executeGetStorageRequest(chain)?.let { accountInfo ->
@@ -121,6 +122,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
 
         }
         binding.fireTransferAmount.setOnSafeClickListener {
+            if (!isAccountsExists()) return@setOnSafeClickListener
             if(binding.balance.text.toString().isBlank()){
                 validationError("Amount is missing")
                 return@setOnSafeClickListener
@@ -143,6 +145,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
 
         }
         binding.fireCreateMsaId.setOnSafeClickListener {
+            if (!isAccountExists()) return@setOnSafeClickListener
             lifecycleScope.launchWhenResumed {
                 viewModel.getChain()?.let { chain ->
                     viewModel.createMsa(chain).let {
@@ -171,6 +174,10 @@ class TestFragment : BaseFragment<TestViewModel>() {
         binding.msaIdAccount.adapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
         binding.toAccount.adapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
     }
+
+    private fun isAccountExists() = viewModel.getMetaAccounts().isNotEmpty()
+
+    private fun isAccountsExists() = viewModel.getMetaAccounts().size > 1
 
     override fun subscribe(viewModel: TestViewModel) {}
 

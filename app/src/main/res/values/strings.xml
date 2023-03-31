@@ -60,6 +60,7 @@
     <string name="common_cannot_open_link">Cannot open this link</string>
     <string name="terms_link">https://www.dsnp.org/privacy.html</string>
     <string name="privacy_policy_link">https://www.dsnp.org/privacy.html</string>
+    <string name="landing_test_screen">Test Screen</string>
 
 
 </resources>
