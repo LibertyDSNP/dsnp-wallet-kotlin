@@ -18,6 +18,8 @@ versions.espresso_core = '3.4.0'
 versions.mockito_inline = '4.6.1'
 versions.runner = '1.4.0'
 versions.rules = '1.4.0'
+versions.hilt_testing = '2.44'
+versions.hilt_compiler = '2.44'
 
 versions.navigation_fragment_ktx = '2.4.1'
 versions.navigation_ui_ktx = '2.4.1'
@@ -102,6 +104,8 @@ test.espresso_core = "androidx.test.espresso:espresso-core:$versions.espresso_co
 test.mockito_inline = "org.mockito:mockito-inline:$versions.mockito_inline"
 test.runner = "androidx.test:runner:$versions.runner"
 test.rules = "androidx.test:rules:$versions.rules"
+test.hilt_testing = "com.google.dagger:hilt-android-testing:$versions.hilt_testing"
+test.hilt_compiler = "com.google.dagger:hilt-android-compiler:$versions.hilt_compiler"
 deps.test = test
 
 def navigation = [:]

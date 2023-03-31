@@ -1,28 +1,36 @@
 package com.unfinished.feature_account.presentation.test
 
+import android.R
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.unfinished.feature_account.data.secrets.AccountSecretsFactory
 import com.unfinished.feature_account.databinding.FragmentTestBinding
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryption
 import com.unfinished.feature_account.domain.model.AddAccountType
+import com.unfinished.feature_account.domain.model.MetaAccount
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
 import io.novafoundation.nova.common.data.secrets.v2.KeyPairSchema
 import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import io.novafoundation.nova.common.validation.validationError
 import io.novafoundation.nova.core.model.CryptoType
+
 
 @AndroidEntryPoint
 class TestFragment : BaseFragment<TestViewModel>() {
 
     override val viewModel: TestViewModel by viewModels()
     lateinit var binding: FragmentTestBinding
+    var metaAccounts: List<MetaAccount> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,21 +41,135 @@ class TestFragment : BaseFragment<TestViewModel>() {
     }
 
     override fun initViews() {
-        binding.fireExtrinsics.setOnSafeClickListener {
+        updateAdapters()
+        binding.accounts.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val account = metaAccounts[position]
+                viewModel.setSelectedAccount(account)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+        }
+        binding.fireStorageQuery.setOnSafeClickListener {
             lifecycleScope.launchWhenResumed {
-                viewModel.getChain()?.let {
-//                    viewModel.executeGetStorageRequest(it)
-//                    viewModel.getRuntimeVersion(it)
-//                    viewModel.getBlock(it)
-//                    viewModel.getGenesisHash(it)
-//                    viewModel.getStateRuntimeVersion(it)
-                    viewModel.testTransfer(it)
+                viewModel.getChain()?.let { chain ->
+                    viewModel.executeGetStorageRequest(chain)?.let { accountInfo ->
+                        val result = java.lang.StringBuilder()
+                        result.append("free: ${accountInfo.data.free}").append("\n")
+                        result.append("feeFrozen: ${accountInfo.data.feeFrozen}").append("\n")
+                        result.append("miscFrozen: ${accountInfo.data.miscFrozen}").append("\n")
+                        result.append("reserved: ${accountInfo.data.reserved}").append("\n")
+                        binding.storageQuery.setText(result.toString())
+                    }
+                }
+            }
+        }
+        binding.fireStateGetMetaData.setOnSafeClickListener {
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    viewModel.getMetaData(chain).let { metdata ->
+                        val result = java.lang.StringBuilder()
+                        result.append("Metadata: ${metdata.metadata.runtimeVersion}")
+                        binding.stateGetMetaData.setText(result.toString())
+                    }
+                }
+            }
+        }
+        binding.fireRuntimeVersion.setOnSafeClickListener {
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    viewModel.getRuntimeVersion(chain).let { runtimeVersions ->
+                        val result = java.lang.StringBuilder()
+                        result.append("specVersion: ${runtimeVersions.specVersion}").append("\n")
+                        result.append("transactionVersion: ${runtimeVersions.transactionVersion}")
+                        binding.runtimeVersion.setText(result.toString())
+                    }
+                }
+            }
+        }
+        binding.fireChainGetBlock.setOnSafeClickListener {
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    viewModel.getBlock(chain).let { block ->
+                        val result = java.lang.StringBuilder()
+                        result.append("header.parentHash: ${block.block.header.parentHash}")
+                        binding.chainGetBlock.setText(result.toString())
+                    }
+                }
+            }
+        }
+        binding.fireBlockHash.setOnSafeClickListener {
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    viewModel.getGenesisHash(chain).let { block ->
+                        val result = java.lang.StringBuilder()
+                        result.append("blockHash: ${block}")
+                        binding.chainGetBlockHash.setText(result.toString())
+                    }
+                }
+            }
+        }
+
+        binding.toAccount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val account = metaAccounts[position]
+                viewModel.setSelectedTransferAccount(account)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+        }
+        binding.fireTransferAmount.setOnSafeClickListener {
+            if(binding.balance.text.toString().isBlank()){
+                validationError("Amount is missing")
+                return@setOnSafeClickListener
+            }
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    viewModel.testTransfer(chain,binding.balance.text.toString().toFloat()).let {
+                        binding.transferResult.setText(it)
+                    }
+                }
+            }
+        }
+        binding.msaIdAccount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val account = metaAccounts[position]
+                viewModel.setSelectedAccountForMsa(account)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+        }
+        binding.fireCreateMsaId.setOnSafeClickListener {
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    viewModel.createMsa(chain).let {
+                        binding.createMsa.setText(it)
+                    }
                 }
             }
         }
         binding.createAccount.setOnSafeClickListener {
+            if(binding.accountName.text.toString().isBlank()){
+                validationError("Wallet name is missing")
+                return@setOnSafeClickListener
+            }
+            if(binding.importMnemonicContent.text.toString().isBlank()){
+                validationError("Mnemonic is missing")
+                return@setOnSafeClickListener
+            }
             createMetaAccount()
         }
+    }
+
+    private fun updateAdapters(){
+        metaAccounts = viewModel.getMetaAccounts()
+        val list = metaAccounts.map { it.name }
+        binding.accounts.adapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.msaIdAccount.adapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.toAccount.adapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
     }
 
     override fun subscribe(viewModel: TestViewModel) {}
@@ -56,9 +178,11 @@ class TestFragment : BaseFragment<TestViewModel>() {
         lifecycleScope.launchWhenResumed {
             val result = viewModel.getScretes(
                 derivationPaths = AdvancedEncryption.DerivationPaths("","//44//60//0/0/0"),
-                addAccountType = AddAccountType.MetaAccount("test"),
-                accountSource = AccountSecretsFactory.AccountSource.Mnemonic(CryptoType.SR25519,viewModel.mnemonic)
+                addAccountType = AddAccountType.MetaAccount(binding.accountName.text.toString()),
+                accountSource = AccountSecretsFactory.AccountSource.Mnemonic(CryptoType.SR25519,binding.importMnemonicContent.text.toString())
             )
+            Toast.makeText(requireContext(), "Account created!", Toast.LENGTH_SHORT).show()
+            updateAdapters()
             when(result.first){
                 true -> {
                     val data = result.second
