@@ -41,79 +41,8 @@ import okhttp3.OkHttpClient
 import java.util.Random
 
 interface CommonApi {
-
-    fun computationalCache(): ComputationalCache
-
     fun imageLoader(): ImageLoader
-
-    fun provideResourceManager(): ResourceManager
-
-    fun provideNetworkApiCreator(): NetworkApiCreator
-
-    fun provideAppLinksProvider(): AppLinksProvider
-
-    fun providePreferences(): Preferences
-
-    fun provideEncryptedPreferences(): EncryptedPreferences
-
-    fun provideIconGenerator(): IconGenerator
-
     fun provideClipboardManager(): ClipboardManager
-
-    fun provideDeviceVibrator(): DeviceVibrator
-
-    fun signer(): Signer
-
-    fun logger(): Logger
-
     fun contextManager(): ContextManager
-
-    fun languagesHolder(): LanguagesHolder
-
-    fun provideJsonMapper(): Gson
-
-    fun socketServiceCreator(): SocketService
-
-    fun provideSocketSingleRequestExecutor(): SocketSingleRequestExecutor
-
-    fun addressIconGenerator(): AddressIconGenerator
-
-    @Caching
-    fun cachingAddressIconGenerator(): AddressIconGenerator
-
-    fun networkStateMixin(): NetworkStateMixin
-
-    fun qrCodeGenerator(): QrCodeGenerator
-
-    fun fileProvider(): FileProvider
-
-    fun random(): Random
-
-    fun contentResolver(): ContentResolver
-
-    fun httpExceptionHandler(): HttpExceptionHandler
-
-    fun defaultPagedKeysRetriever(): BulkRetriever
-
-    fun validationExecutor(): ValidationExecutor
-
-    fun secretStoreV1(): SecretStoreV1
-
-    fun secretStoreV2(): SecretStoreV2
-
-    fun customDialogDisplayer(): CustomDialogDisplayer.Presentation
-
-    fun appVersionsProvider(): AppVersionProvider
-
-    fun systemCallExecutor(): SystemCallExecutor
-
-    fun actionAwaitableMixinFactory(): ActionAwaitableMixin.Factory
-
-
-    fun okHttpClient(): OkHttpClient
-
-    fun fileCache(): FileCache
-
-
-    fun bluetoothManager(): BluetoothManager
+    fun socketSingleRequestExecutor(): SocketSingleRequestExecutor
 }

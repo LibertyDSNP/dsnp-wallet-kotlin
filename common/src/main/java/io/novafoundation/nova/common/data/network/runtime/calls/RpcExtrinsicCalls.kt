@@ -39,3 +39,32 @@ fun ExtrinsicBuilder.transferCall(
     )
 }
 
+fun ExtrinsicBuilder.createMsa(): ExtrinsicBuilder {
+    return call(
+        moduleName = "Msa",
+        callName = "create",
+        arguments = mapOf()
+    )
+}
+
+fun ExtrinsicBuilder.addKeyToMsa(
+    key: String,
+    proof: String,
+    addKeyPayload: AddKeyPayload
+): ExtrinsicBuilder {
+    return call(
+        moduleName = "Msa",
+        callName = "addKeyToMsa",
+        arguments = mapOf(
+            "key" to key,
+            "proof" to proof,
+            "addKeyPayload" to addKeyPayload
+        )
+    )
+}
+
+data class AddKeyPayload(
+    val msaId: Int,
+    val nonce: BigInteger,
+)
+

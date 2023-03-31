@@ -1,0 +1,64 @@
+{
+  "chainId": "496e2f8a93bf4576317f998d01480f9068014b368856ec088a63e57071cd1d49",
+  "name": "Frequency",
+  "assets": [
+    {
+      "assetId": 0,
+      "symbol": "DOT",
+      "precision": 10,
+      "priceId": "polkadot",
+      "staking": "relaychain"
+    }
+  ],
+  "nodes": [
+    {
+      "url": "ws://10.0.2.2:9944",
+      "name": "Parity node"
+    },
+    {
+      "url": "wss://polkadot.api.onfinality.io/public-ws",
+      "name": "OnFinality node"
+    },
+    {
+      "url": "wss://pub.elara.patract.io/polkadot",
+      "name": "Patract node"
+    }
+  ],
+  "explorers": [
+    {
+      "name": "Subscan",
+      "extrinsic": "https://polkadot.subscan.io/extrinsic/{hash}",
+      "account": "https://polkadot.subscan.io/account/{address}",
+      "event": null
+    },
+    {
+      "name": "Polkascan",
+      "extrinsic": "https://polkascan.io/polkadot/extrinsic/{hash}",
+      "account": "https://polkascan.io/polkadot/account/{address}",
+      "event": "https://polkascan.io/polkadot/event/{event}"
+    }
+  ],
+  "icon": "https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/icons/chains/white/Polkadot.svg",
+  "addressPrefix": 42,
+  "types": {
+    "url": "https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/chains/types/polkadot.json",
+    "overridesCommon": true
+  },
+  "externalApi": {
+    "staking": {
+      "type": "subquery",
+      "url": "https://api.subquery.network/sq/ef1rspb/fearless-wallet"
+    },
+    "history": {
+      "type": "subquery",
+      "url": "https://api.subquery.network/sq/ef1rspb/fearless-wallet"
+    },
+    "crowdloans": {
+      "type": "github",
+      "url": "https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/crowdloan/polkadot.json"
+    }
+  },
+  "options": [
+    "crowdloans"
+  ]
+}
