@@ -41,6 +41,7 @@ dependencies {
     implementation project(':core-db')
     implementation project(':common')
     implementation project(':runtime')
+    testImplementation project(':test-shared')
 
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
@@ -55,10 +56,8 @@ dependencies {
     implementation deps.room.ktx
     kapt deps.room.compiler
 
-    implementation deps.test.mockito_inline
-    implementation deps.test.junit
-    implementation deps.test.ext_junit
-    implementation deps.test.espresso_core
+    androidTestImplementation deps.test.hilt_testing
+    kaptAndroidTest deps.test.hilt_compiler
 
     implementation deps.retrofit.converter_gson
 
@@ -79,8 +78,13 @@ dependencies {
     implementation deps.other.zxing_android
     implementation deps.other.coil
     implementation deps.other.coil_svg
-
+    implementation deps.other.websocket
+    
     implementation deps.navigation.navigation_fragment_ktx
     implementation deps.navigation.navigation_ui_ktx
+
+    implementation deps.test.runner
+    implementation deps.test.rules
+    implementation deps.test.ext_junit
 
 }

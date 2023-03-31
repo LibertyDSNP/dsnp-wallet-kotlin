@@ -93,6 +93,7 @@ dependencies {
 
     implementation deps.other.coil
     implementation deps.other.coil_svg
+    implementation deps.other.websocket
 
     implementation deps.nova.fearless_utils
 
