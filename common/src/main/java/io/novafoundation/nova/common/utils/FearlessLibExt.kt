@@ -233,6 +233,7 @@ object Modules {
     const val VESTING: String = "Vesting"
     const val STAKING = "Staking"
     const val BALANCES = "Balances"
+    const val MSA = "Msa"
     const val SYSTEM = "System"
     const val CROWDLOAN = "Crowdloan"
     const val BABE = "Babe"
