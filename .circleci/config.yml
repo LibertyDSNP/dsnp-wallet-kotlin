@@ -31,7 +31,7 @@ commands: # a reusable command with parameters
               ]
             } 
           event: <<parameters.event>>
-          channel: ios-ci-alerts
+          channel: android-ci-alerts
 
 jobs:
   build-for-app-center:
