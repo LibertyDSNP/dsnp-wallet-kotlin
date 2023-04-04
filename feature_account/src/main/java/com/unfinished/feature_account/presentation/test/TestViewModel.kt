@@ -1,6 +1,7 @@
 package com.unfinished.feature_account.presentation.test
 
 import android.database.sqlite.SQLiteConstraintException
+import android.util.Log
 import com.unfinished.feature_account.data.extrinsic.ExtrinsicService
 import com.unfinished.feature_account.data.secrets.AccountSecretsFactory
 import com.unfinished.feature_account.data.signer.SignerProvider
@@ -24,6 +25,7 @@ import io.novafoundation.nova.runtime.ext.addressOf
 import io.novafoundation.nova.runtime.ext.hexAccountIdOf
 import io.novafoundation.nova.runtime.ext.utilityAsset
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
+import io.novafoundation.nova.runtime.extrinsic.asExtrinsicStatus
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import io.novafoundation.nova.runtime.multiNetwork.getRuntime
@@ -41,8 +43,10 @@ import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersion
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersionRequest
+import jp.co.soramitsu.fearless_utils.wsrpc.response.RpcResponse
+import jp.co.soramitsu.fearless_utils.wsrpc.subscriptionFlow
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -59,7 +63,6 @@ class TestViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val chainId = "496e2f8a93bf4576317f998d01480f9068014b368856ec088a63e57071cd1d49"
-
 //    val mnemonic2 = "season mule race soccer kind reunion sun walk invest enhance cactus brush"
 //    var mnemonic = "mouse humble two verify ocean more giant nerve slot joke food forest"
     var accountAddres2 = "5CArEgoDzh7xE3p7NapgJxAdGkPvsH8zrh6peGNAv7Czji5G"
@@ -207,7 +210,7 @@ class TestViewModel @Inject constructor(
         )
     }
 
-    suspend fun testTransfer(chain: Chain,enteredAmount: Float) = withContext(Dispatchers.IO) {
+    suspend fun testTransfer(chain: Chain,enteredAmount: Float) = flow {
         val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
         val signer = signerProvider.signerFor(metaAccount!!)
         val accountId = chain.accountIdOf(accountAddres)
@@ -216,20 +219,22 @@ class TestViewModel @Inject constructor(
                 destAccount = chain.accountIdOf(accountAddres2),
                 amount = chain.utilityAsset.planksFromAmount(enteredAmount.toBigDecimal())
             ).build()
-        rpcCalls.submitExtrinsic(chain.id, extrinsic)
-    }
+        val hash = rpcCalls.submitExtrinsic(chain.id, extrinsic)
+        emit(hash)
+    }.flowOn(Dispatchers.IO)
 
-    suspend fun createMsa(chain: Chain) = withContext(Dispatchers.IO) {
+    suspend fun createMsa(chain: Chain) = flow {
         val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
         val signer = signerProvider.signerFor(metaAccount!!)
         val accountId = chain.accountIdOf(accountAddresForMsa)
         val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
             .createMsa()
             .build()
-        rpcCalls.submitExtrinsic(chain.id, extrinsic)
-    }
+        val hash = rpcCalls.submitExtrinsic(chain.id, extrinsic)
+        emit(hash)
+    }.flowOn(Dispatchers.IO)
 
-    suspend fun addKeyToMsa(chain: Chain) = withContext(Dispatchers.IO) {
+    suspend fun addKeyToMsa(chain: Chain) = flow {
         val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
         val signer = signerProvider.signerFor(metaAccount!!)
         val accountId = chain.accountIdOf(accountAddres)
@@ -244,8 +249,8 @@ class TestViewModel @Inject constructor(
             )
             .build()
         val hash = rpcCalls.submitExtrinsic(chain.id, extrinsic)
-        print(hash)
-    }
+        emit(hash)
+    }.flowOn(Dispatchers.IO)
 
 }
 

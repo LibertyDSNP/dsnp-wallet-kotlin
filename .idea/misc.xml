@@ -10,7 +10,7 @@
   <component name="jsonEditor">
     <option name="stateMap">
       <map>
-        <entry key="dsnp-wallet-kotlin" value="{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:{&quot;parentHash&quot;:&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;,&quot;number&quot;:&quot;0x0&quot;,&quot;stateRoot&quot;:&quot;0x7780938738f8470cdcf04f23c92e9263f271da6ad2607a5c3d9996fc5daefff5&quot;,&quot;extrinsicsRoot&quot;:&quot;0x03170a2e7597b7b7e3d84c05391d139a62b157e78786d8c082f29dcf4c111314&quot;,&quot;digest&quot;:{&quot;logs&quot;:[]}},&quot;id&quot;:2027587565}&#10;" />
+        <entry key="dsnp-wallet-kotlin" value="{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;error&quot;:{&quot;code&quot;:1010,&quot;message&quot;:&quot;Invalid Transaction&quot;,&quot;data&quot;:&quot;Inability to pay some fees (e.g. account balance too low)&quot;},&quot;id&quot;:584754935}" />
       </map>
     </option>
   </component>
