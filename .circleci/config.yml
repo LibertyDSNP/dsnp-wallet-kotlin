@@ -1,0 +1,92 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@2.0.3
+  slack: circleci/slack@4.12.0
+
+commands: # a reusable command with parameters
+  send_slack_message:
+    parameters:
+      icon: 
+        default: ":large_blue_circle:"
+        type: string
+      message:
+        default: "No Message were provided"
+        type: string
+      event: # always, fail
+        default: "always"
+        type: string  
+    steps:
+      - slack/notify:
+          custom: >
+            {
+               "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                      "type": "mrkdwn",
+                      "text": "<<parameters.icon>> <<parameters.message>>"
+                  }
+                }
+              ]
+            } 
+          event: <<parameters.event>>
+          channel: ios-ci-alerts
+
+jobs:
+  build-for-app-center:
+    executor: 
+      name: android/android-machine
+      resource-class: large
+      tag: 2022.12.1
+    parameters: # parameters are at the job level
+      build_env:
+        type: string
+        default: "dev" 
+      build_version:
+        type: string
+        default: "1"  
+    
+    steps:
+      - send_slack_message: 
+          event: "always"
+          message: "Building an app ... \\n *Git Branch*: $CIRCLE_BRANCH \\n *Launch trigger*: $CIRCLE_USERNAME"
+      - checkout
+      - run:
+          name: Install dependecies
+          command: |
+            ./gradlew androidDependencies
+      - run:
+          name: Build Debug APK
+          command: ./gradlew clean assembleDebug
+      - store_artifacts:
+          path: app/build/outputs/
+          destination: builds/    
+      # - run:
+      #     name: Upload build file to app center 
+      #     command: |
+      #       fastlane add_plugin appcenter
+      #       fastlane appcenter_upload_app  build_version:"<<parameters.build_version>>" env:"<<parameters.build_env>>"
+      # - run:
+      #     name: Launch Smoke Test 
+      #     command: |
+      #       curl --location --request POST "https://circleci.com/api/v2/project/gh/Liberty30/ios-testing/pipeline" \
+      #       --header "Content-Type: application/json" \
+      #       --header "Circle-Token: $IOS_TEST_CIRCLEKEY" \
+      #       --data-raw "{\"branch\": \"main\"}"
+      - send_slack_message: #"If all steps has passed"
+          event : "pass" 
+          icon: ":large_green_circle:"
+          message: "The app for simulator has been uploaded to App Center successfully"  
+      - send_slack_message: #"If atleast one step has failed"
+          event : "fail"  
+          icon: ":red_circle:"
+          message: "The Circle Ci build has failed!\\n 
+          *Ci Build URL*: $CIRCLE_BUILD_URL"
+      
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build-for-app-center:
+            build_env : "dev" # dev or stg should be used
