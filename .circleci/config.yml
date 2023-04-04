@@ -62,18 +62,18 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/
           destination: builds/    
-      # - run:
-      #     name: Upload build file to app center 
-      #     command: |
-      #       fastlane add_plugin appcenter
-      #       fastlane appcenter_upload_app  build_version:"<<parameters.build_version>>" env:"<<parameters.build_env>>"
-      # - run:
-      #     name: Launch Smoke Test 
-      #     command: |
-      #       curl --location --request POST "https://circleci.com/api/v2/project/gh/Liberty30/ios-testing/pipeline" \
-      #       --header "Content-Type: application/json" \
-      #       --header "Circle-Token: $IOS_TEST_CIRCLEKEY" \
-      #       --data-raw "{\"branch\": \"main\"}"
+      - run:
+          name: Upload build file to app center 
+          command: |
+            fastlane add_plugin appcenter
+            fastlane appcenter_upload_app  build_version:"<<parameters.build_version>>" env:"<<parameters.build_env>>"
+      - run:
+          name: Launch Smoke Test 
+          command: |
+            curl --location --request POST "https://circleci.com/api/v2/project/gh/Liberty30/android-testing/pipeline" \
+            --header "Content-Type: application/json" \
+            --header "Circle-Token: $ANDROID_TEST_CIRCLEKEY" \
+            --data-raw "{\"branch\": \"main\"}"
       - send_slack_message: #"If all steps has passed"
           event : "pass" 
           icon: ":large_green_circle:"
