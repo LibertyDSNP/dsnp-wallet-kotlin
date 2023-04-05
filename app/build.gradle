@@ -18,7 +18,7 @@ android {
         targetSdk build_versions.target_sdk
         versionCode 1
         versionName build_versions.versionName
-        ndkVersion "25.1.8937393"
+        ndkVersion build_versions.ndk_version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -48,6 +48,13 @@ android {
 
 dependencies {
 
+    implementation project(":ccodepicker")
+    implementation project(":feature_account")
+    implementation project(":common")
+    implementation project(':core-db')
+    implementation project(':core-api')
+    implementation project(':runtime')
+
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
     implementation deps.support.material
@@ -64,10 +71,10 @@ dependencies {
     implementation deps.extension.livedata_ktx
     implementation deps.extension.fragment_ktx
 
-    kapt deps.lifecycle_compiler
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.compiler
 
     implementation deps.daggerHilt.hilt_android
-    //implementation deps.daggerHilt.viewmodel
     kapt deps.daggerHilt.android_compiler
     kapt deps.daggerHilt.hilt_compiler
 
@@ -82,8 +89,12 @@ dependencies {
 
     implementation deps.timber
 
-    implementation project(":ccodepicker")
-    implementation project(":fearless-utils")
+    implementation deps.pincode_view
 
-    implementation 'io.github.chaosleung:pinview:1.4.4'
+    implementation deps.other.coil
+    implementation deps.other.coil_svg
+    implementation deps.other.websocket
+
+    implementation deps.nova.fearless_utils
+
 }

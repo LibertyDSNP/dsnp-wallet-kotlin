@@ -4,8 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
@@ -16,7 +14,6 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -93,14 +90,6 @@ fun ImageView.load(
         .apply(RequestOptions.placeholderOf(placeholder))
         .listener(listener)
         .into(this)
-}
-
-fun View.setOnSafeClickListener(block: (View) -> Unit) {
-    setOnClickListener(SafeClickListener { block(it) })
-}
-
-fun View.setOnSafeClickListener(timeGap: Long, block: (View) -> Unit) {
-    setOnClickListener(SafeClickListener(timeGap) { block(it) })
 }
 
 

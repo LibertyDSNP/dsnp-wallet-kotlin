@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk build_versions.compile_sdk
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/chains/v5/chains.json\""
+
+        buildConfigField "String", "TEST_CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/tests/chains_for_testBalance.json\""
+    }
+
+    buildTypes {
+        debug {
+
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/chains/v5/chains.json\""
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":common")
+    implementation project(":core-db")
+    implementation project(":core-api")
+    testImplementation project(':test-shared')
+
+    implementation deps.retrofit.converter_gson
+
+    implementation deps.nova.fearless_utils
+
+    implementation deps.coroutines.core
+
+    implementation deps.retrofit.retrofit
+
+    implementation deps.daggerHilt.hilt_android
+    kapt deps.daggerHilt.android_compiler
+    kapt deps.daggerHilt.hilt_compiler
+
+    implementation deps.lifecycle.extensions
+
+    implementation deps.test.runner
+    implementation deps.test.rules
+    implementation deps.test.ext_junit
+
+}

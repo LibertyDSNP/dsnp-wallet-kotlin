@@ -1,0 +1,20 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="seed_phrase_title">There will be a test</string>
+    <string name="seed_phrase_sub_title">Please carefully write down these 12 words below in numerical order (1-12) and store your secret phrase securely.\n\nYou will confirm them in order on the next screen.</string>
+    <string name="seed_phrase_btn">I’ve written it down</string>
+    <string name="confirm_seed_phrase_title">This is the test</string>
+    <string name="confirm_seed_phrase_sub_title">Tap the words in numerical order (1-12) to verify your recovery phrase</string>
+    <string name="confirm_seed_phrase_btn">Continue</string>
+    <string name="notify_seed_phrase_dialog_title">Written the Secret Phrase down?</string>
+    <string name="notify_seed_phrase_dialog_sub_title">Without the secret recovery phrase you will not able to access your key or any assets associated with it.</string>
+    <string name="notify_seed_phrase_dilog_check_again">Check Again</string>
+    <string name="notify_seed_phrase_dilog_yes">Yes</string>
+    <string name="seed_phrase_sub_title_highlight">in order</string>
+    <string name="cong_dialog_title">Congratulation!</string>
+    <string name="cong_dialog_subtitle">"Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut  "</string>
+    <string name="cong_dialog_desc">This extra layer of security helps prevent someone with your phone from accessing your funds</string>
+    <string name="cong_dialog_create">Create Pin Code</string>
+    <string name="cong_dialog_skip"><u>Skip for now</u></string>
+</resources>

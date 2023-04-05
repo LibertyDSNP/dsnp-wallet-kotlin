@@ -138,6 +138,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/landing_privacy_policy" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/landing_test_screen"
+            style="@style/ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="14dp"
+            android:text="@string/landing_test_screen"
+            app:icon="@drawable/ic_nav_bar_settings_active"
+            app:iconTint="@color/white"
+            app:iconPadding="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/landing_create_dsnp_id"
+            app:layout_constraintTop_toBottomOf="@+id/landing_privacy_policy" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

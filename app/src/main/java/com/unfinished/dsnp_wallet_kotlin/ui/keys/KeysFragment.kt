@@ -6,9 +6,9 @@ import com.unfinished.dsnp_wallet_kotlin.data.model.Key
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentKeysBinding
 import com.unfinished.dsnp_wallet_kotlin.ui.base.BaseFragment
 import com.unfinished.dsnp_wallet_kotlin.util.hide
-import com.unfinished.dsnp_wallet_kotlin.util.setOnSafeClickListener
 import com.unfinished.dsnp_wallet_kotlin.util.show
 import dagger.hilt.android.AndroidEntryPoint
+import io.novafoundation.nova.common.utils.setOnSafeClickListener
 
 
 @AndroidEntryPoint

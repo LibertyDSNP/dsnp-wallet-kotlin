@@ -8,16 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ccodepicker.Country
 import com.unfinished.dsnp_wallet_kotlin.ccodepicker.CountryCodeSheet
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLookupBinding
 import com.unfinished.dsnp_wallet_kotlin.util.*
+import dagger.hilt.android.AndroidEntryPoint
+import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
+import io.novafoundation.nova.common.R as commonR
 
 
-class LookupFragment : Fragment() {
+@AndroidEntryPoint
+class LookupFragment : BaseFragment<LandingViewModel>() {
 
+    override val viewModel by activityViewModels<LandingViewModel>()
     lateinit var binding: FragmentLookupBinding
     private var selectedCountry: Country? = null
     private var isEmail: Boolean = true
@@ -30,19 +38,18 @@ class LookupFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews(){
         binding.inputField.requestFocus()
         binding.inputField.showSoftKeyboard()
         binding.toggleButtonGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (checkedId == binding.lookupEmailBtn.id){
                 binding.inputFieldSwitcher.displayedChild = 0
-                binding.lookupEmailBtn.setBackgroundTintColorId(R.color.button_color)
-                binding.lookupPhoneBtn.setBackgroundTintColorId(R.color.text_black)
+                binding.lookupEmailBtn.setBackgroundTintColorId(commonR.color.button_color)
+                binding.lookupPhoneBtn.setBackgroundTintColorId(commonR.color.text_black)
             }else {
                 binding.inputFieldSwitcher.displayedChild = 1
-                binding.lookupPhoneBtn.setBackgroundTintColorId(R.color.button_color)
-                binding.lookupEmailBtn.setBackgroundTintColorId(R.color.text_black)
+                binding.lookupPhoneBtn.setBackgroundTintColorId(commonR.color.button_color)
+                binding.lookupEmailBtn.setBackgroundTintColorId(commonR.color.text_black)
             }
         }
 
@@ -81,25 +88,25 @@ class LookupFragment : Fragment() {
     private fun showDefaultUI(){
         binding.textinputError.setText(getText(R.string.lookup_temp_error))
         binding.textinputError.hide()
-        binding.countryCodeBaseline.setBackgroundTintColorId(R.color.input_field_line)
-        binding.phoneBaseline.setBackgroundTintColorId(R.color.input_field_line)
-        binding.countryCodeBaseline.setBackgroundTintColorId(R.color.input_field_line)
-        binding.phoneBaseline.setBackgroundTintColorId(R.color.input_field_line)
+        binding.countryCodeBaseline.setBackgroundTintColorId(commonR.color.input_field_line)
+        binding.phoneBaseline.setBackgroundTintColorId(commonR.color.input_field_line)
+        binding.countryCodeBaseline.setBackgroundTintColorId(commonR.color.input_field_line)
+        binding.phoneBaseline.setBackgroundTintColorId(commonR.color.input_field_line)
         binding.buttonSwitcher.displayedChild = 0
     }
 
     private fun showPhoneErrorUI(){
         binding.textinputError.setText(getText(R.string.lookup_temp_error))
         binding.textinputError.show()
-        binding.countryCodeBaseline.setBackgroundTintColorId(R.color.orange)
-        binding.phoneBaseline.setBackgroundTintColorId(R.color.orange)
+        binding.countryCodeBaseline.setBackgroundTintColorId(commonR.color.orange)
+        binding.phoneBaseline.setBackgroundTintColorId(commonR.color.orange)
         binding.buttonSwitcher.displayedChild = 1
     }
 
     private fun showEmailErrorUI(){
         binding.textinputError.setText(getText(R.string.lookup_temp_error))
         binding.textinputError.show()
-        binding.emailBaseline.setBackgroundTintColorId(R.color.orange)
+        binding.emailBaseline.setBackgroundTintColorId(commonR.color.orange)
         binding.buttonSwitcher.displayedChild = 1
     }
 
@@ -133,8 +140,8 @@ class LookupFragment : Fragment() {
             movementMethod = LinkMovementMethod.getInstance()
             text = createSpannable(
                 content = sourceText,
-                typeface = ResourcesCompat.getFont(requireContext(),R.font.poppins_semibold),
-                highlightTextColor = ContextCompat.getColor(requireContext(),R.color.orange))  {
+                typeface = ResourcesCompat.getFont(requireContext(),commonR.font.poppins_semibold),
+                highlightTextColor = ContextCompat.getColor(requireContext(),commonR.color.orange))  {
                 clickable(terms) {
                     showBrowser(getString(R.string.terms_link))
                 }
@@ -145,6 +152,10 @@ class LookupFragment : Fragment() {
         }
     }
 
+    override fun subscribe(viewModel: LandingViewModel) {
+         observeBrowserEvents(viewModel)
+    }
+
     private fun showVerifyCodeFragment(){
         val text = if (isEmail) binding.inputField.text.toString()
         else binding.phoneNo.text.toString()
@@ -153,7 +164,7 @@ class LookupFragment : Fragment() {
         val verifyCodeFragment= VerifyCodeFragment(text,icon)
         verifyCodeFragment.setDismissListener {
             if (it){
-                findNavController().navigate(R.id.action_lookupFragment_to_seedPhraseFragment)
+                viewModel.createAccountClicked()
             }
         }
         verifyCodeFragment.show(childFragmentManager,"verify_code_frag")

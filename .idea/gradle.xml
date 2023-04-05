@@ -12,7 +12,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/ccodepicker" />
-            <option value="$PROJECT_DIR$/fearless-utils" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/core-api" />
+            <option value="$PROJECT_DIR$/core-db" />
+            <option value="$PROJECT_DIR$/feature_account" />
+            <option value="$PROJECT_DIR$/runtime" />
+            <option value="$PROJECT_DIR$/test-shared" />
           </set>
         </option>
       </GradleProjectSettings>

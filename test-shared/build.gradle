@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk build_versions.compile_sdk
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':common')
+    implementation project(':runtime')
+
+    api deps.coroutines.test
+    api deps.test.mockito_inline
+    api deps.test.junit
+    api deps.test.ext_junit
+    api deps.test.espresso_core
+    androidTestImplementation deps.test.hilt_testing
+    kaptAndroidTest deps.test.hilt_compiler
+
+    implementation deps.other.bouncycastle
+
+    implementation deps.retrofit.converter_gson
+
+    implementation deps.nova.fearless_utils
+
+    implementation deps.other.websocket
+
+}
