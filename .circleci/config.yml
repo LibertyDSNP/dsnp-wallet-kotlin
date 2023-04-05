@@ -63,6 +63,10 @@ jobs:
           path: app/build/outputs/
           destination: builds/    
       - run:
+          name: Install Fastlane
+          command: |
+            gem install fastlane
+      - run:
           name: Upload build file to app center 
           command: |
             fastlane add_plugin appcenter
