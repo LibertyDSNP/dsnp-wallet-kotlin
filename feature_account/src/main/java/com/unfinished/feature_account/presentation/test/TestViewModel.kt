@@ -22,6 +22,7 @@ import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
 import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
 import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.resources.ResourceManager
+import io.novafoundation.nova.common.utils.extrinsicHash
 import io.novafoundation.nova.common.utils.system
 import io.novafoundation.nova.runtime.ext.accountIdOf
 import io.novafoundation.nova.runtime.ext.addressOf
@@ -70,7 +71,8 @@ class TestViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val chainId = "496e2f8a93bf4576317f998d01480f9068014b368856ec088a63e57071cd1d49"
-//    val mnemonic2 = "season mule race soccer kind reunion sun walk invest enhance cactus brush"
+
+    //    val mnemonic2 = "season mule race soccer kind reunion sun walk invest enhance cactus brush"
 //    var mnemonic = "mouse humble two verify ocean more giant nerve slot joke food forest"
     var accountAddres2 = "5CArEgoDzh7xE3p7NapgJxAdGkPvsH8zrh6peGNAv7Czji5G"
     var accountAddres = "5FJ4JD6ntR1Q1vMVz9nZ4JoABdzuXqHJ9vE6Ksr4furaHs4r"
@@ -116,7 +118,7 @@ class TestViewModel @Inject constructor(
         onResultCallback: (Triple<Boolean, EncodableStruct<MetaAccountSecrets>?, EncodableStruct<ChainAccountSecrets>?>) -> Unit
     ) {
         kotlin.runCatching {
-            getScretes(derivationPaths,addAccountType,accountSource)
+            getScretes(derivationPaths, addAccountType, accountSource)
         }.onSuccess {
             onResultCallback.invoke(it)
         }.onFailure {
@@ -213,7 +215,8 @@ class TestViewModel @Inject constructor(
         val runtime = chainRegistry.getRuntime(chain.id)
         val key = runtime.metadata.system().storage("Account")
             .storageKey(runtime, currentAccount?.fromHex())
-        val scale = chainRegistry.getSocket(chain.id).executeAsync(GetStateRequest(key)).result as? String
+        val scale =
+            chainRegistry.getSocket(chain.id).executeAsync(GetStateRequest(key)).result as? String
         scale?.let {
             val accountInfo = bindAccountInfo(it, runtime)
             accountInfo
@@ -265,28 +268,32 @@ class TestViewModel @Inject constructor(
         )
     }
 
-    suspend fun testTransfer(chain: Chain,enteredAmount: Float) = flow {
-        val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
-        val signer = signerProvider.signerFor(metaAccount!!)
-        val accountId = chain.accountIdOf(accountAddres)
-        val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
-            .transferCall(
-                destAccount = chain.accountIdOf(accountAddres2),
-                amount = chain.utilityAsset.planksFromAmount(enteredAmount.toBigDecimal())
-            ).build()
-        val hash = rpcCalls.submitExtrinsic(chain.id, extrinsic)
-        emit(hash)
+    suspend fun testTransfer(chain: Chain, enteredAmount: Float) = flow {
+        val result = kotlin.runCatching {
+            val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
+            val signer = signerProvider.signerFor(metaAccount!!)
+            val accountId = chain.accountIdOf(accountAddres)
+            val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
+                .transferCall(
+                    destAccount = chain.accountIdOf(accountAddres2),
+                    amount = chain.utilityAsset.planksFromAmount(enteredAmount.toBigDecimal())
+                ).build()
+            rpcCalls.submitExtrinsic(chain.id, extrinsic)
+        }
+        emit(result)
     }.flowOn(Dispatchers.IO)
 
     suspend fun createMsa(chain: Chain) = flow {
-        val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
-        val signer = signerProvider.signerFor(metaAccount!!)
-        val accountId = chain.accountIdOf(accountAddresForMsa)
-        val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
-            .createMsa()
-            .build()
-        val hash = rpcCalls.submitExtrinsic(chain.id, extrinsic)
-        emit(hash)
+        val result = kotlin.runCatching {
+            val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
+            val signer = signerProvider.signerFor(metaAccount!!)
+            val accountId = chain.accountIdOf(accountAddresForMsa)
+            val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
+                .createMsa()
+                .build()
+            rpcCalls.submitExtrinsic(chain.id, extrinsic)
+        }
+        emit(result)
     }.flowOn(Dispatchers.IO)
 
     suspend fun addKeyToMsa(chain: Chain) = flow {

@@ -24,6 +24,7 @@ import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.utils.setOnSafeClickListener
 import io.novafoundation.nova.common.validation.validationError
 import io.novafoundation.nova.core.model.CryptoType
+import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 
@@ -142,10 +143,13 @@ class TestFragment : BaseFragment<TestViewModel>() {
             }
             lifecycleScope.launchWhenResumed {
                 viewModel.getChain()?.let { chain ->
-                    viewModel.testTransfer(chain, binding.balance.text.toString().toFloat()).catch {
-                        binding.transferResult.setText(it.message ?: "Invalid Transaction")
-                    }.collect {
-                        binding.transferResult.setText(it)
+                    viewModel.testTransfer(chain, binding.balance.text.toString().toFloat()).collectLatest {
+                        it.onSuccess {
+                            binding.transferResult.setText(it)
+                        }.onFailure {
+                            binding.transferResult.setText(it.message ?: "Invalid Transaction")
+                            Toast.makeText(requireContext(),it.message ?: "Invalid Transaction",Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -170,8 +174,13 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 viewModel.getChain()?.let { chain ->
                     viewModel.createMsa(chain).catch {
                         binding.createMsa.setText(it.message ?: "Invalid Transaction")
-                    }.collect {
-                        binding.createMsa.setText(it)
+                    }.collectLatest {
+                        it.onSuccess {
+                            binding.createMsa.setText(it)
+                        }.onFailure {
+                            binding.createMsa.setText(it.message ?: "Error create msa id")
+                         Toast.makeText(requireContext(),it.message ?: "Error create msa id",Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
