@@ -46,7 +46,12 @@ class TestFragment : BaseFragment<TestViewModel>() {
     override fun initViews() {
         updateAdapters()
         binding.accounts.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val account = metaAccounts[position]
                 viewModel.setSelectedAccount(account)
             }
@@ -116,7 +121,12 @@ class TestFragment : BaseFragment<TestViewModel>() {
         }
 
         binding.toAccount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val account = metaAccounts[position]
                 viewModel.setSelectedTransferAccount(account)
             }
@@ -126,13 +136,13 @@ class TestFragment : BaseFragment<TestViewModel>() {
         }
         binding.fireTransferAmount.setOnSafeClickListener {
             if (!isAccountsExists()) return@setOnSafeClickListener
-            if(binding.balance.text.toString().isBlank()){
+            if (binding.balance.text.toString().isBlank()) {
                 validationError("Amount is missing")
                 return@setOnSafeClickListener
             }
             lifecycleScope.launchWhenResumed {
                 viewModel.getChain()?.let { chain ->
-                    viewModel.testTransfer(chain,binding.balance.text.toString().toFloat()).catch {
+                    viewModel.testTransfer(chain, binding.balance.text.toString().toFloat()).catch {
                         binding.transferResult.setText(it.message ?: "Invalid Transaction")
                     }.collect {
                         binding.transferResult.setText(it)
@@ -141,7 +151,12 @@ class TestFragment : BaseFragment<TestViewModel>() {
             }
         }
         binding.msaIdAccount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val account = metaAccounts[position]
                 viewModel.setSelectedAccountForMsa(account)
             }
@@ -162,11 +177,11 @@ class TestFragment : BaseFragment<TestViewModel>() {
             }
         }
         binding.createAccount.setOnSafeClickListener {
-            if(binding.accountName.text.toString().isBlank()){
+            if (binding.accountName.text.toString().isBlank()) {
                 validationError("Wallet name is missing")
                 return@setOnSafeClickListener
             }
-            if(binding.importMnemonicContent.text.toString().isBlank()){
+            if (binding.importMnemonicContent.text.toString().isBlank()) {
                 validationError("Mnemonic is missing")
                 return@setOnSafeClickListener
             }
@@ -174,12 +189,15 @@ class TestFragment : BaseFragment<TestViewModel>() {
         }
     }
 
-    private fun updateAdapters(){
+    private fun updateAdapters() {
         metaAccounts = viewModel.getMetaAccounts()
         val list = metaAccounts.map { it.name }
-        binding.accounts.adapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
-        binding.msaIdAccount.adapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
-        binding.toAccount.adapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.accounts.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.msaIdAccount.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.toAccount.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
     }
 
     private fun isAccountExists() = viewModel.getMetaAccounts().isNotEmpty()
@@ -188,40 +206,54 @@ class TestFragment : BaseFragment<TestViewModel>() {
 
     override fun subscribe(viewModel: TestViewModel) {}
 
-    fun createMetaAccount(){
+    fun createMetaAccount() {
         lifecycleScope.launchWhenResumed {
-            val result = viewModel.getScretes(
-                derivationPaths = AdvancedEncryption.DerivationPaths("","//44//60//0/0/0"),
+            viewModel.createAccount(
+                derivationPaths = AdvancedEncryption.DerivationPaths("", "//44//60//0/0/0"),
                 addAccountType = AddAccountType.MetaAccount(binding.accountName.text.toString()),
-                accountSource = AccountSecretsFactory.AccountSource.Mnemonic(CryptoType.SR25519,binding.importMnemonicContent.text.toString())
-            )
-            Toast.makeText(requireContext(), "Account created!", Toast.LENGTH_SHORT).show()
-            updateAdapters()
-            when(result.first){
-                true -> {
-                    val data = result.second
-                    data?.let { secrets ->
-                        //public keys
-                        val substratePublicKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
-                        val ethereumPublicKey = secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
-                        //private keys
-                        val substratePrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
-                        val ethereumPrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+                accountSource = AccountSecretsFactory.AccountSource.Mnemonic(
+                    CryptoType.SR25519,
+                    binding.importMnemonicContent.text.toString()
+                )
+            ) { result ->
+                Toast.makeText(requireContext(), "Account created!", Toast.LENGTH_SHORT).show()
+                updateAdapters()
+                when (result.first) {
+                    true -> {
+                        val data = result.second
+                        data?.let { secrets ->
+                            //public keys
+                            val substratePublicKey =
+                                secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
+                            val ethereumPublicKey =
+                                secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
+                            //private keys
+                            val substratePrivateKey =
+                                secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+                            val ethereumPrivateKey =
+                                secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
 
+                        }
                     }
-                }
-                false ->  {
-                    val data = result.third
-                    data?.let { secrets ->
-                        //public keys
-                        val substratePublicKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
-                        val ethereumPublicKey = secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
-                        //private keys
-                        val substratePrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
-                        val ethereumPrivateKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+                    false -> {
+                        val data = result.third
+                        data?.let { secrets ->
+                            //public keys
+                            val substratePublicKey =
+                                secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
+                            val ethereumPublicKey =
+                                secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
+                            //private keys
+                            val substratePrivateKey =
+                                secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+                            val ethereumPrivateKey =
+                                secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PrivateKey]
+                        }
                     }
                 }
             }
+        }.invokeOnCompletion {
+            Log.e("exception", it?.message ?: "Error occured")
         }
     }
 

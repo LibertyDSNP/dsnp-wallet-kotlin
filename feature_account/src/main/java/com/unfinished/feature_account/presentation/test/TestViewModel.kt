@@ -12,13 +12,16 @@ import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.planksFromAmount
+import com.unfinished.feature_account.presentation.importing.source.model.ImportError
 import io.novafoundation.nova.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
 import io.novafoundation.nova.common.data.network.runtime.calls.*
 import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
 import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
 import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
+import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.system
 import io.novafoundation.nova.runtime.ext.accountIdOf
 import io.novafoundation.nova.runtime.ext.addressOf
@@ -32,6 +35,9 @@ import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import io.novafoundation.nova.runtime.multiNetwork.getSocket
 import io.novafoundation.nova.runtime.network.rpc.RpcCalls
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
+import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
+import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
+import jp.co.soramitsu.fearless_utils.exceptions.Bip39Exception
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.MultiSignature
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.prepareForEncoding
@@ -60,6 +66,7 @@ class TestViewModel @Inject constructor(
     private val extrinsicBuilderFactory: ExtrinsicBuilderFactory,
     private val accountRepository: AccountRepository,
     private val signerProvider: SignerProvider,
+    private val resourceManager: ResourceManager
 ) : BaseViewModel() {
 
     val chainId = "496e2f8a93bf4576317f998d01480f9068014b368856ec088a63e57071cd1d49"
@@ -68,6 +75,54 @@ class TestViewModel @Inject constructor(
     var accountAddres2 = "5CArEgoDzh7xE3p7NapgJxAdGkPvsH8zrh6peGNAv7Czji5G"
     var accountAddres = "5FJ4JD6ntR1Q1vMVz9nZ4JoABdzuXqHJ9vE6Ksr4furaHs4r"
     var accountAddresForMsa = "5FJ4JD6ntR1Q1vMVz9nZ4JoABdzuXqHJ9vE6Ksr4furaHs4r"
+
+    private fun handleCreateAccountError(throwable: Throwable) {
+        var errorMessage = handleError(throwable)
+
+        if (errorMessage == null) {
+            errorMessage = when (throwable) {
+                is AccountAlreadyExistsException -> ImportError(
+                    titleRes = R.string.account_add_already_exists_message,
+                    messageRes = R.string.account_error_try_another_one
+                )
+                is JunctionDecoder.DecodingError, is BIP32JunctionDecoder.DecodingError -> ImportError(
+                    titleRes = R.string.account_invalid_derivation_path_title,
+                    messageRes = R.string.account_invalid_derivation_path_message_v2_2_0
+                )
+                else -> ImportError()
+            }
+        }
+
+        val title = resourceManager.getString(errorMessage.titleRes)
+        val message = resourceManager.getString(errorMessage.messageRes)
+
+        showError(title, message)
+    }
+
+    fun handleError(throwable: Throwable): ImportError? {
+        return when (throwable) {
+            is Bip39Exception -> ImportError(
+                titleRes = R.string.import_mnemonic_invalid_title,
+                messageRes = R.string.mnemonic_error_try_another_one_v2_2_0
+            )
+            else -> null
+        }
+    }
+
+    suspend fun createAccount(
+        derivationPaths: AdvancedEncryption.DerivationPaths,
+        addAccountType: AddAccountType,
+        accountSource: AccountSecretsFactory.AccountSource,
+        onResultCallback: (Triple<Boolean, EncodableStruct<MetaAccountSecrets>?, EncodableStruct<ChainAccountSecrets>?>) -> Unit
+    ) {
+        kotlin.runCatching {
+            getScretes(derivationPaths,addAccountType,accountSource)
+        }.onSuccess {
+            onResultCallback.invoke(it)
+        }.onFailure {
+            handleCreateAccountError(it)
+        }
+    }
 
     suspend fun getScretes(
         derivationPaths: AdvancedEncryption.DerivationPaths,
