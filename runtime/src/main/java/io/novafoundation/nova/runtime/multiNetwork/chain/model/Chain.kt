@@ -29,7 +29,8 @@ data class Chain(
     val hasCrowdloans: Boolean,
     val governance: List<Governance>,
     val parentId: String?,
-    val additional: Additional?
+    val additional: Additional?,
+    var ghash: String? = null
 ) : Identifiable {
 
     companion object // extensions

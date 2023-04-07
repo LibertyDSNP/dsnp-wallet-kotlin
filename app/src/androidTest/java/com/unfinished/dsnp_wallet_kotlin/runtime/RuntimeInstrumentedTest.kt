@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.gson.Gson
 import com.unfinished.feature_account.domain.model.planksFromAmount
+import com.unfinished.feature_account.domain.model.toPlanks
 import io.novafoundation.nova.common.data.mappers.mapCryptoTypeToEncryption
 import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
 import io.novafoundation.nova.common.data.network.runtime.calls.*
@@ -69,15 +70,12 @@ class RuntimeInstrumentedTest {
     lateinit var test2_account_keypair: Keypair
     lateinit var testMSA_account_keypair: Keypair
     val genesisHash = "0xce5d4fe1b183df0434514ebc38f28f1227df817d74b48a979cf5d2cf8e86b7d7" //don't change it
-    var test_account_mnemonic =
-        "mouse humble two verify ocean more giant nerve slot joke food forest"
-    val test2_account_mnemonic =
-        "season mule race soccer kind reunion sun walk invest enhance cactus brush"
-    val testMSA_account_mnemonic = "harsh cake expect belt balance choice unfold aspect suggest rose spray leave"
-    var test_account_address = "5FJ4JD6ntR1Q1vMVz9nZ4JoABdzuXqHJ9vE6Ksr4furaHs4r"
-    var test2_account_address = "5CArEgoDzh7xE3p7NapgJxAdGkPvsH8zrh6peGNAv7Czji5G"
-    var test3_account_address = "5HmcekqhKQmY1GzkaBkzyrPUt88aBPLZfwvhm5o8v1VReGsF"
-    var testMSA_account_address = "5DP4qjwGa7ngPSJ27d6Lnf4eyuZtKy9eKHf5QS1fi2zJVVrB"
+    var test_account_mnemonic = "nerve gesture jealous wealth rally priority apple visual mom boil evoke six"
+    val test2_account_mnemonic = "forum patient museum ceiling garden raccoon license deliver spoon warrior burger comic"
+    val testMSA_account_mnemonic = "flock whale gentle recycle gift forget welcome sadness feature mandate ice athlete"
+    var test_account_address = "5CXVZbHLoDprVw2r2tWLzgNJqZZdu8rZ5dBSPiSXgSH8V3fp"
+    var test2_account_address = "5CV1EtqhSyompvpNnZ2pWvcFp2rycoRVFUxAHyAuVMvb9SnG"
+    var testMSA_account_address = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"
 
     @Before
     fun setup() {
@@ -166,9 +164,9 @@ class RuntimeInstrumentedTest {
     @Test
     fun test_createMsaId_for_account() = runBlocking {
 
-        val accountKeypairForMSA = testMSA_account_keypair
-        val accountAddressForMSA = testMSA_account_address
-        val accountIdForMSA = chain.accountIdOf(testMSA_account_address)
+        val accountKeypairForMSA = test_account_keypair
+        val accountAddressForMSA = test_account_address
+        val accountIdForMSA = chain.accountIdOf(test_account_address)
 
         //Rpc Call for getting nonce
         val request_nonce = NextAccountIndexRequest(accountAddressForMSA)
@@ -189,8 +187,8 @@ class RuntimeInstrumentedTest {
             runtime = runtime,
             nonce = doubleResult.toInt().toBigInteger(),
             runtimeVersion = response_runtimeVersion,
-            genesisHash = genesisHash.fromHex(),
-            blockHash = genesisHash.fromHex(),
+            genesisHash = response_gensisHash.fromHex(),
+            blockHash = response_gensisHash.fromHex(),
             era = Era.Immortal,
             customSignedExtensions = CustomSignedExtensions.extensionsWithValues(runtime),
             signer = signer,
@@ -212,9 +210,10 @@ class RuntimeInstrumentedTest {
         //Account detail for transaction
         val senderAccountKeyPair = test_account_keypair
         val senderAccountAddress = test_account_address
-        val recieverAccountAddress = testMSA_account_address
-        val senderAccountId = chain.accountIdOf(test_account_address)
-        val recieverAccountId = chain.accountIdOf(testMSA_account_address)
+        val senderAccountId = chain.accountIdOf(senderAccountAddress)
+
+        val recieverAccountAddress = test2_account_address
+        val recieverAccountId = chain.accountIdOf(recieverAccountAddress)
 
         //Rpc Call for getting nonce
         val request_nonce = NextAccountIndexRequest(senderAccountAddress)
@@ -225,6 +224,9 @@ class RuntimeInstrumentedTest {
         val request_runtimeVersion = RuntimeVersionRequest()
         val response_runtimeVersion = executeCallWithMapper(request_runtimeVersion,mapper = pojo<RuntimeVersion>().nonNull())
 
+        val request_gensisHash = GetBlockHashRequest(0.toBigInteger())
+        val response_gensisHash = executeCallWithMapper(request_gensisHash,pojo<String>().nonNull())
+
         //Extrinsic Builder
         val signer = KeyPairSigner(senderAccountKeyPair, MultiChainEncryption.Substrate(mapCryptoTypeToEncryption(CryptoType.SR25519)))
         val extrinsicBuilder = ExtrinsicBuilder(
@@ -232,15 +234,15 @@ class RuntimeInstrumentedTest {
             runtime = runtime,
             nonce = doubleResult.toInt().toBigInteger(),
             runtimeVersion = response_runtimeVersion,
-            genesisHash = genesisHash.fromHex(),
-            blockHash = genesisHash.fromHex(),
+            genesisHash = response_gensisHash.fromHex(),
+            blockHash = response_gensisHash.fromHex(),
             era = Era.Immortal,
             customSignedExtensions = CustomSignedExtensions.extensionsWithValues(runtime),
             signer = signer,
             accountId = senderAccountId
         )
         val extrinsic = extrinsicBuilder
-            .transferCall(recieverAccountId, chain.utilityAsset.planksFromAmount((0.10121).toBigDecimal()))
+            .transferCall(recieverAccountId, (0.5f).toPlanks())
             .build()
 
         val hash = extrinsic.extrinsicHash()
