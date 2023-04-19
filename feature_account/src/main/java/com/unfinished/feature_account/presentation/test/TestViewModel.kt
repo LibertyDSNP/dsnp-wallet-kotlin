@@ -2,6 +2,7 @@ package com.unfinished.feature_account.presentation.test
 
 import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.unfinished.feature_account.data.extrinsic.ExtrinsicService
 import com.unfinished.feature_account.data.secrets.AccountSecretsFactory
@@ -25,13 +26,17 @@ import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
 import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
 import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.extrinsicHash
-import io.novafoundation.nova.common.utils.system
+import io.novafoundation.nova.common.utils.*
+import io.novafoundation.nova.core_db.model.chain.ChainNodeLocal
 import io.novafoundation.nova.runtime.ext.*
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
 import io.novafoundation.nova.runtime.extrinsic.asExtrinsicStatus
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
+import io.novafoundation.nova.runtime.multiNetwork.chain.*
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnection
+import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnectionFactory
+import io.novafoundation.nova.runtime.multiNetwork.connection.ConnectionPool
 import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import io.novafoundation.nova.runtime.multiNetwork.getSocket
 import io.novafoundation.nova.runtime.multiNetwork.runtime.repository.EventsRepository
@@ -46,12 +51,16 @@ import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.prepare
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageKey
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct
+import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 import jp.co.soramitsu.fearless_utils.wsrpc.executeAsync
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
+import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.RuntimeRequest
+import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.author.SubmitAndWatchExtrinsicRequest
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersion
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersionRequest
 import jp.co.soramitsu.fearless_utils.wsrpc.response.RpcResponse
+import jp.co.soramitsu.fearless_utils.wsrpc.subscription.response.SubscriptionChange
 import jp.co.soramitsu.fearless_utils.wsrpc.subscriptionFlow
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -69,7 +78,9 @@ class TestViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val signerProvider: SignerProvider,
     private val resourceManager: ResourceManager,
-    private val eventsRepository: EventsRepository
+    private val chainConnectionFactory: ChainConnectionFactory,
+    private val eventsRepository: EventsRepository,
+    private val gson: Gson
 ) : BaseViewModel() {
 
     val chainId = "496e2f8a93bf4576317f998d01480f9068014b368856ec088a63e57071cd1d49"
@@ -82,6 +93,20 @@ class TestViewModel @Inject constructor(
 
     init {
         getGesisHashFromBlockHash()
+    }
+
+    fun setUpNewConnection(chainUrl: String) = runBlocking {
+        getChain()?.let {
+            if (chainUrl.isNotEmpty()) {
+                it.nodes = it.nodes.map {
+                    it.url = chainUrl
+                    it
+                }
+            }
+            val connectionPool = ConnectionPool(chainConnectionFactory)
+            connectionPool.removeConnection(it.id)
+            connectionPool.setupConnection(it)
+        }
     }
 
     fun getGesisHashFromBlockHash() = runBlocking {
@@ -218,6 +243,10 @@ class TestViewModel @Inject constructor(
         chain
     }
 
+    fun getSocketService(chain: Chain) = runBlocking {
+         chainConnectionFactory.create(chain).socketService
+    }
+
     fun getMetaData(chain: Chain) = runBlocking {
         chainRegistry.getRuntime(chain.id)
     }
@@ -227,8 +256,7 @@ class TestViewModel @Inject constructor(
         val runtime = chainRegistry.getRuntime(chain.id)
         val key = runtime.metadata.system().storage("Account")
             .storageKey(runtime, currentAccount?.fromHex())
-        val scale =
-            chainRegistry.getSocket(chain.id).executeAsync(GetStateRequest(key)).result as? String
+        val scale = getSocketService(chain).executeAsync(GetStateRequest(key)).result as? String
         scale?.let {
             val accountInfo = bindAccountInfo(it, runtime)
             accountInfo
@@ -237,7 +265,7 @@ class TestViewModel @Inject constructor(
 
     suspend fun getRuntimeVersion(chain: Chain): RuntimeVersion {
         val request = RuntimeVersionRequest()
-        return chainRegistry.getSocket(chain.id)
+        return getSocketService(chain)
             .executeAsync(request, mapper = pojo<RuntimeVersion>().nonNull())
     }
 
@@ -248,29 +276,63 @@ class TestViewModel @Inject constructor(
     suspend fun getBlock(chain: Chain, hash: String? = null): SignedBlock {
         val blockRequest = GetBlockRequest(hash)
 
-        return chainRegistry.getSocket(chain.id)
+        return getSocketService(chain)
             .executeAsync(blockRequest, mapper = pojo<SignedBlock>().nonNull())
     }
 
     suspend fun getGenesisHash(chain: Chain): String {
         val blockRequest = GetBlockHashRequest(0.toBigInteger())
-        return chainRegistry.getSocket(chain.id)
+        return getSocketService(chain)
             .executeAsync(blockRequest, mapper = pojo<String>().nonNull())
     }
 
+    suspend fun getEvents(chain: Chain) {
+        viewModelScope.launch {
+            val currentAccount = getCurrentAccount()
+            val runtime = chainRegistry.getRuntime(chain.id)
+            val key = runtime.metadata.system().storage("Events").storageKey(runtime)
+            val scale = getSocketService(chain).executeAsync(GetStateRequest(key)).result
+            Log.e("test",scale.toString())
+        }
+    }
+
+    suspend fun executeEventBlock(chain: Chain){
+        viewModelScope.launch {
+            val result = eventsRepository.getEventsInBlockForFrequency(chain.id,"0xf05f654bfe0d31dab180d5b07869f14b496dc9da6275fc6a9f2787bdab4678d8")
+            result.onSuccess {
+                Log.e("TEST",it.second.name)
+            }.onFailure {
+                Log.e("TEST",it.message,it)
+            }
+        }
+    }
     suspend fun executeAnyExtrinsic(chain: Chain) {
-        extrinsicService.submitExtrinsicWithAnySuitableWallet(
-            chain = chain,
-            accountId = chain.accountIdOf(accountAddres),
-            formExtrinsic = {
-                transferCall(
-                    destAccount = chain.accountIdOf(accountAddres2),
-                    amount = 100000.toBigInteger()
-                )
+        val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
+        val signer = signerProvider.signerFor(metaAccount!!)
+        val accountId = chain.accountIdOf(accountAddresForMsa)
+        val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
+            .createMsa()
+            .build()
+        val hash = extrinsic.extrinsicHash()
+        val request = SubmitAndWatchExtrinsicRequest(extrinsic)
+        chainConnectionFactory.create(chain).socketService.subscribe(
+            request = request,
+            unsubscribeMethod = "author_unwatchExtrinsic",
+            callback = object: SocketService.ResponseListener<SubscriptionChange>{
+                override fun onError(throwable: Throwable) {
+                     Log.e("test",throwable.message ?: "Error")
+                }
+
+                override fun onNext(response: SubscriptionChange) {
+                    response.params.subscription
+                }
+
             }
         )
+
+
     }
-//(0.5 * 100000000).toBigDecimal().toBigInteger()
+
     suspend fun testTransfer(chain: Chain, enteredAmount: Float) = flow {
         val result = kotlin.runCatching {
             val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
@@ -281,7 +343,7 @@ class TestViewModel @Inject constructor(
                     destAccount = chain.accountIdOf(accountAddres2),
                     amount = enteredAmount.toPlanks()
                 ).build()
-            rpcCalls.submitExtrinsic(chain.id, extrinsic)
+            rpcCalls.submitExtrinsicSocket(getSocketService(chain), extrinsic)
         }
         emit(result)
     }.flowOn(Dispatchers.IO)
@@ -294,7 +356,7 @@ class TestViewModel @Inject constructor(
             val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
                 .createMsa()
                 .build()
-            rpcCalls.submitExtrinsic(chain.id, extrinsic)
+            rpcCalls.submitExtrinsicSocket(getSocketService(chain), extrinsic)
         }
         emit(result)
     }.flowOn(Dispatchers.IO)
@@ -313,7 +375,7 @@ class TestViewModel @Inject constructor(
                 )
             )
             .build()
-        val hash = rpcCalls.submitExtrinsic(chain.id, extrinsic)
+        val hash = rpcCalls.submitExtrinsicSocket(getSocketService(chain), extrinsic)
         emit(hash)
     }.flowOn(Dispatchers.IO)
 

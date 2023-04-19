@@ -1,9 +1,6 @@
 package io.novafoundation.nova.runtime.multiNetwork.runtime.repository
 
-import io.novafoundation.nova.common.data.network.runtime.binding.BlockHash
-import io.novafoundation.nova.common.data.network.runtime.binding.EventRecord
-import io.novafoundation.nova.common.data.network.runtime.binding.Phase
-import io.novafoundation.nova.common.data.network.runtime.binding.bindEventRecords
+import io.novafoundation.nova.common.data.network.runtime.binding.*
 import io.novafoundation.nova.common.utils.extrinsicHash
 import io.novafoundation.nova.common.utils.system
 import io.novafoundation.nova.runtime.extrinsic.create
@@ -25,6 +22,7 @@ interface EventsRepository {
      * @return events in block corresponding to [blockHash] or in current block, if [blockHash] is null
      * Unparsed events are not included
      */
+    suspend fun getEventsInBlockForFrequency(chainId: ChainId, blockHash: BlockHash? = null):  Result<Pair<String,jp.co.soramitsu.fearless_utils.runtime.metadata.module.Error>>
     suspend fun getEventsInBlock(chainId: ChainId, blockHash: BlockHash? = null): List<EventRecord>
 
     /**
@@ -39,6 +37,17 @@ class RemoteEventsRepository(
     private val chainRegistry: ChainRegistry,
     private val remoteStorageSource: StorageDataSource
 ) : EventsRepository {
+
+    override suspend fun getEventsInBlockForFrequency(chainId: ChainId, blockHash: BlockHash?): Result<Pair<String,jp.co.soramitsu.fearless_utils.runtime.metadata.module.Error>> {
+        return remoteStorageSource.queryNonNull(
+            chainId = chainId,
+            keyBuilder = { it.metadata.system().storage("Events").storageKey() },
+            binding = { scale, runtime ->
+                bindEventRecordsForFrequency(scale, runtime)
+            },
+            at = blockHash
+        )
+    }
 
     override suspend fun getEventsInBlock(chainId: ChainId, blockHash: BlockHash?): List<EventRecord> {
         return remoteStorageSource.queryNonNull(

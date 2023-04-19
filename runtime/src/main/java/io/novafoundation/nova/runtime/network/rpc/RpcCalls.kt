@@ -23,6 +23,7 @@ import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.primitives.u32
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toHex
+import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 import jp.co.soramitsu.fearless_utils.wsrpc.executeAsync
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
@@ -68,6 +69,16 @@ class RpcCalls(
         val request = SubmitExtrinsicRequest(extrinsic)
 
         return socketFor(chainId).executeAsync(
+            request,
+            mapper = pojo<String>().nonNull(),
+            deliveryType = DeliveryType.AT_MOST_ONCE
+        )
+    }
+
+    suspend fun submitExtrinsicSocket(socketService: SocketService, extrinsic: String): String {
+        val request = SubmitExtrinsicRequest(extrinsic)
+
+        return socketService.executeAsync(
             request,
             mapper = pojo<String>().nonNull(),
             deliveryType = DeliveryType.AT_MOST_ONCE

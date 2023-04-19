@@ -25,8 +25,12 @@ import io.novafoundation.nova.common.utils.setOnSafeClickListener
 import io.novafoundation.nova.common.validation.validationError
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
@@ -185,6 +189,16 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 }
             }
         }
+        binding.fireCreateMsaIdSubmit.setOnSafeClickListener {
+            if (!isAccountExists()) return@setOnSafeClickListener
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    withContext(Dispatchers.IO){
+                        viewModel.executeAnyExtrinsic(chain)
+                    }
+                }
+            }
+        }
         binding.createAccount.setOnSafeClickListener {
             if (binding.accountName.text.toString().isBlank()) {
                 validationError("Wallet name is missing")
@@ -195,6 +209,27 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 return@setOnSafeClickListener
             }
             createMetaAccount()
+        }
+
+        binding.fireEventInfo.setOnSafeClickListener {
+            viewModel.getChain()?.let {
+                lifecycleScope.launchWhenResumed {
+                    withContext(Dispatchers.IO){
+                        viewModel.executeEventBlock(it)
+                        viewModel.getEvents(it)
+                    }
+                }
+            }
+        }
+
+        //binding.chainUrl.setText("wss://0.rpc.frequency.xyz")
+        binding.setChainUrl.setOnSafeClickListener {
+            if (binding.chainUrl.text.toString().isEmpty()) {
+                validationError("Set chain url")
+                return@setOnSafeClickListener
+            }
+            Toast.makeText(requireContext(),"Connection Established",Toast.LENGTH_SHORT).show()
+            viewModel.setUpNewConnection(binding.chainUrl.text.toString())
         }
     }
 
