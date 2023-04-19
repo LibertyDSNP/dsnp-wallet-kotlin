@@ -75,16 +75,6 @@ class RpcCalls(
         )
     }
 
-    suspend fun submitExtrinsicSocket(socketService: SocketService, extrinsic: String): String {
-        val request = SubmitExtrinsicRequest(extrinsic)
-
-        return socketService.executeAsync(
-            request,
-            mapper = pojo<String>().nonNull(),
-            deliveryType = DeliveryType.AT_MOST_ONCE
-        )
-    }
-
     fun submitAndWatchExtrinsic(chainId: ChainId, extrinsic: String): Flow<ExtrinsicStatus> {
         return flow {
             val hash = extrinsic.extrinsicHash()

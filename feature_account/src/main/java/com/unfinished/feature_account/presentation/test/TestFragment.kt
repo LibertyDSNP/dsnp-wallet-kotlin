@@ -149,7 +149,21 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 viewModel.getChain()?.let { chain ->
                     viewModel.testTransfer(chain, binding.balance.text.toString().toFloat()).collectLatest {
                         it.onSuccess {
-                            binding.transferResult.setText(it)
+                            binding.transferResult.setText(it.first)
+                            it.second.onSuccess {
+                                Toast.makeText(requireContext(),it.first,Toast.LENGTH_SHORT).show()
+
+                            }.onFailure {
+                                if (it.message.equals("List is empty.")){
+                                    Toast.makeText(requireContext(),"Extrinsic Success!",Toast.LENGTH_SHORT).show()
+                                }else {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        it.message ?: "Extrinsic Failed!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
                         }.onFailure {
                             binding.transferResult.setText(it.message ?: "Invalid Transaction")
                             Toast.makeText(requireContext(),it.message ?: "Invalid Transaction",Toast.LENGTH_SHORT).show()
@@ -180,7 +194,20 @@ class TestFragment : BaseFragment<TestViewModel>() {
                         binding.createMsa.setText(it.message ?: "Invalid Transaction")
                     }.collectLatest {
                         it.onSuccess {
-                            binding.createMsa.setText(it)
+                            binding.createMsa.setText(it.first)
+                            it.second.onSuccess {
+                                Toast.makeText(requireContext(),it.first,Toast.LENGTH_SHORT).show()
+
+                            }.onFailure {
+                                if (it.message.equals("List is empty")){
+                                    Toast.makeText(requireContext(),"Extrinsic Success!",Toast.LENGTH_SHORT).show()
+                                }else {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        it.message ?: "Extrinsic Failed!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }                            }
                         }.onFailure {
                             binding.createMsa.setText(it.message ?: "Error create msa id")
                          Toast.makeText(requireContext(),it.message ?: "Error create msa id",Toast.LENGTH_SHORT).show()

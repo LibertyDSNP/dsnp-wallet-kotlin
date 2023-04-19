@@ -30,6 +30,7 @@ import io.novafoundation.nova.common.utils.*
 import io.novafoundation.nova.core_db.model.chain.ChainNodeLocal
 import io.novafoundation.nova.runtime.ext.*
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
+import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
 import io.novafoundation.nova.runtime.extrinsic.asExtrinsicStatus
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.*
@@ -243,10 +244,6 @@ class TestViewModel @Inject constructor(
         chain
     }
 
-    fun getSocketService(chain: Chain) = runBlocking {
-         chainConnectionFactory.create(chain).socketService
-    }
-
     fun getMetaData(chain: Chain) = runBlocking {
         chainRegistry.getRuntime(chain.id)
     }
@@ -256,7 +253,7 @@ class TestViewModel @Inject constructor(
         val runtime = chainRegistry.getRuntime(chain.id)
         val key = runtime.metadata.system().storage("Account")
             .storageKey(runtime, currentAccount?.fromHex())
-        val scale = getSocketService(chain).executeAsync(GetStateRequest(key)).result as? String
+        val scale = chainRegistry.getSocket(chain.id).executeAsync(GetStateRequest(key)).result as? String
         scale?.let {
             val accountInfo = bindAccountInfo(it, runtime)
             accountInfo
@@ -265,8 +262,7 @@ class TestViewModel @Inject constructor(
 
     suspend fun getRuntimeVersion(chain: Chain): RuntimeVersion {
         val request = RuntimeVersionRequest()
-        return getSocketService(chain)
-            .executeAsync(request, mapper = pojo<RuntimeVersion>().nonNull())
+        return chainRegistry.getSocket(chain.id).executeAsync(request, mapper = pojo<RuntimeVersion>().nonNull())
     }
 
     /**
@@ -276,14 +272,12 @@ class TestViewModel @Inject constructor(
     suspend fun getBlock(chain: Chain, hash: String? = null): SignedBlock {
         val blockRequest = GetBlockRequest(hash)
 
-        return getSocketService(chain)
-            .executeAsync(blockRequest, mapper = pojo<SignedBlock>().nonNull())
+        return chainRegistry.getSocket(chain.id).executeAsync(blockRequest, mapper = pojo<SignedBlock>().nonNull())
     }
 
     suspend fun getGenesisHash(chain: Chain): String {
         val blockRequest = GetBlockHashRequest(0.toBigInteger())
-        return getSocketService(chain)
-            .executeAsync(blockRequest, mapper = pojo<String>().nonNull())
+        return chainRegistry.getSocket(chain.id).executeAsync(blockRequest, mapper = pojo<String>().nonNull())
     }
 
     suspend fun getEvents(chain: Chain) {
@@ -291,7 +285,7 @@ class TestViewModel @Inject constructor(
             val currentAccount = getCurrentAccount()
             val runtime = chainRegistry.getRuntime(chain.id)
             val key = runtime.metadata.system().storage("Events").storageKey(runtime)
-            val scale = getSocketService(chain).executeAsync(GetStateRequest(key)).result
+            val scale = chainRegistry.getSocket(chain.id).executeAsync(GetStateRequest(key)).result
             Log.e("test",scale.toString())
         }
     }
@@ -306,6 +300,9 @@ class TestViewModel @Inject constructor(
             }
         }
     }
+
+    suspend fun checkExtrinsicStatus(chain: Chain,blockHash: String) = eventsRepository.getEventsInBlockForFrequency(chain.id,blockHash)
+
     suspend fun executeAnyExtrinsic(chain: Chain) {
         val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
         val signer = signerProvider.signerFor(metaAccount!!)
@@ -313,23 +310,10 @@ class TestViewModel @Inject constructor(
         val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
             .createMsa()
             .build()
-        val hash = extrinsic.extrinsicHash()
-        val request = SubmitAndWatchExtrinsicRequest(extrinsic)
-        chainConnectionFactory.create(chain).socketService.subscribe(
-            request = request,
-            unsubscribeMethod = "author_unwatchExtrinsic",
-            callback = object: SocketService.ResponseListener<SubscriptionChange>{
-                override fun onError(throwable: Throwable) {
-                     Log.e("test",throwable.message ?: "Error")
-                }
-
-                override fun onNext(response: SubscriptionChange) {
-                    response.params.subscription
-                }
-
-            }
-        )
-
+        val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id,extrinsic)
+            .filterIsInstance<ExtrinsicStatus.Finalized>()
+            .first()
+       Log.e("test",extrinsicStatus.blockHash)
 
     }
 
@@ -343,7 +327,11 @@ class TestViewModel @Inject constructor(
                     destAccount = chain.accountIdOf(accountAddres2),
                     amount = enteredAmount.toPlanks()
                 ).build()
-            rpcCalls.submitExtrinsicSocket(getSocketService(chain), extrinsic)
+            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id,extrinsic)
+                .filterIsInstance<ExtrinsicStatus.Finalized>()
+                .first()
+            val status = checkExtrinsicStatus(chain,extrinsicStatus.blockHash)
+            Pair(extrinsicStatus.blockHash,status)
         }
         emit(result)
     }.flowOn(Dispatchers.IO)
@@ -356,7 +344,11 @@ class TestViewModel @Inject constructor(
             val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
                 .createMsa()
                 .build()
-            rpcCalls.submitExtrinsicSocket(getSocketService(chain), extrinsic)
+            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id,extrinsic)
+                .filterIsInstance<ExtrinsicStatus.Finalized>()
+                .first()
+            val status = checkExtrinsicStatus(chain,extrinsicStatus.blockHash)
+            Pair(extrinsicStatus.blockHash,status)
         }
         emit(result)
     }.flowOn(Dispatchers.IO)
@@ -375,8 +367,11 @@ class TestViewModel @Inject constructor(
                 )
             )
             .build()
-        val hash = rpcCalls.submitExtrinsicSocket(getSocketService(chain), extrinsic)
-        emit(hash)
+        val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id,extrinsic)
+            .filterIsInstance<ExtrinsicStatus.Finalized>()
+            .first()
+        checkExtrinsicStatus(chain,extrinsicStatus.blockHash)
+        emit(extrinsicStatus.blockHash)
     }.flowOn(Dispatchers.IO)
 
 }
