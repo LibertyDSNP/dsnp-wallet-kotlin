@@ -19,6 +19,7 @@ import com.unfinished.feature_account.presentation.importing.source.model.Import
 import io.novafoundation.nova.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.R
+import io.novafoundation.nova.common.data.network.runtime.binding.AccountInfo
 import io.novafoundation.nova.common.data.network.runtime.binding.BlockHash
 import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
 import io.novafoundation.nova.common.data.network.runtime.calls.*
@@ -65,6 +66,7 @@ import jp.co.soramitsu.fearless_utils.wsrpc.subscription.response.SubscriptionCh
 import jp.co.soramitsu.fearless_utils.wsrpc.subscriptionFlow
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import org.junit.Assert
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -91,6 +93,7 @@ class TestViewModel @Inject constructor(
     var accountAddres = "5CXVZbHLoDprVw2r2tWLzgNJqZZdu8rZ5dBSPiSXgSH8V3fp"
     var accountAddres2 = "5CV1EtqhSyompvpNnZ2pWvcFp2rycoRVFUxAHyAuVMvb9SnG"
     var accountAddresForMsa = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"
+    var accountAddresForBalance = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"
 
     init {
         getGesisHashFromBlockHash()
@@ -231,6 +234,10 @@ class TestViewModel @Inject constructor(
         accountAddresForMsa = account.substratePublicKey?.let { getChain()?.addressOf(it) } ?: ""
     }
 
+    fun setSelectedAccountForBalance(account: MetaAccount) {
+        accountAddresForBalance = account.substratePublicKey?.let { getChain()?.addressOf(it) } ?: ""
+    }
+
     fun getCurrentAccount() = runBlocking {
         val chains = chainRegistry.currentChains.first()
         val chain = chains.find { it.id == chainId }
@@ -315,6 +322,14 @@ class TestViewModel @Inject constructor(
             .first()
        Log.e("test",extrinsicStatus.blockHash)
 
+    }
+
+    suspend fun checkAccountDetails(chain: Chain): AccountInfo? {
+        val runtime = chainRegistry.getRuntime(chain.id)
+        val key = runtime.metadata.system().storage("Account").storageKey(runtime, chain.hexAccountIdOf(accountAddresForBalance).fromHex())
+        val scale = rpcCalls.getStateAccount(chain.id,key).result as? String ?: return null
+        val accountInfo = bindAccountInfo(scale, runtime)
+        return accountInfo
     }
 
     suspend fun testTransfer(chain: Chain, enteredAmount: Float) = flow {

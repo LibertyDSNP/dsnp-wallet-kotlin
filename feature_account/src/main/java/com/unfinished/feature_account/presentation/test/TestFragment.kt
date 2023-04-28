@@ -16,6 +16,7 @@ import com.unfinished.feature_account.databinding.FragmentTestBinding
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryption
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.MetaAccount
+import com.unfinished.feature_account.domain.model.toUnit
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
@@ -120,6 +121,40 @@ class TestFragment : BaseFragment<TestViewModel>() {
                         val result = java.lang.StringBuilder()
                         result.append("blockHash: ${block}")
                         binding.chainGetBlockHash.setText(result.toString())
+                    }
+                }
+            }
+        }
+
+        binding.balanceAccount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val account = metaAccounts[position]
+                viewModel.setSelectedAccountForBalance(account)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+        }
+
+        binding.fireBalance.setOnSafeClickListener {
+            if (!isAccountExists()) return@setOnSafeClickListener
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    viewModel.checkAccountDetails(chain)?.let { accountInfo ->
+                        val result = java.lang.StringBuilder().apply {
+                            append("Token: ${"%.4f".format(accountInfo.data.free.toUnit())} UNIT\n")
+//                            append("Reserved:${accountInfo.data.reserved}\n")
+//                            append("MiscFrozen:${accountInfo.data.miscFrozen}\n")
+//                            append("FeeFrozen:${accountInfo.data.feeFrozen}")
+                        }.toString()
+                      binding.balanceResult.setText(result)
+                    } ?: kotlin.run {
+                        binding.balanceResult.setText("Token: 0.0000 UNIT")
                     }
                 }
             }
@@ -256,7 +291,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 return@setOnSafeClickListener
             }
             Toast.makeText(requireContext(),"Connection Established",Toast.LENGTH_SHORT).show()
-            viewModel.setUpNewConnection(binding.chainUrl.text.toString())
+            viewModel.setUpNewConnection(binding.chainUrl.text.toString().trim())
         }
     }
 
@@ -268,6 +303,8 @@ class TestFragment : BaseFragment<TestViewModel>() {
         binding.msaIdAccount.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
         binding.toAccount.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.balanceAccount.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
     }
 

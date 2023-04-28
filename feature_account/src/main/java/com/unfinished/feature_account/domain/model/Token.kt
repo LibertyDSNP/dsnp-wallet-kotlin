@@ -29,3 +29,6 @@ fun Chain.Asset.planksFromAmount(amount: BigDecimal): BigInteger = amount.planks
 
 //https://github.com/LibertyDSNP/frequency-docs/blob/editing-session/pages/Tokenomics/TokenomicsOverview.md#frqcy-token--capacity
 fun Float.toPlanks(): BigInteger =  (this * 100000000).toBigDecimal().toBigInteger()
+
+fun BigInteger.toUnit(): Float =  this.toFloat() / 100000000
+
