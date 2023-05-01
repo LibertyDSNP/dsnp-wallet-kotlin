@@ -5,12 +5,14 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.gson.Gson
 import com.unfinished.feature_account.domain.model.planksFromAmount
+import com.unfinished.feature_account.domain.model.toPlanks
 import io.novafoundation.nova.common.data.mappers.mapCryptoTypeToEncryption
 import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
 import io.novafoundation.nova.common.data.network.runtime.calls.*
 import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.deriveSeed32
+import io.novafoundation.nova.common.utils.extrinsicHash
 import io.novafoundation.nova.common.utils.orZero
 import io.novafoundation.nova.common.utils.system
 import io.novafoundation.nova.core.model.CryptoType
@@ -18,6 +20,7 @@ import io.novafoundation.nova.runtime.ext.accountIdOf
 import io.novafoundation.nova.runtime.ext.hexAccountIdOf
 import io.novafoundation.nova.runtime.ext.utilityAsset
 import io.novafoundation.nova.runtime.extrinsic.CustomSignedExtensions
+import io.novafoundation.nova.runtime.extrinsic.asExtrinsicStatus
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import io.novafoundation.nova.runtime.multiNetwork.getSocket
@@ -65,14 +68,14 @@ class RuntimeInstrumentedTest {
     //Custom details about account
     lateinit var test_account_keypair: Keypair
     lateinit var test2_account_keypair: Keypair
+    lateinit var testMSA_account_keypair: Keypair
     val genesisHash = "0xce5d4fe1b183df0434514ebc38f28f1227df817d74b48a979cf5d2cf8e86b7d7" //don't change it
-    var test_account_mnemonic =
-        "mouse humble two verify ocean more giant nerve slot joke food forest"
-    val test2_account_mnemonic =
-        "season mule race soccer kind reunion sun walk invest enhance cactus brush"
-    var test_account_address = "5FJ4JD6ntR1Q1vMVz9nZ4JoABdzuXqHJ9vE6Ksr4furaHs4r"
-    var test2_account_address = "5CArEgoDzh7xE3p7NapgJxAdGkPvsH8zrh6peGNAv7Czji5G"
-    var test3_account_address = "5HmcekqhKQmY1GzkaBkzyrPUt88aBPLZfwvhm5o8v1VReGsF"
+    var test_account_mnemonic = "nerve gesture jealous wealth rally priority apple visual mom boil evoke six"
+    val test2_account_mnemonic = "forum patient museum ceiling garden raccoon license deliver spoon warrior burger comic"
+    val testMSA_account_mnemonic = "flock whale gentle recycle gift forget welcome sadness feature mandate ice athlete"
+    var test_account_address = "5CXVZbHLoDprVw2r2tWLzgNJqZZdu8rZ5dBSPiSXgSH8V3fp"
+    var test2_account_address = "5CV1EtqhSyompvpNnZ2pWvcFp2rycoRVFUxAHyAuVMvb9SnG"
+    var testMSA_account_address = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"
 
     @Before
     fun setup() {
@@ -90,6 +93,7 @@ class RuntimeInstrumentedTest {
         // Create Keys using mnemonic phrase
         test_account_keypair = createKeypair(test_account_mnemonic)
         test2_account_keypair = createKeypair(test2_account_mnemonic)
+        testMSA_account_keypair = createKeypair(testMSA_account_mnemonic)
     }
 
 
@@ -100,7 +104,7 @@ class RuntimeInstrumentedTest {
         val response = executeCall(request)
         println(gson.toJson(response))
         //Make test fail if the error exists
-        Assert.assertTrue(response.error?.message ?: "Error", response.error == null)
+        Assert.assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
     }
 
     @Test
@@ -118,7 +122,7 @@ class RuntimeInstrumentedTest {
         val response = executeCall(request)
         println(gson.toJson(response))
         //Make test fail if the error exists
-        Assert.assertTrue(response.error?.message ?: "Error", response.error == null)
+        Assert.assertTrue(gson.toJson(response.error) ?: "Error", response.error == null)
     }
 
     @Test
@@ -159,6 +163,7 @@ class RuntimeInstrumentedTest {
 
     @Test
     fun test_createMsaId_for_account() = runBlocking {
+
         val accountKeypairForMSA = test_account_keypair
         val accountAddressForMSA = test_account_address
         val accountIdForMSA = chain.accountIdOf(test_account_address)
@@ -172,6 +177,9 @@ class RuntimeInstrumentedTest {
         val request_runtimeVersion = RuntimeVersionRequest()
         val response_runtimeVersion = executeCallWithMapper(request_runtimeVersion,mapper = pojo<RuntimeVersion>().nonNull())
 
+        val request_gensisHash = GetBlockHashRequest(0.toBigInteger())
+        val response_gensisHash = executeCallWithMapper(request_gensisHash,pojo<String>().nonNull())
+
         //Extrinsic Builder
         val signer = KeyPairSigner(accountKeypairForMSA, MultiChainEncryption.Substrate(mapCryptoTypeToEncryption(CryptoType.SR25519)))
         val extrinsicBuilder = ExtrinsicBuilder(
@@ -179,8 +187,8 @@ class RuntimeInstrumentedTest {
             runtime = runtime,
             nonce = doubleResult.toInt().toBigInteger(),
             runtimeVersion = response_runtimeVersion,
-            genesisHash = genesisHash.fromHex(),
-            blockHash = genesisHash.fromHex(),
+            genesisHash = response_gensisHash.fromHex(),
+            blockHash = response_gensisHash.fromHex(),
             era = Era.Immortal,
             customSignedExtensions = CustomSignedExtensions.extensionsWithValues(runtime),
             signer = signer,
@@ -192,9 +200,9 @@ class RuntimeInstrumentedTest {
 
         val request = SubmitAndWatchExtrinsicRequest(extrinsic)
         val response = executeCall(request)
-        println(gson.toJson(response))
+        println("Create Msa Response:"+gson.toJson(response))
         //Make test fail if the error exists
-        Assert.assertTrue(response.error?.message ?: "Error", response.error == null)
+        Assert.assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
     }
 
     @Test
@@ -202,9 +210,10 @@ class RuntimeInstrumentedTest {
         //Account detail for transaction
         val senderAccountKeyPair = test_account_keypair
         val senderAccountAddress = test_account_address
+        val senderAccountId = chain.accountIdOf(senderAccountAddress)
+
         val recieverAccountAddress = test2_account_address
-        val senderAccountId = chain.accountIdOf(test_account_address)
-        val recieverAccountId = chain.accountIdOf(test2_account_address)
+        val recieverAccountId = chain.accountIdOf(recieverAccountAddress)
 
         //Rpc Call for getting nonce
         val request_nonce = NextAccountIndexRequest(senderAccountAddress)
@@ -215,6 +224,9 @@ class RuntimeInstrumentedTest {
         val request_runtimeVersion = RuntimeVersionRequest()
         val response_runtimeVersion = executeCallWithMapper(request_runtimeVersion,mapper = pojo<RuntimeVersion>().nonNull())
 
+        val request_gensisHash = GetBlockHashRequest(0.toBigInteger())
+        val response_gensisHash = executeCallWithMapper(request_gensisHash,pojo<String>().nonNull())
+
         //Extrinsic Builder
         val signer = KeyPairSigner(senderAccountKeyPair, MultiChainEncryption.Substrate(mapCryptoTypeToEncryption(CryptoType.SR25519)))
         val extrinsicBuilder = ExtrinsicBuilder(
@@ -222,21 +234,22 @@ class RuntimeInstrumentedTest {
             runtime = runtime,
             nonce = doubleResult.toInt().toBigInteger(),
             runtimeVersion = response_runtimeVersion,
-            genesisHash = genesisHash.fromHex(),
-            blockHash = genesisHash.fromHex(),
+            genesisHash = response_gensisHash.fromHex(),
+            blockHash = response_gensisHash.fromHex(),
             era = Era.Immortal,
             customSignedExtensions = CustomSignedExtensions.extensionsWithValues(runtime),
             signer = signer,
             accountId = senderAccountId
         )
         val extrinsic = extrinsicBuilder
-            .transferCall(recieverAccountId, chain.utilityAsset.planksFromAmount((0.10121).toBigDecimal()))
+            .transferCall(recieverAccountId, (0.5f).toPlanks())
             .build()
 
+        val hash = extrinsic.extrinsicHash()
         val request = SubmitAndWatchExtrinsicRequest(extrinsic)
         val response = executeCall(request)
         //Make test fail if the error exists
-        Assert.assertTrue(response.error?.message ?: "Error", response.error == null)
+        Assert.assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
         println("Transfer Extrinsic Response:" + gson.toJson(response))
         println("After Transfer Sender Account Details:" + printAccountDetails(senderAccountAddress))
         println("After Transfer Reciever Account Details:" + printAccountDetails(recieverAccountAddress))

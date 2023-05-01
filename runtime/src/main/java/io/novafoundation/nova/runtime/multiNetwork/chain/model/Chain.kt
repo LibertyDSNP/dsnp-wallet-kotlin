@@ -18,7 +18,7 @@ data class Chain(
     val id: ChainId,
     val name: String,
     val assets: List<Asset>,
-    val nodes: List<Node>,
+    var nodes: List<Node>,
     val explorers: List<Explorer>,
     val externalApi: ExternalApi?,
     val icon: String,
@@ -29,7 +29,8 @@ data class Chain(
     val hasCrowdloans: Boolean,
     val governance: List<Governance>,
     val parentId: String?,
-    val additional: Additional?
+    val additional: Additional?,
+    var ghash: String? = null
 ) : Identifiable {
 
     companion object // extensions
@@ -88,7 +89,7 @@ data class Chain(
 
     data class Node(
         val chainId: ChainId,
-        val url: String,
+        var url: String,
         val name: String,
         val orderId: Int,
     ) : Identifiable {

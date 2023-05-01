@@ -4,12 +4,7 @@ import io.novafoundation.nova.common.data.network.runtime.binding.BlockNumber
 import io.novafoundation.nova.common.data.network.runtime.binding.bindNumber
 import io.novafoundation.nova.common.data.network.runtime.binding.castToStruct
 import io.novafoundation.nova.common.data.network.runtime.binding.fromHexOrIncompatible
-import io.novafoundation.nova.common.data.network.runtime.calls.FeeCalculationRequest
-import io.novafoundation.nova.common.data.network.runtime.calls.GetBlockHashRequest
-import io.novafoundation.nova.common.data.network.runtime.calls.GetBlockRequest
-import io.novafoundation.nova.common.data.network.runtime.calls.GetFinalizedHeadRequest
-import io.novafoundation.nova.common.data.network.runtime.calls.GetHeaderRequest
-import io.novafoundation.nova.common.data.network.runtime.calls.NextAccountIndexRequest
+import io.novafoundation.nova.common.data.network.runtime.calls.*
 import io.novafoundation.nova.common.data.network.runtime.model.FeeResponse
 import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
 import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock.Block.Header
@@ -23,7 +18,9 @@ import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.primitives.u32
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toHex
+import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 import jp.co.soramitsu.fearless_utils.wsrpc.executeAsync
+import jp.co.soramitsu.fearless_utils.wsrpc.mappers.NullableContainer
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
 import jp.co.soramitsu.fearless_utils.wsrpc.request.DeliveryType
@@ -31,6 +28,7 @@ import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.author.SubmitAndWatc
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.author.SubmitExtrinsicRequest
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersion
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersionRequest
+import jp.co.soramitsu.fearless_utils.wsrpc.response.RpcResponse
 import jp.co.soramitsu.fearless_utils.wsrpc.subscriptionFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
@@ -109,6 +107,14 @@ class RpcCalls(
         val blockRequest = GetBlockRequest(hash)
 
         return socketFor(chainId).executeAsync(blockRequest, mapper = pojo<SignedBlock>().nonNull())
+    }
+
+    /**
+     * Retrieves account details
+     */
+    suspend fun getStateAccount(chainId: String, key: String): RpcResponse {
+        val stateRequest = GetStateRequest(key)
+        return socketFor(chainId).executeAsync(stateRequest)
     }
 
     /**

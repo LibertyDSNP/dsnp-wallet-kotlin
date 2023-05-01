@@ -51,7 +51,7 @@ class ExtrinsicBuilderFactory(
             runtime = runtime,
             nonce = nonce,
             runtimeVersion = runtimeVersion,
-            genesisHash = "0xce5d4fe1b183df0434514ebc38f28f1227df817d74b48a979cf5d2cf8e86b7d7".fromHex(),
+            genesisHash = (chain.ghash ?: "0x5b9ae6fd47d88a084767da3d544d3334e5804c1201005c1bd6dd59f23ed57350").fromHex(),
             blockHash = mortality.blockHash.fromHex(),
             era = mortality.era,
             customSignedExtensions = CustomSignedExtensions.extensionsWithValues(runtime),

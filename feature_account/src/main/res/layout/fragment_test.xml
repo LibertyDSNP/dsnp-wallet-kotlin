@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="22dp"
     android:fillViewport="true"
+    android:padding="22dp"
     tools:context=".presentation.test.TestFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,10 +24,35 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/account_name"
+            android:id="@+id/chain_url"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="Default: ws://127.0.0.1:9944"
+            android:textColor="@color/text_primary"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <Button
+            android:id="@+id/set_chain_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Set Chain Url"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.578"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chain_url" />
+
+        <EditText
+            android:id="@+id/account_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@null"
             android:gravity="top"
             android:hint="Wallet name"
@@ -37,7 +62,7 @@
             android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/set_chain_url" />
 
         <EditText
             android:id="@+id/importMnemonicContent"
@@ -90,10 +115,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/test_bg"
+            android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accounts"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/accounts">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -113,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Fire Storage Query"
+                android:text="Get Storage Query"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -127,10 +152,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/test_bg"
+            android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_storage_query"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_storage_query">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -150,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Fire Runtime MetaData"
+                android:text="Get Runtime MetaData"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -164,10 +189,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/test_bg"
+            android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_runtime_metadata"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_runtime_metadata">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -187,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Fire Runtime Version"
+                android:text="Get Runtime Version"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -199,12 +224,12 @@
             android:id="@+id/extrinsic_chain_getBlock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/test_bg"
-            android:padding="16dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/test_bg"
+            android:orientation="vertical"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_runtime_version"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_runtime_version">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -224,7 +249,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Fire Chain Block"
+                android:text="Get Chain Block"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -236,12 +261,12 @@
             android:id="@+id/extrinsic_chain_getBlockHash"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/test_bg"
-            android:padding="16dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/test_bg"
+            android:orientation="vertical"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_chain_getBlock"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_chain_getBlock">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -261,7 +286,98 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Fire Chain Block Hash"
+                android:text="Get Chain Block Hash"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/importMnemonicContent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/events_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/test_bg"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_chain_getBlockHash">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get Event Info" />
+
+            <TextView
+                android:id="@+id/events"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
+
+            <Button
+                android:id="@+id/fire_event_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Get Event Info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/importMnemonicContent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/extrinsic_get_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/test_bg"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/events_ll">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check Balance" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Select Account"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/create_account" />
+
+            <Spinner
+                android:id="@+id/balance_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
+
+            <TextView
+                android:id="@+id/balance_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
+
+            <Button
+                android:id="@+id/fire_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Get Balance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -273,12 +389,12 @@
             android:id="@+id/extrinsic_transfer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/test_bg"
-            android:padding="16dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/test_bg"
+            android:orientation="vertical"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_chain_getBlockHash"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_get_balance">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -315,8 +431,8 @@
                 android:id="@+id/transfer_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Result:"
                 android:layout_marginTop="8dp"
+                android:text="Result:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
@@ -325,7 +441,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Fire Transfer Amount"
+                android:text="Do Transfer Amount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -337,12 +453,12 @@
             android:id="@+id/extrinsic_create_msa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/test_bg"
-            android:padding="16dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/test_bg"
+            android:orientation="vertical"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_transfer"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_transfer">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -379,7 +495,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Fire Create Msa Id"
+                android:text="Create Msa Id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/importMnemonicContent" />
+
+            <Button
+                android:id="@+id/fire_create_msa_id_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Msa Id SubmitAndWatch"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -391,12 +518,12 @@
             android:id="@+id/extrinsic_public_key_msa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/test_bg"
-            android:padding="16dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/test_bg"
+            android:orientation="vertical"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_create_msa"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_create_msa">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -416,7 +543,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Fire Public key to msa"
+                android:text="Get Public key to msa"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"

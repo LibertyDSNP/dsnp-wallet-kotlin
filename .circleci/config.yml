@@ -77,7 +77,7 @@ jobs:
             curl --location --request POST "https://circleci.com/api/v2/project/gh/Liberty30/android-testing/pipeline" \
             --header "Content-Type: application/json" \
             --header "Circle-Token: $ANDROID_TEST_CIRCLEKEY" \
-            --data-raw "{\"branch\": \"main\"}"
+            --data-raw "{\"branch\": \"regression\"}"
       - send_slack_message: #"If all steps has passed"
           event : "pass" 
           icon: ":large_green_circle:"

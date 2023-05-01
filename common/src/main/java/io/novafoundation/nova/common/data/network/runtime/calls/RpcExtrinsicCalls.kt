@@ -41,7 +41,7 @@ fun ExtrinsicBuilder.transferCall(
 
 fun ExtrinsicBuilder.createMsa(): ExtrinsicBuilder {
     return call(
-        moduleName = "Msa",
+        moduleName = Modules.MSA,
         callName = "create",
         arguments = mapOf()
     )

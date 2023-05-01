@@ -45,6 +45,16 @@ import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
+fun ByteArray.byteToInt(): Int {
+    var result = 0
+    var shift = 0
+    for (byte in this) {
+        result = result or (byte.toInt() shl shift)
+        shift += 8
+    }
+    return result
+}
+
 val BIP32JunctionDecoder.DEFAULT_DERIVATION_PATH: String
     get() = "//44//60//0/0/0"
 
@@ -233,6 +243,7 @@ object Modules {
     const val VESTING: String = "Vesting"
     const val STAKING = "Staking"
     const val BALANCES = "Balances"
+    const val MSA = "Msa"
     const val SYSTEM = "System"
     const val CROWDLOAN = "Crowdloan"
     const val BABE = "Babe"
