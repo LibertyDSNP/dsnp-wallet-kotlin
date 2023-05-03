@@ -16,6 +16,7 @@ import com.unfinished.feature_account.databinding.FragmentTestBinding
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryption
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.MetaAccount
+import com.unfinished.feature_account.domain.model.addressIn
 import com.unfinished.feature_account.domain.model.toUnit
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
@@ -25,6 +26,7 @@ import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.utils.setOnSafeClickListener
 import io.novafoundation.nova.common.validation.validationError
 import io.novafoundation.nova.core.model.CryptoType
+import io.novafoundation.nova.runtime.ext.addressOf
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +62,9 @@ class TestFragment : BaseFragment<TestViewModel>() {
             ) {
                 val account = metaAccounts[position]
                 viewModel.setSelectedAccount(account)
+                viewModel.getChain()?.let {
+                    binding.accountAddress.setText(it.addressOf(account.substrateAccountId!!))
+                }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}

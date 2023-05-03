@@ -109,16 +109,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
 
+        <TextView
+            android:id="@+id/account_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Address"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/accounts"/>
+
         <LinearLayout
             android:id="@+id/extrinsic_storage_query"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/test_bg"
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accounts">
+            app:layout_constraintTop_toBottomOf="@+id/account_address">
 
             <TextView
                 android:layout_width="wrap_content"
