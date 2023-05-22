@@ -70,7 +70,8 @@ dependencies {
     implementation deps.coroutines.android
 
     implementation deps.other.bouncycastle
-    implementation deps.nova.fearless_utils
+    //implementation deps.nova.fearless_utils
+    implementation deps.nova.nova_android_sdk
 
     implementation deps.support.biometric
 

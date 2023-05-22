@@ -19,6 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.unfinished.test_shared.test_shared'
 }
 
 
@@ -40,7 +41,8 @@ dependencies {
 
     implementation deps.retrofit.converter_gson
 
-    implementation deps.nova.fearless_utils
+    //implementation deps.nova.fearless_utils
+    implementation deps.nova.nova_android_sdk
 
     implementation deps.other.websocket
 

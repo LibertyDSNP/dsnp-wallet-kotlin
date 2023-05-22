@@ -51,6 +51,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'io.novafoundation.nova.common'
 }
 
 dependencies {
@@ -92,7 +93,8 @@ dependencies {
     implementation deps.retrofit.interceptor
 
     implementation deps.other.bouncycastle
-    implementation deps.nova.fearless_utils
+    ////implementation deps.nova.fearless_utils
+    implementation deps.nova.nova_android_sdk
 
     implementation deps.other.zxing
     implementation deps.other.zxing_android

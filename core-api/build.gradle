@@ -20,9 +20,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'io.novafoundation.nova.core'
 }
 
 dependencies {
     implementation deps.coroutines.core
-    implementation deps.nova.fearless_utils
+    //implementation deps.nova.fearless_utils
+    implementation deps.nova.nova_android_sdk
 }

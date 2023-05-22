@@ -38,6 +38,7 @@ android {
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
+    namespace 'io.novafoundation.nova.core_db'
 }
 
 dependencies {
@@ -46,7 +47,8 @@ dependencies {
     implementation project(":common")
     testImplementation project(':test-shared')
 
-    implementation deps.nova.fearless_utils
+    //implementation deps.nova.fearless_utils
+    implementation deps.nova.nova_android_sdk
 
     implementation deps.retrofit.converter_gson
 
