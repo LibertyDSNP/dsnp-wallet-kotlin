@@ -53,7 +53,7 @@ abstract class SingleChainUpdateSystem(
                     val cancellable = socket.subscribeUsing(subscriptionBuilder.build())
 
                     updatersFlow.merge().onCompletion {
-                        cancellable.cancel()
+                        cancellable?.cancel()
                     }
                 } else {
                     emptyFlow()

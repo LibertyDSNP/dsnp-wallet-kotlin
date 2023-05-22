@@ -63,6 +63,7 @@ class RpcCalls(
     }
 
     suspend fun submitExtrinsic(chainId: ChainId, extrinsic: String): String {
+
         val request = SubmitExtrinsicRequest(extrinsic)
 
         return socketFor(chainId).executeAsync(
@@ -76,10 +77,8 @@ class RpcCalls(
         return flow {
             val hash = extrinsic.extrinsicHash()
             val request = SubmitAndWatchExtrinsicRequest(extrinsic)
-
             val inner = socketFor(chainId).subscriptionFlow(request, unsubscribeMethod = "author_unwatchExtrinsic")
                 .map { it.asExtrinsicStatus(hash) }
-
             emitAll(inner)
         }
     }
