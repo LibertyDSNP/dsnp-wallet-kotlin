@@ -4,7 +4,7 @@ def versions = [:]
 versions.kotlin = '1.7.20'
 
 versions.android_gradle_plugin = '2.43.2'
-versions.args_gradle_plugin = '2.4.1'
+versions.args_gradle_plugin = '2.5.3'
 
 versions.core_ktx = '1.7.0'
 versions.appcompat = '1.4.1'
@@ -21,8 +21,8 @@ versions.rules = '1.4.0'
 versions.hilt_testing = '2.44'
 versions.hilt_compiler = '2.44'
 
-versions.navigation_fragment_ktx = '2.4.1'
-versions.navigation_ui_ktx = '2.4.1'
+versions.navigation_fragment_ktx = '2.5.3'
+versions.navigation_ui_ktx = '2.5.3'
 
 versions.viewmodel_ktx = '2.4.1'
 versions.livedata_ktx = '2.4.1'
@@ -57,8 +57,8 @@ versions.glide = '4.12.0'
 versions.glide_compiler = '4.12.0'
 
 versions.timber = '4.7.1'
-
 versions.fearless_utils = '1.6.3'
+versions.nova_android_sdk = '2.1.0'
 
 versions.pincode_view = '1.4.4'
 versions.bouncdycastle = '1.65'
@@ -165,6 +165,7 @@ deps.pincode_view = "io.github.chaosleung:pinview:$versions.pincode_view"
 
 def nova = [:]
 nova.fearless_utils = "io.github.nova-wallet:substrate-sdk-android:$versions.fearless_utils"
+nova.nova_android_sdk = "com.github.LibertyDSNP:substrate-sdk-android:$versions.nova_android_sdk"
 deps.nova = nova
 
 def other = [:]
