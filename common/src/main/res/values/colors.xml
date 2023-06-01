@@ -2,11 +2,11 @@
 <resources>
     <!-- Colors not included in the design system -->
     <color name="address_icon_background">#eeeeee</color>
-    <color name="splash_background_color">#05081C</color>
+    <color name="splash_background_color">#053031</color>
     <color name="qr_code_background">#FFFFFF</color>
 
     <!-- System -->
-    <color name="android_system_accent">#1F78FF</color>
+    <color name="android_system_accent">#1B9EA3</color>
 
     <!-- Text Colors -->
     <color name="text_primary">#E0FFFFFF</color>
@@ -15,7 +15,7 @@
     <color name="chip_text">#A3FFFFFF</color>
     <color name="button_text_inactive">#52FFFFFF</color>
     <color name="hint_text">#52FFFFFF</color>
-    <color name="button_text_accent">#1F78FF</color>
+    <color name="button_text_accent">#1B9EA3</color>
     <color name="text_warning">#EBC50A</color>
     <color name="text_negative">#E53450</color>
     <color name="text_positive">#2FC864</color>
@@ -35,17 +35,17 @@
     <color name="chip_icon">#7AFFFFFF</color>
     <color name="icon_pressed">#7AFFFFFF</color>
     <color name="nav_bar_icon_inactive">#66FFFFFF</color>
-    <color name="icon_accent">#1F78FF</color>
+    <color name="icon_accent">#1B9EA3</color>
     <color name="icon_warning">#EBC50A</color>
     <color name="icon_negative">#E53450</color>
     <color name="icon_favorite">#E53450</color>
     <color name="icon_positive">#2FC864</color>
 
     <!-- Background Colors -->
-    <color name="secondary_screen_background">#08090E</color>
-    <color name="bottom_sheet_background">#181920</color>
+    <color name="secondary_screen_background">#053031</color>
+    <color name="bottom_sheet_background">#053031</color>
     <color name="block_background">#1A999EC7</color>
-    <color name="cell_background_pressed">#291F78FF</color>
+    <color name="cell_background_pressed">#291B9EA3</color>
     <color name="input_background">#1A999EC7</color>
     <color name="chips_background">#29999EC7</color>
     <color name="container_background">#1A999EC7</color>
@@ -62,7 +62,7 @@
     <color name="dim_background">#7A08090E</color>
 
     <!-- Button Colors -->
-    <color name="button_background_primary">#1F78FF</color>
+    <color name="button_background_primary">#1B9EA3</color>
     <color name="button_background_secondary">#29999EC7</color>
     <color name="button_background_approve">#2FC864</color>
     <color name="button_background_reject">#E53450</color>
@@ -70,7 +70,7 @@
     <color name="button_background_inactive">#181920</color>
 
     <!-- Border Colors -->
-    <color name="active_border">#1F78FF</color>
+    <color name="active_border">#1B9EA3</color>
     <color name="checkbox_border">#3D999EC7</color>
     <color name="radio_border">#3D999EC7</color>
     <color name="container_border">#3D999EC7</color>
@@ -83,7 +83,7 @@
     <color name="navigation_divider">#29999EC7</color>
 
     <!-- Indicator Colors -->
-    <color name="indicator_active">#1F78FF</color>
+    <color name="indicator_active">#1B9EA3</color>
     <color name="indicator_inactive">#29FFFFFF</color>
     <color name="pull_indicator">#29FFFFFF</color>
     <color name="shimmering_indicator">#A3FFFFFF</color>
@@ -104,7 +104,7 @@
     <color name="black">#FF000000</color>
 
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#3C4240</color>
+    <color name="background">#053031</color>
     <color name="text_black">#3C4240</color>
     <color name="verify_dialog_bg">#BF1E1E1E</color>
     <color name="verify_dialog_btn">#0A84FF</color>
@@ -130,5 +130,7 @@
     <color name="title_text">#52E1C5</color>
 
     <color name="save_button">#AFB2B8</color>
+
+    <color name="button_secondary_color">#40AEAFAB</color>
 
 </resources>

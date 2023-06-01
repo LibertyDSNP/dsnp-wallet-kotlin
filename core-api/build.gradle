@@ -25,6 +25,5 @@ android {
 
 dependencies {
     implementation deps.coroutines.core
-    //implementation deps.nova.fearless_utils
-    implementation deps.nova.nova_android_sdk
+    implementation deps.nova.fearless_utils
 }

@@ -47,8 +47,7 @@ dependencies {
     implementation project(":common")
     testImplementation project(':test-shared')
 
-    //implementation deps.nova.fearless_utils
-    implementation deps.nova.nova_android_sdk
+    implementation deps.nova.fearless_utils
 
     implementation deps.retrofit.converter_gson
 

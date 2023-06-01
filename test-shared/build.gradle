@@ -41,8 +41,7 @@ dependencies {
 
     implementation deps.retrofit.converter_gson
 
-    //implementation deps.nova.fearless_utils
-    implementation deps.nova.nova_android_sdk
+    implementation deps.nova.fearless_utils
 
     implementation deps.other.websocket
 

@@ -14,6 +14,6 @@ class AccountSubstrateSourceImpl(
     override suspend fun getNodeNetworkType(nodeHost: String): String {
         val request = NodeNetworkTypeRequest()
 
-        return socketRequestExecutor.executeRequest(RpcRequest.Rpc2(request), nodeHost, pojo<String>().nonNull())
+        return socketRequestExecutor.executeRequest(request, nodeHost, pojo<String>().nonNull())
     }
 }

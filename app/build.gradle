@@ -94,7 +94,6 @@ dependencies {
     implementation deps.other.coil_svg
     implementation deps.other.websocket
 
-    //implementation deps.nova.fearless_utils
-    implementation deps.nova.nova_android_sdk
+    implementation deps.nova.fearless_utils
 
 }

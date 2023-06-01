@@ -278,13 +278,13 @@ class RuntimeInstrumentedTest {
     }
 
     private fun <T> executeCallWithMapper(request: RuntimeRequest, mapper: ResponseMapper<T>) = runBlocking {
-        val response = commonApi.socketSingleRequestExecutor().executeRequest(RpcRequest.Rpc2(request), chain.nodes.first().url,mapper)
+        val response = commonApi.socketSingleRequestExecutor().executeRequest(request, chain.nodes.first().url,mapper)
         println(gson.toJson(response))
         response
     }
 
     private fun executeCall(request: RuntimeRequest) = runBlocking {
-        val response = commonApi.socketSingleRequestExecutor().executeRequest(RpcRequest.Rpc2(request), chain.nodes.first().url,)
+        val response = commonApi.socketSingleRequestExecutor().executeRequest(request, chain.nodes.first().url,)
         println(gson.toJson(response))
         response
     }

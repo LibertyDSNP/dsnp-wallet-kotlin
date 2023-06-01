@@ -103,9 +103,11 @@ class TestViewModel @Inject constructor(
         }
     }
 
-    fun getGesisHashFromBlockHash() = runBlocking {
-        val request_gensisHash = rpcCalls.getBlockHash(chainId, 0.toBigInteger())
-        gensisHash = request_gensisHash
+    fun getGesisHashFromBlockHash()  {
+        viewModelScope.launch {
+            val request_gensisHash = rpcCalls.getBlockHash(chainId, 0.toBigInteger())
+            gensisHash = request_gensisHash
+        }
     }
 
     private fun handleCreateAccountError(throwable: Throwable) {
