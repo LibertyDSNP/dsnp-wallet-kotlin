@@ -17,4 +17,10 @@
     <string name="cong_dialog_desc">This extra layer of security helps prevent someone with your phone from accessing your funds</string>
     <string name="cong_dialog_create">Create Pin Code</string>
     <string name="cong_dialog_skip"><u>Skip for now</u></string>
+    <string name="create_handle_count">1 of 3</string>
+    <string name="create_handle_title">Create Digital Identity</string>
+    <string name="create_handle_desc">"Your unique handle is how others will find you across the social web and will be universal across apps. "</string>
+    <string name="create_handle_input_label">Claim your handle</string>
+    <string name="create_handle_input_info">Handle must be between 4-16 characters &amp; can only consist of letters, numbers, and underscores.</string>
+    <string name="create_handle_skip"><u>Skip for now (Not Recomended)</u></string>
 </resources>

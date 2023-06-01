@@ -105,7 +105,7 @@
 
     <color name="white">#FFFFFFFF</color>
     <color name="background">#053031</color>
-    <color name="text_black">#3C4240</color>
+    <color name="text_black">#232330</color>
     <color name="verify_dialog_bg">#BF1E1E1E</color>
     <color name="verify_dialog_btn">#0A84FF</color>
     <color name="text_white">#FFFFFF</color>
@@ -114,6 +114,7 @@
     <color name="orange">#DA5E3A</color>
     <color name="green">#4CAF50</color>
     <color name="button_color">#017A86</color>
+    <color name="button_color_inactive">#B3D3DC</color>
     <color name="gray_button_color">#D9D9D9</color>
     <color name="look_up_bg">#FAF7F3</color>
     <color name="input_field_line">#AEAFAB</color>
