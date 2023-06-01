@@ -23,4 +23,10 @@
     <string name="create_handle_input_label">Claim your handle</string>
     <string name="create_handle_input_info">Handle must be between 4-16 characters &amp; can only consist of letters, numbers, and underscores.</string>
     <string name="create_handle_skip"><u>Skip for now (Not Recomended)</u></string>
+    <string name="confirm_handle_count">2 of 3</string>
+    <string name="confirm_handle_title">Create Digital Identity</string>
+    <string name="confirm_handle_desc">Confirm your Handle</string>
+    <string name="confirm_handle_prefix">neverendingwinter</string>
+    <string name="confirm_handle_postfix">. ##</string>
+    <string name="confirm_handle_info">The numerical suffix is auto-assigned by Amplica Access to make sure every handle is unique. They will not be visible in some cases.</string>
 </resources>

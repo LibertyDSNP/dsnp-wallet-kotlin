@@ -1,4 +1,4 @@
-package com.unfinished.feature_account.presentation.handle
+package com.unfinished.feature_account.presentation.handle.confirm
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,23 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import com.unfinished.feature_account.databinding.FragmentConfirmHandleBinding
 import com.unfinished.feature_account.databinding.FragmentCreateHandleBinding
+import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicFragment
 import com.unfinished.feature_account.presentation.pincode.fingerprint.FingerprintWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CreateHandleFragment : BaseFragment<HandleViewModel>() {
+class ConfirmHandleFragment : BaseFragment<ConfirmHandleViewModel>() {
 
-    lateinit var binding: FragmentCreateHandleBinding
-    override val viewModel: HandleViewModel by viewModels()
+    lateinit var binding: FragmentConfirmHandleBinding
+    override val viewModel: ConfirmHandleViewModel by viewModels()
 
     companion object {
-        private const val KEY_PINCODE_ACTION = "pincode_action"
+        private const val KEY_HANDLE = "key_handle"
     }
-
-    @Inject lateinit var fingerprintWrapper: FingerprintWrapper
 
     private val backCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -31,7 +31,7 @@ class CreateHandleFragment : BaseFragment<HandleViewModel>() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentCreateHandleBinding.inflate(layoutInflater)
+        binding = FragmentConfirmHandleBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -40,7 +40,7 @@ class CreateHandleFragment : BaseFragment<HandleViewModel>() {
 
     }
 
-    override fun subscribe(viewModel: HandleViewModel) {
+    override fun subscribe(viewModel: ConfirmHandleViewModel) {
 
     }
 

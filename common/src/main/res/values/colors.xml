@@ -16,6 +16,8 @@
     <color name="button_text_inactive">#52FFFFFF</color>
     <color name="hint_text">#52FFFFFF</color>
     <color name="button_text_accent">#1B9EA3</color>
+    <color name="text_active">#1B9EA3</color>
+    <color name="text_inactive">#979797</color>
     <color name="text_warning">#EBC50A</color>
     <color name="text_negative">#E53450</color>
     <color name="text_positive">#2FC864</color>
