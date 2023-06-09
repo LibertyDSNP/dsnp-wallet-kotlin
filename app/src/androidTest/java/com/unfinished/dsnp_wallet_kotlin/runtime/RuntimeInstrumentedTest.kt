@@ -74,6 +74,7 @@ class RuntimeInstrumentedTest {
     var test_account_mnemonic = "nerve gesture jealous wealth rally priority apple visual mom boil evoke six"
     val test2_account_mnemonic = "forum patient museum ceiling garden raccoon license deliver spoon warrior burger comic"
     val testMSA_account_mnemonic = "flock whale gentle recycle gift forget welcome sadness feature mandate ice athlete"
+    val test4 = "clip diamond flip faith hat brave true cry can jazz dust piece"
     var test_account_address = "5CXVZbHLoDprVw2r2tWLzgNJqZZdu8rZ5dBSPiSXgSH8V3fp"
     var test2_account_address = "5CV1EtqhSyompvpNnZ2pWvcFp2rycoRVFUxAHyAuVMvb9SnG"
     var testMSA_account_address = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"

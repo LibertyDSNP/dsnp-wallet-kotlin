@@ -257,6 +257,17 @@ class TestFragment : BaseFragment<TestViewModel>() {
             Toast.makeText(requireContext(),"Connection Established",Toast.LENGTH_SHORT).show()
             viewModel.setUpNewConnection(binding.chainUrl.text.toString().trim())
         }
+
+        binding.firePublicKeyToMsa.setOnClickListener{
+            lifecycleScope.launchWhenResumed {
+                viewModel.getChain()?.let { chain ->
+                    viewModel.addKeyToMsa(chain).collectLatest {
+                        Log.e("test",it.toString())
+                    }
+                }
+            }
+        }
+
     }
 
     private fun updateAdapters() {

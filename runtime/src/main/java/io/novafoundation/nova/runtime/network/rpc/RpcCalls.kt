@@ -83,7 +83,7 @@ class RpcCalls(
         }
     }
 
-    suspend fun getNonce(chainId: ChainId, accountAddress: String): BigInteger {
+     suspend fun getNonce(chainId: ChainId, accountAddress: String): BigInteger {
         val nonceRequest = NextAccountIndexRequest(accountAddress)
 
         val response = socketFor(chainId).executeAsync(nonceRequest)
