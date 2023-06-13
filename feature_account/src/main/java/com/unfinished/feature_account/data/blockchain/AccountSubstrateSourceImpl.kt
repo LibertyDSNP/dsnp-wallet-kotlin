@@ -4,6 +4,7 @@ import com.unfinished.feature_account.data.blockchain.AccountSubstrateSource
 import io.novafoundation.nova.common.data.network.rpc.SocketSingleRequestExecutor
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
+import jp.co.soramitsu.fearless_utils.wsrpc.request.base.RpcRequest
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.system.NodeNetworkTypeRequest
 
 class AccountSubstrateSourceImpl(

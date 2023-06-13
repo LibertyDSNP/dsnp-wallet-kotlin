@@ -13,61 +13,50 @@ import com.unfinished.feature_account.domain.interfaces.AccountDataSource
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.MetaAccount
-import com.unfinished.feature_account.domain.model.planksFromAmount
 import com.unfinished.feature_account.domain.model.toPlanks
 import com.unfinished.feature_account.presentation.importing.source.model.ImportError
-import io.novafoundation.nova.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.R
+import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.common.data.network.runtime.binding.AccountInfo
-import io.novafoundation.nova.common.data.network.runtime.binding.BlockHash
 import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
+import io.novafoundation.nova.common.data.network.runtime.binding.checkIfExtrinsicFailed
 import io.novafoundation.nova.common.data.network.runtime.calls.*
 import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
+import io.novafoundation.nova.common.data.network.runtime.model.event.*
 import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
 import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.*
-import io.novafoundation.nova.core_db.model.chain.ChainNodeLocal
 import io.novafoundation.nova.runtime.ext.*
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
-import io.novafoundation.nova.runtime.extrinsic.asExtrinsicStatus
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.*
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
-import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnection
 import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnectionFactory
 import io.novafoundation.nova.runtime.multiNetwork.connection.ConnectionPool
 import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import io.novafoundation.nova.runtime.multiNetwork.getSocket
 import io.novafoundation.nova.runtime.multiNetwork.runtime.repository.EventsRepository
 import io.novafoundation.nova.runtime.network.rpc.RpcCalls
-import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
 import jp.co.soramitsu.fearless_utils.exceptions.Bip39Exception
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
-import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.MultiSignature
-import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.prepareForEncoding
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageKey
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct
-import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
+import jp.co.soramitsu.fearless_utils.wsrpc.exception.RpcException
 import jp.co.soramitsu.fearless_utils.wsrpc.executeAsync
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
-import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.RuntimeRequest
-import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.author.SubmitAndWatchExtrinsicRequest
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersion
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersionRequest
-import jp.co.soramitsu.fearless_utils.wsrpc.response.RpcResponse
-import jp.co.soramitsu.fearless_utils.wsrpc.subscription.response.SubscriptionChange
-import jp.co.soramitsu.fearless_utils.wsrpc.subscriptionFlow
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import org.junit.Assert
-import java.math.BigDecimal
+import java.io.PrintWriter
+import java.io.StringWriter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -87,6 +76,7 @@ class TestViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val chainId = "496e2f8a93bf4576317f998d01480f9068014b368856ec088a63e57071cd1d49"
+
     //    val mnemonic2 = "season mule race soccer kind reunion sun walk invest enhance cactus brush"
     //  var mnemonic = "mouse humble two verify ocean more giant nerve slot joke food forest"
     var gensisHash: String? = null
@@ -113,9 +103,11 @@ class TestViewModel @Inject constructor(
         }
     }
 
-    fun getGesisHashFromBlockHash() = runBlocking {
-        val request_gensisHash = rpcCalls.getBlockHash(chainId,0.toBigInteger())
-        gensisHash = request_gensisHash
+    fun getGesisHashFromBlockHash()  {
+        viewModelScope.launch {
+            val request_gensisHash = rpcCalls.getBlockHash(chainId, 0.toBigInteger())
+            gensisHash = request_gensisHash
+        }
     }
 
     private fun handleCreateAccountError(throwable: Throwable) {
@@ -235,7 +227,8 @@ class TestViewModel @Inject constructor(
     }
 
     fun setSelectedAccountForBalance(account: MetaAccount) {
-        accountAddresForBalance = account.substratePublicKey?.let { getChain()?.addressOf(it) } ?: ""
+        accountAddresForBalance =
+            account.substratePublicKey?.let { getChain()?.addressOf(it) } ?: ""
     }
 
     fun getCurrentAccount() = runBlocking {
@@ -260,7 +253,8 @@ class TestViewModel @Inject constructor(
         val runtime = chainRegistry.getRuntime(chain.id)
         val key = runtime.metadata.system().storage("Account")
             .storageKey(runtime, currentAccount?.fromHex())
-        val scale = chainRegistry.getSocket(chain.id).executeAsync(GetStateRequest(key)).result as? String
+        val scale =
+            chainRegistry.getSocket(chain.id).executeAsync(GetStateRequest(key)).result as? String
         scale?.let {
             val accountInfo = bindAccountInfo(it, runtime)
             accountInfo
@@ -269,7 +263,8 @@ class TestViewModel @Inject constructor(
 
     suspend fun getRuntimeVersion(chain: Chain): RuntimeVersion {
         val request = RuntimeVersionRequest()
-        return chainRegistry.getSocket(chain.id).executeAsync(request, mapper = pojo<RuntimeVersion>().nonNull())
+        return chainRegistry.getSocket(chain.id)
+            .executeAsync(request, mapper = pojo<RuntimeVersion>().nonNull())
     }
 
     /**
@@ -279,12 +274,14 @@ class TestViewModel @Inject constructor(
     suspend fun getBlock(chain: Chain, hash: String? = null): SignedBlock {
         val blockRequest = GetBlockRequest(hash)
 
-        return chainRegistry.getSocket(chain.id).executeAsync(blockRequest, mapper = pojo<SignedBlock>().nonNull())
+        return chainRegistry.getSocket(chain.id)
+            .executeAsync(blockRequest, mapper = pojo<SignedBlock>().nonNull())
     }
 
     suspend fun getGenesisHash(chain: Chain): String {
         val blockRequest = GetBlockHashRequest(0.toBigInteger())
-        return chainRegistry.getSocket(chain.id).executeAsync(blockRequest, mapper = pojo<String>().nonNull())
+        return chainRegistry.getSocket(chain.id)
+            .executeAsync(blockRequest, mapper = pojo<String>().nonNull())
     }
 
     suspend fun getEvents(chain: Chain) {
@@ -293,22 +290,42 @@ class TestViewModel @Inject constructor(
             val runtime = chainRegistry.getRuntime(chain.id)
             val key = runtime.metadata.system().storage("Events").storageKey(runtime)
             val scale = chainRegistry.getSocket(chain.id).executeAsync(GetStateRequest(key)).result
-            Log.e("test",scale.toString())
+            Log.e("test", scale.toString())
         }
     }
 
-    suspend fun executeEventBlock(chain: Chain){
+    suspend fun executeEventBlock(chain: Chain) {
         viewModelScope.launch {
-            val result = eventsRepository.getEventsInBlockForFrequency(chain.id,"0xf05f654bfe0d31dab180d5b07869f14b496dc9da6275fc6a9f2787bdab4678d8")
+            val result = eventsRepository.getEventsInBlockForFrequency(
+                chainId = chain.id,
+                blockHash = "0xbb566de0c47801ccad062e7def2632759c22ee3540df58b7c0eb4f7c7dfac5e8"
+            )
             result.onSuccess {
-                Log.e("TEST",it.second.name)
+                it.forEach { event ->
+                    when (event) {
+                        is EventType.System -> {
+                            Log.e("EventType", "EventType.System\n" + gson.toJson(event))
+                        }
+                        is EventType.Balance -> {
+                            Log.e("EventType", "EventType.Balance\n" + gson.toJson(event))
+                        }
+                        is EventType.MsaEvent -> {
+                            Log.e("EventType", "EventType.MsaEvent\n" + gson.toJson(event))
+                        }
+                        is EventType.TransactionPayment -> {
+                            Log.e("EventType", "EventType.TransactionPayment\n" + gson.toJson(event))
+                        }
+                        else -> EventType.Incompaitable
+                    }
+                }
             }.onFailure {
-                Log.e("TEST",it.message,it)
+                Log.e("TEST", it.message, it)
             }
         }
     }
 
-    suspend fun checkExtrinsicStatus(chain: Chain,blockHash: String) = eventsRepository.getEventsInBlockForFrequency(chain.id,blockHash)
+    suspend fun getBlockEvents(chain: Chain, blockHash: String) =
+        eventsRepository.getEventsInBlockForFrequency(chain.id, blockHash)
 
     suspend fun executeAnyExtrinsic(chain: Chain) {
         val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
@@ -317,23 +334,24 @@ class TestViewModel @Inject constructor(
         val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
             .createMsa()
             .build()
-        val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id,extrinsic)
+        val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
             .filterIsInstance<ExtrinsicStatus.Finalized>()
             .first()
-       Log.e("test",extrinsicStatus.blockHash)
+        Log.e("test", extrinsicStatus.blockHash)
 
     }
 
     suspend fun checkAccountDetails(chain: Chain): AccountInfo? {
         val runtime = chainRegistry.getRuntime(chain.id)
-        val key = runtime.metadata.system().storage("Account").storageKey(runtime, chain.hexAccountIdOf(accountAddresForBalance).fromHex())
-        val scale = rpcCalls.getStateAccount(chain.id,key).result as? String ?: return null
+        val key = runtime.metadata.system().storage("Account")
+            .storageKey(runtime, chain.hexAccountIdOf(accountAddresForBalance).fromHex())
+        val scale = rpcCalls.getStateAccount(chain.id, key).result as? String ?: return null
         val accountInfo = bindAccountInfo(scale, runtime)
         return accountInfo
     }
 
     suspend fun testTransfer(chain: Chain, enteredAmount: Float) = flow {
-        val result = kotlin.runCatching {
+        kotlin.runCatching {
             val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
             val signer = signerProvider.signerFor(metaAccount!!)
             val accountId = chain.accountIdOf(accountAddres)
@@ -342,30 +360,53 @@ class TestViewModel @Inject constructor(
                     destAccount = chain.accountIdOf(accountAddres2),
                     amount = enteredAmount.toPlanks()
                 ).build()
-            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id,extrinsic)
+            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
                 .filterIsInstance<ExtrinsicStatus.Finalized>()
                 .first()
-            val status = checkExtrinsicStatus(chain,extrinsicStatus.blockHash)
-            Pair(extrinsicStatus.blockHash,status)
+            val events = getBlockEvents(chain, extrinsicStatus.blockHash)
+            events.onSuccess {
+                it.checkIfExtrinsicFailed()?.let {
+                    emit(Pair(extrinsicStatus.blockHash, it.error?.second?.name))
+                } ?: kotlin.run {
+                    emit(Pair(extrinsicStatus.blockHash, null))
+                }
+            }.onFailure {
+                emit(Pair(extrinsicStatus.blockHash, it.message ?: "Error"))
+            }
         }
-        emit(result)
     }.flowOn(Dispatchers.IO)
 
     suspend fun createMsa(chain: Chain) = flow {
-        val result = kotlin.runCatching {
-            val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
+        kotlin.runCatching {
+            val metaAccount =
+                accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
             val signer = signerProvider.signerFor(metaAccount!!)
             val accountId = chain.accountIdOf(accountAddresForMsa)
             val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
                 .createMsa()
                 .build()
-            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id,extrinsic)
-                .filterIsInstance<ExtrinsicStatus.Finalized>()
-                .first()
-            val status = checkExtrinsicStatus(chain,extrinsicStatus.blockHash)
-            Pair(extrinsicStatus.blockHash,status)
+            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
+            val finalized =  extrinsicStatus.filterIsInstance<ExtrinsicStatus.Finalized>().firstOrNull()
+            finalized?.apply {
+                val events = getBlockEvents(chain, finalized.blockHash)
+                events.onSuccess {
+                    it.checkIfExtrinsicFailed()?.let {
+                        emit(Triple(finalized.blockHash, null, it.error?.second?.name))
+                    } ?: kotlin.run {
+                        val msaEvent = it.map { it as? EventType.MsaEvent }.filterNotNull()
+                        emit(Triple(finalized.blockHash,msaEvent.firstOrNull(), null))
+                    }
+                }.onFailure {
+                    emit(Triple(finalized.blockHash, null,it.message ?: "Error"))
+                }
+            }
+        }.onFailure { exception ->
+            val exc_map: MutableMap<String, String> = HashMap()
+            exc_map["message"] = exception.toString()
+            exc_map["stacktrace"] = getStackTrace(exception)
+            println(gson.toJson(exc_map))
+            emit(Triple(null, null,exception.message ?: "Error"))
         }
-        emit(result)
     }.flowOn(Dispatchers.IO)
 
     suspend fun addKeyToMsa(chain: Chain) = flow {
@@ -382,13 +423,20 @@ class TestViewModel @Inject constructor(
                 )
             )
             .build()
-        val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id,extrinsic)
+        val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
             .filterIsInstance<ExtrinsicStatus.Finalized>()
             .first()
-        checkExtrinsicStatus(chain,extrinsicStatus.blockHash)
+        getBlockEvents(chain, extrinsicStatus.blockHash)
         emit(extrinsicStatus.blockHash)
     }.flowOn(Dispatchers.IO)
 
+}
+
+fun getStackTrace(throwable: Throwable): String {
+    val sw = StringWriter()
+    val pw = PrintWriter(sw, true)
+    throwable.printStackTrace(pw)
+    return sw.getBuffer().toString()
 }
 
 

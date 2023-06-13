@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#FFFFFFFF</color>
-    <color name="background">#3C4240</color>
-    <color name="text_black">#3C4240</color>
-    <color name="text_white">#FFFFFF</color>
-    <color name="text_orange">#DA5E3A</color>
-    <color name="orange">#DA5E3A</color>
-    <color name="button_color">#017A86</color>
-    <color name="look_up_bg">#FAF7F3</color>
-    <color name="input_field_line">#AEAFAB</color>
-    <color name="button_secondary_color">#40AEAFAB</color>
 
 </resources>

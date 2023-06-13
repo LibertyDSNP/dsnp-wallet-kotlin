@@ -38,11 +38,10 @@ android {
     buildFeatures {
         viewBinding true
     }
-    lintOptions {
-        baseline file("lint-baseline.xml")
-    }
-    lintOptions {
+    namespace 'com.unfinished.dsnp_wallet_kotlin'
+    lint {
         abortOnError false
+        baseline file('lint-baseline.xml')
     }
 }
 

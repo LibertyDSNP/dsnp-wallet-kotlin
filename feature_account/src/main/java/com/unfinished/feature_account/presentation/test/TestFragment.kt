@@ -16,6 +16,7 @@ import com.unfinished.feature_account.databinding.FragmentTestBinding
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryption
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.MetaAccount
+import com.unfinished.feature_account.domain.model.addressIn
 import com.unfinished.feature_account.domain.model.toUnit
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
@@ -25,6 +26,7 @@ import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.utils.setOnSafeClickListener
 import io.novafoundation.nova.common.validation.validationError
 import io.novafoundation.nova.core.model.CryptoType
+import io.novafoundation.nova.runtime.ext.addressOf
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +62,9 @@ class TestFragment : BaseFragment<TestViewModel>() {
             ) {
                 val account = metaAccounts[position]
                 viewModel.setSelectedAccount(account)
+                viewModel.getChain()?.let {
+                    binding.accountAddress.setText(it.addressOf(account.substrateAccountId!!))
+                }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -69,6 +74,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
             if (!isAccountExists()) return@setOnSafeClickListener
             lifecycleScope.launchWhenResumed {
                 viewModel.getChain()?.let { chain ->
+                    viewModel.executeEventBlock(chain)
                     viewModel.executeGetStorageRequest(chain)?.let { accountInfo ->
                         val result = java.lang.StringBuilder()
                         result.append("free: ${accountInfo.data.free}").append("\n")
@@ -183,25 +189,11 @@ class TestFragment : BaseFragment<TestViewModel>() {
             lifecycleScope.launchWhenResumed {
                 viewModel.getChain()?.let { chain ->
                     viewModel.testTransfer(chain, binding.balance.text.toString().toFloat()).collectLatest {
-                        it.onSuccess {
+                        if (it.second.isNullOrEmpty()) {
                             binding.transferResult.setText(it.first)
-                            it.second.onSuccess {
-                                Toast.makeText(requireContext(),it.first,Toast.LENGTH_SHORT).show()
-
-                            }.onFailure {
-                                if (it.message.equals("List is empty.")){
-                                    Toast.makeText(requireContext(),"Extrinsic Success!",Toast.LENGTH_SHORT).show()
-                                }else {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        it.message ?: "Extrinsic Failed!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        }.onFailure {
-                            binding.transferResult.setText(it.message ?: "Invalid Transaction")
-                            Toast.makeText(requireContext(),it.message ?: "Invalid Transaction",Toast.LENGTH_SHORT).show()
+                        }else{
+                            binding.transferResult.setText(it.second ?: "Invalid Transaction")
+                            Toast.makeText(requireContext(),it.second ?: "Invalid Transaction",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -228,39 +220,22 @@ class TestFragment : BaseFragment<TestViewModel>() {
                     viewModel.createMsa(chain).catch {
                         binding.createMsa.setText(it.message ?: "Invalid Transaction")
                     }.collectLatest {
-                        it.onSuccess {
-                            binding.createMsa.setText(it.first)
-                            it.second.onSuccess {
-                                Toast.makeText(requireContext(),it.first,Toast.LENGTH_SHORT).show()
-
-                            }.onFailure {
-                                if (it.message.equals("List is empty")){
-                                    Toast.makeText(requireContext(),"Extrinsic Success!",Toast.LENGTH_SHORT).show()
-                                }else {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        it.message ?: "Extrinsic Failed!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }                            }
-                        }.onFailure {
-                            binding.createMsa.setText(it.message ?: "Error create msa id")
-                         Toast.makeText(requireContext(),it.message ?: "Error create msa id",Toast.LENGTH_SHORT).show()
+                        if (it.third.isNullOrEmpty()) {
+                            val builer = java.lang.StringBuilder()
+                            builer.append("Event: ${it.second?.name}").append("\n")
+                            builer.append("Publick Key: ${it.second?.value?.value?.key}").append("\n")
+                            builer.append("Msa ID: ${it.second?.value?.value?.msa_id}").append("\n")
+                            builer.append("Block Hash: ${it.first}").append("\n")
+                            binding.createMsa.setText(builer.toString())
+                        }else{
+                            binding.createMsa.setText(it.third ?: "Error create msa id")
+                            Toast.makeText(requireContext(),it.third ?: "Error create msa id",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             }
         }
-        binding.fireCreateMsaIdSubmit.setOnSafeClickListener {
-            if (!isAccountExists()) return@setOnSafeClickListener
-            lifecycleScope.launchWhenResumed {
-                viewModel.getChain()?.let { chain ->
-                    withContext(Dispatchers.IO){
-                        viewModel.executeAnyExtrinsic(chain)
-                    }
-                }
-            }
-        }
+
         binding.createAccount.setOnSafeClickListener {
             if (binding.accountName.text.toString().isBlank()) {
                 validationError("Wallet name is missing")
@@ -271,17 +246,6 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 return@setOnSafeClickListener
             }
             createMetaAccount()
-        }
-
-        binding.fireEventInfo.setOnSafeClickListener {
-            viewModel.getChain()?.let {
-                lifecycleScope.launchWhenResumed {
-                    withContext(Dispatchers.IO){
-                        viewModel.executeEventBlock(it)
-                        viewModel.getEvents(it)
-                    }
-                }
-            }
         }
 
         //binding.chainUrl.setText("wss://0.rpc.frequency.xyz")

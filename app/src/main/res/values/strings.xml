@@ -30,12 +30,12 @@
     <string name="email">Email</string>
     <string name="save_to_device">Save to Device</string>
 
-    <string name="landing_title">Welcome \nto Sage</string>
-    <string name="landing_sub_title">"A little bit about what the wallet is and does etc. A little bit about what the wallet is "</string>
+    <string name="landing_title">It’s Your identity.\nYou should own it</string>
+    <string name="landing_sub_title">Amplica Access is leading the migration to the Social Web so you can take control of your data. You can even take your digital identity with you.</string>
     <string name="landing_let_started_label">Let’s get started</string>
-    <string name="landing_dsnp_id">I have a  DSNP ID</string>
-    <string name="landing_create_dsnp_id">Create DSNP ID</string>
-    <string name="landing_restore_dsnp_id"><u>Restore DSNP Wallet</u></string>
+    <string name="landing_create_identity_btn">Create Identity</string>
+    <string name="landing_have_identity">I have an ID</string>
+    <string name="landing_restore_from_backup"><u>Restore from Backup</u></string>
     <string name="landing_privacy_policy">By signing up, you agree our <font color="#DA5E3A">Terms</font> and \n<font color="#DA5E3A">Privacy Policy</font></string>
     <string name="terms">Terms</string>
     <string name="privacy_policy">Privacy Policy</string>

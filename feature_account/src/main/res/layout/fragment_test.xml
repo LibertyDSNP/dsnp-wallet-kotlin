@@ -109,16 +109,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
 
+        <TextView
+            android:id="@+id/account_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Address"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/accounts"/>
+
         <LinearLayout
             android:id="@+id/extrinsic_storage_query"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/test_bg"
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accounts">
+            app:layout_constraintTop_toBottomOf="@+id/account_address">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -295,43 +305,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/events_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/test_bg"
-            android:orientation="vertical"
-            android:padding="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_chain_getBlockHash">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get Event Info" />
-
-            <TextView
-                android:id="@+id/events"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
-
-            <Button
-                android:id="@+id/fire_event_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Get Event Info"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.578"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/importMnemonicContent" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/extrinsic_get_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -340,7 +313,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/events_ll">
+            app:layout_constraintTop_toBottomOf="@+id/extrinsic_chain_getBlockHash">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -496,17 +469,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Create Msa Id"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.578"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/importMnemonicContent" />
-
-            <Button
-                android:id="@+id/fire_create_msa_id_submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Msa Id SubmitAndWatch"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"

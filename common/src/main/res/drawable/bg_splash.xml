@@ -5,11 +5,4 @@
         <color android:color="@color/splash_background_color" />
     </item>
 
-    <item
-        android:width="800dp"
-        android:height="800dp"
-        android:bottom="120dp"
-        android:drawable="@drawable/ic_splash_background"
-        android:gravity="center_horizontal|top" />
-
 </layer-list>

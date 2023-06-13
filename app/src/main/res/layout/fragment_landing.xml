@@ -6,94 +6,76 @@
     android:layout_height="match_parent"
     android:scrollbars="none"
     android:fillViewport="true"
-    android:background="@color/background"
     tools:context=".ui.onboarding.LandingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
         tools:context=".ui.onboarding.LandingFragment">
 
-        <RelativeLayout
+        <ImageView
             android:id="@+id/top_bg"
-            android:layout_width="match_parent"
-            android:layout_height="340dp"
+            android:layout_width="200dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="91dp"
+            android:background="@drawable/amplica_connect_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/landing_top_bg"/>
-
-        </RelativeLayout>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="48dp"
-            android:fontFamily="@font/poppins_bold"
-            android:includeFontPadding="false"
+            android:layout_marginTop="46dp"
+            android:layout_marginHorizontal="48dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
             android:text="@string/landing_title"
-            android:textColor="@color/text_black"
-            android:textSize="40sp"
+            android:textColor="@color/text_white"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_bg" />
 
         <TextView
             android:id="@+id/sub_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginHorizontal="48dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
+            android:lineSpacingExtra="2sp"
             android:text="@string/landing_sub_title"
             android:textColor="@color/text_white"
             android:textSize="12sp"
             android:translationZ="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/top_bg" />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <TextView
-            android:id="@+id/let_started_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_bold"
-            android:gravity="center"
-            android:text="@string/landing_let_started_label"
-            android:textColor="@color/text_orange"
-            android:textSize="12sp"
-            android:translationZ="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sub_title" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/landing_dsnp_id"
             style="@style/ActionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/landing_dsnp_id"
-            android:layout_marginTop="8dp"
+            android:text="@string/landing_create_identity_btn"
+            android:layout_marginTop="40dp"
             android:layout_marginHorizontal="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/let_started_label" />
+            app:layout_constraintTop_toBottomOf="@+id/sub_title" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/landing_create_dsnp_id"
             style="@style/ActionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="30dp"
             android:layout_marginHorizontal="30dp"
-            android:text="@string/landing_create_dsnp_id"
+            android:text="@string/landing_have_identity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/landing_dsnp_id" />
@@ -105,7 +87,7 @@
             android:layout_marginTop="14dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:text="@string/landing_restore_dsnp_id"
+            android:text="@string/landing_restore_from_backup"
             android:textColor="@color/text_white"
             android:textSize="12sp"
             android:translationZ="1dp"
