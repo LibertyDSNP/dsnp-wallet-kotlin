@@ -29,4 +29,12 @@
     <string name="confirm_handle_prefix">neverendingwinter</string>
     <string name="confirm_handle_postfix">. ##</string>
     <string name="confirm_handle_info">The numerical suffix is auto-assigned by Amplica Access to make sure every handle is unique. They will not be visible in some cases.</string>
+    <string name="terms_handle_count">3 of 3</string>
+    <string name="terms_handle_title">Create Digital Identity</string>
+    <string name="terms_handle_desc">Agree to Terms</string>
+    <string name="terms_handle_agree_title">By agreeing, you grant Amplica access \nto your digital identity to:</string>
+    <string name="terms_handle_agree_desc">\u25CF Update your handle and profile information\n\u25CF Update your contacts &amp; groups\n\nYou may update permissions at any time.</string>
+    <string name="terms_handle_bottom_text">By signing up, you agree to Amplica Access\n<u>Terms</u> and <u>Privacy Policy</u> . <u>Learn More</u></string>
+    <string name="terms_handle_agree">Agree</string>
+
 </resources>
