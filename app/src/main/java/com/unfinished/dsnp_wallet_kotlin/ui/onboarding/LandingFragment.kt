@@ -55,11 +55,11 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
     }
 
     override fun initViews() {
-        binding.landingCreateDsnpId.setOnSafeClickListener {
-            viewModel.openLookupScreen()
+        binding.landingCreateIdentity.setOnSafeClickListener {
+             viewModel.openCreateHandleScreen()
         }
-        binding.landingDsnpId.setOnSafeClickListener {
-            viewModel.importAccountClicked()
+        binding.landingHaveAnId.setOnSafeClickListener {
+            viewModel.openLookupScreen()
         }
         binding.landingTestScreen.setOnSafeClickListener {
             findNavController().navigate(R.id.action_landingFragment_to_testFragment)

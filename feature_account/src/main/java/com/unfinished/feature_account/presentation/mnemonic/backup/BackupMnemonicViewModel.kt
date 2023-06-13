@@ -22,6 +22,8 @@ import io.novafoundation.nova.common.utils.sendEvent
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload.CreateExtras
 import com.unfinished.feature_account.presentation.mnemonic.confirm.MnemonicWord
+import com.unfinished.feature_account.presentation.mnemonic.reArrangeWords
+import com.unfinished.feature_account.presentation.mnemonic.twoDigitIndex
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -66,7 +68,7 @@ class BackupMnemonicViewModel @AssistedInject constructor(
         warningAcceptedFlow
     ) { mnemonic, warningAccepted ->
         mnemonic.wordList.mapIndexed { index, s ->
-            MnemonicWord(id = index.toString(), content = s, indexDisplay = "", false)
+            MnemonicWord(id = index.twoDigitIndex(), content = s, indexDisplay = "", false)
         }.reArrangeWords().takeIf { warningAccepted }
     }
 
@@ -129,25 +131,6 @@ class BackupMnemonicViewModel @AssistedInject constructor(
         )
 
         router.openConfirmMnemonicOnCreate(payload)
-    }
-
-    private fun List<MnemonicWord>.reArrangeWords(): List<MnemonicWord> {
-        var oddIndex = 1
-        var evenIndex = 7
-        val words = arrayListOf<MnemonicWord>()
-        forEachIndexed { index, _ ->
-            if (index == 0 || index % 2 == 0) {
-                this[oddIndex - 1].indexDisplay = "0$oddIndex"
-                words.add(this[oddIndex - 1])
-                oddIndex += 1
-            } else {
-                this[evenIndex - 1].indexDisplay = if (evenIndex >= 10)
-                    "$evenIndex" else "0$evenIndex"
-                words.add(this[evenIndex - 1])
-                evenIndex += 1
-            }
-        }
-        return words
     }
 
     companion object {

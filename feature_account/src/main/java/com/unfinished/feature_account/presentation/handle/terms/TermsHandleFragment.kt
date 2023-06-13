@@ -33,6 +33,7 @@ class TermsHandleFragment : BaseFragment<TermsHandleViewModel>() {
 
     override fun initViews() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
+        binding.termsHandleNext.setOnClickListener { viewModel.openMnemonicScreen() }
 
     }
 

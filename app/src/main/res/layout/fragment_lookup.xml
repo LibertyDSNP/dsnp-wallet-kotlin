@@ -198,9 +198,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_field_switcher">
 
-        <com.google.android.material.button.MaterialButton
+        <io.novafoundation.nova.common.view.PrimaryButton
+            style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/send_auth_code"
-            style="@style/ActionButtonMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lookup_send_auth_code"
@@ -215,9 +215,9 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
-            <com.google.android.material.button.MaterialButton
+            <io.novafoundation.nova.common.view.PrimaryButton
+                style="@style/Widget.Nova.Button.Primary"
                 android:id="@+id/try_again"
-                style="@style/ActionButtonMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -226,9 +226,9 @@
                 android:textColor="@color/text_white"
                 android:backgroundTint="@color/button_color" />
 
-            <com.google.android.material.button.MaterialButton
+            <io.novafoundation.nova.common.view.PrimaryButton
+                style="@style/Widget.Nova.Button.Primary"
                 android:id="@+id/create_new_id"
-                style="@style/ActionButtonMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"

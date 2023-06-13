@@ -6,6 +6,7 @@
     app:startDestination="@id/landingFragment">
 
     <include app:graph="@navigation/mnemonic_nav_graph" />
+    <include app:graph="@navigation/handle_nav_graph" />
 
     <fragment
         android:id="@+id/landingFragment"
@@ -19,6 +20,15 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/lookupFragment" />
+
+        <action
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            android:id="@+id/action_lookupFragment_to_handle_nav_graph"
+            app:destination="@id/handle_nav_graph" />
+
         <action
             android:id="@+id/action_landingFragment_to_testFragment"
             app:destination="@id/testFragment" />
@@ -39,6 +49,8 @@
             app:destination="@id/mnemonic_nav_graph" />
 
     </fragment>
+
+
     <fragment
         android:id="@+id/testFragment"
         android:name="com.unfinished.feature_account.presentation.test.TestFragment"
