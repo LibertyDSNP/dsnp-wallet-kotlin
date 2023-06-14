@@ -1,6 +1,7 @@
 package io.novafoundation.nova.common.view.input.seekbar
 
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
@@ -64,7 +65,9 @@ class Seekbar @JvmOverloads constructor(
     private fun tickLabelView(value: SeekbarValue<*>): View {
         return TextView(context).apply {
             id = View.generateViewId()
-            setTextAppearance(R.style.TextAppearance_NovaFoundation_Regular_Caption1)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                setTextAppearance(R.style.TextAppearance_NovaFoundation_Regular_Caption1)
+            }
             gravity = Gravity.CENTER_HORIZONTAL
 
             layoutParams = FlexboxLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)

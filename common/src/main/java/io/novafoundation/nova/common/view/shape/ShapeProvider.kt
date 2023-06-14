@@ -9,6 +9,7 @@ import android.graphics.drawable.StateListDrawable
 import android.util.StateSet
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -23,7 +24,7 @@ fun Context.getRippleMask(cornerSizeDp: Int = 12): Drawable {
 fun Context.addRipple(
     drawable: Drawable? = null,
     mask: Drawable? = getRippleMask(),
-    @ColorInt rippleColor: Int = getColor(R.color.cell_background_pressed)
+    @ColorInt rippleColor: Int = ContextCompat.getColor(this, R.color.cell_background_pressed)
 ): Drawable {
     return RippleDrawable(rippleColor.toColorStateList(), drawable, mask)
 }
@@ -52,8 +53,8 @@ fun Context.getCornersCheckableDrawable(
 
 fun Context.getInputBackground() = getCornersStateDrawable(
     focusedDrawable = getRoundedCornerDrawableFromColors(
-        fillColor = getColor(R.color.input_background),
-        strokeColor = getColor(R.color.active_border),
+        fillColor = ContextCompat.getColor(this, R.color.input_background),
+        strokeColor = ContextCompat.getColor(this, R.color.active_border),
         strokeSizeInDp = 1f
     ),
     idleDrawable = getRoundedCornerDrawable(R.color.input_background)
@@ -72,8 +73,8 @@ fun Context.getRoundedCornerDrawable(
     cornerSizeInDp: Int = 12,
     strokeSizeInDp: Float = 1.0f,
 ): Drawable {
-    val fillColor = getColor(fillColorRes)
-    val strokeColor = strokeColorRes?.let(this::getColor)
+    val fillColor = ContextCompat.getColor(this, fillColorRes)
+    val strokeColor = strokeColorRes?.let { ContextCompat.getColor(this, it) }
 
     return getRoundedCornerDrawableFromColors(fillColor, strokeColor, cornerSizeInDp, strokeSizeInDp)
 }
@@ -84,14 +85,14 @@ fun Context.getTopRoundedCornerDrawable(
     cornerSizeInDp: Int = 12,
     strokeSizeInDp: Float = 1.0f,
 ): Drawable {
-    val fillColor = getColor(fillColorRes)
-    val strokeColor = strokeColorRes?.let(this::getColor)
+    val fillColor = ContextCompat.getColor(this, fillColorRes)
+    val strokeColor = strokeColorRes?.let { ContextCompat.getColor(this, it) }
 
     return getTopRoundedCornerDrawableFromColors(fillColor, strokeColor, cornerSizeInDp, strokeSizeInDp)
 }
 
 fun Context.getTopRoundedCornerDrawableFromColors(
-    @ColorInt fillColor: Int = getColor(R.color.secondary_screen_background),
+    @ColorInt fillColor: Int = ContextCompat.getColor(this, R.color.secondary_screen_background),
     @ColorInt strokeColor: Int? = null,
     cornerSizeInDp: Int = 12,
     strokeSizeInDp: Float = 1.0f,
@@ -111,7 +112,7 @@ fun Context.getTopRoundedCornerDrawableFromColors(
 }
 
 fun Context.getRoundedCornerDrawableFromColors(
-    @ColorInt fillColor: Int = getColor(R.color.secondary_screen_background),
+    @ColorInt fillColor: Int = ContextCompat.getColor(this, R.color.secondary_screen_background),
     @ColorInt strokeColor: Int? = null,
     cornerSizeInDp: Int = 12,
     strokeSizeInDp: Float = 1.0f,

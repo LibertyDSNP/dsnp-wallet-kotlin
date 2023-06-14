@@ -62,4 +62,7 @@ dependencies {
     implementation deps.test.rules
     implementation deps.test.ext_junit
 
+    //There is a part of code that needs this to support for under api 24
+    implementation deps.other.streamsupport
+
 }

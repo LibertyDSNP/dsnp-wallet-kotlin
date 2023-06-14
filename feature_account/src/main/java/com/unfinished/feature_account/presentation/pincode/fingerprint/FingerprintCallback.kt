@@ -1,17 +1,21 @@
 package com.unfinished.feature_account.presentation.pincode.fingerprint
 
-import androidx.biometric.BiometricConstants
+import android.annotation.SuppressLint
 import androidx.biometric.BiometricPrompt
-import com.unfinished.feature_account.presentation.pincode.PinCodeViewModel
 import com.unfinished.feature_account.presentation.pincode.PincodeFragment
-import javax.inject.Inject
 
-class FingerprintCallback(val fragment: PincodeFragment) : BiometricPrompt.AuthenticationCallback() {
+class FingerprintCallback(val fragment: PincodeFragment) :
+    BiometricPrompt.AuthenticationCallback() {
 
+    /**
+     * These constants should be available per Google's doc, not sure why it is still throwing
+     * this lint error.
+     */
+    @SuppressLint("RestrictedApi")
     override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
-        if (errMsgId != BiometricConstants.ERROR_CANCELED &&
-            errMsgId != BiometricConstants.ERROR_NEGATIVE_BUTTON &&
-            errMsgId != BiometricConstants.ERROR_USER_CANCELED
+        if (errMsgId != BiometricPrompt.ERROR_CANCELED &&
+            errMsgId != BiometricPrompt.ERROR_NEGATIVE_BUTTON &&
+            errMsgId != BiometricPrompt.ERROR_USER_CANCELED
         ) {
             fragment.viewModel.onAuthenticationError(errString.toString())
         }

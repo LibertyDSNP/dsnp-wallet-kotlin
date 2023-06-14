@@ -8,6 +8,7 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.toRectF
 import com.journeyapps.barcodescanner.CameraPreview
 import io.novafoundation.nova.common.R
@@ -22,8 +23,8 @@ class QrViewFinderView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private val maskColor = context.getColor(R.color.dim_background)
-    private val whiteColor = context.getColor(R.color.text_primary)
+    private val maskColor = ContextCompat.getColor(context, R.color.dim_background)
+    private val whiteColor = ContextCompat.getColor(context, R.color.text_primary)
 
     // Cache the framingRect so that we can still draw it after the preview
     // stopped.

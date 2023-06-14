@@ -3,6 +3,7 @@ package io.novafoundation.nova.common.view
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import coil.ImageLoader
 import coil.load
 import io.novafoundation.nova.common.R
@@ -62,7 +64,7 @@ class GoNextView @JvmOverloads constructor(
     }
 
     fun setProgressTint(@ColorRes tintColor: Int) {
-        goNextProgress.indeterminateTintList = ColorStateList.valueOf(context.getColor(tintColor))
+        goNextProgress.indeterminateTintList = ColorStateList.valueOf(ContextCompat.getColor(context, tintColor))
     }
 
     fun setIcon(drawable: Drawable?) {
@@ -104,9 +106,11 @@ class GoNextView @JvmOverloads constructor(
         if (backgroundDrawable != null) background = backgroundDrawable else setBackgroundResource(R.drawable.bg_primary_list_item)
 
         val textAppearance = typedArray.getResourceIdOrNull(R.styleable.GoNextView_android_textAppearance)
-        textAppearance?.let(title::setTextAppearance)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            textAppearance?.let(title::setTextAppearance)
+        }
 
-        val actionTint = typedArray.getColor(R.styleable.GoNextView_actionTint, context.getColor(R.color.icon_primary))
+        val actionTint = typedArray.getColor(R.styleable.GoNextView_actionTint, ContextCompat.getColor(context, R.color.icon_primary))
         setActionTint(actionTint)
 
         typedArray.recycle()
