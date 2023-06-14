@@ -17,7 +17,7 @@
     <string name="connect_device">Connect Device</string>
     <string name="my_keys_label">My Keys</string>
     <string name="root_key_label">Root Key</string>
-    <string name="root_key_placeholder">0x54...987498</string>
+    <string name="root_key_placeholder">0x54…987498</string>
     <string name="backup">Backup</string>
     <string name="connect_device_label">Connect Device</string>
     <string name="share">Share</string>
@@ -61,6 +61,7 @@
     <string name="terms_link">https://www.dsnp.org/privacy.html</string>
     <string name="privacy_policy_link">https://www.dsnp.org/privacy.html</string>
     <string name="landing_test_screen">Test Screen</string>
+    <string name="coming_soon">Coming Soon</string>
 
 
 </resources>
