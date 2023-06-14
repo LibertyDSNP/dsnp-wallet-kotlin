@@ -55,11 +55,11 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
     }
 
     override fun initViews() {
-        binding.landingCreateDsnpId.setOnSafeClickListener {
-            viewModel.openLookupScreen()
+        binding.landingCreateIdentity.setOnSafeClickListener {
+             viewModel.openCreateHandleScreen()
         }
-        binding.landingDsnpId.setOnSafeClickListener {
-            viewModel.importAccountClicked()
+        binding.landingHaveAnId.setOnSafeClickListener {
+            viewModel.openLookupScreen()
         }
         binding.landingTestScreen.setOnSafeClickListener {
             findNavController().navigate(R.id.action_landingFragment_to_testFragment)
@@ -84,7 +84,8 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
             text = createSpannable(
                 content = sourceText,
                 typeface = ResourcesCompat.getFont(requireContext(),commonR.font.poppins_semibold),
-                highlightTextColor = ContextCompat.getColor(requireContext(),commonR.color.orange))  {
+                highlightTextColor = commonR.color.orange
+            )  {
                 clickable(terms) {
                     showBrowser(getString(R.string.terms_link))
                 }

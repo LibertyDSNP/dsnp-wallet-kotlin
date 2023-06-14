@@ -37,6 +37,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = versions.kotlinCompilerExtensionVersion
     }
     namespace 'com.unfinished.dsnp_wallet_kotlin'
     lint {
@@ -53,6 +57,7 @@ dependencies {
     implementation project(':core-db')
     implementation project(':core-api')
     implementation project(':runtime')
+    implementation project(':uikit')
 
     implementation deps.support.core_ktx
     implementation deps.support.app_compat

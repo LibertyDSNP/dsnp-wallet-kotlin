@@ -14,6 +14,8 @@ import com.unfinished.feature_account.presentation.export.json.confirm.ExportJso
 import com.unfinished.feature_account.presentation.export.json.confirm.ExportJsonConfirmPayload
 import com.unfinished.feature_account.presentation.export.json.password.ExportJsonPasswordFragment
 import com.unfinished.feature_account.presentation.export.seed.ExportSeedFragment
+import com.unfinished.feature_account.presentation.handle.confirm.ConfirmHandleFragment
+import com.unfinished.feature_account.presentation.handle.confirm.ConfirmHandlePayload
 import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicFragment
 import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicPayload
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicFragment
@@ -53,7 +55,6 @@ class Navigator(
     override fun openAddFirstAccount() {
         navController?.navigate(R.id.action_splashFragment_to_landingFragment, LandingFragment.bundle(true))
     }
-
 
     override fun openInitialCheckPincode() {
         val action = PinCodeAction.Check(NavComponentDelayedNavigation(R.id.action_open_main), ToolbarConfiguration())
@@ -121,6 +122,7 @@ class Navigator(
     override fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload) {
         val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
             R.id.lookupFragment -> R.id.action_lookupFragment_to_mnemonic_nav_graph
+            R.id.termsHandleFragment -> R.id.action_termsHandleFragment_to_mnemonic_nav_graph
             else -> throw IllegalArgumentException("Unknown current destination to open mnemonic screen: $currentDestinationId")
         }
         val payload = BackupMnemonicPayload.Create(accountName, addAccountPayload)
@@ -182,5 +184,21 @@ class Navigator(
         val delayedNavigation = NavComponentDelayedNavigation(R.id.action_open_main)
         val action = PinCodeAction.Create(delayedNavigation)
         return PincodeFragment.getPinCodeBundle(action)
+    }
+
+    override fun openCreateHandleScreen() {
+        navController?.navigate(R.id.action_lookupFragment_to_handle_nav_graph)
+    }
+    override fun openConfirmHandleScreen(handle: String?) {
+        val payload = ConfirmHandlePayload(handle)
+        navController?.navigate(R.id.action_createHandleFragment_to_confirmHandleFragment,ConfirmHandleFragment.getBundle(payload))
+    }
+
+    override fun openTermsHandleScreen() {
+        navController?.navigate(R.id.action_confirmHandleFragment_to_termsHandleFragment)
+    }
+
+    override fun openHomeScreenFromHandle() {
+        navController?.navigate(R.id.action_termsHandleFragment_to_homeFragment)
     }
 }

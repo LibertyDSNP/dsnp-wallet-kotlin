@@ -3,6 +3,7 @@ package io.novafoundation.nova.common.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ContextThemeWrapper
+import android.view.View
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -11,6 +12,7 @@ import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.hideProgress
 import com.github.razir.progressbutton.isProgressActive
 import com.github.razir.progressbutton.showProgress
+import com.google.android.material.button.MaterialButton
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.presentation.DescriptiveButtonState
 import io.novafoundation.nova.common.utils.dp
@@ -78,7 +80,8 @@ class PrimaryButton @JvmOverloads constructor(
     }
 
     enum class Size(val heightDp: Int, val cornerSizeDp: Int) {
-        LARGE(52, 12), SMALL(44, 10);
+        LARGE(48, 30),
+        SMALL(44, 10);
     }
 
     private var cachedText: String? = null
@@ -184,6 +187,23 @@ fun PrimaryButton.setState(descriptiveButtonState: DescriptiveButtonState) {
         }
         DescriptiveButtonState.Gone -> {
             setState(ButtonState.GONE)
+        }
+    }
+}
+
+fun MaterialButton.setState(descriptiveButtonState: DescriptiveButtonState){
+    when (descriptiveButtonState) {
+        is DescriptiveButtonState.Disabled -> {
+           isEnabled = false
+        }
+        is DescriptiveButtonState.Enabled -> {
+           isEnabled = true
+        }
+        DescriptiveButtonState.Loading -> {
+         visibility = View.INVISIBLE
+        }
+        DescriptiveButtonState.Gone -> {
+          visibility = View.GONE
         }
     }
 }

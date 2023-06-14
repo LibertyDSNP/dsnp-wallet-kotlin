@@ -1,9 +1,11 @@
 package com.unfinished.feature_account.presentation.export.seed
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import io.novafoundation.nova.common.R
 import com.unfinished.feature_account.databinding.FragmentExportSeedBinding
@@ -50,6 +52,7 @@ class ExportSeedFragment : ExportFragment<ExportSeedViewModel>() {
         binding.exportSeedContentContainer.background = requireContext().getRoundedCornerDrawable(fillColorRes = R.color.input_background)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     override fun subscribe(viewModel: ExportSeedViewModel) {
         super.subscribe(viewModel)
         viewModel.seedFlow.observe(binding.exportSeedValue::setText)

@@ -83,7 +83,7 @@ interface BaseFragmentMixin<T : BaseViewModel> : WithContextExtensions {
     fun EditText.bindTo(liveData: MutableLiveData<String>) = bindTo(liveData, fragment.viewLifecycleOwner)
 
     @Suppress("UNCHECKED_CAST")
-    fun <A> argument(key: String): A = fragment.arguments!![key] as A
+    fun <A> argument(key: String): A = fragment.requireArguments()[key] as A
 }
 
 class BaseFragmentDelegate<T : BaseViewModel>(

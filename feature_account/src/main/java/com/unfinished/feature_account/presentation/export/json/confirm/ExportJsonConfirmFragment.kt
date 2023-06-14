@@ -1,9 +1,11 @@
 package com.unfinished.feature_account.presentation.export.json.confirm
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import coil.ImageLoader
 import com.unfinished.feature_account.R
@@ -54,6 +56,7 @@ class ExportJsonConfirmFragment : ExportFragment<ExportJsonConfirmViewModel>() {
         binding.exportJsonConfirmExport.setOnClickListener { viewModel.confirmClicked() }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     override fun subscribe(viewModel: ExportJsonConfirmViewModel) {
         super.subscribe(viewModel)
         binding.exportJsonConfirmValue.setMessage(viewModel.json)

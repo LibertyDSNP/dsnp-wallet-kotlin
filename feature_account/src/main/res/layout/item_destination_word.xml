@@ -9,7 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/seed_phrase_empty_bg"
-        android:fontFamily="@font/space_mono_regular"
+        android:fontFamily="@font/poppins_regular"
         android:textColor="@color/text_white"
         android:textSize="17sp"
         android:lines="1"

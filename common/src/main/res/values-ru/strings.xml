@@ -638,8 +638,8 @@
     <string name="staking_custom_proceed_button_disabled_title">Выбрать валидаторов (макс. %d)</string>
     <string name="staking_custom_proceed_button_enabled_title" formatted="false">Показать выбранных: %d (макс. %d)</string>
     <string name="staking_custom_validators_list_title">Выберите валидаторов</string>
-    <string name="staking_custom_validators_settings_sort_apr">Примерная награда (% APR)</string>
-    <string name="staking_custom_validators_settings_sort_apy">Примерное вознаграждение (% APY)</string>
+    <string name="staking_custom_validators_settings_sort_apr">Примерная награда (\% APR)</string>
+    <string name="staking_custom_validators_settings_sort_apy">Примерное вознаграждение (\% APY)</string>
     <string name="staking_custom_validators_update_list">Обновить свой список</string>
     <string name="staking_era_title">эра %s</string>
     <string name="staking_estimate_earning_title_v1.9.0">Расчёт доходности</string>
@@ -825,7 +825,7 @@
     <string name="staking_unbonding_limit_reached_title">Достигнут лимит запросов на вывод из стейка</string>
     <string name="staking_unbonding_period_v1_9_0">Время вывода</string>
     <string name="staking_unstake_all_question">Вывести из стейка всё?</string>
-    <string name="staking_validator_apy_percent">Примерное вознаграждение (% APY)</string>
+    <string name="staking_validator_apy_percent">Примерное вознаграждение (\% APY)</string>
     <string name="staking_validator_estimated_reward">Примерное вознаграждение</string>
     <string name="staking_validator_info_title">Информация о валидаторе</string>
     <string name="staking_validator_my_oversubscribed_message">Превышен лимит номинаторов для валидатора. В этой эре вы не получите награду от этого валидатора.</string>

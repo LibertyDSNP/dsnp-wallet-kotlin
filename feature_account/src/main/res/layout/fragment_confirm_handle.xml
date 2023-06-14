@@ -96,14 +96,13 @@
             app:layout_constraintStart_toEndOf="@+id/confirm_handle_prefix"
             app:layout_constraintTop_toTopOf="@+id/confirm_handle_prefix" />
 
-        <com.google.android.material.button.MaterialButton
+        <io.novafoundation.nova.common.view.PrimaryButton
+            style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/confirm_handle_next"
-            style="@style/ActionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/button_color_inactive"
             android:text="@string/common_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -439,7 +439,7 @@
 
     <string name="staking_parachain_collator_info">Collator info</string>
     <string name="staking_parachain_delegators">Delegators</string>
-    <string name="staking_custom_validators_settings_sort_apr">Estimated rewards (% APR)</string>
+    <string name="staking_custom_validators_settings_sort_apr">Estimated rewards (\% APR)</string>
 
     <string name="staking_parachain_collator_own_stake">Collator\'s own stake</string>
     <string name="staking_parachain_collators_number_format">Collators: %s</string>
@@ -918,7 +918,7 @@
     <string name="staking_custom_proceed_button_disabled_title">Select validators (max %d)</string>
     <string name="staking_custom_proceed_button_enabled_title" formatted="false">Show selected: %d (max %d)</string>
     <string name="staking_custom_validators_list_title">Select validators</string>
-    <string name="staking_custom_validators_settings_sort_apy">Estimated rewards (% APY)</string>
+    <string name="staking_custom_validators_settings_sort_apy">Estimated rewards (\% APY)</string>
     <string name="staking_custom_validators_update_list">Update your list</string>
     <string name="staking_era_index_no_prefix" translatable="false">#%d</string>
     <string name="staking_era_title">era #%s</string>
@@ -1038,7 +1038,7 @@
     <string name="staking_unbonding_limit_reached_message">You have reached the unstaking requests limit (%d active requests).</string>
     <string name="staking_unbonding_limit_reached_title">Unstaking requests limit reached</string>
     <string name="staking_unbonding_period_v1_9_0">Unstaking period</string>
-    <string name="staking_validator_apy_percent">Estimated reward (% APY)</string>
+    <string name="staking_validator_apy_percent">Estimated reward (\% APY)</string>
     <string name="staking_validator_estimated_reward">Estimated reward</string>
     <string name="staking_validator_info_title">Validator info</string>
     <string name="staking_validator_my_oversubscribed_message">Oversubscribed. You will not receive rewards from the validator in this era.</string>

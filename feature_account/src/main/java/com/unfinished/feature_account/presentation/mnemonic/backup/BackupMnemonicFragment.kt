@@ -64,7 +64,8 @@ class BackupMnemonicFragment : BaseFragment<BackupMnemonicViewModel>() {
             text = createSpannable(
                 content = getString(com.unfinished.feature_account.R.string.seed_phrase_sub_title),
                 typeface = ResourcesCompat.getFont(requireContext(), R.font.poppins_extrabold),
-                highlightTextColor = ContextCompat.getColor(requireContext(), R.color.orange))  {
+                highlightTextColor = R.color.orange
+            )  {
                 clickable(getString(com.unfinished.feature_account.R.string.seed_phrase_sub_title_highlight)){}
             }
         }
