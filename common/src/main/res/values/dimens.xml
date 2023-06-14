@@ -33,6 +33,7 @@
 
     <dimen name="confirm_seed_phrase_item_width">130dp</dimen>
     <dimen name="seed_phrase_item_width">110dp</dimen>
-    <dimen name="item_offset">4dp</dimen>
+    <dimen name="item_offset_vertical">4dp</dimen>
+    <dimen name="item_offset_horizontal">20dp</dimen>
 
 </resources>

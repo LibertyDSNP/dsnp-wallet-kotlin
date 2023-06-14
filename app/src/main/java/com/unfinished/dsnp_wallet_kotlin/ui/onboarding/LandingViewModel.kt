@@ -32,6 +32,9 @@ class LandingViewModel @Inject constructor(
         this.addAccountPayload = addAccountPayload
     }
 
+    fun openCreateHandleScreen(){
+        router.openCreateHandleScreen()
+    }
     fun openLookupScreen(){
         router.openLookupScreen()
     }

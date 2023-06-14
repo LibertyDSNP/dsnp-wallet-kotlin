@@ -1,8 +1,10 @@
 <resources>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="seed_phrase_title">There will be a test</string>
-    <string name="seed_phrase_sub_title">Please carefully write down these 12 words below in numerical order (1-12) and store your secret phrase securely.\n\nYou will confirm them in order on the next screen.</string>
+    <string name="seed_phrase_title">Security is Important</string>
+    <string name="seed_phrase_title2">There will be a test</string>
+    <string name="seed_phrase_sub_title">Back up your recovery phrase now to ensure that your assets will be stores safely and securely.</string>
+    <string name="seed_phrase_sub_title2">Please carefully write down these 12 words below in numerical order (1-12) and store your secret phrase securely.\n\nYou will confirm them <font color="#DA5E3A">in order</font> on the next screen.</string>
     <string name="seed_phrase_btn">I’ve written it down</string>
     <string name="confirm_seed_phrase_title">This is the test</string>
     <string name="confirm_seed_phrase_sub_title">Tap the words in numerical order (1-12) to verify your recovery phrase</string>
@@ -36,5 +38,7 @@
     <string name="terms_handle_agree_desc">\u25CF Update your handle and profile information\n\u25CF Update your contacts &amp; groups\n\nYou may update permissions at any time.</string>
     <string name="terms_handle_bottom_text">By signing up, you agree to Amplica Access\n<u>Terms</u> and <u>Privacy Policy</u> . <u>Learn More</u></string>
     <string name="terms_handle_agree">Agree</string>
+    <string name="toolbar_title">Recovery Phrase</string>
+    <string name="confirm_mnemonic_toolbar_title">Verify Recovery</string>
 
 </resources>

@@ -222,6 +222,8 @@
 
     <style name="Widget.Nova.Button.Primary">
         <item name="appearance">primary</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Widget.Nova.Button.Secondary">

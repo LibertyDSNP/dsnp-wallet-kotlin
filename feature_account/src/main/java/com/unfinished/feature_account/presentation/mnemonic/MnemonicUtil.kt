@@ -37,14 +37,14 @@ fun List<MnemonicWord>.reArrangeWords(): List<MnemonicWord> {
     var evenIndex = 7
     val words = arrayListOf<MnemonicWord>()
     forEachIndexed { index, _ ->
-        if ( index == 0 || index%2 == 0){
+        if (index == 0 || index % 2 == 0) {
             this[oddIndex - 1].indexDisplay = "0$oddIndex"
             words.add(this[oddIndex - 1])
             oddIndex += 1
-        }else {
+        } else {
             this[evenIndex - 1].indexDisplay = if (evenIndex >= 10)
                 "$evenIndex" else "0$evenIndex"
-            words.add(this[evenIndex -1])
+            words.add(this[evenIndex - 1])
             evenIndex += 1
         }
     }

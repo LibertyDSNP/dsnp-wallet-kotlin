@@ -56,4 +56,10 @@
         android:label="fragment_pincode"
         tools:layout="@layout/fragment_pincode" />
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.unfinished.dsnp_wallet_kotlin.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+
 </navigation>

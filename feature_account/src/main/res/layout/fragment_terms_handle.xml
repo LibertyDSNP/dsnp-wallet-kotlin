@@ -132,9 +132,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/terms_agree_title" />
 
-            <com.google.android.material.button.MaterialButton
+            <io.novafoundation.nova.common.view.PrimaryButton
+                style="@style/Widget.Nova.Button.Primary"
                 android:id="@+id/terms_handle_next"
-                style="@style/ActionButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"

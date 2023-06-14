@@ -6,7 +6,7 @@ import com.unfinished.feature_account.presentation.model.account.add.ImportAccou
 interface OnboardingRouter {
 
     fun openLookupScreen()
-
+    fun openCreateHandleScreen()
     fun openCreateAccount(accountName: String?, addAccountPayload: AddAccountPayload)
 
     fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload)

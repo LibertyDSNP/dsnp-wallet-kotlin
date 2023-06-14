@@ -122,7 +122,8 @@
                 app:layout_constraintStart_toStartOf="@+id/profile_label"
                 app:layout_constraintTop_toBottomOf="@+id/permission2" />
 
-            <com.google.android.material.button.MaterialButton
+            <io.novafoundation.nova.common.view.PrimaryButton
+                style="@style/Widget.Nova.Button.Primary"
                 android:id="@+id/save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
