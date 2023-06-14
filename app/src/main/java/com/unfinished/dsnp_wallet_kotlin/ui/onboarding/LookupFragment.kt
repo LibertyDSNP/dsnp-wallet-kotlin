@@ -141,7 +141,8 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
             text = createSpannable(
                 content = sourceText,
                 typeface = ResourcesCompat.getFont(requireContext(),commonR.font.poppins_semibold),
-                highlightTextColor = ContextCompat.getColor(requireContext(),commonR.color.orange))  {
+                highlightTextColor = commonR.color.orange
+            )  {
                 clickable(terms) {
                     showBrowser(getString(R.string.terms_link))
                 }

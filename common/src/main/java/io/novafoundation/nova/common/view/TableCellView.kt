@@ -2,6 +2,7 @@ package io.novafoundation.nova.common.view
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
@@ -184,13 +185,19 @@ open class TableCellView @JvmOverloads constructor(
         titleIcon?.let(::setTitleIcon)
 
         val titleTextAppearance = typedArray.getResourceIdOrNull(R.styleable.TableCellView_titleValueTextAppearance)
-        titleTextAppearance?.let(title::setTextAppearance)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            titleTextAppearance?.let(title::setTextAppearance)
+        }
 
         val primaryValueTextAppearance = typedArray.getResourceIdOrNull(R.styleable.TableCellView_primaryValueTextAppearance)
-        primaryValueTextAppearance?.let(valuePrimary::setTextAppearance)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            primaryValueTextAppearance?.let(valuePrimary::setTextAppearance)
+        }
 
         val secondaryValueTextAppearance = typedArray.getResourceIdOrNull(R.styleable.TableCellView_secondaryValueTextAppearance)
-        secondaryValueTextAppearance?.let(valueSecondary::setTextAppearance)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            secondaryValueTextAppearance?.let(valueSecondary::setTextAppearance)
+        }
     }
 }
 

@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+}
+
+android {
+    namespace 'com.unfinished.uikit'
+    compileSdk build_versions.compile_sdk
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = versions.kotlinCompilerExtensionVersion
+    }
+}
+
+dependencies {
+    testImplementation project(':test-shared')
+
+    implementation deps.support.core_ktx
+    implementation deps.support.app_compat
+    implementation deps.support.material
+
+    api platform(deps.compose.bom)
+    api deps.compose.material3
+    api deps.compose.material2
+    api deps.compose.foundation
+    api deps.compose.ui
+    api deps.compose.preview
+    api deps.compose.ui_tooling
+    api deps.compose.junit
+    api deps.compose.ui_test
+    api deps.compose.window_size
+    api deps.compose.activity
+    api deps.compose.viewmodel
+}

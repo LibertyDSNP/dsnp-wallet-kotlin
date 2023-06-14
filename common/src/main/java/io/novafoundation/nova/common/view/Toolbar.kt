@@ -3,6 +3,7 @@ package io.novafoundation.nova.common.view
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -12,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.dp
 import io.novafoundation.nova.common.utils.getResourceIdOrNull
@@ -67,12 +69,14 @@ class Toolbar @JvmOverloads constructor(
             toolbarDivider.setVisible(dividerVisible)
 
             val backgroundAttrDrawable = typedArray.getDrawable(R.styleable.Toolbar_contentBackground) ?: ColorDrawable(
-                context.getColor(R.color.secondary_screen_background)
+                ContextCompat.getColor(context, R.color.secondary_screen_background)
             )
             toolbarContainer.background = backgroundAttrDrawable
 
             val textAppearance = typedArray.getResourceIdOrNull(R.styleable.Toolbar_titleTextAppearance)
-            textAppearance?.let(titleTv::setTextAppearance)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                textAppearance?.let(titleTv::setTextAppearance)
+            }
 
             typedArray.recycle()
         }
