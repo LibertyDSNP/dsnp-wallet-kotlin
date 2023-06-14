@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/feature_account" />
             <option value="$PROJECT_DIR$/runtime" />
             <option value="$PROJECT_DIR$/test-shared" />
+            <option value="$PROJECT_DIR$/uikit" />
           </set>
         </option>
       </GradleProjectSettings>
