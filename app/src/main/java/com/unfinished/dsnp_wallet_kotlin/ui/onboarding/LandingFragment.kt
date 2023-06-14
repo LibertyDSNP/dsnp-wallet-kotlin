@@ -5,15 +5,13 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLandingBinding
 import com.unfinished.dsnp_wallet_kotlin.util.createSpannable
-import com.unfinished.dsnp_wallet_kotlin.util.showBrowser
+import com.unfinished.dsnp_wallet_kotlin.util.toast
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
@@ -87,10 +85,12 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
                 highlightTextColor = commonR.color.orange
             )  {
                 clickable(terms) {
-                    showBrowser(getString(R.string.terms_link))
+                    //showBrowser(getString(R.string.terms_link))
+                    toast(getString(R.string.coming_soon))
                 }
                 clickable(privacy) {
-                    showBrowser(getString(R.string.privacy_policy_link))
+                    //showBrowser(getString(R.string.privacy_policy_link))
+                    toast(getString(R.string.coming_soon))
                 }
             }
         }
