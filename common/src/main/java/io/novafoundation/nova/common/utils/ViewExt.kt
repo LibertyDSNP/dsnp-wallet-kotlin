@@ -114,7 +114,7 @@ private fun TextView.setCompoundDrawable(
 
     val drawable = context.getDrawableCompat(drawableRes)
 
-    tint?.let { drawable.mutate().setTint(context.getColor(it)) }
+    tint?.let { drawable.mutate().setTint(ContextCompat.getColor(context, it)) }
 
     drawable.updateDimensions(context, widthInDp, heightInDp)
 
@@ -180,7 +180,7 @@ private fun Drawable.updateDimensions(
 }
 
 fun ImageView.setImageTintRes(@ColorRes tintRes: Int?) {
-    imageTintList = tintRes?.let { ColorStateList.valueOf(context.getColor(tintRes)) }
+    imageTintList = tintRes?.let { ColorStateList.valueOf(ContextCompat.getColor(context, tintRes)) }
 }
 
 fun ImageView.setImageTint(@ColorInt tint: Int?) {
@@ -276,7 +276,7 @@ fun ScrollView.scrollOnFocusTo(vararg focusableTargets: View) {
 }
 
 fun TextView.setCompoundDrawableTint(@ColorRes tintRes: Int) {
-    val tintColor = context.getColor(tintRes)
+    val tintColor = ContextCompat.getColor(context, tintRes)
 
     TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(tintColor))
 }
@@ -325,7 +325,7 @@ fun View.applyStatusBarInsets(consume: Boolean = true) = applyInsetter {
     consume(consume)
 }
 
-fun View.setBackgroundColorRes(@ColorRes colorRes: Int) = setBackgroundColor(context.getColor(colorRes))
+fun View.setBackgroundColorRes(@ColorRes colorRes: Int) = setBackgroundColor(ContextCompat.getColor(context, colorRes))
 
 fun <I> View.useInputValue(input: Input<I>, onValue: (I) -> Unit) {
     setVisible(input is Input.Enabled)

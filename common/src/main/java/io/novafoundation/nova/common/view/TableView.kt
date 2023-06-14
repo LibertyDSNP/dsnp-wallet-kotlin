@@ -4,9 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
+import android.os.Build
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.core.view.updateMarginsRelative
@@ -46,7 +48,7 @@ open class TableView @JvmOverloads constructor(
         attrs?.let(::applyAttributes)
 
         dividerPaint.apply {
-            color = context.getColor(R.color.divider)
+            color = ContextCompat.getColor(context, R.color.divider)
             style = Paint.Style.STROKE
         }
     }
@@ -81,7 +83,9 @@ open class TableView @JvmOverloads constructor(
     }
 
     private fun addTitleView(): TextView = TextView(context).also { title ->
-        title.setTextAppearance(R.style.TextAppearance_NovaFoundation_Regular_SubHeadline)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            title.setTextAppearance(R.style.TextAppearance_NovaFoundation_Regular_SubHeadline)
+        }
         title.setTextColorRes(R.color.text_primary)
         title.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).also { params ->
             params.updateMarginsRelative(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp)

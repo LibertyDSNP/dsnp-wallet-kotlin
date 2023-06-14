@@ -1,6 +1,7 @@
 package io.novafoundation.nova.common.mixin.hints
 
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -26,7 +27,9 @@ class HintsView @JvmOverloads constructor(
 
         hints.mapIndexed { index, hint ->
             TextView(context).apply {
-                setTextAppearance(R.style.TextAppearance_NovaFoundation_Regular_Caption1)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    setTextAppearance(R.style.TextAppearance_NovaFoundation_Regular_Caption1)
+                }
 
                 setTextColorRes(R.color.text_secondary)
                 setDrawableStart(R.drawable.ic_nova, widthInDp = 16, paddingInDp = 8, tint = R.color.icon_secondary)

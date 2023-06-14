@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.google.android.material.card.MaterialCardView
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.dp
@@ -23,7 +24,8 @@ class BannerView @JvmOverloads constructor(
         cardElevation = 0f
         radius = 12f.dpF(context)
         strokeWidth = 1.dp(context)
-        strokeColor = context.getColor(R.color.container_border)
+
+        strokeColor = ContextCompat.getColor(context, R.color.container_border)
 
         applyAttributes(attrs)
     }
