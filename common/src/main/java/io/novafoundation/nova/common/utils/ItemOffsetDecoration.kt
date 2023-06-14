@@ -4,22 +4,27 @@ import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import androidx.annotation.DimenRes
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
-class ItemOffsetDecoration(private val mItemOffset: Int) : ItemDecoration() {
-    constructor(
-        @NonNull context: Context,
-        @DimenRes itemOffsetId: Int
-    ) : this(context.getResources().getDimensionPixelSize(itemOffsetId)) {
+class ItemOffsetDecoration(
+    context: Context,
+    @DimenRes itemVerticalOffset: Int,
+    @DimenRes itemHorizontalOffset: Int
+) : RecyclerView.ItemDecoration() {
+
+    private val _itemVerticalOffset: Int
+    private var _itemHorizontalOffset: Int = 0
+
+    init {
+        _itemVerticalOffset = context.resources.getDimensionPixelSize(itemVerticalOffset)
+        _itemHorizontalOffset = context.resources.getDimensionPixelSize(itemHorizontalOffset)
     }
 
-    override fun getItemOffsets(
-        outRect: Rect, view: View, parent: RecyclerView,
-        state: RecyclerView.State
-    ) {
+    /**
+     * Applies padding to all sides of the [Rect], which is the container for the view
+     */
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.set(mItemOffset, mItemOffset, mItemOffset, mItemOffset)
+        outRect.set(_itemHorizontalOffset, _itemVerticalOffset, _itemHorizontalOffset, _itemVerticalOffset)
     }
 }

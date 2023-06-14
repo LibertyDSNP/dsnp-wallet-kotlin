@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.unfinished.feature_account.databinding.FragmentConfirmMnemonicBinding
 import com.unfinished.feature_account.presentation.mnemonic.SharedMnemonicViewModel
-import com.unfinished.feature_account.presentation.mnemonic.WarningDialogButton
-import com.unfinished.feature_account.presentation.mnemonic.WarningDialogFragment
 import com.unfinished.feature_account.presentation.mnemonic.adapter.DestinationWordAdapter
 import com.unfinished.feature_account.presentation.mnemonic.adapter.SourceWordAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +26,7 @@ class ConfirmMnemonicFragment : BaseFragment<ConfirmMnemonicViewModel>() {
     @Inject
     lateinit var viewModelFactory: ConfirmMnemonicViewModel.AssistedFactory
     override val viewModel: ConfirmMnemonicViewModel by viewModels {
-        ConfirmMnemonicViewModel.provideFactory(viewModelFactory,  argument(ConfirmMnemonicFragment.KEY_PAYLOAD))
+        ConfirmMnemonicViewModel.provideFactory(viewModelFactory,  argument(KEY_PAYLOAD))
     }
 
     val destinationAdapter: DestinationWordAdapter by lazy {
@@ -57,7 +55,7 @@ class ConfirmMnemonicFragment : BaseFragment<ConfirmMnemonicViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentConfirmMnemonicBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -69,12 +67,12 @@ class ConfirmMnemonicFragment : BaseFragment<ConfirmMnemonicViewModel>() {
 
         binding.confirmSeedPhraseRv.apply {
             layoutManager = GridLayoutManager(requireContext(),2)
-            addItemDecoration(ItemOffsetDecoration(context, commonR.dimen.item_offset))
+            addItemDecoration(ItemOffsetDecoration(context, commonR.dimen.item_offset_vertical ,commonR.dimen.item_offset_horizontal))
             adapter = destinationAdapter
         }
         binding.confirmSelectSeedPhraseRv.apply {
             layoutManager = GridLayoutManager(requireContext(),3)
-            addItemDecoration(ItemOffsetDecoration(context, commonR.dimen.item_offset))
+            addItemDecoration(ItemOffsetDecoration(context, commonR.dimen.item_offset_vertical,commonR.dimen.item_offset_vertical))
             adapter = sourceAdapter
         }
 
