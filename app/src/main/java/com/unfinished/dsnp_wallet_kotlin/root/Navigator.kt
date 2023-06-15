@@ -8,6 +8,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.OnboardingRouter
 import com.unfinished.dsnp_wallet_kotlin.ui.main.RootRouter
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingFragment
 import com.unfinished.dsnp_wallet_kotlin.ui.splash.SplashRouter
+import com.unfinished.dsnp_wallet_kotlin.ui.tabs.home.HomeFragment
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.export.ExportPayload
 import com.unfinished.feature_account.presentation.export.json.confirm.ExportJsonConfirmFragment
@@ -198,7 +199,12 @@ class Navigator(
         navController?.navigate(R.id.action_confirmHandleFragment_to_termsHandleFragment)
     }
 
-    override fun openHomeScreenFromHandle() {
-        navController?.navigate(R.id.action_termsHandleFragment_to_homeFragment)
+    override fun openHomeScreenFromHandle(skip: Boolean, identitySuccess: Boolean) {
+        val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
+            R.id.createHandleFragment -> R.id.action_createHandleFragment_to_homeFragment
+            R.id.termsHandleFragment -> R.id.action_termsHandleFragment_to_homeFragment
+            else -> throw IllegalArgumentException("Unknown current destination to open home screen: $currentDestinationId")
+        }
+        navController?.navigate(destination,HomeFragment.bundle(skip,identitySuccess))
     }
 }

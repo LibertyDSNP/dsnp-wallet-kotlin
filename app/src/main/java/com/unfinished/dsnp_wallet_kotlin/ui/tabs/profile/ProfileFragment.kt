@@ -1,4 +1,4 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.profile
+package com.unfinished.dsnp_wallet_kotlin.ui.tabs.profile
 
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentProfileBinding
 import com.unfinished.dsnp_wallet_kotlin.ui.base.BaseFragment

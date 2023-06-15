@@ -18,7 +18,7 @@ interface AccountRouter : SecureRouter, ReturnableRouter {
 
     fun openConfirmHandleScreen(handle: String?)
     fun openTermsHandleScreen()
-    fun openHomeScreenFromHandle()
+    fun openHomeScreenFromHandle(skip: Boolean, identitySuccess: Boolean)
 
     fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload)
 

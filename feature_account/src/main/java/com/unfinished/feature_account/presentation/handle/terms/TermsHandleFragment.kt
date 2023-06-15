@@ -35,32 +35,14 @@ class TermsHandleFragment : BaseFragment<TermsHandleViewModel>() {
 
     override fun initViews() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
-        binding.termsHandleNext.setOnClickListener { showCreateIDSuccess() }
+        binding.termsHandleNext.setOnClickListener { viewModel.openHomeScreen(
+            skip = false,
+            identitySuccess = true
+        ) }
     }
 
     override fun subscribe(viewModel: TermsHandleViewModel) {
 
     }
-
-    private fun showCreateIDSuccess() {
-        dialog(
-            context = requireContext(),
-            title = getString(commonString.congratulation),
-            subtitle = getString(commonString.temp_handle),
-            description = getString(commonString.temp_desc),
-            buttonText = getString(commonString.lets_go),
-            cancelable = false,
-            primaryAction = {
-
-            },
-            secondaryAction = {
-
-            },
-            closeAction = {
-
-            }
-        ).show()
-    }
-
 
 }

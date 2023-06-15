@@ -27,6 +27,10 @@ class CreateHandleViewModel @Inject constructor(
         }
     }
 
+    fun openHomeScreen(skip: Boolean, identitySuccess: Boolean){
+        router.openHomeScreenFromHandle(skip,identitySuccess)
+    }
+
     fun openConfirmHandleScreen(handle: String){
         router.openConfirmHandleScreen(handle)
     }

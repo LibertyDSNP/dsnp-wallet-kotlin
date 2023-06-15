@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.home.HomeFragment"
+        android:name="com.unfinished.dsnp_wallet_kotlin.ui.tabs.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 

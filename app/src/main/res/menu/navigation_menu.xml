@@ -14,4 +14,9 @@
         android:id="@+id/keysFragment"
         android:icon="@drawable/ic_keys_tab"
         android:title="@string/keysFragment"/>
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/settings"
+        android:title="@string/settings"/>
 </menu>

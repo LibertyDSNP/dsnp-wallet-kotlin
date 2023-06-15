@@ -37,13 +37,15 @@ class CreateHandleFragment : BaseFragment<CreateHandleViewModel>() {
 
     override fun initViews() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
-        binding.inputField.requestFocus()
-        binding.root.showSoftKeyboard()
-        binding.inputField.doOnTextChanged { text, start, before, count ->
+        binding.inputField.showSoftKeyboard()
+        binding.inputField.doOnTextChanged { text, _, _, _ ->
             viewModel.validateHandle(text.toString())
         }
         binding.createHandleNext.setOnClickListener {
             viewModel.openConfirmHandleScreen(binding.inputField.text.toString())
+        }
+        binding.createHandleSkip.setOnClickListener {
+            viewModel.openHomeScreen(skip = true, identitySuccess = false)
         }
     }
 

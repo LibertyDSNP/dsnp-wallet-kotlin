@@ -1,4 +1,4 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.keys
+package com.unfinished.dsnp_wallet_kotlin.ui.tabs.keys
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
