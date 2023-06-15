@@ -95,7 +95,6 @@ workflows:
   build_and_deploy:
     jobs:
       - build-for-app-center:
-          build_env : "dev" # dev or stg should be used
           filters:
             branches:
               only:
