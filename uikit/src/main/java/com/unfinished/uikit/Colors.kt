@@ -4,6 +4,9 @@ import androidx.compose.ui.graphics.Color
 
 interface Colors {
 
+    val toolbar: Color
+    val onToolbar: Color
+
     val background: Color
     val onBackground: Color
 
@@ -12,8 +15,4 @@ interface Colors {
     val button: Color
     val buttonDisabled: Color
     val onButton: Color
-
-    val secondaryButton: Color
-    val secondaryButtonDisabled: Color
-    val onSecondaryButton: Color
 }

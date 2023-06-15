@@ -38,31 +38,6 @@ fun PrimaryButton(
         })
 }
 
-@Composable
-fun SecondaryButton(
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    text: String,
-    onClick: () -> Unit
-) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MainColors.secondaryButton,
-            disabledContainerColor = MainColors.secondaryButtonDisabled
-        ),
-        modifier = modifier,
-        enabled = enabled,
-        content = {
-            Text(
-                text = text,
-                style = MainTypography.bodyMedium,
-                color = MainColors.onButton,
-                modifier = Modifier.padding(vertical = 6.dp)
-            )
-        })
-}
-
 @Preview
 @Composable
 private fun SampleButtons() {
@@ -71,8 +46,6 @@ private fun SampleButtons() {
             PrimaryButton(text = "Primary Button", onClick = {})
 
             Spacer(modifier = Modifier.size(24.dp))
-            SecondaryButton(text = "Secondary Button", onClick = {})
-
         }
     }
 }

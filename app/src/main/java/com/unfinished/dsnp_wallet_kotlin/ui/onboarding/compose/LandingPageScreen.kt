@@ -26,7 +26,9 @@ import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.components.HyperlinkText
 import com.unfinished.uikit.components.Logo
-import com.unfinished.uikit.components.SecondaryButton
+import com.unfinished.uikit.components.PrimaryButton
+import com.unfinished.uikit.exts.comingSoonToast
+import com.unfinished.uikit.exts.launchChromeTab
 
 @Composable
 fun LandingPageScreen(
@@ -36,6 +38,7 @@ fun LandingPageScreen(
     val context = LocalContext.current
     val termsLink = stringResource(id = R.string.terms_link)
     val privacyLink = stringResource(id = R.string.privacy_policy_link)
+    val haveIdLink = stringResource(id = R.string.have_id_link)
 
     LandingPageScreen(
         /**
@@ -43,19 +46,19 @@ fun LandingPageScreen(
          */
         showTestScreen = true,
         createIdentityClick = {
-            landingViewModel.importAccountClicked()
+            context.comingSoonToast()
         },
         haveIdClick = {
-            landingViewModel.openLookupScreen()
+            context.launchChromeTab(haveIdLink, showBackButton = true)
         },
         restoreAccountClick = {
-            TODO()
+            context.comingSoonToast()
         },
         termsClick = {
-            context.showBrowser(termsLink)
+            context.launchChromeTab(termsLink)
         },
         privacyPolicyClick = {
-            context.showBrowser(privacyLink)
+            context.launchChromeTab(privacyLink)
         },
         testScreenClick = testScreenClick
     )
@@ -100,14 +103,14 @@ fun LandingPageScreen(
         )
 
         Spacer(modifier = Modifier.size(56.dp))
-        SecondaryButton(
+        PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(id = R.string.landing_create_identity_btn),
             onClick = createIdentityClick
         )
 
         Spacer(modifier = Modifier.size(32.dp))
-        SecondaryButton(
+        PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(id = R.string.landing_have_identity),
             onClick = haveIdClick
@@ -149,7 +152,7 @@ fun LandingPageScreen(
 
         if (showTestScreen) {
             Spacer(modifier = Modifier.size(32.dp))
-            SecondaryButton(
+            PrimaryButton(
                 text = stringResource(id = R.string.landing_test_screen),
                 onClick = testScreenClick
             )

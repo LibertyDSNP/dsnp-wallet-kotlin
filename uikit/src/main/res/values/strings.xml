@@ -2,4 +2,6 @@
 <resources>
     <string name="amplica_logo">Amplica Access Pro Logo</string>
     <string name="back">Back</string>
+    <string name="close">Close</string>
+    <string name="common_cannot_open_link">Cannot open this link</string>
 </resources>
