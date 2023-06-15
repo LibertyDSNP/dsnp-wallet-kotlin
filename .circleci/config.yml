@@ -33,19 +33,21 @@ commands: # a reusable command with parameters
           event: <<parameters.event>>
           channel: android-ci-alerts
 
+parameters: # parameters are at the job level
+  build_env:
+    type: string
+    default: "dev" 
+  build_version:
+    type: string
+    default: "1"
+
 jobs:
   build-for-app-center:
     executor: 
       name: android/android-machine
       resource-class: large
       tag: 2022.12.1
-    parameters: # parameters are at the job level
-      build_env:
-        type: string
-        default: "dev" 
-      build_version:
-        type: string
-        default: "1"  
+
     
     steps:
       - send_slack_message: 
@@ -70,14 +72,14 @@ jobs:
           name: Upload build file to app center 
           command: |
             fastlane add_plugin appcenter
-            fastlane appcenter_upload_app  build_version:"<<parameters.build_version>>" env:"<<parameters.build_env>>"
+            fastlane appcenter_upload_app  build_version:"<<pipeline.parameters.build_version>>" env:"<<pipeline.parameters.build_env>>"
       - run:
           name: Launch Smoke Test 
           command: |
             curl --location --request POST "https://circleci.com/api/v2/project/gh/Liberty30/android-testing/pipeline" \
             --header "Content-Type: application/json" \
             --header "Circle-Token: $ANDROID_TEST_CIRCLEKEY" \
-            --data-raw "{\"branch\": \"regression\"}"
+            --data-raw "{\"branch\": \"main\"}"
       - send_slack_message: #"If all steps has passed"
           event : "pass" 
           icon: ":large_green_circle:"
@@ -93,4 +95,8 @@ workflows:
   build_and_deploy:
     jobs:
       - build-for-app-center:
-            build_env : "dev" # dev or stg should be used
+          build_env : "dev" # dev or stg should be used
+          filters:
+            branches:
+              only:
+                - dev
