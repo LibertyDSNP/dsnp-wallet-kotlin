@@ -1,6 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,12 +12,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.showBrowser
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -25,7 +29,48 @@ import com.unfinished.uikit.components.Logo
 import com.unfinished.uikit.components.SecondaryButton
 
 @Composable
-fun LandingPageScreen() {
+fun LandingPageScreen(
+    landingViewModel: LandingViewModel,
+    testScreenClick: () -> Unit
+) {
+    val context = LocalContext.current
+    val termsLink = stringResource(id = R.string.terms_link)
+    val privacyLink = stringResource(id = R.string.privacy_policy_link)
+
+    LandingPageScreen(
+        /**
+         * TODO: Add logic to the viewmodel to handle showing this test button
+         */
+        showTestScreen = true,
+        createIdentityClick = {
+            landingViewModel.importAccountClicked()
+        },
+        haveIdClick = {
+            landingViewModel.openLookupScreen()
+        },
+        restoreAccountClick = {
+            TODO()
+        },
+        termsClick = {
+            context.showBrowser(termsLink)
+        },
+        privacyPolicyClick = {
+            context.showBrowser(privacyLink)
+        },
+        testScreenClick = testScreenClick
+    )
+}
+
+@Composable
+fun LandingPageScreen(
+    showTestScreen: Boolean = false,
+    createIdentityClick: () -> Unit,
+    haveIdClick: () -> Unit,
+    restoreAccountClick: () -> Unit,
+    termsClick: () -> Unit,
+    privacyPolicyClick: () -> Unit,
+    testScreenClick: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,18 +103,14 @@ fun LandingPageScreen() {
         SecondaryButton(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(id = R.string.landing_create_identity_btn),
-            onClick = {
-                TODO()
-            }
+            onClick = createIdentityClick
         )
 
         Spacer(modifier = Modifier.size(32.dp))
         SecondaryButton(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(id = R.string.landing_have_identity),
-            onClick = {
-                TODO()
-            }
+            onClick = haveIdClick
         )
 
         Spacer(modifier = Modifier.size(32.dp))
@@ -78,7 +119,8 @@ fun LandingPageScreen() {
             style = MainTypography.body.copy(),
             color = MainColors.onBackground,
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .clickable(onClick = restoreAccountClick),
             textAlign = TextAlign.Center,
             textDecoration = TextDecoration.Underline
         )
@@ -99,11 +141,19 @@ fun LandingPageScreen() {
             ),
             onClicked = {
                 when (it) {
-                    terms -> TODO()
-                    privacyPolicy -> TODO()
+                    terms -> termsClick()
+                    privacyPolicy -> privacyPolicyClick()
                 }
             }
         )
+
+        if (showTestScreen) {
+            Spacer(modifier = Modifier.size(32.dp))
+            SecondaryButton(
+                text = stringResource(id = R.string.landing_test_screen),
+                onClick = testScreenClick
+            )
+        }
 
         Spacer(modifier = Modifier.size(32.dp))
     }
@@ -113,6 +163,13 @@ fun LandingPageScreen() {
 @Composable
 private fun SampleLandingPageScreen() {
     MainTheme {
-        LandingPageScreen()
+        LandingPageScreen(
+            showTestScreen = true,
+            createIdentityClick = {},
+            haveIdClick = {},
+            restoreAccountClick = {},
+            termsClick = {},
+            privacyPolicyClick = {}
+        )
     }
 }

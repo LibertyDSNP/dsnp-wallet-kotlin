@@ -13,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -24,36 +26,40 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.snackbar.Snackbar
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.uikit.MainTheme
 
-fun Fragment.toast(msg: String, duration: Int = Toast.LENGTH_SHORT){
-    Toast.makeText(requireContext(),msg,duration).show()
+fun Fragment.toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(requireContext(), msg, duration).show()
 }
 
-fun View.setBackgroundTint(@ColorInt color: Int){
+fun View.setBackgroundTint(@ColorInt color: Int) {
     ViewCompat.setBackgroundTintList(this, ColorStateList.valueOf(color))
 }
 
-fun View.setBackgroundTintColorId(color: Int){
-    ViewCompat.setBackgroundTintList(this, ColorStateList.valueOf(ContextCompat.getColor(context,color)))
+fun View.setBackgroundTintColorId(color: Int) {
+    ViewCompat.setBackgroundTintList(
+        this,
+        ColorStateList.valueOf(ContextCompat.getColor(context, color))
+    )
 }
 
-fun View.show(){
+fun View.show() {
     animate().alpha(1f).withEndAction {
         visibility = View.VISIBLE
     }
 }
 
-fun View.invisible(){
+fun View.invisible() {
     animate().alpha(0f).withEndAction { visibility = View.INVISIBLE }
 }
 
-fun View.hide(){
+fun View.hide() {
     animate().alpha(0f).withEndAction { visibility = View.GONE }
 }
 
-fun View.showSnackBar(message: String?){
+fun View.showSnackBar(message: String?) {
     message?.let {
-        Snackbar.make(this,it,Snackbar.LENGTH_LONG).show()
+        Snackbar.make(this, it, Snackbar.LENGTH_LONG).show()
     }
 }
 
@@ -110,14 +116,16 @@ fun TextView.setTextOrHide(newText: String?) {
 }
 
 fun View.hideSoftKeyboard() {
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 }
 
 fun View.showSoftKeyboard() {
     requestFocus()
 
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
@@ -132,5 +140,13 @@ fun Context.showBrowser(link: String) {
     } catch (e: ActivityNotFoundException) {
         Toast.makeText(this, R.string.common_cannot_open_link, Toast.LENGTH_SHORT)
             .show()
+    }
+}
+
+fun Context.createComposeView(content: @Composable () -> Unit): View = ComposeView(this).apply {
+    setContent {
+        MainTheme {
+            content()
+        }
     }
 }

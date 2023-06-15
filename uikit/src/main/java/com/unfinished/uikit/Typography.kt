@@ -12,9 +12,8 @@ object MainTypography {
 
     val title: TextStyle = poppinsTextStyle.copy(
         fontWeight = FontWeight.Medium,
-        fontSize = 20.sp,
-        lineHeight = 28.sp,
-        letterSpacing = (-2).sp
+        fontSize = 22.sp,
+        lineHeight = 28.sp
     )
 
     val body = poppinsTextStyle.copy(
