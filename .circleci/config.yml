@@ -76,7 +76,7 @@ jobs:
       - run:
           name: Launch Smoke Test 
           command: |
-            curl --location --request POST "https://circleci.com/api/v2/project/gh/Liberty30/android-testing/pipeline" \
+            curl --location --request POST "https://circleci.com/api/v2/project/gh/AmplicaLabs/android-testing/pipeline" \
             --header "Content-Type: application/json" \
             --header "Circle-Token: $ANDROID_TEST_CIRCLEKEY" \
             --data-raw "{\"branch\": \"main\"}"
