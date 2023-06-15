@@ -39,6 +39,8 @@
     <string name="landing_privacy_policy">By signing up, you agree our <font color="#DA5E3A">Terms</font> and \n<font color="#DA5E3A">Privacy Policy</font></string>
     <string name="terms">Terms</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="signing_up_terms">By signing up, you agree our Terms and Privacy Policy</string>
+    <string name="restore_account">Restore Account</string>
 
     <string name="lookup_title">Welcome to Sage</string>
     <string name="lookup_sub_title">"A little bit about what the wallet is and does etc. A little bit about what the wallet is "</string>
