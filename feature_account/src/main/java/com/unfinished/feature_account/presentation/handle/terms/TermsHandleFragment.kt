@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import com.unfinished.feature_account.databinding.FragmentTermsHandleBinding
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.resources.commonString
+import io.novafoundation.nova.common.view.dialog.dialog
 
 @AndroidEntryPoint
 class TermsHandleFragment : BaseFragment<TermsHandleViewModel>() {
@@ -26,19 +28,39 @@ class TermsHandleFragment : BaseFragment<TermsHandleViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTermsHandleBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun initViews() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
-        binding.termsHandleNext.setOnClickListener { viewModel.openMnemonicScreen() }
-
+        binding.termsHandleNext.setOnClickListener { showCreateIDSuccess() }
     }
 
     override fun subscribe(viewModel: TermsHandleViewModel) {
 
     }
+
+    private fun showCreateIDSuccess() {
+        dialog(
+            context = requireContext(),
+            title = getString(commonString.congratulation),
+            subtitle = getString(commonString.temp_handle),
+            description = getString(commonString.temp_desc),
+            buttonText = getString(commonString.lets_go),
+            cancelable = false,
+            primaryAction = {
+
+            },
+            secondaryAction = {
+
+            },
+            closeAction = {
+
+            }
+        ).show()
+    }
+
 
 }

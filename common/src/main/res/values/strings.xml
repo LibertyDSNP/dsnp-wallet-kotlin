@@ -1129,4 +1129,9 @@
     <string name="wallet_transfer_details_title">Transfer details</string>
     <string name="wallet_your_balance">Your balance</string>
     <string name="yesterday">Yesterday</string>
+
+    <string name="congratulation">Congratulations!</string>
+    <string name="temp_handle">neverendingwinter.23</string>
+    <string name="temp_desc">lorem ipsum</string>
+    <string name="lets_go">Let\'s Go!</string>
 </resources>

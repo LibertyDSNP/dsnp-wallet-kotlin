@@ -81,7 +81,7 @@ class PrimaryButton @JvmOverloads constructor(
 
     enum class Size(val heightDp: Int, val cornerSizeDp: Int) {
         LARGE(48, 30),
-        SMALL(44, 10);
+        SMALL(44, 30);
     }
 
     private var cachedText: String? = null

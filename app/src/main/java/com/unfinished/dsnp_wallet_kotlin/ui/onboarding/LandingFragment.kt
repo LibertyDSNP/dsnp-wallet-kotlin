@@ -96,6 +96,4 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
         }
     }
 
-
-
 }
