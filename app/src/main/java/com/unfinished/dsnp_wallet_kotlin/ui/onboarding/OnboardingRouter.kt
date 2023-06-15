@@ -8,9 +8,7 @@ interface OnboardingRouter {
     fun openLookupScreen()
     fun openCreateHandleScreen()
     fun openCreateAccount(accountName: String?, addAccountPayload: AddAccountPayload)
-
     fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload)
-
     fun openImportAccountScreen(payload: ImportAccountPayload)
 
     fun back()

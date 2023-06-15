@@ -12,13 +12,13 @@
         tools:layout="@layout/fragment_create_handle">
 
         <action
-            android:id="@+id/action_createHandleFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_createHandleFragment_to_tabFragment"
+            app:destination="@id/tabFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/landingFragment"
+            app:popUpTo="@id/root_nav_graph"
             app:popUpToInclusive="true" />
 
          <action
@@ -56,22 +56,14 @@
         tools:layout="@layout/fragment_terms_handle">
 
         <action
-            android:id="@+id/action_termsHandleFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_termsHandleFragment_to_tabFragment"
+            app:destination="@id/tabFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/landingFragment"
+            app:popUpTo="@id/root_nav_graph"
             app:popUpToInclusive="true" />
-
-        <action
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            android:id="@+id/action_termsHandleFragment_to_mnemonic_nav_graph"
-            app:destination="@id/mnemonic_nav_graph" />
 
     </fragment>
 

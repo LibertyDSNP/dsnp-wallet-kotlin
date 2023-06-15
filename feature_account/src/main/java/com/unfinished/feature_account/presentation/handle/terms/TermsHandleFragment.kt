@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import com.unfinished.feature_account.databinding.FragmentTermsHandleBinding
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.resources.commonString
-import io.novafoundation.nova.common.view.dialog.dialog
 
 @AndroidEntryPoint
 class TermsHandleFragment : BaseFragment<TermsHandleViewModel>() {
@@ -35,7 +33,7 @@ class TermsHandleFragment : BaseFragment<TermsHandleViewModel>() {
 
     override fun initViews() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
-        binding.termsHandleNext.setOnClickListener { viewModel.openHomeScreen(
+        binding.termsHandleNext.setOnClickListener { viewModel.openTabScreen(
             skip = false,
             identitySuccess = true
         ) }

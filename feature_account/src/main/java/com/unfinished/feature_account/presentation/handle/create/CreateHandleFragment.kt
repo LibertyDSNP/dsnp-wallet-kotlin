@@ -45,7 +45,7 @@ class CreateHandleFragment : BaseFragment<CreateHandleViewModel>() {
             viewModel.openConfirmHandleScreen(binding.inputField.text.toString())
         }
         binding.createHandleSkip.setOnClickListener {
-            viewModel.openHomeScreen(skip = true, identitySuccess = false)
+            viewModel.openTabScreen(skip = true, identitySuccess = false)
         }
     }
 

@@ -8,6 +8,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.OnboardingRouter
 import com.unfinished.dsnp_wallet_kotlin.ui.main.RootRouter
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingFragment
 import com.unfinished.dsnp_wallet_kotlin.ui.splash.SplashRouter
+import com.unfinished.dsnp_wallet_kotlin.ui.tabs.TabFragment
 import com.unfinished.dsnp_wallet_kotlin.ui.tabs.home.HomeFragment
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.export.ExportPayload
@@ -121,13 +122,9 @@ class Navigator(
     }
 
     override fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload) {
-        val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
-            R.id.lookupFragment -> R.id.action_lookupFragment_to_mnemonic_nav_graph
-            R.id.termsHandleFragment -> R.id.action_termsHandleFragment_to_mnemonic_nav_graph
-            else -> throw IllegalArgumentException("Unknown current destination to open mnemonic screen: $currentDestinationId")
-        }
+
         val payload = BackupMnemonicPayload.Create(accountName, addAccountPayload)
-        navController?.navigate(destination, BackupMnemonicFragment.getBundle(payload))
+        navController?.navigate(R.id.action_settingsFragment_to_mnemonic_nav_graph, BackupMnemonicFragment.getBundle(payload))
     }
 
     override fun openAccountDetails(metaAccountId: Long) {
@@ -199,12 +196,12 @@ class Navigator(
         navController?.navigate(R.id.action_confirmHandleFragment_to_termsHandleFragment)
     }
 
-    override fun openHomeScreenFromHandle(skip: Boolean, identitySuccess: Boolean) {
+    override fun openTabScreen(skip: Boolean, identitySuccess: Boolean) {
         val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
-            R.id.createHandleFragment -> R.id.action_createHandleFragment_to_homeFragment
-            R.id.termsHandleFragment -> R.id.action_termsHandleFragment_to_homeFragment
-            else -> throw IllegalArgumentException("Unknown current destination to open home screen: $currentDestinationId")
+            R.id.createHandleFragment -> R.id.action_createHandleFragment_to_tabFragment
+            R.id.termsHandleFragment -> R.id.action_termsHandleFragment_to_tabFragment
+            else -> throw IllegalArgumentException("Unknown current destination to open tab screen: $currentDestinationId")
         }
-        navController?.navigate(destination,HomeFragment.bundle(skip,identitySuccess))
+        navController?.navigate(destination,TabFragment.bundle(skip,identitySuccess))
     }
 }

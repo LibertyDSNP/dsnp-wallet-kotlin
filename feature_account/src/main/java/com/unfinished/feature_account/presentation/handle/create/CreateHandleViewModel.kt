@@ -1,11 +1,9 @@
 package com.unfinished.feature_account.presentation.handle.create
 
 import com.unfinished.feature_account.presentation.AccountRouter
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.validation.ValidationExecutor
 import io.novafoundation.nova.common.view.ButtonState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,8 +25,8 @@ class CreateHandleViewModel @Inject constructor(
         }
     }
 
-    fun openHomeScreen(skip: Boolean, identitySuccess: Boolean){
-        router.openHomeScreenFromHandle(skip,identitySuccess)
+    fun openTabScreen(skip: Boolean, identitySuccess: Boolean){
+        router.openTabScreen(skip,identitySuccess)
     }
 
     fun openConfirmHandleScreen(handle: String){
