@@ -1,6 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.home.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,45 +23,83 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
+import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
+import com.unfinished.uikit.UiState
 import com.unfinished.uikit.components.Edit
 import com.unfinished.uikit.components.Overlay
 import com.unfinished.uikit.components.Profile
 import com.unfinished.uikit.components.RoundedProgressBar
+import com.unfinished.uikit.toDataLoaded
+
 
 @Composable
-fun HomeScreen(
-    iconUrl: String?,
-    username: String,
-    currentCount: Int,
-    totalCount: Int
+fun IdentityScreen(
+    identityViewModel: IdentityViewModel = hiltViewModel()
+) {
+    val uiState = identityViewModel.uiStateFLow.collectAsState()
+
+    IdentityScreen(
+        uiState = uiState.value,
+        editProfileClick = {
+            //TODO
+        },
+        seeAllClick = {
+            //TODO
+        }
+    )
+}
+
+@Composable
+fun IdentityScreen(
+    uiState: UiState<IdentityUiModel>,
+    editProfileClick: () -> Unit,
+    seeAllClick: () -> Unit
 ) {
     Column(
         modifier = Modifier.background(MainColors.background)
     ) {
-        ProfileRow(
-            iconUrl = iconUrl,
-            username = username
-        )
 
-        Spacer(modifier = Modifier.size(52.dp))
-        Box {
-            SocialProcessRow(
-                currentCount = currentCount,
-                totalCount = totalCount
-            )
-            Overlay(modifier = Modifier.fillMaxSize())
+        when (uiState) {
+            is UiState.DataLoaded -> {
+                val identityUiModel = uiState.data
+
+                ProfileRow(
+                    iconUrl = identityUiModel.iconUrl,
+                    username = identityUiModel.username,
+                    editProfileClick = editProfileClick
+                )
+
+                Spacer(modifier = Modifier.size(52.dp))
+                Box {
+                    SocialProcessRow(
+                        currentCount = identityUiModel.currentCount,
+                        totalCount = identityUiModel.totalCount,
+                        seeAllClick = seeAllClick
+                    )
+                    Overlay(modifier = Modifier.fillMaxSize())
+                }
+            }
+
+            is UiState.Loading -> {
+                //TODO
+            }
         }
+
+
     }
 }
 
 @Composable
 private fun ProfileRow(
     iconUrl: String?,
-    username: String
+    username: String,
+    editProfileClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -82,7 +122,8 @@ private fun ProfileRow(
                     .size(34.dp)
                     .clip(CircleShape)
                     .background(MainColors.button)
-                    .align(Alignment.BottomEnd),
+                    .align(Alignment.BottomEnd)
+                    .clickable(onClick = editProfileClick),
                 contentAlignment = Alignment.Center
             ) {
                 Edit()
@@ -102,7 +143,8 @@ private fun ProfileRow(
 @Composable
 private fun SocialProcessRow(
     currentCount: Int,
-    totalCount: Int
+    totalCount: Int,
+    seeAllClick: () -> Unit
 ) {
     val countDisplay = "$currentCount/$totalCount"
     val progress = currentCount.toFloat() / totalCount.toFloat()
@@ -137,20 +179,26 @@ private fun SocialProcessRow(
             style = MainTypography.textLink,
             color = MainColors.hyperLink,
             textDecoration = TextDecoration.Underline,
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier
+                .align(Alignment.End)
+                .clickable(onClick = seeAllClick)
         )
     }
 }
 
 @Preview
 @Composable
-private fun SampleHomeScreen() {
+private fun SampleIdentityScreen() {
     MainTheme {
-        HomeScreen(
-            iconUrl = null,
-            username = "neverendingwinter.23",
-            currentCount = 1,
-            totalCount = 3
+        IdentityScreen(
+            uiState = IdentityUiModel(
+                iconUrl = null,
+                username = "neverendingwinter.23",
+                currentCount = 1,
+                totalCount = 3
+            ).toDataLoaded(),
+            editProfileClick = {},
+            seeAllClick = {}
         )
     }
 }
