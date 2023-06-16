@@ -63,4 +63,6 @@ dependencies {
     api deps.compose.viewmodel
 
     api deps.other.chrome_tabs
+
+    api deps.other.coil_compose
 }
