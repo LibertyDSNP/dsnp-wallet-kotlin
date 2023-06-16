@@ -10,6 +10,7 @@ class DarkColors : Colors {
 
     override val background: Color = Color(0xFF053031)
     override val onBackground: Color = Color(0xFFFFFFFF)
+    override val onBackgroundSecondary: Color = Color(0xFF979797)
 
     override val hyperLink: Color = Color(0xFFDA5E3A)
 

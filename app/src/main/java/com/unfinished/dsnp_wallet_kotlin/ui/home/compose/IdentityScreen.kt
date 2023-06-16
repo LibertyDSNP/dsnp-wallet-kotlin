@@ -101,6 +101,8 @@ private fun ProfileRow(
     username: String,
     editProfileClick: () -> Unit
 ) {
+    val (name, number) = username.split(".")
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -131,11 +133,18 @@ private fun ProfileRow(
         }
 
         Spacer(modifier = Modifier.size(10.dp))
-        Text(
-            text = username,
-            style = MainTypography.profile,
-            color = MainColors.onBackground
-        )
+        Row {
+            Text(
+                text = name,
+                style = MainTypography.profile,
+                color = MainColors.onBackground
+            )
+            Text(
+                text = ".$number",
+                style = MainTypography.profileSecondary,
+                color = MainColors.onBackgroundSecondary
+            )
+        }
         Spacer(modifier = Modifier.size(12.dp))
     }
 }

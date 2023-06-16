@@ -9,6 +9,7 @@ interface Colors {
 
     val background: Color
     val onBackground: Color
+    val onBackgroundSecondary: Color
 
     val hyperLink: Color
 

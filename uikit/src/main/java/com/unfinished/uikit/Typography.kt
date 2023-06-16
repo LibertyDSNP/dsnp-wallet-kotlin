@@ -35,6 +35,12 @@ object MainTypography {
         lineHeight = 20.sp,
     )
 
+    val profileSecondary = poppinsTextStyle.copy(
+        fontWeight = FontWeight.Light,
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
+    )
+
     val rowHeader = spaceMonoTextStyle.copy(
         fontWeight = FontWeight.Bold,
         fontSize = 12.sp,
@@ -43,7 +49,7 @@ object MainTypography {
 
     val textLink = nunitoTextStyle.copy (
         fontWeight = FontWeight.Normal,
-        fontSize = 10.sp,
+        fontSize = 12.sp,
         lineHeight = 13.sp
     )
 }
