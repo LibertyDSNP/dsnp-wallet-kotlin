@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:scrollbars="none"
     android:fillViewport="true"
-    tools:context=".ui.onboarding.LandingFragment">
+    tools:context=".ui.onboarding.LandingFragment"
+    tools:background="#000000">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

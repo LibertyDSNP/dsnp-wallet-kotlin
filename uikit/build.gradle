@@ -61,4 +61,9 @@ dependencies {
     api deps.compose.window_size
     api deps.compose.activity
     api deps.compose.viewmodel
+    api deps.compose.hilt
+
+    api deps.other.chrome_tabs
+
+    api deps.other.coil_compose
 }
