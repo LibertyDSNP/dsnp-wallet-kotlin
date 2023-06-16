@@ -4,7 +4,4 @@
     <string name="back">Back</string>
     <string name="close">Close</string>
     <string name="common_cannot_open_link">Cannot open this link</string>
-    <string name="profile_icon">Profile icon</string>
-    <string name="profile_icon_empty">Profile icon empty</string>
-    <string name="edit">Edit</string>
 </resources>
