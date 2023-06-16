@@ -1,0 +1,178 @@
+package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.showBrowser
+import com.unfinished.uikit.MainColors
+import com.unfinished.uikit.MainTheme
+import com.unfinished.uikit.MainTypography
+import com.unfinished.uikit.components.HyperlinkText
+import com.unfinished.uikit.components.Logo
+import com.unfinished.uikit.components.PrimaryButton
+import com.unfinished.uikit.exts.comingSoonToast
+import com.unfinished.uikit.exts.launchChromeTab
+
+@Composable
+fun LandingPageScreen(
+    landingViewModel: LandingViewModel,
+    testScreenClick: () -> Unit
+) {
+    val context = LocalContext.current
+    val termsLink = stringResource(id = R.string.terms_link)
+    val privacyLink = stringResource(id = R.string.privacy_policy_link)
+    val haveIdLink = stringResource(id = R.string.have_id_link)
+
+    LandingPageScreen(
+        /**
+         * TODO: Add logic to the viewmodel to handle showing this test button
+         */
+        showTestScreen = true,
+        createIdentityClick = {
+            context.comingSoonToast()
+        },
+        haveIdClick = {
+            context.launchChromeTab(haveIdLink, showBackButton = true)
+        },
+        restoreAccountClick = {
+            context.comingSoonToast()
+        },
+        termsClick = {
+            context.launchChromeTab(termsLink)
+        },
+        privacyPolicyClick = {
+            context.launchChromeTab(privacyLink)
+        },
+        testScreenClick = testScreenClick
+    )
+}
+
+@Composable
+fun LandingPageScreen(
+    showTestScreen: Boolean = false,
+    createIdentityClick: () -> Unit,
+    haveIdClick: () -> Unit,
+    restoreAccountClick: () -> Unit,
+    termsClick: () -> Unit,
+    privacyPolicyClick: () -> Unit,
+    testScreenClick: () -> Unit = {}
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MainColors.background)
+            .padding(horizontal = 36.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.size(56.dp))
+        Logo()
+
+        Spacer(modifier = Modifier.size(24.dp))
+        Text(
+            text = stringResource(id = R.string.landing_title),
+            style = MainTypography.title,
+            color = MainColors.onBackground,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.size(16.dp))
+        Text(
+            text = stringResource(id = R.string.landing_sub_title),
+            style = MainTypography.body,
+            color = MainColors.onBackground,
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.size(56.dp))
+        PrimaryButton(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.landing_create_identity_btn),
+            onClick = createIdentityClick
+        )
+
+        Spacer(modifier = Modifier.size(32.dp))
+        PrimaryButton(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.landing_have_identity),
+            onClick = haveIdClick
+        )
+
+        Spacer(modifier = Modifier.size(32.dp))
+        Text(
+            text = stringResource(id = R.string.restore_account),
+            style = MainTypography.body.copy(),
+            color = MainColors.onBackground,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = restoreAccountClick),
+            textAlign = TextAlign.Center,
+            textDecoration = TextDecoration.Underline
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+        val terms = stringResource(id = R.string.terms)
+        val privacyPolicy = stringResource(id = R.string.privacy_policy)
+        HyperlinkText(
+            modifier = Modifier.padding(horizontal = 24.dp),
+            style = MainTypography.body.copy(
+                color = MainColors.onBackground,
+                textAlign = TextAlign.Center
+            ),
+            fullText = stringResource(id = R.string.signing_up_terms),
+            clickableTexts = listOf(
+                terms,
+                privacyPolicy
+            ),
+            onClicked = {
+                when (it) {
+                    terms -> termsClick()
+                    privacyPolicy -> privacyPolicyClick()
+                }
+            }
+        )
+
+        if (showTestScreen) {
+            Spacer(modifier = Modifier.size(32.dp))
+            PrimaryButton(
+                text = stringResource(id = R.string.landing_test_screen),
+                onClick = testScreenClick
+            )
+        }
+
+        Spacer(modifier = Modifier.size(32.dp))
+    }
+}
+
+@Preview
+@Composable
+private fun SampleLandingPageScreen() {
+    MainTheme {
+        LandingPageScreen(
+            showTestScreen = true,
+            createIdentityClick = {},
+            haveIdClick = {},
+            restoreAccountClick = {},
+            termsClick = {},
+            privacyPolicyClick = {}
+        )
+    }
+}

@@ -80,6 +80,8 @@ versions.compose_viewmodel = "2.5.1"
 
 versions.streamsupport = "1.6.0"
 
+versions.chrome_tabs = "1.5.0"
+
 ext.versions = versions
 
 def build_versions = [:]
@@ -188,6 +190,7 @@ other.shimmer = "com.facebook.shimmer:shimmer:$versions.shimmer"
 other.runtime_permission = "com.github.florent37:runtime-permission-kotlin:$versions.runtime_permission"
 other.flexbox = "com.google.android.flexbox:flexbox:$versions.flexbox"
 other.streamsupport = "net.sourceforge.streamsupport:streamsupport:$versions.streamsupport"
+other.chrome_tabs = "androidx.browser:browser:$versions.chrome_tabs"
 deps.other = other
 
 def compose = [:]
