@@ -124,7 +124,7 @@ class Navigator(
     override fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload) {
 
         val payload = BackupMnemonicPayload.Create(accountName, addAccountPayload)
-        navController?.navigate(R.id.action_settingsFragment_to_mnemonic_nav_graph, BackupMnemonicFragment.getBundle(payload))
+        navController?.navigate(R.id.action_tabFragment_to_Mnemonc, BackupMnemonicFragment.getBundle(payload))
     }
 
     override fun openAccountDetails(metaAccountId: Long) {
