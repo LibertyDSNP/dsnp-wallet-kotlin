@@ -15,11 +15,4 @@ interface Colors {
     val button: Color
     val buttonDisabled: Color
     val onButton: Color
-
-    val loading: Color
-
-    val transparentOverlay: Color
-
-    val progressBar: Color
-    val progressBarBackground: Color
 }

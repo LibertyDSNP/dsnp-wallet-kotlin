@@ -71,8 +71,8 @@ class CommonModule {
     @Provides
     @Singleton
     fun imageLoader(@ApplicationContext context: Context) = ImageLoader.Builder(context)
-        .components {
-            add(SvgDecoder.Factory())
+        .componentRegistry {
+            add(SvgDecoder(context))
         }
         .build()
 

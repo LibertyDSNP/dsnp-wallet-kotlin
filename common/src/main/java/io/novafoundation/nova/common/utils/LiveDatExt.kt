@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveDataScope
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import kotlinx.coroutines.flow.Flow
 
 fun MutableLiveData<Event<Unit>>.sendEvent() {
@@ -134,6 +135,8 @@ fun <FROM, TO> LiveData<FROM>.switchMap(
 
     return result
 }
+
+fun <T> LiveData<T>.distinctUntilChanged() = Transformations.distinctUntilChanged(this)
 
 fun EditText.bindTo(liveData: MutableLiveData<String>, lifecycleOwner: LifecycleOwner) {
     onTextChanged {
