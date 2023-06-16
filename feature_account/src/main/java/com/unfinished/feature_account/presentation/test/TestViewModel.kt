@@ -12,6 +12,7 @@ import com.unfinished.feature_account.domain.interfaces.AccountAlreadyExistsExce
 import com.unfinished.feature_account.domain.interfaces.AccountDataSource
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.AddAccountType
+import com.unfinished.feature_account.domain.model.LightMetaAccount
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.toPlanks
 import com.unfinished.feature_account.presentation.importing.source.model.ImportError
@@ -25,14 +26,17 @@ import io.novafoundation.nova.common.data.network.runtime.calls.*
 import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
 import io.novafoundation.nova.common.data.network.runtime.model.event.*
 import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
+import io.novafoundation.nova.common.data.secrets.v2.KeyPairSchema
 import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
+import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
+import io.novafoundation.nova.common.data.secrets.v2.getMetaAccountKeypair
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.*
+import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.runtime.ext.*
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
-import io.novafoundation.nova.runtime.multiNetwork.chain.*
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnectionFactory
 import io.novafoundation.nova.runtime.multiNetwork.connection.ConnectionPool
@@ -40,14 +44,30 @@ import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import io.novafoundation.nova.runtime.multiNetwork.getSocket
 import io.novafoundation.nova.runtime.multiNetwork.runtime.repository.EventsRepository
 import io.novafoundation.nova.runtime.network.rpc.RpcCalls
+import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
+import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
+import jp.co.soramitsu.fearless_utils.encrypt.Signer
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
+import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
+import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator
 import jp.co.soramitsu.fearless_utils.exceptions.Bip39Exception
+import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
+import jp.co.soramitsu.fearless_utils.extensions.toAccountId
+import jp.co.soramitsu.fearless_utils.extensions.toHexString
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.DictEnum
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.Struct
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Extrinsic
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.MultiSignature
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.prepareForEncoding
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toHexUntyped
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadRaw
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageKey
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct
-import jp.co.soramitsu.fearless_utils.wsrpc.exception.RpcException
+import jp.co.soramitsu.fearless_utils.scale.dataType.string
+import jp.co.soramitsu.fearless_utils.scale.dataType.toHex
 import jp.co.soramitsu.fearless_utils.wsrpc.executeAsync
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
@@ -72,7 +92,8 @@ class TestViewModel @Inject constructor(
     private val resourceManager: ResourceManager,
     private val chainConnectionFactory: ChainConnectionFactory,
     private val eventsRepository: EventsRepository,
-    private val gson: Gson
+    private val gson: Gson,
+    private val secreteStoreV2: SecretStoreV2
 ) : BaseViewModel() {
 
     val chainId = "496e2f8a93bf4576317f998d01480f9068014b368856ec088a63e57071cd1d49"
@@ -103,7 +124,7 @@ class TestViewModel @Inject constructor(
         }
     }
 
-    fun getGesisHashFromBlockHash()  {
+    fun getGesisHashFromBlockHash() {
         viewModelScope.launch {
             val request_gensisHash = rpcCalls.getBlockHash(chainId, 0.toBigInteger())
             gensisHash = request_gensisHash
@@ -119,10 +140,12 @@ class TestViewModel @Inject constructor(
                     titleRes = R.string.account_add_already_exists_message,
                     messageRes = R.string.account_error_try_another_one
                 )
+
                 is JunctionDecoder.DecodingError, is BIP32JunctionDecoder.DecodingError -> ImportError(
                     titleRes = R.string.account_invalid_derivation_path_title,
                     messageRes = R.string.account_invalid_derivation_path_message_v2_2_0
                 )
+
                 else -> ImportError()
             }
         }
@@ -139,6 +162,7 @@ class TestViewModel @Inject constructor(
                 titleRes = R.string.import_mnemonic_invalid_title,
                 messageRes = R.string.mnemonic_error_try_another_one_v2_2_0
             )
+
             else -> null
         }
     }
@@ -208,6 +232,48 @@ class TestViewModel @Inject constructor(
         action()
     } catch (_: SQLiteConstraintException) {
         throw AccountAlreadyExistsException()
+    }
+
+    suspend fun getMetaAccountFromMnemonic(
+        chain: Chain,
+        name: String,
+        mnemonic: String = MnemonicCreator.randomMnemonic(Mnemonic.Length.TWELVE).words
+    ) = withContext(Dispatchers.IO) {
+        val (secrets, substrateCryptoType) = accountSecretsFactory.metaAccountSecrets(
+            substrateDerivationPath = "",
+            ethereumDerivationPath = "//44//60//0/0/0",
+            accountSource = AccountSecretsFactory.AccountSource.Mnemonic(
+                CryptoType.SR25519,
+                mnemonic
+            )
+        )
+        val substratePublicKey =
+            secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
+        val ethereumPublicKey =
+            secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
+        val metaAccountLocal = MetaAccount(
+            substratePublicKey = substratePublicKey,
+            substrateCryptoType = substrateCryptoType,
+            substrateAccountId = substratePublicKey.substrateAccountId(),
+            ethereumPublicKey = ethereumPublicKey,
+            ethereumAddress = ethereumPublicKey?.asEthereumPublicKey()?.toAccountId()?.value,
+            name = name,
+            isSelected = false,
+            id = 2,
+            chainAccounts = mapOf(
+                Pair(
+                    chain.id, MetaAccount.ChainAccount(
+                        metaId = 2,
+                        chain = chain,
+                        publicKey = substratePublicKey,
+                        accountId = substratePublicKey.substrateAccountId(),
+                        cryptoType = CryptoType.SR25519
+                    )
+                )
+            ),
+            type = LightMetaAccount.Type.SECRETS
+        )
+        metaAccountLocal
     }
 
     fun getMetaAccounts() = runBlocking {
@@ -306,15 +372,22 @@ class TestViewModel @Inject constructor(
                         is EventType.System -> {
                             Log.e("EventType", "EventType.System\n" + gson.toJson(event))
                         }
+
                         is EventType.Balance -> {
                             Log.e("EventType", "EventType.Balance\n" + gson.toJson(event))
                         }
+
                         is EventType.MsaEvent -> {
                             Log.e("EventType", "EventType.MsaEvent\n" + gson.toJson(event))
                         }
+
                         is EventType.TransactionPayment -> {
-                            Log.e("EventType", "EventType.TransactionPayment\n" + gson.toJson(event))
+                            Log.e(
+                                "EventType",
+                                "EventType.TransactionPayment\n" + gson.toJson(event)
+                            )
                         }
+
                         else -> EventType.Incompaitable
                     }
                 }
@@ -378,15 +451,15 @@ class TestViewModel @Inject constructor(
 
     suspend fun createMsa(chain: Chain) = flow {
         kotlin.runCatching {
-            val metaAccount =
-                accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
+            val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
             val signer = signerProvider.signerFor(metaAccount!!)
             val accountId = chain.accountIdOf(accountAddresForMsa)
             val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
                 .createMsa()
                 .build()
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
-            val finalized =  extrinsicStatus.filterIsInstance<ExtrinsicStatus.Finalized>().firstOrNull()
+            val finalized =
+                extrinsicStatus.filterIsInstance<ExtrinsicStatus.Finalized>().firstOrNull()
             finalized?.apply {
                 val events = getBlockEvents(chain, finalized.blockHash)
                 events.onSuccess {
@@ -394,10 +467,10 @@ class TestViewModel @Inject constructor(
                         emit(Triple(finalized.blockHash, null, it.error?.second?.name))
                     } ?: kotlin.run {
                         val msaEvent = it.map { it as? EventType.MsaEvent }.filterNotNull()
-                        emit(Triple(finalized.blockHash,msaEvent.firstOrNull(), null))
+                        emit(Triple(finalized.blockHash, msaEvent.firstOrNull(), null))
                     }
                 }.onFailure {
-                    emit(Triple(finalized.blockHash, null,it.message ?: "Error"))
+                    emit(Triple(finalized.blockHash, null, it.message ?: "Error"))
                 }
             }
         }.onFailure { exception ->
@@ -405,29 +478,110 @@ class TestViewModel @Inject constructor(
             exc_map["message"] = exception.toString()
             exc_map["stacktrace"] = getStackTrace(exception)
             println(gson.toJson(exc_map))
-            emit(Triple(null, null,exception.message ?: "Error"))
+            emit(Triple(null, null, exception.message ?: "Error"))
         }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun addKeyToMsa(chain: Chain) = flow {
-        val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
-        val signer = signerProvider.signerFor(metaAccount!!)
-        val accountId = chain.accountIdOf(accountAddres)
-        val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
-            .addKeyToMsa(
-                key = accountAddres,
-                proof = "",
-                addKeyPayload = AddKeyPayload(
-                    msaId = 2,
-                    nonce = 0.toBigInteger()
-                )
-            )
-            .build()
-        val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
-            .filterIsInstance<ExtrinsicStatus.Finalized>()
-            .first()
-        getBlockEvents(chain, extrinsicStatus.blockHash)
-        emit(extrinsicStatus.blockHash)
+    private fun sr25519SignatureOf(bytes: ByteArray): Any {
+        return MultiSignature(EncryptionType.SR25519, bytes).prepareForEncoding()
+    }
+     suspend fun addKeyToMsa(chain: Chain) = flow {
+         kotlin.runCatching {
+             val ownerMetaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
+             val newMetaAccount = accountRepository.getMetaAccount(4)
+             val ownerSigner = signerProvider.signerFor(ownerMetaAccount!!)
+             val newSigner = signerProvider.signerFor(newMetaAccount)
+             val accountId = chain.accountIdOf(accountAddres)
+             val runtime = chainRegistry.getRuntime(chain.id)
+//             val payloadData = AddKeyPayload(
+//                 msa_id = u8.toByteArray(runtime,1.toBigInteger()),
+//                 expiration = u4.toByteArray(runtime,200.toBigInteger()),
+//                 new_public_key = newMetaAccount.substratePublicKey!!.toUByteArray()
+//             )
+
+             val payloadData = AddKeyPayload(
+                 msaId = 1,
+                 expiration = 200,
+                 newPublicKey = chain.addressOf(newMetaAccount.substratePublicKey!!)
+             )
+
+
+             var keyPayloadData = gson.toJson(payloadData)
+             Log.e("keyPayloadData", "Orignal Payload: ${keyPayloadData}")
+             val addKeyData = runtime.typeRegistry.get("pallet_msa.types.AddKeyData")
+             Log.e("keyPayloadData", "Scale Encoded Payload: ${string.toHex(keyPayloadData)}")
+             val currencyIdScale = addKeyData!!.toHexUntyped(runtime, Struct.Instance(
+                 mapOf(
+                     "msaId" to 1.toBigInteger(),
+                     "expiration" to 200.toBigInteger(),
+                     "newPublicKey" to newMetaAccount.substratePublicKey
+                 )
+             ))
+             keyPayloadData = currencyIdScale
+             Log.e("keyPayloadData", "Scale Encoded Payload: ${keyPayloadData}")
+             val test = signerProvider.signerFor(ownerMetaAccount).signRaw(
+                 SignerPayloadRaw(
+                     keyPayloadData.toByteArray(),
+                     ownerMetaAccount.substrateAccountId!!
+                     , skipMessageHashing = true
+                 )
+             ).asHexString()
+             val test2 = signerProvider.signerFor(newMetaAccount).signRaw(
+                 SignerPayloadRaw(
+                     keyPayloadData.toByteArray(),
+                     newMetaAccount.substrateAccountId!!, skipMessageHashing = true
+                 )
+             ).asHexString()
+
+             Log.e("signature","test: %s \ntest2: %s".format(test,test2))
+
+             val charset = Charsets.UTF_8
+
+             val ownerKeypair = secreteStoreV2.getMetaAccountKeypair(metaId = ownerMetaAccount.id, false)
+             val newKeypair = secreteStoreV2.getMetaAccountKeypair(metaId = newMetaAccount.id, false)
+
+             val ownerSignature = Signer.sign(MultiChainEncryption.Substrate(EncryptionType.SR25519), keyPayloadData.toByteArray(), ownerKeypair).signature
+             val newSignature = Signer.sign(MultiChainEncryption.Substrate(EncryptionType.SR25519), keyPayloadData.toByteArray(), newKeypair).signature
+
+             val ownerResult = MultiSignature(EncryptionType.SR25519, ownerSignature).prepareForEncoding() as DictEnum.Entry<*>
+             val newResult = MultiSignature(EncryptionType.SR25519, newSignature).prepareForEncoding() as DictEnum.Entry<*>
+
+             Log.e("signature","ownerResult: %s \nnewResult: %s".format((ownerResult.value as ByteArray).toHexString(true),(newResult.value as ByteArray).toHexString(true)))
+
+             val newOwnerRawSignature = newSigner.signRaw(SignerPayloadRaw(keyPayloadData.toByteArray(charset),newMetaAccount.substrateAccountId)).signature.toHexString(withPrefix = true)
+             val msaOwnerRawSignature = ownerSigner.signRaw(SignerPayloadRaw(keyPayloadData.toByteArray(charset),ownerMetaAccount.substrateAccountId!!)).signature.toHexString(withPrefix = true)
+
+             Log.e("signature","msaOwnerRawSignature: %s \nnewOwnerRawSignature: %s".format(msaOwnerRawSignature,newOwnerRawSignature))
+             val extrinsic = extrinsicBuilderFactory.create(chain, ownerSigner, accountId)
+                 .addPublicKeyToMsa(
+                     msaOwnerPublicKey = ownerMetaAccount.substratePublicKey,
+                     msaOwnerProof = ownerResult,
+                     newKeyOwnerProof = newResult,
+                     addKeyPayload = Struct.Instance(
+                         mapOf(
+                             "msaId" to 1.toBigInteger(),
+                             "expiration" to 200.toBigInteger(),
+                             "newPublicKey" to newMetaAccount.substratePublicKey
+                         )
+                     )
+                 ).build()
+             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
+                 .filterIsInstance<ExtrinsicStatus.Finalized>()
+                 .first()
+             val events = getBlockEvents(chain, extrinsicStatus.blockHash)
+             events.onSuccess {
+                 it.checkIfExtrinsicFailed()?.let {
+                     emit(Pair(extrinsicStatus.blockHash, it.error?.second?.name))
+                 } ?: kotlin.run {
+                     emit(Pair(extrinsicStatus.blockHash, null))
+                 }
+             }.onFailure {
+                 emit(Pair(extrinsicStatus.blockHash, it.message ?: "Error"))
+             }
+         }.onFailure {
+             Log.e("failed",it.message ?: "Error")
+         }
+
     }.flowOn(Dispatchers.IO)
 
 }
@@ -438,5 +592,11 @@ fun getStackTrace(throwable: Throwable): String {
     throwable.printStackTrace(pw)
     return sw.getBuffer().toString()
 }
+
+class AddKeyPayloadArg(
+    val msaId: Extrinsic.EncodingInstance.CallRepresentation.Bytes,
+    val expiration: Extrinsic.EncodingInstance.CallRepresentation.Bytes,
+    val newPublicKey: UByteArray
+)
 
 

@@ -26,15 +26,17 @@ class TermsHandleFragment : BaseFragment<TermsHandleViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTermsHandleBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun initViews() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
-        binding.termsHandleNext.setOnClickListener { viewModel.openMnemonicScreen() }
-
+        binding.termsHandleNext.setOnClickListener { viewModel.openTabScreen(
+            skip = false,
+            identitySuccess = true
+        ) }
     }
 
     override fun subscribe(viewModel: TermsHandleViewModel) {

@@ -35,7 +35,6 @@ class SecretsSigner(
 
     override suspend fun signRaw(payload: SignerPayloadRaw): SignatureWrapper {
         val delegate = createDelegate(payload.accountId)
-
         return delegate.signRaw(payload)
     }
 
@@ -47,7 +46,6 @@ class SecretsSigner(
             accountId = accountId,
             isEthereumBased = multiChainEncryption is MultiChainEncryption.Ethereum
         )
-
         return KeyPairSigner(keypair, multiChainEncryption)
     }
 

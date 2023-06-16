@@ -5,7 +5,8 @@
     android:id="@+id/root_nav_graph"
     app:startDestination="@id/splashFragment">
 
-    <include app:graph="@navigation/main_nav_graph" />
+    <!--  Temporary included as SettingFragment ->  mnemonic_nav_graph is not working later will fix -->
+    <include app:graph="@navigation/mnemonic_nav_graph"/>
 
     <include app:graph="@navigation/onboarding_nav_graph" />
 
@@ -57,9 +58,21 @@
         tools:layout="@layout/fragment_pincode" />
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/tabFragment"
+        android:name="com.unfinished.dsnp_wallet_kotlin.ui.tabs.TabFragment"
+        android:label="TabFragment"
+        tools:layout="@layout/fragment_tab">
+
+        <!--  Temporary included as SettingFragment ->  mnemonic_nav_graph is not working later will fix -->
+
+        <action
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            android:id="@+id/action_tabFragment_to_Mnemonc"
+            app:destination="@id/mnemonic_nav_graph" />
+
+    </fragment>
 
 </navigation>

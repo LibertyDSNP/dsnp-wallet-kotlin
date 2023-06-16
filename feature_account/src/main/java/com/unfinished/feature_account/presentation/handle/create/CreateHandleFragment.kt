@@ -8,17 +8,11 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.unfinished.feature_account.R
 import com.unfinished.feature_account.databinding.FragmentCreateHandleBinding
-import com.unfinished.feature_account.presentation.pincode.fingerprint.FingerprintWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.presentation.DescriptiveButtonState
-import io.novafoundation.nova.common.view.ButtonState
-import io.novafoundation.nova.common.view.setState
+import io.novafoundation.nova.common.utils.showSoftKeyboard
 import kotlinx.coroutines.flow.collectLatest
-import javax.inject.Inject
-import io.novafoundation.nova.common.R as commonR
 
 @AndroidEntryPoint
 class CreateHandleFragment : BaseFragment<CreateHandleViewModel>() {
@@ -36,18 +30,22 @@ class CreateHandleFragment : BaseFragment<CreateHandleViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCreateHandleBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun initViews() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
-        binding.inputField.doOnTextChanged { text, start, before, count ->
+        binding.inputField.showSoftKeyboard()
+        binding.inputField.doOnTextChanged { text, _, _, _ ->
             viewModel.validateHandle(text.toString())
         }
         binding.createHandleNext.setOnClickListener {
             viewModel.openConfirmHandleScreen(binding.inputField.text.toString())
+        }
+        binding.createHandleSkip.setOnClickListener {
+            viewModel.openTabScreen(skip = true, identitySuccess = false)
         }
     }
 

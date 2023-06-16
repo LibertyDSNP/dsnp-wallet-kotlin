@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/tab_home_nav_graph"
         android:icon="@drawable/ic_home_tab"
         android:title="@string/homeFragment"/>
 
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/tab_profile_nav_graph"
         android:icon="@drawable/ic_profile_tab"
         android:title="@string/profileFragment"/>
 
     <item
-        android:id="@+id/keysFragment"
+        android:id="@+id/tab_key_nav_graph"
         android:icon="@drawable/ic_keys_tab"
         android:title="@string/keysFragment"/>
+
+    <item
+        android:id="@+id/tab_settings_nav_graph"
+        android:icon="@drawable/settings"
+        android:title="@string/settings"/>
+
 </menu>

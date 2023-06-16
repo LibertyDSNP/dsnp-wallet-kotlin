@@ -5,7 +5,6 @@
     android:id="@+id/onboarding_nav_graph"
     app:startDestination="@id/landingFragment">
 
-    <include app:graph="@navigation/mnemonic_nav_graph" />
     <include app:graph="@navigation/handle_nav_graph" />
 
     <fragment
@@ -13,6 +12,7 @@
         android:name="com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingFragment"
         android:label="fragment_landing"
         tools:layout="@layout/fragment_landing" >
+
         <action
             android:id="@+id/action_landingFragment_to_lookupFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -32,6 +32,7 @@
         <action
             android:id="@+id/action_landingFragment_to_testFragment"
             app:destination="@id/testFragment" />
+
     </fragment>
 
     <fragment
@@ -49,7 +50,6 @@
             app:destination="@id/mnemonic_nav_graph" />
 
     </fragment>
-
 
     <fragment
         android:id="@+id/testFragment"

@@ -54,9 +54,6 @@ class RootActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-        setupWithNavController(bottomNavigationView, navController)
-        bottomNavigationView.hide()
     }
 
     override fun subscribe() {

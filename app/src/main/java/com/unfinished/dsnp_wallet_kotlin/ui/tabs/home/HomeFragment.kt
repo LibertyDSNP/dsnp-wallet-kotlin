@@ -1,4 +1,5 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.home
+package com.unfinished.dsnp_wallet_kotlin.ui.tabs.home
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +10,6 @@ import com.unfinished.dsnp_wallet_kotlin.ui.base.BaseFragment
 import com.unfinished.dsnp_wallet_kotlin.ui.home.compose.IdentityScreen
 import com.unfinished.dsnp_wallet_kotlin.util.createComposeView
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -30,5 +30,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun observe() {
 
     }
+
 
 }

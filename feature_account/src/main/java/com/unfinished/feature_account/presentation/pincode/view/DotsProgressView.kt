@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.unfinished.feature_account.R
-import io.novafoundation.nova.common.R as commonR
 
 class DotsProgressView @JvmOverloads constructor(
     context: Context,

@@ -464,15 +464,14 @@
     </style>
 
     <style name="AccentDialogPositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:buttonBarButtonStyle">@style/Widget.Nova.Button.Primary</item>
         <item name="android:textColor">?attr/colorAccent</item>
     </style>
 
     <style name="AccentDialogNegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:buttonBarButtonStyle">@style/Widget.Nova.Button.Primary</item>
         <item name="android:textColor">@color/text_negative</item>
     </style>
-
-    <!-- Dialog -->
-
 
     <!--   Bottom Navigation -->
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
