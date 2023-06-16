@@ -3,32 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/tab_home_nav_graph">
 
-    <include app:graph="@navigation/mnemonic_nav_graph" />
-    <include app:graph="@navigation/handle_nav_graph" />
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.tabs.home.HomeFragment"
-        android:label="@string/homeFragment"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.tabs.profile.ProfileFragment"
-        android:label="@string/profileFragment"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/keysFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.tabs.keys.KeysFragment"
-        android:label="@string/keysFragment"
-        tools:layout="@layout/fragment_keys" />
-
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.unfinished.dsnp_wallet_kotlin.ui.tabs.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+    <include app:graph="@navigation/tab_home_nav_graph" />
+    <include app:graph="@navigation/tab_key_nav_graph" />
+    <include app:graph="@navigation/tab_profile_nav_graph" />
+    <include app:graph="@navigation/tab_settings_nav_graph" />
 
     <fragment
         android:id="@+id/pincodeFragment"
@@ -55,6 +35,5 @@
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@id/splashFragment"
         app:popUpToInclusive="true" />
-
 
 </navigation>
