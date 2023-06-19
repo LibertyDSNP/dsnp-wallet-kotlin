@@ -11,8 +11,10 @@ import io.novafoundation.nova.common.utils.getDrawableCompat
 import io.novafoundation.nova.common.utils.readText
 import javax.inject.Singleton
 import kotlin.time.Duration
+import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.milliseconds
+import kotlin.time.toDuration
 
 @OptIn(ExperimentalTime::class)
 @Singleton
@@ -67,7 +69,7 @@ class ResourceManagerImpl(
         return when {
             inDays > 0 -> getQuantityString(R.plurals.staking_main_lockup_period_value, inDays, inDays)
             else -> {
-                val inSeconds = elapsedTime.milliseconds.inSeconds.toLong()
+                val inSeconds = elapsedTime.toDuration(DurationUnit.SECONDS).inWholeSeconds
 
                 DateUtils.formatElapsedTime(inSeconds)
             }

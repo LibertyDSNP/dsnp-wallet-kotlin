@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.address.AddressModel
@@ -12,8 +14,6 @@ import io.novafoundation.nova.common.utils.WithContextExtensions
 import io.novafoundation.nova.common.utils.makeGone
 import io.novafoundation.nova.common.utils.makeVisible
 import io.novafoundation.nova.common.utils.setDrawableEnd
-import kotlinx.android.synthetic.main.view_address.view.addressImage
-import kotlinx.android.synthetic.main.view_address.view.addressValue
 
 class AddressView @JvmOverloads constructor(
     context: Context,
@@ -23,8 +23,12 @@ class AddressView @JvmOverloads constructor(
 
     override val providedContext: Context = context
 
+    private val view = View.inflate(context, R.layout.view_address, this)
+    private val addressImage: ImageView = view.findViewById(R.id.addressImage)
+    private val addressValue: TextView = view.findViewById(R.id.addressValue)
+
     init {
-        View.inflate(context, R.layout.view_address, this)
+
         setEndIcon(R.drawable.ic_info_cicrle_filled_16)
     }
 

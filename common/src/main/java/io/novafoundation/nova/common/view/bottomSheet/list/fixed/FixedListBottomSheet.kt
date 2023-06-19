@@ -16,9 +16,6 @@ import io.novafoundation.nova.common.utils.setDrawableEnd
 import io.novafoundation.nova.common.utils.setDrawableStart
 import io.novafoundation.nova.common.utils.setTextOrHide
 import io.novafoundation.nova.common.view.bottomSheet.BaseBottomSheet
-import kotlinx.android.synthetic.main.bottom_sheeet_fixed_list.fixedListSheetItemContainer
-import kotlinx.android.synthetic.main.bottom_sheeet_fixed_list.fixedListSheetTitle
-import kotlinx.android.synthetic.main.item_sheet_iconic_label.view.itemExternalActionContent
 
 typealias ViewGetter<V> = FixedListBottomSheet.() -> V
 
@@ -36,8 +33,8 @@ abstract class FixedListBottomSheet(
         companion object {
             fun default() = ViewConfiguration(
                 layout = R.layout.bottom_sheeet_fixed_list,
-                container = { fixedListSheetItemContainer },
-                title = { fixedListSheetTitle },
+                container = { findViewById(R.id.fixedListSheetItemContainer)!! },
+                title = { findViewById(R.id.fixedListSheetTitle)!! },
             )
         }
     }
@@ -98,24 +95,25 @@ fun FixedListBottomSheet.item(
     onClick: (View) -> Unit,
 ) {
     item(R.layout.item_sheet_iconic_label) { view ->
-        view.itemExternalActionContent.text = title
+        view.findViewById<TextView>(R.id.itemExternalActionContent)?.apply {
+            text = title
 
-        val paddingInDp = 12
-
-        view.itemExternalActionContent.setDrawableStart(
-            drawableRes = icon,
-            widthInDp = 24,
-            tint = R.color.icon_primary,
-            paddingInDp = 12
-        )
-
-        if (showArrow) {
-            view.itemExternalActionContent.setDrawableEnd(
-                drawableRes = R.drawable.ic_chevron_right,
+            val paddingInDp = 12
+            setDrawableStart(
+                drawableRes = icon,
                 widthInDp = 24,
-                tint = R.color.icon_secondary,
-                paddingInDp = paddingInDp
+                tint = R.color.icon_primary,
+                paddingInDp = 12
             )
+
+            if (showArrow) {
+                setDrawableEnd(
+                    drawableRes = R.drawable.ic_chevron_right,
+                    widthInDp = 24,
+                    tint = R.color.icon_secondary,
+                    paddingInDp = paddingInDp
+                )
+            }
         }
 
         view.setDismissingClickListener(onClick)

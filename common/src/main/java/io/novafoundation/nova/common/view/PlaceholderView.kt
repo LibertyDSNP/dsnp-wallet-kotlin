@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.getEnum
@@ -12,8 +14,6 @@ import io.novafoundation.nova.common.utils.getResourceIdOrNull
 import io.novafoundation.nova.common.utils.setTextColorRes
 import io.novafoundation.nova.common.utils.useAttributes
 import io.novafoundation.nova.common.view.shape.getRoundedCornerDrawable
-import kotlinx.android.synthetic.main.view_placeholder.view.viewPlaceholderImage
-import kotlinx.android.synthetic.main.view_placeholder.view.viewPlaceholderText
 
 class PlaceholderView @JvmOverloads constructor(
     context: Context,
@@ -21,14 +21,22 @@ class PlaceholderView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    enum class Style(val showBackground: Boolean, val backgroundColorRes: Int?, val textColorRes: Int) {
+    enum class Style(
+        val showBackground: Boolean,
+        val backgroundColorRes: Int?,
+        val textColorRes: Int
+    ) {
         BACKGROUND_PRIMARY(true, R.color.block_background, R.color.text_secondary),
         BACKGROUND_SECONDARY(true, R.color.block_background, R.color.text_secondary),
         NO_BACKGROUND(false, null, R.color.text_secondary)
     }
 
+    private val view: View = View.inflate(context, R.layout.view_placeholder, this)
+    private val viewPlaceholderImage: ImageView = view.findViewById(R.id.viewPlaceholderImage)
+    private val viewPlaceholderText: TextView = view.findViewById(R.id.viewPlaceholderText)
+
     init {
-        View.inflate(context, R.layout.view_placeholder, this)
+
 
         orientation = VERTICAL
         gravity = Gravity.CENTER_HORIZONTAL
@@ -36,16 +44,20 @@ class PlaceholderView @JvmOverloads constructor(
         attrs?.let(::applyAttributes)
     }
 
-    private fun applyAttributes(attrs: AttributeSet) = context.useAttributes(attrs, R.styleable.PlaceholderView) { typedArray ->
-        val text = typedArray.getString(R.styleable.PlaceholderView_android_text)
-        text?.let(::setText)
+    private fun applyAttributes(attrs: AttributeSet) =
+        context.useAttributes(attrs, R.styleable.PlaceholderView) { typedArray ->
+            val text = typedArray.getString(R.styleable.PlaceholderView_android_text)
+            text?.let(::setText)
 
-        val backgroundStyle = typedArray.getEnum(R.styleable.PlaceholderView_placeholderBackgroundStyle, Style.BACKGROUND_PRIMARY)
-        setStyle(backgroundStyle)
+            val backgroundStyle = typedArray.getEnum(
+                R.styleable.PlaceholderView_placeholderBackgroundStyle,
+                Style.BACKGROUND_PRIMARY
+            )
+            setStyle(backgroundStyle)
 
-        val image = typedArray.getResourceIdOrNull(R.styleable.PlaceholderView_image)
-        image?.let(::setImage)
-    }
+            val image = typedArray.getResourceIdOrNull(R.styleable.PlaceholderView_image)
+            image?.let(::setImage)
+        }
 
     fun setStyle(style: Style) {
         background = if (style.showBackground) {

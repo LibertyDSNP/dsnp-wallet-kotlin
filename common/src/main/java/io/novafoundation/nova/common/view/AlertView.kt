@@ -3,7 +3,9 @@ package io.novafoundation.nova.common.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -12,8 +14,6 @@ import io.novafoundation.nova.common.utils.WithContextExtensions
 import io.novafoundation.nova.common.utils.getEnum
 import io.novafoundation.nova.common.utils.updatePadding
 import io.novafoundation.nova.common.utils.useAttributes
-import kotlinx.android.synthetic.main.view_alert.view.alertIcon
-import kotlinx.android.synthetic.main.view_alert.view.alertMessage
 
 class AlertView @JvmOverloads constructor(
     context: Context,
@@ -27,8 +27,12 @@ class AlertView @JvmOverloads constructor(
 
     class Style(@DrawableRes val iconRes: Int, @ColorRes val backgroundColorRes: Int)
 
+    private val view: View = View.inflate(context, R.layout.view_alert, this)
+    private val alertIcon: ImageView = view.findViewById(R.id.alertIcon)
+    private val alertMessage: TextView = view.findViewById(R.id.alertMessage)
+
     init {
-        View.inflate(context, R.layout.view_alert, this)
+
 
         orientation = HORIZONTAL
 

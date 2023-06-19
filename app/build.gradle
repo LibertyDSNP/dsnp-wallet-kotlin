@@ -1,11 +1,11 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
-    id 'org.jetbrains.kotlin.android'
+    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
 }
 
 

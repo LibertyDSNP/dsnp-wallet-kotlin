@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,17 +16,19 @@ import io.novafoundation.nova.common.utils.makeVisible
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.common.view.shape.addRipple
 import io.novafoundation.nova.common.view.shape.getCornersStateDrawable
-import kotlinx.android.synthetic.main.view_labeled_text.view.labeledTextAction
-import kotlinx.android.synthetic.main.view_labeled_text.view.labeledTextIcon
-import kotlinx.android.synthetic.main.view_labeled_text.view.labeledTextLabel
-import kotlinx.android.synthetic.main.view_labeled_text.view.labeledTextPrimaryIcon
-import kotlinx.android.synthetic.main.view_labeled_text.view.labeledTextText
 
 class LabeledTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyleAttr), WithContextExtensions by WithContextExtensions(context) {
+
+    private val view: View = View.inflate(context, R.layout.view_labeled_text, this)
+    private val labeledTextAction: ImageView = view.findViewById(R.id.labeledTextAction)
+    private val labeledTextIcon: ImageView = view.findViewById(R.id.labeledTextIcon)
+    private val labeledTextLabel: TextView = view.findViewById(R.id.labeledTextLabel)
+    private val labeledTextPrimaryIcon: ImageView = view.findViewById(R.id.labeledTextPrimaryIcon)
+    private val labeledTextText: TextView = view.findViewById(R.id.labeledTextText)
 
     init {
         View.inflate(context, R.layout.view_labeled_text, this)

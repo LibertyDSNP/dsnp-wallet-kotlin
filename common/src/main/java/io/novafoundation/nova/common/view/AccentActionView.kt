@@ -4,12 +4,12 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import io.novafoundation.nova.common.R
-import kotlinx.android.synthetic.main.view_accent_action.view.accentActionIcon
-import kotlinx.android.synthetic.main.view_accent_action.view.accentActionText
 
 class AccentActionView @JvmOverloads constructor(
     context: Context,
@@ -17,8 +17,12 @@ class AccentActionView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
+    private val view = View.inflate(context, R.layout.view_accent_action, this)
+    private val accentActionIcon: ImageView = view.findViewById(R.id.accentActionIcon)
+    private val accentActionText: TextView = view.findViewById(R.id.accentActionText)
+
     init {
-        View.inflate(context, R.layout.view_accent_action, this)
+
 
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL

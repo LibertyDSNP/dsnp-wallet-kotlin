@@ -3,7 +3,10 @@ package io.novafoundation.nova.common.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Group
 import androidx.core.content.res.getStringOrThrow
 import androidx.lifecycle.LifecycleOwner
 import io.novafoundation.nova.common.R
@@ -12,19 +15,21 @@ import io.novafoundation.nova.common.utils.setTextOrHide
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.common.utils.updatePadding
 import io.novafoundation.nova.common.utils.useAttributes
-import kotlinx.android.synthetic.main.view_advertisement_card.view.advertisementCardButton
-import kotlinx.android.synthetic.main.view_advertisement_card.view.advertisementCardImage
-import kotlinx.android.synthetic.main.view_advertisement_card.view.advertisementCardLearnMoreArrow
-import kotlinx.android.synthetic.main.view_advertisement_card.view.advertisementCardLearnMoreContent
-import kotlinx.android.synthetic.main.view_advertisement_card.view.advertisementCardLearnMoreGroup
-import kotlinx.android.synthetic.main.view_advertisement_card.view.advertisementCardSubTitle
-import kotlinx.android.synthetic.main.view_advertisement_card.view.advertisementCardTitle
 
 class AdvertisementCard @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyleAttr), WithContextExtensions by WithContextExtensions(context) {
+
+    private val view: View = View.inflate(context, R.layout.view_advertisement_card, this)
+    private val advertisementCardButton: PrimaryButton = view.findViewById(R.id.advertisementCardButton)
+    private val advertisementCardImage: ImageView = view.findViewById(R.id.advertisementCardImage)
+    private val advertisementCardLearnMoreArrow: ImageView = view.findViewById(R.id.advertisementCardLearnMoreArrow)
+    private val advertisementCardLearnMoreContent: TextView = view.findViewById(R.id.advertisementCardLearnMoreContent)
+    private val advertisementCardLearnMoreGroup: Group = view.findViewById(R.id.advertisementCardLearnMoreGroup)
+    private val advertisementCardSubTitle: TextView = view.findViewById(R.id.advertisementCardSubTitle)
+    private val advertisementCardTitle: TextView = view.findViewById(R.id.advertisementCardTitle)
 
     val action: PrimaryButton
         get() = advertisementCardButton

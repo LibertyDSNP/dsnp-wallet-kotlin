@@ -4,14 +4,14 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.card.MaterialCardView
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.dp
 import io.novafoundation.nova.common.utils.dpF
-import kotlinx.android.synthetic.main.view_banner.view.bannerBackground
-import kotlinx.android.synthetic.main.view_banner.view.bannerContent
-import kotlinx.android.synthetic.main.view_banner.view.bannerImage
 
 class BannerView @JvmOverloads constructor(
     context: Context,
@@ -19,8 +19,13 @@ class BannerView @JvmOverloads constructor(
     defStyle: Int = 0,
 ) : MaterialCardView(context, attrs, defStyle) {
 
+    private val view: View = View.inflate(context, R.layout.view_banner, this)
+    private val bannerBackground: ConstraintLayout = view.findViewById(R.id.bannerBackground)
+    private val bannerContent: FrameLayout = view.findViewById(R.id.bannerContent)
+    private val bannerImage: ImageView = view.findViewById(R.id.bannerImage)
+
     init {
-        View.inflate(context, R.layout.view_banner, this)
+
         cardElevation = 0f
         radius = 12f.dpF(context)
         strokeWidth = 1.dp(context)

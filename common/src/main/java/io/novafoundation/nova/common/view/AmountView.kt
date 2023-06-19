@@ -6,6 +6,8 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import coil.ImageLoader
 import coil.load
@@ -14,17 +16,20 @@ import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.setTextOrHide
 import io.novafoundation.nova.common.view.shape.getBlockDrawable
 import io.novafoundation.nova.common.view.shape.getCornersStateDrawable
-import kotlinx.android.synthetic.main.view_choose_amount_old.view.stakingAmountInput
-import kotlinx.android.synthetic.main.view_choose_amount_old.view.stakingAssetBalance
-import kotlinx.android.synthetic.main.view_choose_amount_old.view.stakingAssetPriceAmount
-import kotlinx.android.synthetic.main.view_choose_amount_old.view.stakingAssetImage
-import kotlinx.android.synthetic.main.view_choose_amount_old.view.stakingAssetToken
 
 class AmountView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyle) {
+
+    private val view: View = View.inflate(context, R.layout.view_choose_amount_old, this)
+    private val stakingAmountInput: EditText = view.findViewById(R.id.stakingAmountInput)
+    private val stakingAssetBalance: TextView = view.findViewById(R.id.stakingAssetBalance)
+    private val stakingAssetPriceAmount: TextView = view.findViewById(R.id.stakingAssetPriceAmount)
+    private val stakingAssetImage: ImageView = view.findViewById(R.id.stakingAssetImage)
+    private val stakingAssetToken: TextView = view.findViewById(R.id.stakingAssetToken)
+
 
     val amountInput: EditText
         get() = stakingAmountInput
@@ -34,7 +39,7 @@ class AmountView @JvmOverloads constructor(
     }
 
     init {
-        View.inflate(context, R.layout.view_choose_amount_old, this)
+
 
         setBackground()
 
