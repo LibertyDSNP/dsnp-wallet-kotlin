@@ -14,8 +14,10 @@ import io.novafoundation.nova.common.utils.formatting.format
 import io.novafoundation.nova.common.utils.onDestroy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.time.Duration
+import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.milliseconds
+import kotlin.time.toDuration
 
 private val TIMER_TAG = R.string.common_time_left
 
@@ -55,7 +57,7 @@ fun TextView.startTimer(
             if (onFinish != null) {
                 onFinish(this@startTimer)
             } else {
-                this@startTimer.text = 0L.milliseconds.formatTimer(context)
+                this@startTimer.text = 0L.toDuration(DurationUnit.MILLISECONDS).formatTimer(context)
             }
 
             cancel()
@@ -84,7 +86,7 @@ private fun Duration.formatTimer(
 
 @OptIn(ExperimentalTime::class)
 private fun TextView.setNewValue(mills: Long, timeFormatRes: Int?) {
-    val formattedTime = mills.milliseconds.formatTimer(context)
+    val formattedTime = mills.toDuration(DurationUnit.MILLISECONDS).formatTimer(context)
 
     val message = timeFormatRes?.let {
         resources.getString(timeFormatRes, formattedTime)

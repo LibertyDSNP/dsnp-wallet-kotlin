@@ -4,15 +4,13 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.WithContextExtensions
 import io.novafoundation.nova.common.utils.makeGone
 import io.novafoundation.nova.common.utils.makeVisible
-import kotlinx.android.synthetic.main.view_account_info.view.accountAction
-import kotlinx.android.synthetic.main.view_account_info.view.accountAddressText
-import kotlinx.android.synthetic.main.view_account_info.view.accountIcon
-import kotlinx.android.synthetic.main.view_account_info.view.accountTitle
 
 class AccountInfoView @JvmOverloads constructor(
     context: Context,
@@ -20,8 +18,14 @@ class AccountInfoView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr), WithContextExtensions by WithContextExtensions(context) {
 
+    private val view = View.inflate(context, R.layout.view_account_info, this)
+    private val accountAction: ImageView = view.findViewById(R.id.accountAction)
+    private val accountAddressText: TextView = view.findViewById(R.id.accountAddressText)
+    private val accountIcon: ImageView = view.findViewById(R.id.accountIcon)
+    private val accountTitle: TextView = view.findViewById(R.id.accountTitle)
+
     init {
-        View.inflate(context, R.layout.view_account_info, this)
+
 
         background = getRoundedCornerDrawable(fillColorRes = R.color.block_background).withRippleMask()
 

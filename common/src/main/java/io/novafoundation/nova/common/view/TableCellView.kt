@@ -30,13 +30,6 @@ import io.novafoundation.nova.common.utils.setTextColorRes
 import io.novafoundation.nova.common.utils.setTextOrHide
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.common.utils.useAttributes
-import kotlinx.android.synthetic.main.view_table_cell.view.tableCellContent
-import kotlinx.android.synthetic.main.view_table_cell.view.tableCellImage
-import kotlinx.android.synthetic.main.view_table_cell.view.tableCellTitle
-import kotlinx.android.synthetic.main.view_table_cell.view.tableCellValueDivider
-import kotlinx.android.synthetic.main.view_table_cell.view.tableCellValuePrimary
-import kotlinx.android.synthetic.main.view_table_cell.view.tableCellValueProgress
-import kotlinx.android.synthetic.main.view_table_cell.view.tableCellValueSecondary
 
 private val ICON_TINT_DEFAULT = R.color.icon_secondary
 
@@ -54,13 +47,25 @@ open class TableCellView @JvmOverloads constructor(
     companion object {
         fun createTableCellView(context: Context): TableCellView {
             return TableCellView(context).apply {
-                layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
 
                 valueSecondary.setTextColorRes(R.color.text_secondary)
                 title.setTextColorRes(R.color.text_secondary)
             }
         }
     }
+
+    private val view: View = View.inflate(context, R.layout.view_table_cell, this)
+    private val tableCellContent: Group = view.findViewById(R.id.tableCellContent)
+    private val tableCellImage: ImageView = view.findViewById(R.id.tableCellImage)
+    private val tableCellTitle: TextView = view.findViewById(R.id.tableCellTitle)
+    private val tableCellValueDivider: View = view.findViewById(R.id.tableCellValueDivider)
+    private val tableCellValuePrimary: TextView = view.findViewById(R.id.tableCellValuePrimary)
+    private val tableCellValueProgress: ProgressBar = view.findViewById(R.id.tableCellValueProgress)
+    private val tableCellValueSecondary: TextView = view.findViewById(R.id.tableCellValueSecondary)
 
     val title: TextView
         get() = tableCellTitle
@@ -85,8 +90,6 @@ open class TableCellView @JvmOverloads constructor(
     }
 
     init {
-        View.inflate(context, R.layout.view_table_cell, this)
-
         setBackgroundResource(R.drawable.bg_primary_list_item)
 
         attrs?.let { applyAttributes(it) }
@@ -143,6 +146,7 @@ open class TableCellView @JvmOverloads constructor(
             FieldStyle.TEXT -> {
                 valuePrimary.setTextColorRes(R.color.text_primary)
             }
+
             FieldStyle.LINK -> {
                 valuePrimary.setTextColor(context.getAccentColor())
             }
@@ -150,7 +154,12 @@ open class TableCellView @JvmOverloads constructor(
     }
 
     fun setTitleIcon(@DrawableRes icon: Int?) {
-        tableCellTitle.setDrawableEnd(icon, widthInDp = 16, paddingInDp = 4, tint = ICON_TINT_DEFAULT)
+        tableCellTitle.setDrawableEnd(
+            icon,
+            widthInDp = 16,
+            paddingInDp = 4,
+            tint = ICON_TINT_DEFAULT
+        )
     }
 
     fun showValue(primary: String, secondary: String? = null) {
@@ -164,41 +173,53 @@ open class TableCellView @JvmOverloads constructor(
         }
     }
 
-    private fun applyAttributes(attrs: AttributeSet) = context.useAttributes(attrs, R.styleable.TableCellView) { typedArray ->
-        val titleText = typedArray.getString(R.styleable.TableCellView_title)
-        setTitle(titleText)
+    private fun applyAttributes(attrs: AttributeSet) =
+        context.useAttributes(attrs, R.styleable.TableCellView) { typedArray ->
+            val titleText = typedArray.getString(R.styleable.TableCellView_title)
+            setTitle(titleText)
 
-        val dividerVisible = typedArray.getBoolean(R.styleable.TableCellView_dividerVisible, true)
-        setDividerVisible(dividerVisible)
+            val dividerVisible =
+                typedArray.getBoolean(R.styleable.TableCellView_dividerVisible, true)
+            setDividerVisible(dividerVisible)
 
-        val primaryValueIcon = typedArray.getResourceIdOrNull(R.styleable.TableCellView_primaryValueIcon)
-        primaryValueIcon?.let {
-            val primaryValueIconTint = typedArray.getResourceId(R.styleable.TableCellView_primaryValueIconTint, ICON_TINT_DEFAULT)
+            val primaryValueIcon =
+                typedArray.getResourceIdOrNull(R.styleable.TableCellView_primaryValueIcon)
+            primaryValueIcon?.let {
+                val primaryValueIconTint = typedArray.getResourceId(
+                    R.styleable.TableCellView_primaryValueIconTint,
+                    ICON_TINT_DEFAULT
+                )
 
-            setPrimaryValueIcon(primaryValueIcon, primaryValueIconTint)
+                setPrimaryValueIcon(primaryValueIcon, primaryValueIconTint)
+            }
+
+            val primaryValueStyle = typedArray.getEnum(
+                R.styleable.TableCellView_primaryValueStyle,
+                default = FieldStyle.TEXT
+            )
+            setPrimaryValueStyle(primaryValueStyle)
+
+            val titleIcon = typedArray.getResourceIdOrNull(R.styleable.TableCellView_titleIcon)
+            titleIcon?.let(::setTitleIcon)
+
+            val titleTextAppearance =
+                typedArray.getResourceIdOrNull(R.styleable.TableCellView_titleValueTextAppearance)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                titleTextAppearance?.let(title::setTextAppearance)
+            }
+
+            val primaryValueTextAppearance =
+                typedArray.getResourceIdOrNull(R.styleable.TableCellView_primaryValueTextAppearance)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                primaryValueTextAppearance?.let(valuePrimary::setTextAppearance)
+            }
+
+            val secondaryValueTextAppearance =
+                typedArray.getResourceIdOrNull(R.styleable.TableCellView_secondaryValueTextAppearance)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                secondaryValueTextAppearance?.let(valueSecondary::setTextAppearance)
+            }
         }
-
-        val primaryValueStyle = typedArray.getEnum(R.styleable.TableCellView_primaryValueStyle, default = FieldStyle.TEXT)
-        setPrimaryValueStyle(primaryValueStyle)
-
-        val titleIcon = typedArray.getResourceIdOrNull(R.styleable.TableCellView_titleIcon)
-        titleIcon?.let(::setTitleIcon)
-
-        val titleTextAppearance = typedArray.getResourceIdOrNull(R.styleable.TableCellView_titleValueTextAppearance)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            titleTextAppearance?.let(title::setTextAppearance)
-        }
-
-        val primaryValueTextAppearance = typedArray.getResourceIdOrNull(R.styleable.TableCellView_primaryValueTextAppearance)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            primaryValueTextAppearance?.let(valuePrimary::setTextAppearance)
-        }
-
-        val secondaryValueTextAppearance = typedArray.getResourceIdOrNull(R.styleable.TableCellView_secondaryValueTextAppearance)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            secondaryValueTextAppearance?.let(valueSecondary::setTextAppearance)
-        }
-    }
 }
 
 fun TableCellView.showValueOrHide(primary: String?, secondary: String? = null) {

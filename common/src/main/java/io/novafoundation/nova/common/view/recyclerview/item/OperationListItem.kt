@@ -14,22 +14,28 @@ import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.WithContextExtensions
 import io.novafoundation.nova.common.utils.setImageTint
 import io.novafoundation.nova.common.utils.setImageTintRes
-import kotlinx.android.synthetic.main.item_operation_list_item.view.itemOperationHeader
-import kotlinx.android.synthetic.main.item_operation_list_item.view.itemOperationIcon
-import kotlinx.android.synthetic.main.item_operation_list_item.view.itemOperationSubHeader
-import kotlinx.android.synthetic.main.item_operation_list_item.view.itemOperationValuePrimary
-import kotlinx.android.synthetic.main.item_operation_list_item.view.itemOperationValueSecondary
-import kotlinx.android.synthetic.main.item_operation_list_item.view.itemOperationValueStatus
 
 class OperationListItem @kotlin.jvm.JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr), WithContextExtensions by WithContextExtensions(context) {
+) : ConstraintLayout(context, attrs, defStyleAttr),
+    WithContextExtensions by WithContextExtensions(context) {
 
     enum class IconStyle {
         BORDERED_CIRCLE, DEFAULT
     }
+
+    private val view: View = View.inflate(context, R.layout.item_operation_list_item, this)
+    private val itemOperationHeader: TextView = view.findViewById(R.id.itemOperationHeader)
+    private val itemOperationIcon: ImageView = view.findViewById(R.id.itemOperationIcon)
+    private val itemOperationSubHeader: TextView = view.findViewById(R.id.itemOperationSubHeader)
+    private val itemOperationValuePrimary: TextView =
+        view.findViewById(R.id.itemOperationValuePrimary)
+    private val itemOperationValueSecondary: TextView =
+        view.findViewById(R.id.itemOperationValueSecondary)
+    private val itemOperationValueStatus: ImageView =
+        view.findViewById(R.id.itemOperationValueStatus)
 
     val icon: ImageView
         get() = itemOperationIcon
@@ -50,8 +56,6 @@ class OperationListItem @kotlin.jvm.JvmOverloads constructor(
         get() = itemOperationValueStatus
 
     init {
-        View.inflate(context, R.layout.item_operation_list_item, this)
-
         layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
         setBackgroundResource(R.drawable.bg_primary_list_item)
@@ -64,6 +68,7 @@ class OperationListItem @kotlin.jvm.JvmOverloads constructor(
                 icon.setBackgroundResource(R.drawable.bg_icon_round_white)
                 icon.setImageTintRes(R.color.icon_secondary)
             }
+
             IconStyle.DEFAULT -> {
                 icon.setPadding(0)
                 icon.background = null

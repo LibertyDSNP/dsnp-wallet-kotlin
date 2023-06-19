@@ -7,6 +7,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -18,12 +19,6 @@ import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.getResourceIdOrNull
 import io.novafoundation.nova.common.utils.setTextOrHide
 import io.novafoundation.nova.common.utils.setVisible
-import kotlinx.android.synthetic.main.view_go_next.view.goNextActionImage
-import kotlinx.android.synthetic.main.view_go_next.view.goNextBadgeText
-import kotlinx.android.synthetic.main.view_go_next.view.goNextDivider
-import kotlinx.android.synthetic.main.view_go_next.view.goNextIcon
-import kotlinx.android.synthetic.main.view_go_next.view.goNextProgress
-import kotlinx.android.synthetic.main.view_go_next.view.goNextTitle
 
 class GoNextView @JvmOverloads constructor(
     context: Context,
@@ -31,8 +26,16 @@ class GoNextView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    private val view: View = View.inflate(context, R.layout.view_go_next, this)
+    private val goNextActionImage: ImageView = view.findViewById(R.id.goNextActionImage)
+    private val goNextBadgeText: TextView = view.findViewById(R.id.goNextBadgeText)
+    private val goNextDivider: View = view.findViewById(R.id.goNextDivider)
+    private val goNextIcon: ImageView = view.findViewById(R.id.goNextIcon)
+    private val goNextProgress: ProgressBar = view.findViewById(R.id.goNextProgress)
+    private val goNextTitle: TextView = view.findViewById(R.id.goNextTitle)
+
     init {
-        View.inflate(context, R.layout.view_go_next, this)
+
 
         attrs?.let(this::applyAttributes)
     }
@@ -64,7 +67,8 @@ class GoNextView @JvmOverloads constructor(
     }
 
     fun setProgressTint(@ColorRes tintColor: Int) {
-        goNextProgress.indeterminateTintList = ColorStateList.valueOf(ContextCompat.getColor(context, tintColor))
+        goNextProgress.indeterminateTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(context, tintColor))
     }
 
     fun setIcon(drawable: Drawable?) {
@@ -103,14 +107,19 @@ class GoNextView @JvmOverloads constructor(
         setDividerVisible(dividerVisible)
 
         val backgroundDrawable = typedArray.getDrawable(R.styleable.GoNextView_android_background)
-        if (backgroundDrawable != null) background = backgroundDrawable else setBackgroundResource(R.drawable.bg_primary_list_item)
+        if (backgroundDrawable != null) background =
+            backgroundDrawable else setBackgroundResource(R.drawable.bg_primary_list_item)
 
-        val textAppearance = typedArray.getResourceIdOrNull(R.styleable.GoNextView_android_textAppearance)
+        val textAppearance =
+            typedArray.getResourceIdOrNull(R.styleable.GoNextView_android_textAppearance)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             textAppearance?.let(title::setTextAppearance)
         }
 
-        val actionTint = typedArray.getColor(R.styleable.GoNextView_actionTint, ContextCompat.getColor(context, R.color.icon_primary))
+        val actionTint = typedArray.getColor(
+            R.styleable.GoNextView_actionTint,
+            ContextCompat.getColor(context, R.color.icon_primary)
+        )
         setActionTint(actionTint)
 
         typedArray.recycle()

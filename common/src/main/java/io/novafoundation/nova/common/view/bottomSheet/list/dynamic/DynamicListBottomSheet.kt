@@ -5,20 +5,14 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.CallSuper
-import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.DialogExtensions
 import io.novafoundation.nova.common.utils.WithContextExtensions
-import io.novafoundation.nova.common.utils.setVisible
-import kotlinx.android.synthetic.main.bottom_sheet_dynamic_list.dynamicListSheetContent
-import kotlinx.android.synthetic.main.bottom_sheet_dynamic_list.dynamicListSheetHeader
-import kotlinx.android.synthetic.main.bottom_sheet_dynamic_list.dynamicListSheetItemContainer
-import kotlinx.android.synthetic.main.bottom_sheet_dynamic_list.dynamicListSheetRightAction
-import kotlinx.android.synthetic.main.bottom_sheet_dynamic_list.dynamicListSheetTitle
 
 typealias ClickHandler<T> = (T) -> Unit
 
@@ -42,13 +36,13 @@ abstract class BaseDynamicListBottomSheet(context: Context) :
         get() = this
 
     protected val container: LinearLayout
-        get() = dynamicListSheetItemContainer
+        get() = findViewById(R.id.dynamicListSheetItemContainer)!!
 
     protected val headerView: View
-        get() = dynamicListSheetHeader
+        get() = findViewById(R.id.dynamicListSheetHeader)!!
 
     protected val recyclerView: RecyclerView
-        get() = dynamicListSheetContent
+        get() = findViewById(R.id.dynamicListSheetContent)!!
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,21 +51,21 @@ abstract class BaseDynamicListBottomSheet(context: Context) :
     }
 
     final override fun setTitle(title: CharSequence?) {
-        dynamicListSheetTitle.text = title
+        findViewById<TextView>(R.id.dynamicListSheetTitle)?.text = title
     }
 
     final override fun setTitle(titleId: Int) {
-        dynamicListSheetTitle.setText(titleId)
+        findViewById<TextView>(R.id.dynamicListSheetTitle)?.setText(titleId)
     }
 
-    fun setupRightAction(
-        @DrawableRes drawableRes: Int,
-        onClickListener: View.OnClickListener
-    ) {
-        dynamicListSheetRightAction.setImageResource(drawableRes)
-        dynamicListSheetRightAction.setVisible(true)
-        dynamicListSheetRightAction.setOnClickListener(onClickListener)
-    }
+//    fun setupRightAction(
+//        @DrawableRes drawableRes: Int,
+//        onClickListener: View.OnClickListener
+//    ) {
+//        dynamicListSheetRightAction.setImageResource(drawableRes)
+//        dynamicListSheetRightAction.setVisible(true)
+//        dynamicListSheetRightAction.setOnClickListener(onClickListener)
+//    }
 }
 
 abstract class DynamicListBottomSheet<T>(
@@ -88,6 +82,7 @@ abstract class DynamicListBottomSheet<T>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val dynamicListSheetContent: RecyclerView = findViewById(R.id.dynamicListSheetContent)!!
         dynamicListSheetContent.setHasFixedSize(true)
 
         val adapter = DynamicListSheetAdapter(payload.selected, this, diffCallback, holderCreator())

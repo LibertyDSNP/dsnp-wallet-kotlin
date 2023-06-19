@@ -4,11 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.res.getResourceIdOrThrow
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.useAttributes
-import kotlinx.android.synthetic.main.view_instruction_step.view.instructionStepIndicator
-import kotlinx.android.synthetic.main.view_instruction_step.view.instructionStepText
 
 class InstructionStepView @JvmOverloads constructor(
     context: Context,
@@ -16,10 +15,14 @@ class InstructionStepView @JvmOverloads constructor(
     defStyle: Int = 0,
 ) : LinearLayout(context, attrs, defStyle) {
 
+    private val view: View = View.inflate(context, R.layout.view_instruction_step, this)
+    private val instructionStepIndicator: TextView = view.findViewById(R.id.instructionStepIndicator)
+    private val instructionStepText: TextView = view.findViewById(R.id.instructionStepText)
+
     init {
         orientation = HORIZONTAL
 
-        View.inflate(context, R.layout.view_instruction_step, this)
+
 
         attrs?.let(::applyAttributes)
     }

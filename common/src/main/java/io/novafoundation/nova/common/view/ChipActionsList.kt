@@ -1,12 +1,12 @@
 package io.novafoundation.nova.common.view
 
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.list.BaseListAdapter
 import io.novafoundation.nova.common.list.BaseViewHolder
 import io.novafoundation.nova.common.utils.inflateChild
-import kotlinx.android.synthetic.main.item_chip_action.view.itemChipAction
 
 class ChipActionsModel(
     val action: String
@@ -40,7 +40,7 @@ class ChipActionsViewHolder constructor(
     }
 
     fun bind(item: ChipActionsModel) {
-        containerView.itemChipAction.text = item.action
+        (containerView as TextView).text = item.action
     }
 
     override fun unbind() {}

@@ -12,21 +12,25 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.BarcodeView
 import com.journeyapps.barcodescanner.DefaultDecoderFactory
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.WithContextExtensions
 import io.novafoundation.nova.common.utils.makeVisible
 import io.novafoundation.nova.common.utils.useAttributes
-import kotlinx.android.synthetic.main.view_scan.view.viewScanScanner
-import kotlinx.android.synthetic.main.view_scan.view.viewScanSubtitle
-import kotlinx.android.synthetic.main.view_scan.view.viewScanTitle
-import kotlinx.android.synthetic.main.view_scan.view.viewScanViewFinder
+import io.novafoundation.nova.common.view.qr.QrViewFinderView
 
 class ScanView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr), WithContextExtensions by WithContextExtensions(context) {
+
+    private val view = View.inflate(context, R.layout.view_scan, this)
+    val viewScanScanner: BarcodeView = view.findViewById(R.id.viewScanScanner)
+    private val viewScanSubtitle: TextView = view.findViewById(R.id.viewScanSubtitle)
+    private val viewScanTitle: TextView = view.findViewById(R.id.viewScanTitle)
+    private val viewScanViewFinder: QrViewFinderView = view.findViewById(R.id.viewScanViewFinder)
 
     init {
         View.inflate(context, R.layout.view_scan, this)

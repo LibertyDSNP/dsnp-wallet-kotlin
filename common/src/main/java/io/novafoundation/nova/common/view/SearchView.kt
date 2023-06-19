@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import io.novafoundation.nova.common.R
@@ -13,8 +14,6 @@ import io.novafoundation.nova.common.utils.onTextChanged
 import io.novafoundation.nova.common.utils.setDrawableStart
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.common.utils.useAttributes
-import kotlinx.android.synthetic.main.view_search.view.searchClear
-import kotlinx.android.synthetic.main.view_search.view.searchContent
 
 class SearchView @JvmOverloads constructor(
     context: Context,
@@ -25,13 +24,18 @@ class SearchView @JvmOverloads constructor(
     override val providedContext: Context
         get() = context
 
+    private val view: View = View.inflate(context, R.layout.view_search, this)
+    private val searchClear: ImageView = view.findViewById(R.id.searchClear)
+    private val searchContent: EditText = view.findViewById(R.id.searchContent)
+
     val content: EditText
         get() = searchContent
 
     init {
-        View.inflate(context, R.layout.view_search, this)
 
-        background = getRoundedCornerDrawable(fillColorRes = R.color.input_background, cornerSizeDp = 10)
+
+        background =
+            getRoundedCornerDrawable(fillColorRes = R.color.input_background, cornerSizeDp = 10)
 
         orientation = HORIZONTAL
 
@@ -50,14 +54,20 @@ class SearchView @JvmOverloads constructor(
     }
 
     fun setIcon(@DrawableRes icon: Int?) {
-        searchContent.setDrawableStart(icon, widthInDp = 16, paddingInDp = 6, tint = R.color.icon_secondary)
+        searchContent.setDrawableStart(
+            icon,
+            widthInDp = 16,
+            paddingInDp = 6,
+            tint = R.color.icon_secondary
+        )
     }
 
-    private fun applyAttrs(attributeSet: AttributeSet) = context.useAttributes(attributeSet, R.styleable.SearchView) {
-        val hint = it.getString(R.styleable.SearchView_android_hint)
-        setHint(hint)
+    private fun applyAttrs(attributeSet: AttributeSet) =
+        context.useAttributes(attributeSet, R.styleable.SearchView) {
+            val hint = it.getString(R.styleable.SearchView_android_hint)
+            setHint(hint)
 
-        val icon = it.getResourceIdOrNull(R.styleable.SearchView_icon)
-        setIcon(icon)
-    }
+            val icon = it.getResourceIdOrNull(R.styleable.SearchView_icon)
+            setIcon(icon)
+        }
 }

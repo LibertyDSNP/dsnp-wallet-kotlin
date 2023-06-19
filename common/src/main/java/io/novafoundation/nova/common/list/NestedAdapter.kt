@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView.Orientation
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.inflateChild
-import kotlinx.android.synthetic.main.item_nested_list.view.itemNestedList
 
 class NestedAdapter<T, TH : ViewHolder>(
     private val nestedAdapter: ListAdapter<T, TH>,
@@ -64,11 +63,13 @@ class NestedListViewHolder<T, TH : ViewHolder>(
     padding: Rect?
 ) : ViewHolder(view) {
 
+    private val itemNestedList: RecyclerView = view.findViewById(R.id.itemNestedList)
+
     init {
-        view.itemNestedList.adapter = nestedAdapter
-        view.itemNestedList.layoutManager = LinearLayoutManager(view.context, orientation, false)
+        itemNestedList.adapter = nestedAdapter
+        itemNestedList.layoutManager = LinearLayoutManager(view.context, orientation, false)
         padding?.let {
-            view.itemNestedList.setPadding(it.left, it.top, it.right, it.bottom)
+            itemNestedList.setPadding(it.left, it.top, it.right, it.bottom)
         }
     }
 

@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -14,8 +15,6 @@ import androidx.core.view.children
 import com.google.android.flexbox.FlexboxLayout
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.utils.setTextColorRes
-import kotlinx.android.synthetic.main.view_seekbar.view.seekbarInner
-import kotlinx.android.synthetic.main.view_seekbar.view.seekbarTickLabelsContainer
 
 class Seekbar @JvmOverloads constructor(
     context: Context,
@@ -23,10 +22,15 @@ class Seekbar @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
+    private val view: View = View.inflate(context, R.layout.view_seekbar, this)
+    private val seekbarInner: SeekBar = view.findViewById(R.id.seekbarInner)
+    private val seekbarTickLabelsContainer: FrameLayout =
+        view.findViewById(R.id.seekbarTickLabelsContainer)
+
     init {
         orientation = VERTICAL
 
-        View.inflate(context, R.layout.view_seekbar, this)
+
     }
 
     var progress: Int
@@ -70,7 +74,8 @@ class Seekbar @JvmOverloads constructor(
             }
             gravity = Gravity.CENTER_HORIZONTAL
 
-            layoutParams = FlexboxLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+            layoutParams =
+                FlexboxLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
 
             text = value.label
             setTextColorRes(value.labelColorRes)
@@ -84,7 +89,8 @@ class Seekbar @JvmOverloads constructor(
             val seekbarSteps = seekbarInner.max
             val seekbarStartPadding = seekbarInner.paddingStart
             val seekbarEndPadding = seekbarInner.paddingEnd
-            val slideZoneWidth = getParentMeasuredWidth() - (seekbarStartPadding + seekbarEndPadding)
+            val slideZoneWidth =
+                getParentMeasuredWidth() - (seekbarStartPadding + seekbarEndPadding)
             val seekbarStepWidth = slideZoneWidth / seekbarSteps
 
             viewGroup.children.toList()

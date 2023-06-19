@@ -1,7 +1,7 @@
 ext.deps = [:]
 def versions = [:]
 
-versions.kotlin = '1.7.20'
+versions.kotlin = '1.8.21'
 
 versions.android_gradle_plugin = '2.43.2'
 versions.args_gradle_plugin = '2.5.3'
@@ -74,8 +74,8 @@ versions.shimmer = '0.5.0'
 versions.runtime_permission = '1.1.2'
 versions.flexbox = '3.0.0'
 
-versions.kotlinCompilerExtensionVersion = "1.3.2"
-versions.compose_bom = "2023.01.00"
+versions.kotlinCompilerExtensionVersion = "1.4.7"
+versions.compose_bom = "2023.04.01"
 versions.compose_activity = "1.6.1"
 versions.compose_viewmodel = "2.5.1"
 versions.compose_hilt = "1.0.0"

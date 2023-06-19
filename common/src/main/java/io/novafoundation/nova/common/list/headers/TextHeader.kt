@@ -1,11 +1,11 @@
 package io.novafoundation.nova.common.list.headers
 
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import io.novafoundation.nova.common.R
 import io.novafoundation.nova.common.list.GroupedListHolder
 import io.novafoundation.nova.common.utils.inflateChild
-import kotlinx.android.synthetic.main.item_text_header.view.textHeader
 
 class TextHeader(val content: String) {
 
@@ -27,6 +27,6 @@ class TextHeader(val content: String) {
 class TextHeaderHolder(parentView: ViewGroup) : GroupedListHolder(parentView.inflateChild(R.layout.item_text_header)) {
 
     fun bind(item: TextHeader) {
-        containerView.textHeader.text = item.content
+        (containerView as? TextView)?.text = item.content
     }
 }

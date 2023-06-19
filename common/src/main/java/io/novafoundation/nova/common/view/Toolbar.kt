@@ -20,19 +20,21 @@ import io.novafoundation.nova.common.utils.getResourceIdOrNull
 import io.novafoundation.nova.common.utils.makeGone
 import io.novafoundation.nova.common.utils.makeVisible
 import io.novafoundation.nova.common.utils.setVisible
-import kotlinx.android.synthetic.main.view_toolbar.view.backImg
-import kotlinx.android.synthetic.main.view_toolbar.view.rightImg
-import kotlinx.android.synthetic.main.view_toolbar.view.rightText
-import kotlinx.android.synthetic.main.view_toolbar.view.titleTv
-import kotlinx.android.synthetic.main.view_toolbar.view.toolbarContainer
-import kotlinx.android.synthetic.main.view_toolbar.view.toolbarCustomActions
-import kotlinx.android.synthetic.main.view_toolbar.view.toolbarDivider
 
 class Toolbar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
+
+    private val view: View = View.inflate(context, R.layout.view_toolbar, this)
+    private val backImg: ImageView = view.findViewById(R.id.backImg)
+    private val rightImg: ImageView = view.findViewById(R.id.rightImg)
+    private val rightText: TextView = view.findViewById(R.id.rightText)
+    private val titleTv: TextView = view.findViewById(R.id.titleTv)
+    private val toolbarContainer: FrameLayout = view.findViewById(R.id.toolbarContainer)
+    private val toolbarCustomActions: LinearLayout = view.findViewById(R.id.toolbarCustomActions)
+    private val toolbarDivider: View = view.findViewById(R.id.toolbarDivider)
 
     val rightActionText: TextView
         get() = rightText
@@ -41,7 +43,7 @@ class Toolbar @JvmOverloads constructor(
         get() = titleTv
 
     init {
-        View.inflate(context, R.layout.view_toolbar, this)
+
 
         applyAttributes(attrs)
     }
@@ -62,18 +64,21 @@ class Toolbar @JvmOverloads constructor(
             val homeButtonIcon = typedArray.getDrawable(R.styleable.Toolbar_homeButtonIcon)
             homeButtonIcon?.let { setHomeButtonIcon(it) }
 
-            val homeButtonVisible = typedArray.getBoolean(R.styleable.Toolbar_homeButtonVisible, true)
+            val homeButtonVisible =
+                typedArray.getBoolean(R.styleable.Toolbar_homeButtonVisible, true)
             setHomeButtonVisibility(homeButtonVisible)
 
             val dividerVisible = typedArray.getBoolean(R.styleable.Toolbar_dividerVisible, true)
             toolbarDivider.setVisible(dividerVisible)
 
-            val backgroundAttrDrawable = typedArray.getDrawable(R.styleable.Toolbar_contentBackground) ?: ColorDrawable(
-                ContextCompat.getColor(context, R.color.secondary_screen_background)
-            )
+            val backgroundAttrDrawable =
+                typedArray.getDrawable(R.styleable.Toolbar_contentBackground) ?: ColorDrawable(
+                    ContextCompat.getColor(context, R.color.secondary_screen_background)
+                )
             toolbarContainer.background = backgroundAttrDrawable
 
-            val textAppearance = typedArray.getResourceIdOrNull(R.styleable.Toolbar_titleTextAppearance)
+            val textAppearance =
+                typedArray.getResourceIdOrNull(R.styleable.Toolbar_titleTextAppearance)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 textAppearance?.let(titleTv::setTextAppearance)
             }
