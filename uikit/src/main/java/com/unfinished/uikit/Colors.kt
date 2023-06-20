@@ -23,4 +23,6 @@ interface Colors {
 
     val progressBar: Color
     val progressBarBackground: Color
+
+    val bottomBarIcon: Color
 }

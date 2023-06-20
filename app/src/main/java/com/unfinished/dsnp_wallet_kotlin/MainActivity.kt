@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
                 Column(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    if(BuildConfig.DEBUG) DebugToolbar()
+                    //TODO: Re-enabled after we figure out what we want
+                    //if(BuildConfig.DEBUG) DebugToolbar()
 
                     DestinationsNavHost(
                         modifier = Modifier.fillMaxWidth().weight(1F),

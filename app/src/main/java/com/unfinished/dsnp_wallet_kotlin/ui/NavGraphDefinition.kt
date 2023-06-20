@@ -14,3 +14,15 @@ annotation class SplashNavGraph(
 annotation class LandingNavGraph(
     val start: Boolean = false
 )
+
+@RootNavGraph
+@NavGraph
+annotation class MainNavGraph(
+    val start: Boolean = true
+)
+
+@RootNavGraph
+@NavGraph
+annotation class BottomBarNavGraph(
+    val start: Boolean = false
+)
