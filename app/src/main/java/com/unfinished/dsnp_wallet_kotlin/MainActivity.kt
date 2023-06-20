@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -41,14 +44,20 @@ class MainActivity : AppCompatActivity() {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
 
                 val debugRoutes = NavGraphs.debug.destinations.map { it.route }
+                var showDebug by remember {
+                    mutableStateOf(true)
+                }
 
                 Column(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     if (
-                        BuildConfig.DEBUG && !debugRoutes.contains(navBackStackEntry?.destination?.route)
+                        BuildConfig.DEBUG
+                        && !debugRoutes.contains(navBackStackEntry?.destination?.route)
+                        && showDebug
                     ) DebugToolbar(
-                        navController = navController
+                        navController = navController,
+                        hideDebugClick = { showDebug = false }
                     )
 
                     DestinationsNavHost(

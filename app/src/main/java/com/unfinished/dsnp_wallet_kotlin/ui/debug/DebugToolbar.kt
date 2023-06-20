@@ -3,8 +3,10 @@ package com.unfinished.dsnp_wallet_kotlin.ui.debug
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,18 +21,21 @@ import com.unfinished.uikit.components.PrimaryButton
 
 @Composable
 fun DebugToolbar(
-    navController: NavHostController
+    navController: NavHostController,
+    hideDebugClick: () -> Unit
 ) {
     DebugToolbar(
         debugMenuClick = {
             navController.navigate(DebugMenuDestination.route)
-        }
+        },
+        hideDebugClick = hideDebugClick
     )
 }
 
 @Composable
 fun DebugToolbar(
-    debugMenuClick: () -> Unit
+    debugMenuClick: () -> Unit,
+    hideDebugClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -45,6 +50,13 @@ fun DebugToolbar(
             textPadding = 2.dp,
             onClick = debugMenuClick
         )
+
+        Spacer(modifier = Modifier.size(16.dp))
+        PrimaryButton(
+            text = "Hide debug",
+            textPadding = 2.dp,
+            onClick = hideDebugClick
+        )
     }
 }
 
@@ -53,7 +65,8 @@ fun DebugToolbar(
 fun SampleDebugToolbar() {
     MainTheme {
         DebugToolbar(
-            debugMenuClick = {}
+            debugMenuClick = {},
+            hideDebugClick = {}
         )
     }
 }
