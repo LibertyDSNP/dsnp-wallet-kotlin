@@ -18,9 +18,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
-import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingViewModel
-import com.unfinished.dsnp_wallet_kotlin.util.showBrowser
+import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -30,10 +31,11 @@ import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.exts.comingSoonToast
 import com.unfinished.uikit.exts.launchChromeTab
 
+@LandingNavGraph(start = true)
+@Destination
 @Composable
 fun LandingPageScreen(
-    landingViewModel: LandingViewModel,
-    testScreenClick: () -> Unit
+    navigator: DestinationsNavigator
 ) {
     val context = LocalContext.current
     val termsLink = stringResource(id = R.string.terms_link)
@@ -59,8 +61,7 @@ fun LandingPageScreen(
         },
         privacyPolicyClick = {
             context.launchChromeTab(privacyLink)
-        },
-        testScreenClick = testScreenClick
+        }
     )
 }
 
@@ -71,8 +72,7 @@ fun LandingPageScreen(
     haveIdClick: () -> Unit,
     restoreAccountClick: () -> Unit,
     termsClick: () -> Unit,
-    privacyPolicyClick: () -> Unit,
-    testScreenClick: () -> Unit = {}
+    privacyPolicyClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -149,14 +149,6 @@ fun LandingPageScreen(
                 }
             }
         )
-
-        if (showTestScreen) {
-            Spacer(modifier = Modifier.size(32.dp))
-            PrimaryButton(
-                text = stringResource(id = R.string.landing_test_screen),
-                onClick = testScreenClick
-            )
-        }
 
         Spacer(modifier = Modifier.size(32.dp))
     }

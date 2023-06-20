@@ -24,7 +24,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ramcosta.composedestinations.annotation.Destination
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.ui.BottomBarNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.uikit.MainColors
@@ -38,6 +40,8 @@ import com.unfinished.uikit.components.RoundedProgressBar
 import com.unfinished.uikit.toDataLoaded
 
 
+@BottomBarNavGraph(start = true)
+@Destination
 @Composable
 fun IdentityScreen(
     identityViewModel: IdentityViewModel = hiltViewModel()

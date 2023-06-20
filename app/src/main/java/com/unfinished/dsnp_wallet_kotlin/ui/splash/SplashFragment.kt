@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import com.unfinished.dsnp_wallet_kotlin.R
 import dagger.hilt.android.AndroidEntryPoint
 import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.splash.presentation.SplashViewModel
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<SplashViewModel>() {

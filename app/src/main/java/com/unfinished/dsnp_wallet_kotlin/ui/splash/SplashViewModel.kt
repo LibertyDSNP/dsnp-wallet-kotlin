@@ -1,18 +1,27 @@
-package io.novafoundation.nova.splash.presentation
+package com.unfinished.dsnp_wallet_kotlin.ui.splash
 
 import androidx.lifecycle.viewModelScope
-import com.unfinished.dsnp_wallet_kotlin.ui.splash.SplashRouter
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
+import com.unfinished.uikit.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.base.BaseViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val router: SplashRouter,
     private val repository: AccountRepository
 ) : BaseViewModel() {
+
+    private val _uiStateFLow = MutableStateFlow<UiState<Unit>>(UiState.Loading())
+    val uiStateFLow = _uiStateFLow.asStateFlow()
+
 
     init {
         openInitialDestination()
@@ -20,15 +29,27 @@ class SplashViewModel @Inject constructor(
 
     private fun openInitialDestination() {
         viewModelScope.launch {
-            if (repository.isAccountSelected()) {
-                if (repository.isCodeSet()) {
-                    router.openInitialCheckPincode()
-                } else {
-                    router.openCreatePincode()
-                }
-            } else {
-                router.openAddFirstAccount()
-            }
+            val delay = async { delay(1000) }
+            val updatedState = fetchUiState()
+            awaitAll(delay, updatedState)
+            _uiStateFLow.value = updatedState.await()
         }
     }
+
+    private fun fetchUiState(): Deferred<UiState<Unit>> = async {
+        if (repository.isAccountSelected()) {
+            if (repository.isCodeSet()) {
+                HeadToCheckPincode
+            } else {
+                HeadToCreatePincode
+            }
+        } else {
+            HeadToLanding
+        }
+    }
+
+    object HeadToLanding : UiState<Unit>
+    object HeadToCreatePincode : UiState<Unit>
+    object HeadToCheckPincode : UiState<Unit>
+
 }

@@ -101,4 +101,6 @@ dependencies {
 
     implementation deps.nova.fearless_utils
 
+    implementation deps.compose.destinations
+    ksp deps.compose.ksp
 }

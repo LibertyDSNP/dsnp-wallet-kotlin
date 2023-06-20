@@ -10,6 +10,7 @@ object MainTypography {
     private val poppinsTextStyle = TextStyle(fontFamily = poppins)
     private val spaceMonoTextStyle = TextStyle(fontFamily = spaceMono)
     private val nunitoTextStyle = TextStyle(fontFamily = nunito)
+    private val workSansTextStyle = TextStyle(fontFamily = workSans)
 
     val title: TextStyle = poppinsTextStyle.copy(
         fontWeight = FontWeight.Medium,
@@ -47,10 +48,17 @@ object MainTypography {
         lineHeight = 18.sp
     )
 
-    val textLink = nunitoTextStyle.copy (
+    val textLink = nunitoTextStyle.copy(
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 13.sp
+    )
+
+    val bottomBar = workSansTextStyle.copy(
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        lineHeight = 12.sp,
+        letterSpacing = -(.24).sp
     )
 }
 

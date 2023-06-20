@@ -24,4 +24,6 @@ class DarkColors : Colors {
 
     override val progressBar: Color = Color(0xFF017A86)
     override val progressBarBackground: Color = Color(0xFFFFFFFF)
+    override val bottomBarIcon: Color = Color(0xFF1B9EA3)
+    override val divider: Color = Color(0xFFFFFFFF)
 }
