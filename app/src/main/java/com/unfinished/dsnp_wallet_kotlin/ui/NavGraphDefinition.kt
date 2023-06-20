@@ -26,3 +26,9 @@ annotation class MainNavGraph(
 annotation class BottomBarNavGraph(
     val start: Boolean = false
 )
+
+@RootNavGraph
+@NavGraph
+annotation class DebugNavGraph(
+    val start: Boolean = false
+)

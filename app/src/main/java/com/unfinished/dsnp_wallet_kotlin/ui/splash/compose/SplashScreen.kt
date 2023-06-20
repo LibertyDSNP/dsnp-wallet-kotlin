@@ -40,7 +40,7 @@ fun SplashScreen(
         route,
         builder = {
             popUpTo(
-                route = NavGraphs.splash.route,
+                route = NavGraphs.root.route,
                 popUpToBuilder = {
                     inclusive = true
                 }

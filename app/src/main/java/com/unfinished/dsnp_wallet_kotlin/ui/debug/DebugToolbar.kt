@@ -12,11 +12,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DebugMenuDestination
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.PrimaryButton
 
 @Composable
-fun DebugToolbar() {
+fun DebugToolbar(
+    navController: NavHostController
+) {
+    DebugToolbar(
+        debugMenuClick = {
+            navController.navigate(DebugMenuDestination.route)
+        }
+    )
+}
+
+@Composable
+fun DebugToolbar(
+    debugMenuClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,11 +41,9 @@ fun DebugToolbar() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         PrimaryButton(
-            text = "Navigate",
+            text = "Debug menu",
             textPadding = 2.dp,
-            onClick = {
-
-            }
+            onClick = debugMenuClick
         )
     }
 }
@@ -39,7 +52,9 @@ fun DebugToolbar() {
 @Composable
 fun SampleDebugToolbar() {
     MainTheme {
-        DebugToolbar()
+        DebugToolbar(
+            debugMenuClick = {}
+        )
     }
 }
 
