@@ -17,7 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.IdentityScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.uikit.MainColors
@@ -32,6 +34,7 @@ import com.unfinished.uikit.components.PullDown
 
 @Composable
 fun CreateIdentityScreen(
+    navigator: DestinationsNavigator,
     createIdentityViewModel: CreateIdentityViewModel = hiltViewModel()
 ) {
     val uiState = createIdentityViewModel.uiStateFLow.collectAsState()
@@ -46,6 +49,7 @@ fun CreateIdentityScreen(
                 createIdentityViewModel.nextStep()
             }
         )
+        is CreateIdentityViewModel.GoToIdentity -> navigator.navigate(IdentityScreenDestination)
     }
 
 

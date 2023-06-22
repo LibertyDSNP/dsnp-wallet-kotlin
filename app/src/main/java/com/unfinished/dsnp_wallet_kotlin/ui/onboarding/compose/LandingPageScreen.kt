@@ -10,10 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,21 +45,20 @@ fun LandingPageScreen(
 ) {
     val context = LocalContext.current
     val haveIdLink = stringResource(id = R.string.have_id_link)
-    var showBottomSheet by remember {
-        mutableStateOf(false)
-    }
+    val bottomSheetVisibleState = createIdentityViewModel.visibleStateFlow.collectAsState().value
 
     BottomSheet(
-        showBottomSheet = showBottomSheet,
+        showBottomSheet = bottomSheetVisibleState == CreateIdentityViewModel.ShowCreateIdentity,
         sheetContent = {
             CreateIdentityScreen(
+                navigator = navigator,
                 createIdentityViewModel = createIdentityViewModel
             )
         },
         content = {
             LandingPageScreen(
                 createIdentityClick = {
-                    showBottomSheet = true
+                    createIdentityViewModel.showCreateIdentity()
                 },
                 haveIdClick = {
                     context.launchChromeTab(haveIdLink, showBackButton = true)
@@ -75,7 +71,9 @@ fun LandingPageScreen(
         backPress = {
             createIdentityViewModel.previousStep()
         },
-        onHidden = { showBottomSheet = false }
+        onHidden = {
+            createIdentityViewModel.hideCreateIdentity()
+        }
     )
 }
 

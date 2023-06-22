@@ -1,6 +1,5 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel
 
-import android.util.Log
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
@@ -18,15 +17,18 @@ class CreateIdentityViewModel @Inject constructor(
         MutableStateFlow<UiState<CreateIdentityUiModel>>(CreateIdentityUiModel().toDataLoaded())
     val uiStateFLow = _uiStateFLow.asStateFlow()
 
+    private val _visibleStateFlow =
+        MutableStateFlow<UiState<Unit>>(HideCreateIdentity)
+    val visibleStateFlow = _visibleStateFlow.asStateFlow()
+
     fun previousStep() {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
             when {
                 it.currentStep > 1 -> {
                     _uiStateFLow.value = it.copy(currentStep = it.currentStep - 1).toDataLoaded()
                 }
-                it.currentStep == 1 -> {
-                    //TODO
-                }
+
+                it.currentStep == 1 -> hideCreateIdentity()
             }
         }
     }
@@ -37,8 +39,9 @@ class CreateIdentityViewModel @Inject constructor(
                 it.currentStep < it.totalSteps -> {
                     _uiStateFLow.value = it.copy(currentStep = it.currentStep + 1).toDataLoaded()
                 }
+
                 it.currentStep == it.totalSteps -> {
-                    //TODO
+                    _uiStateFLow.value = GoToIdentity
                 }
             }
         }
@@ -52,4 +55,17 @@ class CreateIdentityViewModel @Inject constructor(
             ).toDataLoaded()
         }
     }
+
+    fun showCreateIdentity() {
+        _visibleStateFlow.value = ShowCreateIdentity
+    }
+
+    fun hideCreateIdentity() {
+        _visibleStateFlow.value = HideCreateIdentity
+    }
+
+    object ShowCreateIdentity : UiState<Unit>
+    object HideCreateIdentity : UiState<Unit>
+    object GoToIdentity : UiState<CreateIdentityUiModel>
+
 }
