@@ -72,6 +72,20 @@
 
     <string name="social_identity_complete">% Social Identity Complete</string>
     <string name="see_all">See All</string>
+    <string name="create_id_steps">%s of %s</string>
+    <string name="create_digital_identity">Create Digital Identity</string>
+    <string name="your_unique_handle">Your unique handle is how others will find you across the social web and will be universal across apps.</string>
+    <string name="claim_your_handle">Claim your handle</string>
+    <string name="handle_rules">Handle must be between 4–16 characters &amp; can only consist of letters, numbers, and underscores.</string>
+    <string name="next">Next</string>
+    <string name="confirm_your_handle">Confirm your Handle</string>
+    <string name="numerical_suffix_auto_assigned">The numerical suffix is auto-assigned by Amplica Access to make sure every handle is unique. They will not be visible in some cases.</string>
+    <string name="agree_to_terms">Agree to Terms</string>
+    <string name="agree">Agree</string>
+    <string name="by_agreeing">By agreeing, you grant Amplica access to:</string>
+    <string name="update_your_handle_and_profile_information">Update your handle and profile information</string>
+    <string name="update_your_contacts_groups">Update your contacts &amp; groups</string>
+    <string name="you_may_update_permissions_at_any_time">You may update permissions at any time.</string>
 
 
 </resources>

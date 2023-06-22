@@ -34,11 +34,11 @@ import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.components.Edit
+import com.unfinished.uikit.components.Handle
 import com.unfinished.uikit.components.Overlay
 import com.unfinished.uikit.components.Profile
 import com.unfinished.uikit.components.RoundedProgressBar
 import com.unfinished.uikit.toDataLoaded
-
 
 @BottomBarNavGraph(start = true)
 @Destination
@@ -137,18 +137,11 @@ private fun ProfileRow(
         }
 
         Spacer(modifier = Modifier.size(10.dp))
-        Row {
-            Text(
-                text = name,
-                style = MainTypography.profile,
-                color = MainColors.onBackground
-            )
-            Text(
-                text = ".$number",
-                style = MainTypography.profileSecondary,
-                color = MainColors.onBackgroundSecondary
-            )
-        }
+        Handle(
+            handle = name,
+            suffix = number
+        )
+
         Spacer(modifier = Modifier.size(12.dp))
     }
 }
