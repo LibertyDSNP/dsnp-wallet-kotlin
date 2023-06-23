@@ -84,6 +84,18 @@ object MainTypography {
         fontSize = 12.sp,
         lineHeight = 20.sp
     )
+
+    val toolbarTitle = poppinsTextStyle.copy(
+        fontWeight = FontWeight.Bold,
+        fontSize = 12.sp,
+        lineHeight = 18.sp
+    )
+
+    val largeButtonText = poppinsTextStyle.copy(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp,
+        lineHeight = 24.sp
+    )
 }
 
 val mainTypography = Typography()

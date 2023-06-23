@@ -131,9 +131,20 @@ fun Edit(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun Checkmark(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.checkmark),
+        contentDescription = stringResource(id = R.string.checkmark),
+        tint = MainColors.primary
+    )
+}
+
+@Composable
 fun PullDown() {
     Box(
-        modifier = Modifier.size(width = 84.dp, height = 5.dp)
+        modifier = Modifier
+            .size(width = 84.dp, height = 5.dp)
             .clip(ButtonDefaults.shape)
             .background(MainColors.pullDown)
     )
@@ -152,9 +163,10 @@ private fun SampleIcons() {
             Back()
             Close()
             Loading()
-            Profile(iconUrl = null)
             Edit()
             PullDown()
+            Checkmark()
+            Profile(iconUrl = null)
         }
     }
 }

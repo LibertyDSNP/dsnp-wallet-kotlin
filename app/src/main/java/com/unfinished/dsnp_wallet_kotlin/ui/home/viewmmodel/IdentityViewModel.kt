@@ -1,5 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel
 
+import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityTask
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
@@ -26,8 +28,18 @@ class IdentityViewModel @Inject constructor(
         _uiStateFLow.value = IdentityUiModel(
             iconUrl = null,
             username = "neverendingwinter.23",
-            currentCount = 1,
-            totalCount = 3
+            identityTasks = listOf(
+                IdentityTask(
+                    title = R.string.set_avatar
+                ),
+                IdentityTask(
+                    title = R.string.backup_seed_phrase
+                ),
+                IdentityTask(
+                    title = R.string.choose_a_handle,
+                    isComplete = true
+                )
+            )
         ).toDataLoaded()
     }
 
