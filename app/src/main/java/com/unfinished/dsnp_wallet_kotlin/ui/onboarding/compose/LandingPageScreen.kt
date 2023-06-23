@@ -10,21 +10,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
+import com.unfinished.uikit.components.BottomSheet
 import com.unfinished.uikit.components.HyperlinkText
 import com.unfinished.uikit.components.Logo
 import com.unfinished.uikit.components.PrimaryButton
@@ -35,44 +40,48 @@ import com.unfinished.uikit.exts.launchChromeTab
 @Destination
 @Composable
 fun LandingPageScreen(
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator,
+    createIdentityViewModel: CreateIdentityViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val termsLink = stringResource(id = R.string.terms_link)
-    val privacyLink = stringResource(id = R.string.privacy_policy_link)
     val haveIdLink = stringResource(id = R.string.have_id_link)
+    val bottomSheetVisibleState = createIdentityViewModel.visibleStateFlow.collectAsState().value
 
-    LandingPageScreen(
-        /**
-         * TODO: Add logic to the viewmodel to handle showing this test button
-         */
-        showTestScreen = true,
-        createIdentityClick = {
-            context.comingSoonToast()
+    BottomSheet(
+        showBottomSheet = bottomSheetVisibleState == CreateIdentityViewModel.ShowCreateIdentity,
+        sheetContent = {
+            CreateIdentityScreen(
+                navigator = navigator,
+                createIdentityViewModel = createIdentityViewModel
+            )
         },
-        haveIdClick = {
-            context.launchChromeTab(haveIdLink, showBackButton = true)
+        content = {
+            LandingPageScreen(
+                createIdentityClick = {
+                    createIdentityViewModel.showCreateIdentity()
+                },
+                haveIdClick = {
+                    context.launchChromeTab(haveIdLink, showBackButton = true)
+                },
+                restoreAccountClick = {
+                    context.comingSoonToast()
+                }
+            )
         },
-        restoreAccountClick = {
-            context.comingSoonToast()
+        backPress = {
+            createIdentityViewModel.previousStep()
         },
-        termsClick = {
-            context.launchChromeTab(termsLink)
-        },
-        privacyPolicyClick = {
-            context.launchChromeTab(privacyLink)
+        onHidden = {
+            createIdentityViewModel.hideCreateIdentity()
         }
     )
 }
 
 @Composable
 fun LandingPageScreen(
-    showTestScreen: Boolean = false,
     createIdentityClick: () -> Unit,
     haveIdClick: () -> Unit,
-    restoreAccountClick: () -> Unit,
-    termsClick: () -> Unit,
-    privacyPolicyClick: () -> Unit
+    restoreAccountClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -129,29 +138,40 @@ fun LandingPageScreen(
         )
 
         Spacer(modifier = Modifier.weight(1f))
-        val terms = stringResource(id = R.string.terms)
-        val privacyPolicy = stringResource(id = R.string.privacy_policy)
-        HyperlinkText(
-            modifier = Modifier.padding(horizontal = 24.dp),
-            style = MainTypography.body.copy(
-                color = MainColors.onBackground,
-                textAlign = TextAlign.Center
-            ),
-            fullText = stringResource(id = R.string.signing_up_terms),
-            clickableTexts = listOf(
-                terms,
-                privacyPolicy
-            ),
-            onClicked = {
-                when (it) {
-                    terms -> termsClick()
-                    privacyPolicy -> privacyPolicyClick()
-                }
-            }
-        )
+        TermsAndPrivacy()
 
         Spacer(modifier = Modifier.size(32.dp))
     }
+}
+
+@Composable
+fun TermsAndPrivacy(
+    textColor: Color = MainColors.onBackground
+) {
+    val context = LocalContext.current
+    val termsLink = stringResource(id = R.string.terms_link)
+    val privacyLink = stringResource(id = R.string.privacy_policy_link)
+    val terms = stringResource(id = R.string.terms)
+    val privacyPolicy = stringResource(id = R.string.privacy_policy)
+
+    HyperlinkText(
+        modifier = Modifier.padding(horizontal = 24.dp),
+        style = MainTypography.body.copy(
+            color = textColor,
+            textAlign = TextAlign.Center
+        ),
+        fullText = stringResource(id = R.string.signing_up_terms),
+        clickableTexts = listOf(
+            terms,
+            privacyPolicy
+        ),
+        onClicked = {
+            when (it) {
+                terms -> context.launchChromeTab(termsLink)
+                privacyPolicy -> context.launchChromeTab(privacyLink)
+            }
+        }
+    )
 }
 
 @Preview
@@ -159,12 +179,9 @@ fun LandingPageScreen(
 private fun SampleLandingPageScreen() {
     MainTheme {
         LandingPageScreen(
-            showTestScreen = true,
             createIdentityClick = {},
             haveIdClick = {},
-            restoreAccountClick = {},
-            termsClick = {},
-            privacyPolicyClick = {}
+            restoreAccountClick = {}
         )
     }
 }

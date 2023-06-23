@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 interface Colors {
 
+    val primary: Color
+
     val toolbar: Color
     val onToolbar: Color
 
@@ -27,4 +29,16 @@ interface Colors {
     val bottomBarIcon: Color
 
     val divider: Color
+
+    val bottomSheetBackground: Color
+    val onBottomSheetBackground: Color
+
+    val grey90: Color
+    val grey20: Color
+
+    val editTextBackground: Color
+    val onEditTextBackground: Color
+    val onEditTextTitle: Color
+
+    val pullDown: Color
 }

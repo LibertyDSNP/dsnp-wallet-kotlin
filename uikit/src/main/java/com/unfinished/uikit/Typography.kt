@@ -24,10 +24,28 @@ object MainTypography {
         lineHeight = 20.sp
     )
 
+    val bodySemiBold = poppinsTextStyle.copy(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 12.sp,
+        lineHeight = 20.sp
+    )
+
     val bodyMedium = poppinsTextStyle.copy(
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 24.sp,
+    )
+
+    val bodySmall = poppinsTextStyle.copy(
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        lineHeight = 16.sp
+    )
+
+    val bodyLarge = poppinsTextStyle.copy(
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        lineHeight = 20.sp
     )
 
     val profile = poppinsTextStyle.copy(
@@ -59,6 +77,12 @@ object MainTypography {
         fontSize = 12.sp,
         lineHeight = 12.sp,
         letterSpacing = -(.24).sp
+    )
+
+    val stepCounter = poppinsTextStyle.copy(
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        lineHeight = 20.sp
     )
 }
 
