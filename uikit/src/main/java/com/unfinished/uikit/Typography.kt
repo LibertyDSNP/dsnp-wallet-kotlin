@@ -36,6 +36,12 @@ object MainTypography {
         lineHeight = 24.sp,
     )
 
+    val bodyMediumBold = poppinsTextStyle.copy(
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp,
+        lineHeight = 24.sp,
+    )
+
     val bodySmall = poppinsTextStyle.copy(
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,

@@ -16,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,6 +45,7 @@ fun Logo(
 @Composable
 fun Back(
     modifier: Modifier = Modifier,
+    color: Color = MainColors.onToolbar,
     onClick: (() -> Unit)? = null
 ) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
@@ -56,7 +58,7 @@ fun Back(
             .clickable(onClick = {
                 if (onClick == null) onBackPressedDispatcher?.onBackPressed() else onClick()
             }),
-        tint = MainColors.onToolbar
+        tint = color
     )
 }
 
@@ -150,6 +152,26 @@ fun PullDown() {
     )
 }
 
+@Composable
+fun ArrowRight(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.arrow_right),
+        contentDescription = stringResource(id = R.string.arrow_right),
+        tint = MainColors.onButton
+    )
+}
+
+@Composable
+fun LogOut(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.arrow_right),
+        contentDescription = stringResource(id = R.string.log_out),
+        tint = MainColors.onButton
+    )
+}
+
 @Preview
 @Composable
 private fun SampleIcons() {
@@ -166,6 +188,7 @@ private fun SampleIcons() {
             Edit()
             PullDown()
             Checkmark()
+            ArrowRight()
             Profile(iconUrl = null)
         }
     }

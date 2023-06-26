@@ -92,6 +92,15 @@
     <string name="social_identity">Social Identity</string>
     <string name="your_real_name">In today\'s rapidly evolving world, your real name is more than a name - it\'s your true identity, your brand, your calling card and your livelihood. By completing the steps it’ll be good for you…</string>
     <string name="to_do">To Do</string>
+    <string name="you_have_never_backed_up">You have NEVER backed up!</string>
+    <string name="recovery_phrase">Recovery phrase is very important you better write this down</string>
+    <string name="reveal_recovery_phrase">Reveal Recovery Phrase</string>
 
+    <string name="security">Security</string>
+    <string name="security_desc">Adding additional security is really important</string>
+    <string name="face_id">Face ID</string>
+    <string name="face_id_desc">Increase access security with Face ID</string>
+    <string name="password">Password</string>
+    <string name="password_desc">Password to log in to your account</string>
 
 </resources>

@@ -24,6 +24,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DebugNavigateScreenDest
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.Back
+import com.unfinished.uikit.components.SimpleToolbar
 
 private class DebugItem(
     val text: String,
@@ -55,15 +56,7 @@ private fun DebugMenu(
             .fillMaxSize()
             .background(MainColors.background)
     ) {
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Back()
-            Text(
-                text = "Debug Menu",
-                fontSize = 24.sp,
-                color = MainColors.onBackground
-            )
-        }
+        SimpleToolbar(title = "Debug Menu")
 
         LazyColumn(
             modifier = Modifier.fillMaxSize()
