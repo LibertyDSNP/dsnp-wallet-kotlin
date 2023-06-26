@@ -30,25 +30,37 @@ fun BottomBar(
         backgroundColor = MainColors.background
     ) {
         BottomBarDestination.values().forEach { destination ->
+            val isSelected = currentDestination == destination.direction
+            val iconColor =
+                if (isSelected) MainColors.bottomBarIcon else MainColors.bottomBarIconNotSelected
             BottomNavigationItem(
-                selected = currentDestination == destination.direction,
+                selected = isSelected,
                 onClick = {
-                    if (currentDestination != destination.direction) navController.navigate(
+                    if (!isSelected) navController.navigate(
                         route = destination.direction.route,
-                        navOptions = navOptions { launchSingleTop = true }
+                        navOptions = navOptions {
+                            launchSingleTop = true
+
+                            popUpTo(
+                                route = NavGraphs.root.route,
+                                popUpToBuilder = {
+                                    inclusive = true
+                                }
+                            )
+                        }
                     )
                 },
                 icon = {
                     Icon(
                         painter = painterResource(id = destination.icon),
                         contentDescription = stringResource(destination.label),
-                        tint = MainColors.bottomBarIcon
+                        tint = iconColor
                     )
                 },
                 label = {
                     Text(
                         text = stringResource(destination.label),
-                        color = MainColors.bottomBarIcon,
+                        color = iconColor,
                         style = MainTypography.bottomBar
                     )
                 },

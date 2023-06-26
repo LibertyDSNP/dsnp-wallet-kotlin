@@ -32,8 +32,8 @@ import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.UiState
-import com.unfinished.uikit.components.Back
 import com.unfinished.uikit.components.Checkmark
+import com.unfinished.uikit.components.SimpleToolbar
 
 @SocialSetupNavGraph(start = true)
 @Destination
@@ -57,29 +57,10 @@ fun SocialSetupScreen(
             .fillMaxSize()
             .background(MainColors.background)
     ) {
-        Header()
+        SimpleToolbar(title = stringResource(R.string.social_identity))
         Spacer(modifier = Modifier.size(34.dp))
         Body(
             identityUiModel = identityUiModel
-        )
-    }
-}
-
-@Composable
-private fun Header() {
-    Box(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Back(
-            modifier = Modifier.align(Alignment.CenterStart)
-        )
-
-        Text(
-            modifier = Modifier.align(Alignment.Center),
-            text = stringResource(R.string.social_identity),
-            color = MainColors.onBackground,
-            style = MainTypography.toolbarTitle,
-            textAlign = TextAlign.Center
         )
     }
 }

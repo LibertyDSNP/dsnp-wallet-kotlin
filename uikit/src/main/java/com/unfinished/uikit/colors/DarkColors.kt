@@ -26,6 +26,7 @@ class DarkColors : Colors {
     override val progressBar: Color = Color(0xFF017A86)
     override val progressBarBackground: Color = Color(0xFFFFFFFF)
     override val bottomBarIcon: Color = Color(0xFF1B9EA3)
+    override val bottomBarIconNotSelected: Color = Color(0xFFDADADA)
     override val divider: Color = Color(0xFFFFFFFF)
 
     override val bottomSheetBackground: Color = Color(0xFFE4E5E5)
@@ -47,5 +48,10 @@ class DarkColors : Colors {
 
     override val toDo: Color = Color(0xFFFDEFC8)
     override val onToDo: Color = Color(0xFFDA5E3A)
+
+    override val toggleOff: Color = Color(0xFFFFFFFF)
+    override val toggleOffTrack: Color = Color(0xFF787880)
+    override val toggleOn: Color = Color(0xFF017A86)
+    override val toggleOnTrack: Color = Color(0xFF017A86)
 
 }

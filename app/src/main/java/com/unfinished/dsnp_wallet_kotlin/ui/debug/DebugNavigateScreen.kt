@@ -21,6 +21,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.Back
+import com.unfinished.uikit.components.SimpleToolbar
 
 private class NavigateItem(
     val text: String,
@@ -83,15 +84,7 @@ private fun DebugNavigateScreen(
             .fillMaxSize()
             .background(MainColors.background)
     ) {
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Back()
-            Text(
-                text = "Debug Navigate",
-                fontSize = 24.sp,
-                color = MainColors.onBackground
-            )
-        }
+        SimpleToolbar(title = "Debug Navigate")
 
         LazyColumn(
             modifier = Modifier.fillMaxSize()

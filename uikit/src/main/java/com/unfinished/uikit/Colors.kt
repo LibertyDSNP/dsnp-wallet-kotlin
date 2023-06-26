@@ -27,6 +27,7 @@ interface Colors {
     val progressBarBackground: Color
 
     val bottomBarIcon: Color
+    val bottomBarIconNotSelected: Color
 
     val divider: Color
 
@@ -49,4 +50,9 @@ interface Colors {
 
     val toDo: Color
     val onToDo: Color
+
+    val toggleOff: Color
+    val toggleOffTrack: Color
+    val toggleOn: Color
+    val toggleOnTrack: Color
 }
