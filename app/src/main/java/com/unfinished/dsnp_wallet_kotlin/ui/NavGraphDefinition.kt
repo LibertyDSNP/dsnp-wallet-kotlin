@@ -32,3 +32,9 @@ annotation class BottomBarNavGraph(
 annotation class DebugNavGraph(
     val start: Boolean = false
 )
+
+@RootNavGraph
+@NavGraph
+annotation class SocialSetupNavGraph(
+    val start: Boolean = false
+)

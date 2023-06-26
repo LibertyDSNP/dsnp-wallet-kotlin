@@ -40,4 +40,12 @@ class DarkColors : Colors {
 
     override val pullDown: Color = Color(0xFF707070)
 
+    override val taskButton: Color = Color(0xFF6EE9D1)
+    override val taskButtonDone: Color = Color(0xFFD9D9D9)
+    override val onTaskButton: Color = Color(0xFF053031)
+    override val onTaskButtonDone: Color = Color(0x80053031)
+
+    override val toDo: Color = Color(0xFFFDEFC8)
+    override val onToDo: Color = Color(0xFFDA5E3A)
+
 }

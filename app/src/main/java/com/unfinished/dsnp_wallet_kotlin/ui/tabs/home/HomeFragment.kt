@@ -20,7 +20,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = requireContext().createComposeView {
-        IdentityScreen()
+        //IdentityScreen()
     }
 
     override fun initialize() {

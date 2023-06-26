@@ -23,10 +23,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.BottomBarNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
+import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityTask
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.uikit.MainColors
@@ -44,7 +46,8 @@ import com.unfinished.uikit.toDataLoaded
 @Destination
 @Composable
 fun IdentityScreen(
-    identityViewModel: IdentityViewModel = hiltViewModel()
+    navigator: DestinationsNavigator,
+    identityViewModel: IdentityViewModel
 ) {
     val uiState = identityViewModel.uiStateFLow.collectAsState()
 
@@ -54,7 +57,7 @@ fun IdentityScreen(
             //TODO
         },
         seeAllClick = {
-            //TODO
+            navigator.navigate(NavGraphs.socialSetup.route)
         }
     )
 }
@@ -147,13 +150,39 @@ private fun ProfileRow(
 }
 
 @Composable
+fun SocialProcessBar(
+    currentCount: Int,
+    totalCount: Int,
+) {
+    val countDisplay = "$currentCount/$totalCount"
+    val progress = currentCount.toFloat() / totalCount.toFloat()
+
+    Row {
+        Text(
+            text = stringResource(R.string.social_identity_complete),
+            style = MainTypography.rowHeader,
+            modifier = Modifier.weight(1f),
+            color = MainColors.onBackground
+        )
+
+        Text(
+            text = countDisplay,
+            style = MainTypography.rowHeader,
+            color = MainColors.onBackground
+        )
+    }
+
+    Spacer(modifier = Modifier.size(12.dp))
+    RoundedProgressBar(progress = progress)
+}
+
+@Composable
 private fun SocialProcessRow(
     currentCount: Int,
     totalCount: Int,
     seeAllClick: () -> Unit
 ) {
-    val countDisplay = "$currentCount/$totalCount"
-    val progress = currentCount.toFloat() / totalCount.toFloat()
+
 
     Column(
         modifier = Modifier
@@ -161,23 +190,10 @@ private fun SocialProcessRow(
             .padding(horizontal = 55.dp),
     ) {
         Spacer(modifier = Modifier.size(32.dp))
-        Row {
-            Text(
-                text = stringResource(R.string.social_identity_complete),
-                style = MainTypography.rowHeader,
-                modifier = Modifier.weight(1f),
-                color = MainColors.onBackground
-            )
-
-            Text(
-                text = countDisplay,
-                style = MainTypography.rowHeader,
-                color = MainColors.onBackground
-            )
-        }
-
-        Spacer(modifier = Modifier.size(12.dp))
-        RoundedProgressBar(progress = progress)
+        SocialProcessBar(
+            currentCount = currentCount,
+            totalCount = totalCount
+        )
 
         Spacer(modifier = Modifier.size(8.dp))
         Text(
@@ -200,8 +216,16 @@ private fun SampleIdentityScreen() {
             uiState = IdentityUiModel(
                 iconUrl = null,
                 username = "neverendingwinter.23",
-                currentCount = 1,
-                totalCount = 3
+                identityTasks = listOf(
+                    IdentityTask(
+                        title = R.string.set_avatar,
+                        isComplete = true
+                    ),
+                    IdentityTask(
+                        title = R.string.choose_a_handle,
+                        isComplete = true
+                    )
+                )
             ).toDataLoaded(),
             editProfileClick = {},
             seeAllClick = {}
