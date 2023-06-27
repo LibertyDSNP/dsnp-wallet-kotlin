@@ -147,7 +147,6 @@ suspend fun SecretStoreV2.getMetaAccountKeypair(
     isEthereum: Boolean,
 ): Keypair = withContext(Dispatchers.Default) {
     val secrets = getMetaAccountSecrets(metaId) ?: noMetaSecrets(metaId)
-
     mapMetaAccountSecretsToKeypair(secrets, isEthereum)
 }
 

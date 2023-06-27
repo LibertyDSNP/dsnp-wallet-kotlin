@@ -86,5 +86,7 @@ dependencies {
     implementation deps.test.runner
     implementation deps.test.rules
     implementation deps.test.ext_junit
-
+//    implementation 'com.chrynan.krypt:krypt-csprng:0.2.1'
+//    implementation 'dev.sublab:sr25519-kotlin:1.0.0'
+//    implementation 'dev.sublab:encrypting-kotlin:1.0.0'
 }
