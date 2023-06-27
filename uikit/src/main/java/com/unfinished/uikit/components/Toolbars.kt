@@ -1,5 +1,7 @@
 package com.unfinished.uikit.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,10 +25,17 @@ fun SimpleToolbar(
     showNav: Boolean = true
 ) {
     Box(
-        modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp)
     ) {
         if (showNav) Back(
             modifier = Modifier.align(Alignment.CenterStart)
+        ) else Back(
+            modifier = Modifier
+                .align(Alignment.CenterStart),
+            onClick = {},
+            color = Color.Transparent
         )
 
         Text(

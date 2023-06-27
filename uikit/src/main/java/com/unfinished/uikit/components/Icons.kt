@@ -55,9 +55,14 @@ fun Back(
         contentDescription = stringResource(R.string.back),
         modifier = modifier
             .padding(16.dp)
-            .clickable(onClick = {
-                if (onClick == null) onBackPressedDispatcher?.onBackPressed() else onClick()
-            }),
+            .then(
+                if (color == Color.Transparent) Modifier
+                else Modifier.clickable(
+                    onClick = {
+                        if (onClick == null) onBackPressedDispatcher?.onBackPressed() else onClick()
+                    }
+                )
+            ),
         tint = color
     )
 }

@@ -30,7 +30,7 @@ fun BottomBar(
         backgroundColor = MainColors.background
     ) {
         BottomBarDestination.values().forEach { destination ->
-            val isSelected = currentDestination == destination.direction
+            val isSelected = destination.isSelected(currentDestination)
             val iconColor =
                 if (isSelected) MainColors.bottomBarIcon else MainColors.bottomBarIconNotSelected
             BottomNavigationItem(

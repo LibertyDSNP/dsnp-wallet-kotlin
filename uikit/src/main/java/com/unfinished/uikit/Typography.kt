@@ -102,6 +102,13 @@ object MainTypography {
         fontSize = 20.sp,
         lineHeight = 24.sp
     )
+
+    val seedText = spaceMonoTextStyle.copy(
+        fontWeight = FontWeight.Normal,
+        fontSize = 15.sp,
+        lineHeight = 22.sp
+    )
+
 }
 
 val mainTypography = Typography()
