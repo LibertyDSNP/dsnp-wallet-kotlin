@@ -23,6 +23,7 @@ import io.novafoundation.nova.common.data.network.runtime.binding.AccountInfo
 import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
 import io.novafoundation.nova.common.data.network.runtime.binding.checkIfExtrinsicFailed
 import io.novafoundation.nova.common.data.network.runtime.calls.*
+import io.novafoundation.nova.common.data.network.runtime.model.FeeResponse
 import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
 import io.novafoundation.nova.common.data.network.runtime.model.event.*
 import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
@@ -411,6 +412,9 @@ class TestViewModel @Inject constructor(
 
     }
 
+    suspend fun paymentQueryInfo(chain: Chain, extrinsic: String): FeeResponse {
+        return rpcCalls.getExtrinsicFee(chain.id, extrinsic)
+    }
     suspend fun checkAccountDetails(chain: Chain): AccountInfo? {
         val runtime = chainRegistry.getRuntime(chain.id)
         val key = runtime.metadata.system().storage("Account")
@@ -420,7 +424,7 @@ class TestViewModel @Inject constructor(
         return accountInfo
     }
 
-    suspend fun testTransfer(chain: Chain, enteredAmount: Float) = flow {
+    suspend fun testTransfer(chain: Chain, enteredAmount: Float, paymentInfo: (FeeResponse) -> Unit) = flow {
         kotlin.runCatching {
             val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
             val signer = signerProvider.signerFor(metaAccount!!)
@@ -433,6 +437,7 @@ class TestViewModel @Inject constructor(
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
                 .filterIsInstance<ExtrinsicStatus.Finalized>()
                 .first()
+            paymentInfo.invoke(paymentQueryInfo(chain,extrinsic))
             val events = getBlockEvents(chain, extrinsicStatus.blockHash)
             events.onSuccess {
                 it.checkIfExtrinsicFailed()?.let {
@@ -446,7 +451,7 @@ class TestViewModel @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun createMsa(chain: Chain) = flow {
+    suspend fun createMsa(chain: Chain, paymentInfo: (FeeResponse) -> Unit) = flow {
         kotlin.runCatching {
             val metaAccount =
                 accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
@@ -456,8 +461,8 @@ class TestViewModel @Inject constructor(
                 .createMsa()
                 .build()
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
-            val finalized =
-                extrinsicStatus.filterIsInstance<ExtrinsicStatus.Finalized>().firstOrNull()
+            paymentInfo.invoke(paymentQueryInfo(chain,extrinsic))
+            val finalized = extrinsicStatus.filterIsInstance<ExtrinsicStatus.Finalized>().firstOrNull()
             finalized?.apply {
                 val events = getBlockEvents(chain, finalized.blockHash)
                 events.onSuccess {
@@ -481,7 +486,8 @@ class TestViewModel @Inject constructor(
         msaId: BigInteger,
         expiration: BigInteger,
         msaOwnerMetaAccount: MetaAccount,
-        newKeyOwnerMetaAccount: MetaAccount
+        newKeyOwnerMetaAccount: MetaAccount,
+        paymentInfo: (FeeResponse) -> Unit
     ) = flow {
         kotlin.runCatching {
             val msaOwnerAccountId = msaOwnerMetaAccount.substrateAccountId
@@ -527,6 +533,7 @@ class TestViewModel @Inject constructor(
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
                 .filterIsInstance<ExtrinsicStatus.Finalized>()
                 .first()
+            paymentInfo.invoke(paymentQueryInfo(chain,extrinsic))
             val events = getBlockEvents(chain, extrinsicStatus.blockHash)
             events.onSuccess {
                 it.checkIfExtrinsicFailed()?.let {
