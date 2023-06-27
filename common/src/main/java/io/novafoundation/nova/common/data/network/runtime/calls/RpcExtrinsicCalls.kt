@@ -29,13 +29,6 @@ class publicKeyToMsaId(
     params = listOf(accountId)
 )
 
-class GetPaymentQueryInfoRequest(
-    extrinsic: String
-) : RuntimeRequest(
-    method = "payment_queryInfo",
-    params = listOf(extrinsic)
-)
-
 fun ExtrinsicBuilder.transferCall(
     destAccount: AccountId,
     amount: BigInteger

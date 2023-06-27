@@ -25,9 +25,11 @@ import io.novafoundation.nova.common.utils.setOnSafeClickListener
 import io.novafoundation.nova.common.validation.validationError
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.runtime.ext.addressOf
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class TestFragment : BaseFragment<TestViewModel>() {
@@ -196,8 +198,13 @@ class TestFragment : BaseFragment<TestViewModel>() {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     viewModel.getChain()?.let { chain ->
-                        viewModel.testTransfer(chain, binding.balance.text.toString().toFloat())
-                            .collectLatest {
+                        viewModel.testTransfer(
+                            chain = chain,
+                            enteredAmount = binding.balance.text.toString().toFloat(),
+                            paymentInfo = { feeResponse ->
+                                Log.e("Fee","Fee for this transaction ${feeResponse.partialFee} UNIT")
+                            }
+                        ).collectLatest {
                                 if (it.second.isNullOrEmpty()) {
                                     binding.transferResult.setText(it.first)
                                 } else {
@@ -234,7 +241,12 @@ class TestFragment : BaseFragment<TestViewModel>() {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     viewModel.getChain()?.let { chain ->
-                        viewModel.createMsa(chain).catch {
+                        viewModel.createMsa(
+                            chain = chain,
+                            paymentInfo = { feeResponse ->
+                                Log.e("Fee","Fee for this transaction ${feeResponse.partialFee} UNIT")
+                            }
+                        ).catch {
                             binding.createMsa.setText(it.message ?: "Invalid Transaction")
                         }.collectLatest {
                             if (it.third.isNullOrEmpty()) {
@@ -322,7 +334,10 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             msaId = msaId,
                             expiration = expiration,
                             msaOwnerMetaAccount = msaOwnerMetaAccount,
-                            newKeyOwnerMetaAccount = newKeyOwnerMetaAccount
+                            newKeyOwnerMetaAccount = newKeyOwnerMetaAccount,
+                            paymentInfo = { feeResponse ->
+                                Log.e("Fee","Fee for this transaction ${feeResponse.partialFee} UNIT")
+                            }
                         ).collectLatest {
                             if (it.second.isNullOrEmpty()) {
                                 val builer = java.lang.StringBuilder()
