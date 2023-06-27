@@ -55,7 +55,7 @@
             android:layout_marginTop="16dp"
             android:background="@null"
             android:gravity="top"
-            android:hint="Wallet name"
+            android:hint="Account name"
             android:inputType="textMultiLine|textVisiblePassword"
             android:minLines="1"
             android:textColor="@color/text_primary"
@@ -493,10 +493,74 @@
                 android:text="Public Key to Msa" />
 
             <TextView
-                android:id="@+id/public_key_to_msa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Msa Owner PublicKey" />
+
+            <Spinner
+                android:id="@+id/msa_owner_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="New Key Owner PublicKey" />
+
+            <Spinner
+                android:id="@+id/new_key_owner_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
+
+            <EditText
+                android:id="@+id/msa_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@null"
+                android:hint="Enter msa id"
+                android:lines="1"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:textColor="@color/text_primary" />
+
+
+            <EditText
+                android:id="@+id/expiration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:lines="1"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:hint="Enter expiration"
+                android:textColor="@color/text_primary" />
+
+            <TextView
+                android:id="@+id/new_public_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="newPublicKey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
+
+            <TextView
+                android:id="@+id/public_key_to_msa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
@@ -505,14 +569,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Get Public key to msa"
+                android:text="Add Public key to msa"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/importMnemonicContent" />
 
         </LinearLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

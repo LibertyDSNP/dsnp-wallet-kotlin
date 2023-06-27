@@ -258,14 +258,55 @@ class TestFragment : BaseFragment<TestViewModel>() {
             viewModel.setUpNewConnection(binding.chainUrl.text.toString().trim())
         }
 
-        binding.firePublicKeyToMsa.setOnClickListener{
+        binding.firePublicKeyToMsa.setOnSafeClickListener {
+            if (!isAccountsExists()) return@setOnSafeClickListener
+            if (binding.msaId.text.toString().isBlank()) {
+                validationError("MsaId is missing")
+                return@setOnSafeClickListener
+            }
+            if (binding.msaId.text.toString().isBlank()) {
+                validationError("Expiration is missing")
+                return@setOnSafeClickListener
+            }
+            val msaOwnerMetaAccount = metaAccounts[binding.msaOwnerAccount.selectedItemPosition]
+            val newKeyOwnerMetaAccount = metaAccounts[binding.newKeyOwnerAccount.selectedItemPosition]
             lifecycleScope.launchWhenResumed {
                 viewModel.getChain()?.let { chain ->
-                    viewModel.addKeyToMsa(chain).collectLatest {
-                        Log.e("test",it.toString())
+                    val msaId = binding.msaId.text.toString().toBigInteger()
+                    val expiration = binding.expiration.text.toString().toBigInteger()
+                    viewModel.addKeyToMsa(
+                        chain = chain,
+                        msaId = msaId,
+                        expiration = expiration,
+                        msaOwnerMetaAccount = msaOwnerMetaAccount,
+                        newKeyOwnerMetaAccount = newKeyOwnerMetaAccount
+                    ).collectLatest {
+                        if (it.second.isNullOrEmpty()) {
+                            val builer = java.lang.StringBuilder()
+                            builer.append("Block Hash: ${it.first}").append("\n")
+                            binding.createMsa.setText(builer.toString())
+                        }else{
+                            binding.createMsa.setText(it.second ?: "Error add public key msa")
+                            Toast.makeText(requireContext(),it.second ?: "Error add public key msa",Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
+        }
+
+        binding.newKeyOwnerAccount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val account = metaAccounts[position]
+                viewModel.getChain()?.let {
+                    binding.newPublicKey.setText("newPublicKey: ${it.addressOf(account.substratePublicKey!!)}")
+                }
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
 
     }
@@ -280,6 +321,10 @@ class TestFragment : BaseFragment<TestViewModel>() {
         binding.toAccount.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
         binding.balanceAccount.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.msaOwnerAccount.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.newKeyOwnerAccount.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
     }
 

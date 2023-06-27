@@ -86,5 +86,4 @@ dependencies {
     implementation deps.test.runner
     implementation deps.test.rules
     implementation deps.test.ext_junit
-
 }

@@ -34,21 +34,27 @@ import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.*
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.runtime.ext.*
+import io.novafoundation.nova.runtime.extrinsic.CustomSignedExtensions
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnectionFactory
 import io.novafoundation.nova.runtime.multiNetwork.connection.ConnectionPool
+import io.novafoundation.nova.runtime.multiNetwork.getChainOrNull
 import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import io.novafoundation.nova.runtime.multiNetwork.getSocket
 import io.novafoundation.nova.runtime.multiNetwork.runtime.repository.EventsRepository
 import io.novafoundation.nova.runtime.network.rpc.RpcCalls
+import io.novafoundation.nova.runtime.sign.DAppParsedExtrinsic
+import io.novafoundation.nova.runtime.sign.SignerPayload
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
-import jp.co.soramitsu.fearless_utils.encrypt.Signer
+
+import jp.co.soramitsu.fearless_utils.encrypt.Sr25519
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
+import jp.co.soramitsu.fearless_utils.encrypt.keypair.substrate.Sr25519Keypair
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator
 import jp.co.soramitsu.fearless_utils.exceptions.Bip39Exception
@@ -56,18 +62,34 @@ import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
 import jp.co.soramitsu.fearless_utils.extensions.toAccountId
 import jp.co.soramitsu.fearless_utils.extensions.toHexString
+import jp.co.soramitsu.fearless_utils.runtime.AccountId
+import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.DictEnum
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.Struct
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.fromHex
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.EraType
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Extrinsic
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.GenericCall
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.MultiSignature
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.prepareForEncoding
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toByteArray
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toHex
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toHexUntyped
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.ExtrinsicBuilder
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.Signer
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadExtrinsic
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadRaw
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.encodedSignaturePayload
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageKey
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct
+import jp.co.soramitsu.fearless_utils.scale.Schema
+import jp.co.soramitsu.fearless_utils.scale.byteArray
+import jp.co.soramitsu.fearless_utils.scale.dataType.DataType
 import jp.co.soramitsu.fearless_utils.scale.dataType.string
 import jp.co.soramitsu.fearless_utils.scale.dataType.toHex
+import jp.co.soramitsu.fearless_utils.ss58.SS58Encoder.toAccountId
 import jp.co.soramitsu.fearless_utils.wsrpc.executeAsync
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
@@ -75,8 +97,13 @@ import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersion
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersionRequest
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import org.junit.Assert
+import java.io.ByteArrayOutputStream
+import java.io.OutputStream
 import java.io.PrintWriter
 import java.io.StringWriter
+import java.lang.Exception
+import java.math.BigInteger
 import javax.inject.Inject
 
 @HiltViewModel
@@ -451,7 +478,8 @@ class TestViewModel @Inject constructor(
 
     suspend fun createMsa(chain: Chain) = flow {
         kotlin.runCatching {
-            val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
+            val metaAccount =
+                accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
             val signer = signerProvider.signerFor(metaAccount!!)
             val accountId = chain.accountIdOf(accountAddresForMsa)
             val extrinsic = extrinsicBuilderFactory.create(chain, signer, accountId)
@@ -474,129 +502,118 @@ class TestViewModel @Inject constructor(
                 }
             }
         }.onFailure { exception ->
-            val exc_map: MutableMap<String, String> = HashMap()
-            exc_map["message"] = exception.toString()
-            exc_map["stacktrace"] = getStackTrace(exception)
-            println(gson.toJson(exc_map))
             emit(Triple(null, null, exception.message ?: "Error"))
         }
     }.flowOn(Dispatchers.IO)
 
-    private fun sr25519SignatureOf(bytes: ByteArray): Any {
-        return MultiSignature(EncryptionType.SR25519, bytes).prepareForEncoding()
-    }
-     suspend fun addKeyToMsa(chain: Chain) = flow {
-         kotlin.runCatching {
-             val ownerMetaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
-             val newMetaAccount = accountRepository.getMetaAccount(4)
-             val ownerSigner = signerProvider.signerFor(ownerMetaAccount!!)
-             val newSigner = signerProvider.signerFor(newMetaAccount)
-             val accountId = chain.accountIdOf(accountAddres)
-             val runtime = chainRegistry.getRuntime(chain.id)
-//             val payloadData = AddKeyPayload(
-//                 msa_id = u8.toByteArray(runtime,1.toBigInteger()),
-//                 expiration = u4.toByteArray(runtime,200.toBigInteger()),
-//                 new_public_key = newMetaAccount.substratePublicKey!!.toUByteArray()
-//             )
-
-             val payloadData = AddKeyPayload(
-                 msaId = 1,
-                 expiration = 200,
-                 newPublicKey = chain.addressOf(newMetaAccount.substratePublicKey!!)
-             )
-
-
-             var keyPayloadData = gson.toJson(payloadData)
-             Log.e("keyPayloadData", "Orignal Payload: ${keyPayloadData}")
-             val addKeyData = runtime.typeRegistry.get("pallet_msa.types.AddKeyData")
-             Log.e("keyPayloadData", "Scale Encoded Payload: ${string.toHex(keyPayloadData)}")
-             val currencyIdScale = addKeyData!!.toHexUntyped(runtime, Struct.Instance(
-                 mapOf(
-                     "msaId" to 1.toBigInteger(),
-                     "expiration" to 200.toBigInteger(),
-                     "newPublicKey" to newMetaAccount.substratePublicKey
-                 )
-             ))
-             keyPayloadData = currencyIdScale
-             Log.e("keyPayloadData", "Scale Encoded Payload: ${keyPayloadData}")
-             val test = signerProvider.signerFor(ownerMetaAccount).signRaw(
-                 SignerPayloadRaw(
-                     keyPayloadData.toByteArray(),
-                     ownerMetaAccount.substrateAccountId!!
-                     , skipMessageHashing = true
-                 )
-             ).asHexString()
-             val test2 = signerProvider.signerFor(newMetaAccount).signRaw(
-                 SignerPayloadRaw(
-                     keyPayloadData.toByteArray(),
-                     newMetaAccount.substrateAccountId!!, skipMessageHashing = true
-                 )
-             ).asHexString()
-
-             Log.e("signature","test: %s \ntest2: %s".format(test,test2))
-
-             val charset = Charsets.UTF_8
-
-             val ownerKeypair = secreteStoreV2.getMetaAccountKeypair(metaId = ownerMetaAccount.id, false)
-             val newKeypair = secreteStoreV2.getMetaAccountKeypair(metaId = newMetaAccount.id, false)
-
-             val ownerSignature = Signer.sign(MultiChainEncryption.Substrate(EncryptionType.SR25519), keyPayloadData.toByteArray(), ownerKeypair).signature
-             val newSignature = Signer.sign(MultiChainEncryption.Substrate(EncryptionType.SR25519), keyPayloadData.toByteArray(), newKeypair).signature
-
-             val ownerResult = MultiSignature(EncryptionType.SR25519, ownerSignature).prepareForEncoding() as DictEnum.Entry<*>
-             val newResult = MultiSignature(EncryptionType.SR25519, newSignature).prepareForEncoding() as DictEnum.Entry<*>
-
-             Log.e("signature","ownerResult: %s \nnewResult: %s".format((ownerResult.value as ByteArray).toHexString(true),(newResult.value as ByteArray).toHexString(true)))
-
-             val newOwnerRawSignature = newSigner.signRaw(SignerPayloadRaw(keyPayloadData.toByteArray(charset),newMetaAccount.substrateAccountId)).signature.toHexString(withPrefix = true)
-             val msaOwnerRawSignature = ownerSigner.signRaw(SignerPayloadRaw(keyPayloadData.toByteArray(charset),ownerMetaAccount.substrateAccountId!!)).signature.toHexString(withPrefix = true)
-
-             Log.e("signature","msaOwnerRawSignature: %s \nnewOwnerRawSignature: %s".format(msaOwnerRawSignature,newOwnerRawSignature))
-             val extrinsic = extrinsicBuilderFactory.create(chain, ownerSigner, accountId)
-                 .addPublicKeyToMsa(
-                     msaOwnerPublicKey = ownerMetaAccount.substratePublicKey,
-                     msaOwnerProof = ownerResult,
-                     newKeyOwnerProof = newResult,
-                     addKeyPayload = Struct.Instance(
-                         mapOf(
-                             "msaId" to 1.toBigInteger(),
-                             "expiration" to 200.toBigInteger(),
-                             "newPublicKey" to newMetaAccount.substratePublicKey
-                         )
-                     )
-                 ).build()
-             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
-                 .filterIsInstance<ExtrinsicStatus.Finalized>()
-                 .first()
-             val events = getBlockEvents(chain, extrinsicStatus.blockHash)
-             events.onSuccess {
-                 it.checkIfExtrinsicFailed()?.let {
-                     emit(Pair(extrinsicStatus.blockHash, it.error?.second?.name))
-                 } ?: kotlin.run {
-                     emit(Pair(extrinsicStatus.blockHash, null))
-                 }
-             }.onFailure {
-                 emit(Pair(extrinsicStatus.blockHash, it.message ?: "Error"))
-             }
-         }.onFailure {
-             Log.e("failed",it.message ?: "Error")
-         }
+    suspend fun addKeyToMsa(
+        chain: Chain,
+        msaId: BigInteger,
+        expiration: BigInteger,
+        msaOwnerMetaAccount: MetaAccount,
+        newKeyOwnerMetaAccount: MetaAccount
+    ) = flow {
+        kotlin.runCatching {
+            val msaOwnerAccountId = msaOwnerMetaAccount.substrateAccountId
+                ?: throw Exception("Account Id can't be null")
+            val newKeyOwnerAccountId = newKeyOwnerMetaAccount.substrateAccountId ?: throw Exception(
+                "Account Id can't be null"
+            )
+            val msaOwnerProof = signerProvider.signerFor(msaOwnerMetaAccount).run {
+                val payload = generateAddMsaKeyPayload(
+                    msaId = msaId,
+                    expiration = expiration,
+                    accountId = newKeyOwnerAccountId,
+                    chain = chain
+                ).fromHex()
+                generateSignatureProof(payload, msaOwnerAccountId)
+            }
+            val newKeyOwnerProof = signerProvider.signerFor(newKeyOwnerMetaAccount).run {
+                val payload = generateAddMsaKeyPayload(
+                    msaId = msaId,
+                    expiration = expiration,
+                    accountId = newKeyOwnerAccountId,
+                    chain = chain
+                ).fromHex()
+                generateSignatureProof(payload, newKeyOwnerAccountId)
+            }
+            val extrinsic = extrinsicBuilderFactory.create(
+                chain,
+                signerProvider.signerFor(msaOwnerMetaAccount),
+                msaOwnerAccountId
+            )
+                .addPublicKeyToMsa(
+                    msaOwnerPublicKey = msaOwnerAccountId,
+                    msaOwnerProof = msaOwnerProof,
+                    newKeyOwnerProof = newKeyOwnerProof,
+                    addKeyPayload = Struct.Instance(
+                        mapOf(
+                            "msaId" to msaId,
+                            "expiration" to expiration,
+                            "newPublicKey" to newKeyOwnerAccountId
+                        )
+                    )
+                ).build()
+            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
+                .filterIsInstance<ExtrinsicStatus.Finalized>()
+                .first()
+            val events = getBlockEvents(chain, extrinsicStatus.blockHash)
+            events.onSuccess {
+                it.checkIfExtrinsicFailed()?.let {
+                    emit(Pair(extrinsicStatus.blockHash, it.error?.second?.name))
+                } ?: kotlin.run {
+                    emit(Pair(extrinsicStatus.blockHash, null))
+                }
+            }.onFailure {
+                emit(Pair(extrinsicStatus.blockHash, it.message ?: "Error"))
+            }
+        }.onFailure {
+            Log.e("failed", it.message ?: "Error")
+        }
 
     }.flowOn(Dispatchers.IO)
 
+    suspend fun generateAddMsaKeyPayload(
+        msaId: BigInteger,
+        expiration: BigInteger,
+        accountId: AccountId,
+        chain: Chain
+    ): String {
+        val runtime = chainRegistry.getRuntime(chain.id)
+        val addKeyData = runtime.typeRegistry.get("pallet_msa.types.AddKeyData")
+        val prefix = "0x3c42797465733e" // <Bytes> -> Hex string
+        val postfix = "3c2f42797465733e" // </Bytes> -> Hex string
+        val payload = addKeyData!!.toHexUntyped(
+            runtime, Struct.Instance(
+                mapOf(
+                    "msaId" to msaId,
+                    "expiration" to expiration,
+                    "newPublicKey" to accountId
+                )
+            )
+        ).substring(2) //Exclude 0x
+        return prefix + payload + postfix
+    }
+
+    suspend fun Signer.generateSignatre(
+        payload: ByteArray,
+        accountId: AccountId
+    ): ByteArray {
+        return signRaw(SignerPayloadRaw(payload, accountId)).signature
+    }
+
+    suspend fun Signer.generateSignatureProof(
+        payload: ByteArray,
+        accountId: AccountId
+    ): DictEnum.Entry<*> {
+        val signature = signRaw(SignerPayloadRaw(payload, accountId)).signature
+        return MultiSignature(
+            EncryptionType.SR25519,
+            signature
+        ).prepareForEncoding() as DictEnum.Entry<*>
+    }
 }
 
-fun getStackTrace(throwable: Throwable): String {
-    val sw = StringWriter()
-    val pw = PrintWriter(sw, true)
-    throwable.printStackTrace(pw)
-    return sw.getBuffer().toString()
-}
 
-class AddKeyPayloadArg(
-    val msaId: Extrinsic.EncodingInstance.CallRepresentation.Bytes,
-    val expiration: Extrinsic.EncodingInstance.CallRepresentation.Bytes,
-    val newPublicKey: UByteArray
-)
 
 
