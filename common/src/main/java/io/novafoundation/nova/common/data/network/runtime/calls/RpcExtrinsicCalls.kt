@@ -22,6 +22,13 @@ class GetStateRequest(
     params = listOf(storageKey)
 )
 
+class publicKeyToMsaId(
+    accountId: AccountId
+) : RuntimeRequest(
+    method = "chain_publicKeyToMsaId",
+    params = listOf(accountId)
+)
+
 class GetPaymentQueryInfoRequest(
     extrinsic: String
 ) : RuntimeRequest(

@@ -29,67 +29,41 @@ import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
 import io.novafoundation.nova.common.data.secrets.v2.KeyPairSchema
 import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
-import io.novafoundation.nova.common.data.secrets.v2.getMetaAccountKeypair
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.*
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.runtime.ext.*
-import io.novafoundation.nova.runtime.extrinsic.CustomSignedExtensions
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicStatus
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnectionFactory
 import io.novafoundation.nova.runtime.multiNetwork.connection.ConnectionPool
-import io.novafoundation.nova.runtime.multiNetwork.getChainOrNull
 import io.novafoundation.nova.runtime.multiNetwork.getRuntime
 import io.novafoundation.nova.runtime.multiNetwork.getSocket
 import io.novafoundation.nova.runtime.multiNetwork.runtime.repository.EventsRepository
 import io.novafoundation.nova.runtime.network.rpc.RpcCalls
-import io.novafoundation.nova.runtime.sign.DAppParsedExtrinsic
-import io.novafoundation.nova.runtime.sign.SignerPayload
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
-import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 
-import jp.co.soramitsu.fearless_utils.encrypt.Sr25519
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
-import jp.co.soramitsu.fearless_utils.encrypt.keypair.substrate.Sr25519Keypair
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator
 import jp.co.soramitsu.fearless_utils.exceptions.Bip39Exception
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
 import jp.co.soramitsu.fearless_utils.extensions.toAccountId
-import jp.co.soramitsu.fearless_utils.extensions.toHexString
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
-import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.DictEnum
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.Struct
-import jp.co.soramitsu.fearless_utils.runtime.definitions.types.fromHex
-import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.EraType
-import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Extrinsic
-import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.GenericCall
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.MultiSignature
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.prepareForEncoding
-import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toByteArray
-import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toHex
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.toHexUntyped
-import jp.co.soramitsu.fearless_utils.runtime.extrinsic.ExtrinsicBuilder
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.Signer
-import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadExtrinsic
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadRaw
-import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.encodedSignaturePayload
-import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageKey
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct
-import jp.co.soramitsu.fearless_utils.scale.Schema
-import jp.co.soramitsu.fearless_utils.scale.byteArray
-import jp.co.soramitsu.fearless_utils.scale.dataType.DataType
-import jp.co.soramitsu.fearless_utils.scale.dataType.string
-import jp.co.soramitsu.fearless_utils.scale.dataType.toHex
-import jp.co.soramitsu.fearless_utils.ss58.SS58Encoder.toAccountId
 import jp.co.soramitsu.fearless_utils.wsrpc.executeAsync
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
@@ -97,9 +71,6 @@ import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersion
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersionRequest
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import org.junit.Assert
-import java.io.ByteArrayOutputStream
-import java.io.OutputStream
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.lang.Exception
@@ -132,7 +103,6 @@ class TestViewModel @Inject constructor(
     var accountAddres2 = "5CV1EtqhSyompvpNnZ2pWvcFp2rycoRVFUxAHyAuVMvb9SnG"
     var accountAddresForMsa = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"
     var accountAddresForBalance = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"
-
     init {
         getGesisHashFromBlockHash()
     }
@@ -424,7 +394,7 @@ class TestViewModel @Inject constructor(
         }
     }
 
-    suspend fun getBlockEvents(chain: Chain, blockHash: String) =
+    suspend fun getBlockEvents(chain: Chain, blockHash: String? = null) =
         eventsRepository.getEventsInBlockForFrequency(chain.id, blockHash)
 
     suspend fun executeAnyExtrinsic(chain: Chain) {
@@ -573,6 +543,16 @@ class TestViewModel @Inject constructor(
 
     }.flowOn(Dispatchers.IO)
 
+    suspend fun getPublicKeyToMsaId(chain: Chain,account: MetaAccount) = flow {
+        val runtime = chainRegistry.getRuntime(chain.id)
+        val events = eventsRepository.getMsaIdFromFrequencyChain(chain, runtime, account.substrateAccountId!!)
+        events.onSuccess {
+            emit(Pair(it, null))
+        }.onFailure {
+            emit(Pair(0.toBigInteger(), it.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
     suspend fun generateAddMsaKeyPayload(
         msaId: BigInteger,
         expiration: BigInteger,
@@ -613,7 +593,3 @@ class TestViewModel @Inject constructor(
         ).prepareForEncoding() as DictEnum.Entry<*>
     }
 }
-
-
-
-
