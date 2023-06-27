@@ -4,16 +4,19 @@ import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,6 +45,7 @@ fun Logo(
 @Composable
 fun Back(
     modifier: Modifier = Modifier,
+    color: Color = MainColors.onToolbar,
     onClick: (() -> Unit)? = null
 ) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
@@ -54,7 +58,7 @@ fun Back(
             .clickable(onClick = {
                 if (onClick == null) onBackPressedDispatcher?.onBackPressed() else onClick()
             }),
-        tint = MainColors.onToolbar
+        tint = color
     )
 }
 
@@ -128,6 +132,46 @@ fun Edit(modifier: Modifier = Modifier) {
     )
 }
 
+@Composable
+fun Checkmark(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.checkmark),
+        contentDescription = stringResource(id = R.string.checkmark),
+        tint = MainColors.primary
+    )
+}
+
+@Composable
+fun PullDown() {
+    Box(
+        modifier = Modifier
+            .size(width = 84.dp, height = 5.dp)
+            .clip(ButtonDefaults.shape)
+            .background(MainColors.pullDown)
+    )
+}
+
+@Composable
+fun ArrowRight(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.arrow_right),
+        contentDescription = stringResource(id = R.string.arrow_right),
+        tint = MainColors.onButton
+    )
+}
+
+@Composable
+fun LogOut(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.arrow_right),
+        contentDescription = stringResource(id = R.string.log_out),
+        tint = MainColors.onButton
+    )
+}
+
 @Preview
 @Composable
 private fun SampleIcons() {
@@ -141,8 +185,11 @@ private fun SampleIcons() {
             Back()
             Close()
             Loading()
-            Profile(iconUrl = null)
             Edit()
+            PullDown()
+            Checkmark()
+            ArrowRight()
+            Profile(iconUrl = null)
         }
     }
 }

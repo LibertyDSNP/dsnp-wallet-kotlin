@@ -48,3 +48,23 @@ val nunito = FontFamily(
     Font(R.font.nunito_black, FontWeight.Black),
     Font(R.font.nunito_blackitalic, FontWeight.Black)
 )
+
+val workSans = FontFamily(
+    Font(R.font.worksans_thin, FontWeight.Thin),
+    Font(R.font.worksans_thinitalic, FontWeight.Thin),
+    Font(R.font.worksans_extralight, FontWeight.ExtraLight),
+    Font(R.font.worksans_extralightitalic, FontWeight.ExtraLight),
+    Font(R.font.worksans_light, FontWeight.Light),
+    Font(R.font.worksans_lightitalic, FontWeight.Light),
+    Font(R.font.worksans_regular, FontWeight.Normal),
+    Font(R.font.worksans_medium, FontWeight.Medium),
+    Font(R.font.worksans_mediumitalic, FontWeight.Medium),
+    Font(R.font.worksans_semibold, FontWeight.SemiBold),
+    Font(R.font.worksans_seminolditalic, FontWeight.SemiBold),
+    Font(R.font.worksans_bold, FontWeight.Bold),
+    Font(R.font.worksans_bolditalic, FontWeight.Bold),
+    Font(R.font.worksans_extrabold, FontWeight.ExtraBold),
+    Font(R.font.worksans_extrabolditalic, FontWeight.ExtraBold),
+    Font(R.font.worksans_black, FontWeight.Black),
+    Font(R.font.worksans_blackitalic, FontWeight.Black)
+)

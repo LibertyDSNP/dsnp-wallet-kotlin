@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
@@ -20,6 +21,7 @@ fun PrimaryButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String,
+    textPadding: Dp = 6.dp,
     onClick: () -> Unit
 ) {
     Button(
@@ -33,7 +35,7 @@ fun PrimaryButton(
                 text = text,
                 style = MainTypography.bodyMedium,
                 color = MainColors.onButton,
-                modifier = Modifier.padding(vertical = 6.dp)
+                modifier = Modifier.padding(vertical = textPadding)
             )
         })
 }

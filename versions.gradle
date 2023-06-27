@@ -79,6 +79,7 @@ versions.compose_bom = "2023.04.01"
 versions.compose_activity = "1.6.1"
 versions.compose_viewmodel = "2.5.1"
 versions.compose_hilt = "1.0.0"
+versions.compose_destinations = "1.8.42-beta"
 
 versions.streamsupport = "1.6.0"
 
@@ -210,6 +211,8 @@ compose.window_size = "androidx.compose.material3:material3-window-size-class"
 compose.activity = "androidx.activity:activity-compose:$versions.compose_activity"
 compose.viewmodel = "androidx.lifecycle:lifecycle-viewmodel-compose:$versions.compose_viewmodel"
 compose.hilt = "androidx.hilt:hilt-navigation-compose:$versions.compose_hilt"
+compose.destinations = "io.github.raamcosta.compose-destinations:animations-core:$versions.compose_destinations"
+compose.ksp = "io.github.raamcosta.compose-destinations:ksp:$versions.compose_destinations"
 deps.compose = compose
 
 ext.deps = deps

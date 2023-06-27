@@ -7,4 +7,11 @@
     <string name="profile_icon">Profile icon</string>
     <string name="profile_icon_empty">Profile icon empty</string>
     <string name="edit">Edit</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="permissions">Permissions</string>
+    <string name="settings">Settings</string>
+    <string name="checkmark">Checkmark</string>
+    <string name="arrow_right">Arrow Right</string>
+    <string name="log_out">Log Out</string>
 </resources>

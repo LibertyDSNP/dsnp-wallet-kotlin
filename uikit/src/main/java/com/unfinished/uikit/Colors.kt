@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 interface Colors {
 
+    val primary: Color
+
     val toolbar: Color
     val onToolbar: Color
 
@@ -23,4 +25,34 @@ interface Colors {
 
     val progressBar: Color
     val progressBarBackground: Color
+
+    val bottomBarIcon: Color
+    val bottomBarIconNotSelected: Color
+
+    val divider: Color
+
+    val bottomSheetBackground: Color
+    val onBottomSheetBackground: Color
+
+    val grey90: Color
+    val grey20: Color
+
+    val editTextBackground: Color
+    val onEditTextBackground: Color
+    val onEditTextTitle: Color
+
+    val pullDown: Color
+
+    val taskButton: Color
+    val taskButtonDone: Color
+    val onTaskButton: Color
+    val onTaskButtonDone: Color
+
+    val toDo: Color
+    val onToDo: Color
+
+    val toggleOff: Color
+    val toggleOffTrack: Color
+    val toggleOn: Color
+    val toggleOnTrack: Color
 }

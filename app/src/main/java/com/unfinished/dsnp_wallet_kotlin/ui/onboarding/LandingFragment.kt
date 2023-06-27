@@ -49,12 +49,12 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = requireContext().createComposeView {
-        LandingPageScreen(
-            landingViewModel = viewModel,
-            testScreenClick = {
-                findNavController().navigate(R.id.action_landingFragment_to_testFragment)
-            }
-        )
+//        LandingPageScreen(
+//            landingViewModel = viewModel,
+//            testScreenClick = {
+//                findNavController().navigate(R.id.action_landingFragment_to_testFragment)
+//            }
+//        )
     }
 
     override fun initViews() {

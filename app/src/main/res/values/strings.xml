@@ -60,8 +60,8 @@
     <string name="invalid_code">Invalid code, please try again</string>
     <string name="temp_verify_success">Verify success</string>
     <string name="common_cannot_open_link">Cannot open this link</string>
-    <string name="terms_link">https://www.dsnp.org/privacy.html</string>
-    <string name="privacy_policy_link">https://www.dsnp.org/privacy.html</string>
+    <string name="terms_link">https://www.amplicaaccess.com/access_web/terms.html</string>
+    <string name="privacy_policy_link">https://www.amplicaaccess.com/access_web/privacy.html</string>
     <string name="landing_test_screen">Test Screen</string>
     <string name="have_id_link">https://www.amplicaaccess.com/</string>
     <string name="coming_soon">Coming Soon</string>
@@ -72,6 +72,35 @@
 
     <string name="social_identity_complete">% Social Identity Complete</string>
     <string name="see_all">See All</string>
+    <string name="create_id_steps">%s of %s</string>
+    <string name="create_digital_identity">Create Digital Identity</string>
+    <string name="your_unique_handle">Your unique handle is how others will find you across the social web and will be universal across apps.</string>
+    <string name="claim_your_handle">Claim your handle</string>
+    <string name="handle_rules">Handle must be between 4–16 characters &amp; can only consist of letters, numbers, and underscores.</string>
+    <string name="next">Next</string>
+    <string name="confirm_your_handle">Confirm your Handle</string>
+    <string name="numerical_suffix_auto_assigned">The numerical suffix is auto-assigned by Amplica Access to make sure every handle is unique. They will not be visible in some cases.</string>
+    <string name="agree_to_terms">Agree to Terms</string>
+    <string name="agree">Agree</string>
+    <string name="by_agreeing">By agreeing, you grant Amplica access to:</string>
+    <string name="update_your_handle_and_profile_information">Update your handle and profile information</string>
+    <string name="update_your_contacts_groups">Update your contacts &amp; groups</string>
+    <string name="you_may_update_permissions_at_any_time">You may update permissions at any time.</string>
+    <string name="set_avatar">Set Avatar</string>
+    <string name="backup_seed_phrase">Backup Seed Phrase</string>
+    <string name="choose_a_handle">Choose a handle</string>
+    <string name="social_identity">Social Identity</string>
+    <string name="your_real_name">In today\'s rapidly evolving world, your real name is more than a name - it\'s your true identity, your brand, your calling card and your livelihood. By completing the steps it’ll be good for you…</string>
+    <string name="to_do">To Do</string>
+    <string name="you_have_never_backed_up">You have NEVER backed up!</string>
+    <string name="recovery_phrase">Recovery phrase is very important you better write this down</string>
+    <string name="reveal_recovery_phrase">Reveal Recovery Phrase</string>
 
+    <string name="security">Security</string>
+    <string name="security_desc">Adding additional security is really important</string>
+    <string name="face_id">Face ID</string>
+    <string name="face_id_desc">Increase access security with Face ID</string>
+    <string name="password">Password</string>
+    <string name="password_desc">Password to log in to your account</string>
 
 </resources>
