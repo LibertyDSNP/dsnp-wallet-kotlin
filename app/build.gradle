@@ -102,5 +102,6 @@ dependencies {
     implementation deps.nova.fearless_utils
 
     implementation deps.compose.destinations
+    implementation deps.compose.viewbinding
     ksp deps.compose.ksp
 }
