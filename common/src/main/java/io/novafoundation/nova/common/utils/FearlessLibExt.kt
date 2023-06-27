@@ -30,6 +30,7 @@ import jp.co.soramitsu.fearless_utils.runtime.metadata.module.Constant
 import jp.co.soramitsu.fearless_utils.runtime.metadata.module.MetadataFunction
 import jp.co.soramitsu.fearless_utils.runtime.metadata.module.Module
 import jp.co.soramitsu.fearless_utils.runtime.metadata.module.StorageEntry
+import jp.co.soramitsu.fearless_utils.runtime.metadata.module.StorageEntryType
 import jp.co.soramitsu.fearless_utils.runtime.metadata.moduleOrNull
 import jp.co.soramitsu.fearless_utils.runtime.metadata.splitKey
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageOrNull
@@ -157,6 +158,7 @@ fun Module.constantOrNull(name: String) = constants[name]
 fun RuntimeMetadata.staking() = module(Modules.STAKING)
 
 fun RuntimeMetadata.system() = module(Modules.SYSTEM)
+fun RuntimeMetadata.msa() = module(Modules.MSA)
 
 fun RuntimeMetadata.balances() = module(Modules.BALANCES)
 

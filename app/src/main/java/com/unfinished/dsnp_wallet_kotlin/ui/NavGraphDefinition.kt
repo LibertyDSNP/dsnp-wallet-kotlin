@@ -38,3 +38,9 @@ annotation class DebugNavGraph(
 annotation class SocialSetupNavGraph(
     val start: Boolean = false
 )
+
+@RootNavGraph
+@NavGraph
+annotation class TestNavGraph(
+    val start: Boolean = false
+)

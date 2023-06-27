@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentHomeBinding
 import com.unfinished.dsnp_wallet_kotlin.ui.base.BaseFragment
-import com.unfinished.dsnp_wallet_kotlin.ui.home.compose.IdentityScreen
 import com.unfinished.dsnp_wallet_kotlin.util.createComposeView
 import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint

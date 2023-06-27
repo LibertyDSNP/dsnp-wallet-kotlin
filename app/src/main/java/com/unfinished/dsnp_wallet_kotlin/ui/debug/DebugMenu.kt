@@ -21,6 +21,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.ui.DebugNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DebugNavigateScreenDestination
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.TestScreenDestination
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.Back
@@ -42,6 +43,10 @@ fun DebugMenu(
             DebugItem(
                 text = "Navigate",
                 onClick = { navigator.navigate(DebugNavigateScreenDestination) }
+            ),
+            DebugItem(
+                text = "Frequency Chain Test",
+                onClick = { navigator.navigate(TestScreenDestination) }
             )
         )
     )
