@@ -93,7 +93,7 @@
     <string name="your_real_name">In today\'s rapidly evolving world, your real name is more than a name - it\'s your true identity, your brand, your calling card and your livelihood. By completing the steps it’ll be good for you…</string>
     <string name="to_do">To Do</string>
     <string name="you_have_never_backed_up">You have NEVER backed up!</string>
-    <string name="recovery_phrase">Recovery phrase is very important you better write this down</string>
+    <string name="recovery_phrase">Recovery Phrase</string>
     <string name="reveal_recovery_phrase">Reveal Recovery Phrase</string>
 
     <string name="security">Security</string>
@@ -102,5 +102,18 @@
     <string name="face_id_desc">Increase access security with Face ID</string>
     <string name="password">Password</string>
     <string name="password_desc">Password to log in to your account</string>
+    <string name="security_is_important">Security is Important</string>
+    <string name="back_up_your_recovery_phrase">Back up your recovery phrase now to ensure that your assets will be stores safely and securely</string>
+    <string name="there_will_be_a_test">There will be a test</string>
+    <string name="please_carefully_write">Please carefully write down these 12 words below in numerical order (1–12) and store your secret phrase securely.\n\nYou will confirm them in order on the next screen.</string>
+    <string name="please_carefully_write_link_text">in order</string>
+    <string name="i_ve_written_it_down">I\'ve written it down</string>
+    <string name="recovery_phrase_is_very_important">Recovery phrase is very important you better write this down</string>
+    <string name="this_is_the_test">This is the test</string>
+    <string name="tap_the_words">Tap the words in numerical order (1-12) to verify your recovery phrase</string>
+    <string name="continue_text">Continue</string>
+    <string name="verify_recovery">Verify Recovery</string>
+    <string name="you_got_it_wrong">You got it wrong!</string>
+    <string name="congratulations">Congratulations!</string>
 
 </resources>

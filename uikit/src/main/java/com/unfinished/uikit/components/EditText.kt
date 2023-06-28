@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unfinished.uikit.MainColors
+import com.unfinished.uikit.MainShapes
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 
@@ -40,7 +41,7 @@ fun InputTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .border(
-                    width = 1.dp, color = MainColors.grey20, shape = ButtonDefaults.shape
+                    width = 1.dp, color = MainColors.grey20, shape = MainShapes.button
                 ),
             colors = TextFieldDefaults.textFieldColors(
                 textColor = MainColors.onEditTextBackground,
@@ -49,7 +50,7 @@ fun InputTextField(
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
-            shape = ButtonDefaults.shape
+            shape = MainShapes.button
         )
     }
 }

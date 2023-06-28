@@ -23,8 +23,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.result.NavResult
+import com.ramcosta.composedestinations.result.ResultRecipient
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.BottomBarNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RecoveryPhraseScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.uimodel.Setting
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.uimodel.SettingsUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.viewmodel.SettingsViewModel
@@ -37,21 +41,48 @@ import com.unfinished.uikit.components.LogOut
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PrimaryToggle
 import com.unfinished.uikit.components.SimpleToolbar
+import com.unfinished.uikit.components.SuccessSnackbar
 
 @BottomBarNavGraph
 @Destination
 @Composable
 fun SettingsScreen(
+    navigator: DestinationsNavigator,
+    resultRecipient: ResultRecipient<RecoveryPhraseScreenDestination, Boolean>,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val uiStateFlow = settingsViewModel.uiStateFLow.collectAsState()
 
     when (val uiState = uiStateFlow.value) {
-        is UiState.DataLoaded -> SettingsScreen(
-            settingsUiModel = uiState.data,
-            settingClick = {},
-            logOutClick = {}
-        )
+        is UiState.DataLoaded -> Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MainColors.background)
+        ) {
+            SettingsScreen(
+                settingsUiModel = uiState.data,
+                settingClick = {},
+                logOutClick = {},
+                recoveryPhraseClick = {
+                    navigator.navigate(RecoveryPhraseScreenDestination)
+                }
+            )
+
+            SuccessSnackbar(
+                text = stringResource(R.string.congratulations),
+                showSnackbar = uiState.data.showSnackbar,
+                modifier = Modifier.align(Alignment.BottomCenter),
+                onDismiss = { settingsViewModel.hideSnackbar() },
+                onShown = { settingsViewModel.hideSnackbar() }
+            )
+        }
+    }
+
+    resultRecipient.onNavResult { result ->
+        when (result) {
+            NavResult.Canceled -> {}
+            is NavResult.Value -> settingsViewModel.showSnackbar()
+        }
     }
 }
 
@@ -59,7 +90,8 @@ fun SettingsScreen(
 fun SettingsScreen(
     settingsUiModel: SettingsUiModel,
     settingClick: (Setting) -> Unit,
-    logOutClick: () -> Unit
+    logOutClick: () -> Unit,
+    recoveryPhraseClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -75,7 +107,8 @@ fun SettingsScreen(
         Body(
             settingsUiModel = settingsUiModel,
             settingClick = settingClick,
-            logOutClick = logOutClick
+            logOutClick = logOutClick,
+            recoveryPhraseClick = recoveryPhraseClick
         )
     }
 }
@@ -84,7 +117,8 @@ fun SettingsScreen(
 private fun Body(
     settingsUiModel: SettingsUiModel,
     settingClick: (Setting) -> Unit,
-    logOutClick: () -> Unit
+    logOutClick: () -> Unit,
+    recoveryPhraseClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -92,7 +126,7 @@ private fun Body(
             .verticalScroll(rememberScrollState())
     ) {
         RecoveryRow(
-            recoveryPhraseClick = {}
+            recoveryPhraseClick = recoveryPhraseClick
         )
 
         Spacer(modifier = Modifier.size(41.dp))
@@ -147,7 +181,7 @@ private fun RecoveryRow(
 
         Spacer(modifier = Modifier.size(14.dp))
         Text(
-            text = stringResource(R.string.recovery_phrase),
+            text = stringResource(R.string.recovery_phrase_is_very_important),
             color = MainColors.onBackground,
             style = MainTypography.body,
             modifier = Modifier.padding(horizontal = 14.dp)
@@ -221,7 +255,8 @@ private fun SampleSettingsScreen() {
                 )
             ),
             settingClick = {},
-            logOutClick = {}
+            logOutClick = {},
+            recoveryPhraseClick = {}
         )
     }
 }

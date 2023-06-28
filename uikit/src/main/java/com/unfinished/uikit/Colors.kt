@@ -16,8 +16,9 @@ interface Colors {
     val hyperLink: Color
 
     val button: Color
-    val buttonDisabled: Color
     val onButton: Color
+    val buttonDisabled: Color
+    val onButtonDisabled: Color
 
     val loading: Color
 
@@ -55,4 +56,13 @@ interface Colors {
     val toggleOffTrack: Color
     val toggleOn: Color
     val toggleOnTrack: Color
+
+    val seedChoice: Color
+    val onSeedChoice: Color
+
+    val error: Color
+
+    val successSnackbar: Color
+    val onSuccessSnackbar: Color
+    val successSnackbarBorder: Color
 }

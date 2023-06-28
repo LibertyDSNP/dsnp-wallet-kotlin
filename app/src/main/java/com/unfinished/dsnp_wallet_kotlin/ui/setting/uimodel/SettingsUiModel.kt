@@ -4,7 +4,8 @@ import androidx.annotation.StringRes
 import com.unfinished.dsnp_wallet_kotlin.R
 
 data class SettingsUiModel(
-    val settings: List<Setting>
+    val settings: List<Setting>,
+    val showSnackbar: Boolean = false
 )
 
 sealed class Setting(

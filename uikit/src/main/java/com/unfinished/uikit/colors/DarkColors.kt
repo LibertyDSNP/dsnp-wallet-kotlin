@@ -16,8 +16,9 @@ class DarkColors : Colors {
     override val hyperLink: Color = Color(0xFFDA5E3A)
 
     override val button: Color = Color(0xFF017A86)
-    override val buttonDisabled: Color = Color(0xFFB3D3DC)
     override val onButton: Color = Color(0xFFFFFFFF)
+    override val buttonDisabled: Color = Color(0xFFB3D3DC)
+    override val onButtonDisabled: Color = Color(0xFFFFFFFF)
 
     override val loading: Color = Color(0xFF017A86)
 
@@ -53,5 +54,14 @@ class DarkColors : Colors {
     override val toggleOffTrack: Color = Color(0xFF787880)
     override val toggleOn: Color = Color(0xFF017A86)
     override val toggleOnTrack: Color = Color(0xFF017A86)
+
+    override val seedChoice: Color = Color(0xFFDA5E3A)
+    override val onSeedChoice: Color = Color(0xFFFFFFFF)
+
+    override val error: Color = Color(0xFFFB0B0B)
+
+    override val successSnackbar: Color = Color(0xFFEDF7EF)
+    override val onSuccessSnackbar: Color = Color(0xFF000000)
+    override val successSnackbarBorder: Color = Color(0xFF6ABC6C)
 
 }

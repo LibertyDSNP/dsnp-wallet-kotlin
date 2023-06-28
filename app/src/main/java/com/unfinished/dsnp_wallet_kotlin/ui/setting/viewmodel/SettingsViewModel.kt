@@ -25,4 +25,16 @@ class SettingsViewModel @Inject constructor(
         )
 
     val uiStateFLow = _uiStateFLow.asStateFlow()
+
+    fun showSnackbar() {
+        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+            _uiStateFLow.value = it.copy(showSnackbar = true).toDataLoaded()
+        }
+    }
+
+    fun hideSnackbar() {
+        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+            _uiStateFLow.value = it.copy(showSnackbar = false).toDataLoaded()
+        }
+    }
 }
