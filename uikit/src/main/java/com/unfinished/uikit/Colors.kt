@@ -65,4 +65,7 @@ interface Colors {
     val successSnackbar: Color
     val onSuccessSnackbar: Color
     val successSnackbarBorder: Color
+
+    val dialog: Color
+    val onDialog: Color
 }

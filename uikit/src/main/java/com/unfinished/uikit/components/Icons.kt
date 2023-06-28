@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -79,11 +78,26 @@ fun Close(
     Icon(
         painter = painterResource(id = R.drawable.close),
         contentDescription = stringResource(R.string.close),
-        modifier = modifier
+        modifier = Modifier
             .padding(16.dp)
+            .then(modifier)
             .clickable(onClick = {
                 if (onClick == null) onBackPressedDispatcher?.onBackPressed() else onClick()
             }),
+        tint = tint
+    )
+}
+
+@Composable
+fun DialogClose(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    tint: Color = MainColors.onToolbar
+) {
+    Icon(
+        painter = painterResource(id = R.drawable.close),
+        contentDescription = stringResource(R.string.close),
+        modifier = modifier.clickable(onClick = onClick),
         tint = tint
     )
 }
@@ -173,7 +187,7 @@ fun ArrowRight(modifier: Modifier = Modifier) {
 fun LogOut(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        painter = painterResource(id = R.drawable.arrow_right),
+        painter = painterResource(id = R.drawable.logout),
         contentDescription = stringResource(id = R.string.log_out),
         tint = MainColors.onButton
     )
@@ -196,6 +210,7 @@ private fun SampleIcons() {
             PullDown()
             Checkmark()
             ArrowRight()
+            LogOut()
             Profile(iconUrl = null)
         }
     }

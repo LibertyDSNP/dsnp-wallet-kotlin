@@ -1,6 +1,8 @@
 package com.unfinished.uikit.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -67,10 +69,9 @@ fun SuccessSnackbar(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    //Placeholder
-                    Icon(
-                        painter = painterResource(id = R.drawable.back_arrow),
-                        contentDescription = stringResource(R.string.back),
+                    Image(
+                        painter = painterResource(id = R.drawable.success_icon),
+                        contentDescription = stringResource(R.string.success),
                         modifier = Modifier
                     )
                     Spacer(modifier = Modifier.size(12.dp))
@@ -103,7 +104,8 @@ fun SampleSnackbars() {
     MainTheme {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Bottom
         ) {
             SuccessSnackbar(
                 text = "A successful snackbar",

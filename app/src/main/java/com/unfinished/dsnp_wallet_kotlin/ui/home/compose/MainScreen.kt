@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,9 +26,11 @@ import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseVie
 @Composable
 fun MainScreen(
     navigator: DestinationsNavigator,
+    createdAccount: Boolean = false,
     identityViewModel: IdentityViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
+    val dialogStateFlow = identityViewModel.dialogStateFlow.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -56,4 +59,6 @@ fun MainScreen(
             }
         )
     }
+
+    if (dialogStateFlow.value == IdentityViewModel.Dialog.Init && createdAccount) identityViewModel.showCreateAccountDialog()
 }

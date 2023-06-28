@@ -45,7 +45,9 @@ fun LandingPageScreen(
 ) {
     val context = LocalContext.current
     val haveIdLink = stringResource(id = R.string.have_id_link)
-    val bottomSheetVisibleState = createIdentityViewModel.visibleStateFlow.collectAsState().value
+    val bottomSheetVisibleStateFlow = createIdentityViewModel.visibleStateFlow.collectAsState()
+
+    val bottomSheetVisibleState = bottomSheetVisibleStateFlow.value
 
     BottomSheet(
         showBottomSheet = bottomSheetVisibleState == CreateIdentityViewModel.ShowCreateIdentity,

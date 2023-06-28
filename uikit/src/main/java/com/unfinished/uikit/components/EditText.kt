@@ -6,13 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,7 @@ fun InputTextField(
     label: String,
     text: String,
     labelColor: Color = MainColors.grey90,
+    focusRequester: FocusRequester? = null,
     onTextChange: (String) -> Unit
 ) {
     Column {
@@ -42,6 +44,9 @@ fun InputTextField(
                 .fillMaxWidth()
                 .border(
                     width = 1.dp, color = MainColors.grey20, shape = MainShapes.button
+                )
+                .then(
+                    if (focusRequester != null) Modifier.focusRequester(focusRequester) else Modifier
                 ),
             colors = TextFieldDefaults.textFieldColors(
                 textColor = MainColors.onEditTextBackground,
