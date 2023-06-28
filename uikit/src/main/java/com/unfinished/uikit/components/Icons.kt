@@ -26,6 +26,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.unfinished.uikit.MainColors
+import com.unfinished.uikit.MainShapes
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.R
 
@@ -70,7 +71,8 @@ fun Back(
 @Composable
 fun Close(
     modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
+    tint: Color = MainColors.onToolbar
 ) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -82,7 +84,7 @@ fun Close(
             .clickable(onClick = {
                 if (onClick == null) onBackPressedDispatcher?.onBackPressed() else onClick()
             }),
-        tint = MainColors.onToolbar
+        tint = tint
     )
 }
 
@@ -152,7 +154,7 @@ fun PullDown() {
     Box(
         modifier = Modifier
             .size(width = 84.dp, height = 5.dp)
-            .clip(ButtonDefaults.shape)
+            .clip(MainShapes.button)
             .background(MainColors.pullDown)
     )
 }

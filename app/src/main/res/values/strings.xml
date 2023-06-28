@@ -109,5 +109,11 @@
     <string name="please_carefully_write_link_text">in order</string>
     <string name="i_ve_written_it_down">I\'ve written it down</string>
     <string name="recovery_phrase_is_very_important">Recovery phrase is very important you better write this down</string>
+    <string name="this_is_the_test">This is the test</string>
+    <string name="tap_the_words">Tap the words in numerical order (1-12) to verify your recovery phrase</string>
+    <string name="continue_text">Continue</string>
+    <string name="verify_recovery">Verify Recovery</string>
+    <string name="you_got_it_wrong">You got it wrong!</string>
+    <string name="congratulations">Congratulations!</string>
 
 </resources>

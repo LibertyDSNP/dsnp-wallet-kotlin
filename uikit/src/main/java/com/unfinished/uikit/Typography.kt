@@ -109,6 +109,18 @@ object MainTypography {
         lineHeight = 22.sp
     )
 
+    val seedTextBold = spaceMonoTextStyle.copy(
+        fontWeight = FontWeight.Bold,
+        fontSize = 15.sp,
+        lineHeight = 22.sp
+    )
+
+    val snackbar = poppinsTextStyle.copy(
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp
+    )
+
 }
 
 val mainTypography = Typography()

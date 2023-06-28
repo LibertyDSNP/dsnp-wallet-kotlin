@@ -2,6 +2,7 @@ package com.unfinished.dsnp_wallet_kotlin.ui.recovery.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,10 +20,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.result.ResultBackNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.RecoveryNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RecoveryTestScreenScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.RecoveryPhraseUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKey
+import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKeyState
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseViewModel
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
@@ -36,6 +41,8 @@ import com.unfinished.uikit.components.SimpleToolbar
 @Destination
 @Composable
 fun RecoveryPhraseScreen(
+    navigator: DestinationsNavigator,
+    resultNavigator: ResultBackNavigator<Boolean>,
     recoveryPhraseViewModel: RecoveryPhraseViewModel
 ) {
     val uiStateFlow = recoveryPhraseViewModel.uiStateFLow.collectAsState()
@@ -46,12 +53,23 @@ fun RecoveryPhraseScreen(
             .background(MainColors.background)
     ) {
         SimpleToolbar(title = stringResource(id = R.string.recovery_phrase))
+        Spacer(modifier = Modifier.size(16.dp))
 
         when (val uiState = uiStateFlow.value) {
-            is UiState.DataLoaded -> RecoveryPhraseScreen(
-                recoveryPhraseUiModel = uiState.data,
-                nextClick = {}
-            )
+            is UiState.DataLoaded -> {
+                RecoveryPhraseScreen(
+                    recoveryPhraseUiModel = uiState.data,
+                    nextClick = {
+                        recoveryPhraseViewModel.shuffleSeedKeys()
+                        navigator.navigate(RecoveryTestScreenScreenDestination)
+                    }
+                )
+
+                if (uiState.data.seedKeyState == SeedKeyState.Finish) {
+                    resultNavigator.setResult(true)
+                    resultNavigator.navigateBack()
+                }
+            }
         }
     }
 }
@@ -61,12 +79,11 @@ fun RecoveryPhraseScreen(
     recoveryPhraseUiModel: RecoveryPhraseUiModel,
     nextClick: () -> Unit
 ) {
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(MainColors.background)
     ) {
-        Spacer(modifier = Modifier.size(16.dp))
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -110,7 +127,6 @@ fun RecoveryPhraseScreen(
                 onClick = nextClick,
                 modifier = Modifier.fillMaxWidth()
             )
-
         }
     }
 }
@@ -165,7 +181,8 @@ fun SampleRecoveryPhraseScreen() {
                     SeedKey(prefix = "10", key = "Train"),
                     SeedKey(prefix = "11", key = "Running"),
                     SeedKey(prefix = "12", key = "Spin"),
-                )
+                ),
+                seedKeyState = SeedKeyState.Finish
             ),
             nextClick = {}
         )

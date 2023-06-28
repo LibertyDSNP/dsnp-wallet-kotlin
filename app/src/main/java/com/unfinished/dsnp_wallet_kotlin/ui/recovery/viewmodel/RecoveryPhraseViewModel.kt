@@ -2,6 +2,7 @@ package com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel
 
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.RecoveryPhraseUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKey
+import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKeyState
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,5 +36,45 @@ class RecoveryPhraseViewModel @Inject constructor(
                 SeedKey(prefix = "12", key = "Spin"),
             )
         ).toDataLoaded()
+    }
+
+    fun shuffleSeedKeys() {
+        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+            _uiStateFLow.value = it.copy(
+                currentRandomSeedKeys = it.seedKeys.shuffled(),
+                seedKeyState = SeedKeyState.Init
+            ).toDataLoaded()
+        }
+    }
+
+    fun addSeedKeyToGuess(seedKey: SeedKey) {
+        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+            _uiStateFLow.value = it.copy(
+                currentSeedGuesses = it.currentSeedGuesses.toMutableList()
+                    .apply { add(seedKey) },
+                seedKeyState = SeedKeyState.Init
+            ).toDataLoaded()
+        }
+    }
+
+    fun removeSeedKeyFromGuess(seedKey: SeedKey) {
+        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+            _uiStateFLow.value = it.copy(
+                currentSeedGuesses = it.currentSeedGuesses.toMutableList()
+                    .apply { remove(seedKey) },
+                seedKeyState = SeedKeyState.Init
+            ).toDataLoaded()
+        }
+    }
+
+    fun verifySeedKeys() {
+        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+            val invalidSeedKeys = it.seedKeys != it.currentSeedGuesses
+
+            _uiStateFLow.value = it.copy(
+                seedKeyState = if (invalidSeedKeys) SeedKeyState.NotValid else SeedKeyState.Finish,
+                currentSeedGuesses = if (invalidSeedKeys) emptyList() else it.currentSeedGuesses
+            ).toDataLoaded()
+        }
     }
 }

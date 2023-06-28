@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.unfinished.uikit.MainColors
+import com.unfinished.uikit.MainShapes
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 
@@ -27,14 +28,16 @@ fun PrimaryButton(
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MainColors.button, disabledContainerColor = MainColors.buttonDisabled
+            containerColor = MainColors.button,
+            disabledContainerColor = MainColors.buttonDisabled
         ), modifier = modifier,
         enabled = enabled,
+        shape = MainShapes.button,
         content = {
             Text(
                 text = text,
                 style = MainTypography.bodyMedium,
-                color = MainColors.onButton,
+                color = if (enabled) MainColors.onButton else MainColors.onButtonDisabled,
                 modifier = Modifier.padding(vertical = textPadding)
             )
         })
