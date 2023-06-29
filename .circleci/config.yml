@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@2.0.3
+  android: circleci/android@2.3.0
   slack: circleci/slack@4.12.0
 
 commands: # a reusable command with parameters
@@ -98,4 +98,4 @@ workflows:
           filters:
             branches:
               only:
-                - dev
+                - ci_java_fix
