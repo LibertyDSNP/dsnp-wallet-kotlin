@@ -19,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +32,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityTask
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -144,7 +146,9 @@ private fun ProfileRow(
         ) {
 
             Profile(
-                modifier = Modifier.align(Alignment.Center),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .testTag(Tag.IdentityScreen.profile),
                 iconUrl = iconUrl
             )
 
@@ -154,7 +158,8 @@ private fun ProfileRow(
                     .clip(CircleShape)
                     .background(MainColors.button)
                     .align(Alignment.BottomEnd)
-                    .clickable(onClick = editProfileClick),
+                    .clickable(onClick = editProfileClick)
+                    .testTag(Tag.IdentityScreen.edit),
                 contentAlignment = Alignment.Center
             ) {
                 Edit()
@@ -163,6 +168,7 @@ private fun ProfileRow(
 
         Spacer(modifier = Modifier.size(10.dp))
         Handle(
+            modifier = Modifier.testTag(Tag.IdentityScreen.username),
             handle = name,
             suffix = number
         )
@@ -175,11 +181,15 @@ private fun ProfileRow(
 fun SocialProcessBar(
     currentCount: Int,
     totalCount: Int,
+    socialProgressTestTag: String,
+    socialProgressBarTestTag: String
 ) {
     val countDisplay = "$currentCount/$totalCount"
     val progress = currentCount.toFloat() / totalCount.toFloat()
 
-    Row {
+    Row(
+        modifier = Modifier.testTag(socialProgressTestTag)
+    ) {
         Text(
             text = stringResource(R.string.social_identity_complete),
             style = MainTypography.rowHeader,
@@ -195,7 +205,10 @@ fun SocialProcessBar(
     }
 
     Spacer(modifier = Modifier.size(12.dp))
-    RoundedProgressBar(progress = progress)
+    RoundedProgressBar(
+        modifier = Modifier.testTag(socialProgressBarTestTag),
+        progress = progress
+    )
 }
 
 @Composable
@@ -204,8 +217,6 @@ private fun SocialProcessRow(
     totalCount: Int,
     seeAllClick: () -> Unit
 ) {
-
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -214,7 +225,9 @@ private fun SocialProcessRow(
         Spacer(modifier = Modifier.size(32.dp))
         SocialProcessBar(
             currentCount = currentCount,
-            totalCount = totalCount
+            totalCount = totalCount,
+            socialProgressTestTag = Tag.IdentityScreen.socialProgress,
+            socialProgressBarTestTag = Tag.IdentityScreen.socialProgressBar
         )
 
         Spacer(modifier = Modifier.size(8.dp))
@@ -226,6 +239,7 @@ private fun SocialProcessRow(
             modifier = Modifier
                 .align(Alignment.End)
                 .clickable(onClick = seeAllClick)
+                .testTag(Tag.IdentityScreen.seeAll)
         )
     }
 }

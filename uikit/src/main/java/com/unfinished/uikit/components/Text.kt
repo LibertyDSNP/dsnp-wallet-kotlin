@@ -28,6 +28,7 @@ import com.unfinished.uikit.MainTypography
 
 @Composable
 fun Handle(
+    modifier: Modifier = Modifier,
     handle: String,
     suffix: String,
     handleStyle: TextStyle = MainTypography.profile,
@@ -35,7 +36,9 @@ fun Handle(
     suffixStyle: TextStyle = MainTypography.profileSecondary,
     suffixColor: Color = MainColors.onBackgroundSecondary
 ) {
-    Row {
+    Row(
+        modifier = modifier
+    ) {
         Text(
             text = handle,
             style = handleStyle,

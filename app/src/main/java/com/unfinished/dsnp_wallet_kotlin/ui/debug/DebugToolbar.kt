@@ -12,10 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DebugMenuDestination
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.PrimaryButton
 
@@ -48,14 +50,16 @@ fun DebugToolbar(
         PrimaryButton(
             text = "Debug menu",
             textPadding = 2.dp,
-            onClick = debugMenuClick
+            onClick = debugMenuClick,
+            modifier = Modifier.testTag(Tag.DebugToolbar.menu)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
         PrimaryButton(
             text = "Hide debug",
             textPadding = 2.dp,
-            onClick = hideDebugClick
+            onClick = hideDebugClick,
+            modifier = Modifier.testTag(Tag.DebugToolbar.hide)
         )
     }
 }

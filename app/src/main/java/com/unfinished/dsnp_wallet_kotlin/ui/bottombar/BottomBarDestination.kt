@@ -7,17 +7,20 @@ import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.Destination
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.IdentityScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.SettingsScreenDestination
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 
 enum class BottomBarDestination(
     val direction: DirectionDestinationSpec,
     @DrawableRes val icon: Int,
     @StringRes val label: Int,
-    val childrenDestinations: List<Destination> = emptyList()
+    val childrenDestinations: List<Destination> = emptyList(),
+    val testTag: String
 ) {
     Home(
         direction = IdentityScreenDestination,
         icon = com.unfinished.uikit.R.drawable.home,
-        label = com.unfinished.uikit.R.string.home
+        label = com.unfinished.uikit.R.string.home,
+        testTag = Tag.BottomBar.home
     ),
     Settings(
         direction = SettingsScreenDestination,
@@ -25,7 +28,8 @@ enum class BottomBarDestination(
         label = com.unfinished.uikit.R.string.settings,
         childrenDestinations = mutableListOf<Destination>().apply {
             addAll(NavGraphs.recovery.destinations)
-        }
+        },
+        testTag = Tag.BottomBar.settings
     );
 
     fun isSelected(destination: Destination): Boolean =

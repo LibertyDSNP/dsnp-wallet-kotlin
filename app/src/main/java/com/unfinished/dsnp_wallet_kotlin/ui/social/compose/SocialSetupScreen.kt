@@ -17,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +29,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.home.compose.SocialProcessBar
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityTask
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -57,7 +59,10 @@ fun SocialSetupScreen(
             .fillMaxSize()
             .background(MainColors.background)
     ) {
-        SimpleToolbar(title = stringResource(R.string.social_identity))
+        SimpleToolbar(
+            title = stringResource(R.string.social_identity),
+            testTag = Tag.SocialSetupScreen.title
+        )
         Spacer(modifier = Modifier.size(34.dp))
         Body(
             identityUiModel = identityUiModel
@@ -76,12 +81,17 @@ private fun Body(
             .verticalScroll(rememberScrollState())
     ) {
         SocialProcessBar(
-            currentCount = identityUiModel.currentCount, totalCount = identityUiModel.totalCount
+            currentCount = identityUiModel.currentCount,
+            totalCount = identityUiModel.totalCount,
+            socialProgressTestTag = Tag.SocialSetupScreen.socialProgress,
+            socialProgressBarTestTag = Tag.SocialSetupScreen.socialProgressBar
         )
 
         Spacer(modifier = Modifier.size(40.dp))
         Text(
-            modifier = Modifier.padding(horizontal = 10.dp),
+            modifier = Modifier
+                .padding(horizontal = 10.dp)
+                .testTag(Tag.SocialSetupScreen.desc),
             text = stringResource(R.string.your_real_name),
             color = MainColors.onBackground,
             textAlign = TextAlign.Center,
@@ -89,9 +99,10 @@ private fun Body(
         )
 
         Spacer(modifier = Modifier.size(20.dp))
-        identityUiModel.identityTasks.forEach {
+        identityUiModel.identityTasks.forEachIndexed { index, identityTask ->
             TaskButton(
-                identityTask = it
+                identityTask = identityTask,
+                testTag = "${Tag.SocialSetupScreen.task}_$index"
             )
             Spacer(modifier = Modifier.size(12.dp))
         }
@@ -100,7 +111,8 @@ private fun Body(
 
 @Composable
 private fun TaskButton(
-    identityTask: IdentityTask
+    identityTask: IdentityTask,
+    testTag: String
 ) {
     val roundedCorners = RoundedCornerShape(15.dp)
 
@@ -110,6 +122,7 @@ private fun TaskButton(
             .clip(roundedCorners)
             .background(if (identityTask.isComplete) MainColors.taskButtonDone else MainColors.taskButton)
             .padding(start = 24.dp, end = 10.dp, top = 18.dp, bottom = 18.dp)
+            .testTag(testTag)
     ) {
         Text(
             modifier = Modifier.align(Alignment.CenterStart),

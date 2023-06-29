@@ -11,11 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -36,26 +38,31 @@ fun CongratulationsScreen(
         Text(
             text = stringResource(id = R.string.congratulations),
             color = MainColors.onDialog,
-            style = MainTypography.dialogTitle
+            style = MainTypography.dialogTitle,
+            modifier = Modifier.testTag(Tag.CongratulationsScreen.header)
         )
 
         Spacer(modifier = Modifier.size(4.dp))
         Text(
             text = username,
             color = MainColors.onDialog,
-            style = MainTypography.bodySmall
+            style = MainTypography.bodySmall,
+            modifier = Modifier.testTag(Tag.CongratulationsScreen.username)
         )
 
         Spacer(modifier = Modifier.size(26.dp))
         Text(
             text = "lorem ipsum",
             color = MainColors.onDialog,
-            style = MainTypography.bodySmall
+            style = MainTypography.bodySmall,
+            modifier = Modifier.testTag(Tag.CongratulationsScreen.desc)
         )
 
         Spacer(modifier = Modifier.size(28.dp))
         PrimaryButton(
-            modifier = Modifier.width(223.dp),
+            modifier = Modifier
+                .width(223.dp)
+                .testTag(Tag.CongratulationsScreen.letsGo),
             text = stringResource(R.string.let_s_go),
             onClick = letsGoClick
         )
@@ -66,7 +73,9 @@ fun CongratulationsScreen(
             color = MainColors.onDialog,
             style = MainTypography.bodySmall,
             textDecoration = TextDecoration.Underline,
-            modifier = Modifier.clickable(onClick = onDismiss)
+            modifier = Modifier
+                .clickable(onClick = onDismiss)
+                .testTag(Tag.CongratulationsScreen.skip)
         )
     }
 

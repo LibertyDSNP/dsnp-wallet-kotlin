@@ -13,13 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +32,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.RecoveryPhraseUiMod
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKey
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKeyState
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainShapes
 import com.unfinished.uikit.MainTheme
@@ -56,7 +57,10 @@ fun RecoveryTestScreenScreen(
             .fillMaxSize()
             .background(MainColors.background)
     ) {
-        SimpleToolbar(title = stringResource(R.string.verify_recovery))
+        SimpleToolbar(
+            title = stringResource(R.string.verify_recovery),
+            testTag = Tag.RecoveryTestScreenScreen.title
+        )
 
         when (val uiState = uiStateFlow.value) {
             is UiState.DataLoaded -> {
@@ -67,7 +71,7 @@ fun RecoveryTestScreenScreen(
                     continueClick = { recoveryPhraseViewModel.verifySeedKeys() }
                 )
 
-                if(uiState.data.seedKeyState == SeedKeyState.Finish) navigator.popBackStack()
+                if (uiState.data.seedKeyState == SeedKeyState.Finish) navigator.popBackStack()
             }
         }
     }
@@ -95,14 +99,16 @@ fun RecoveryTestScreenScreen(
             Text(
                 text = stringResource(R.string.this_is_the_test),
                 style = MainTypography.largeButtonText,
-                color = MainColors.onBackground
+                color = MainColors.onBackground,
+                modifier = Modifier.testTag(Tag.RecoveryTestScreenScreen.header)
             )
 
             Spacer(modifier = Modifier.size(12.dp))
             Text(
                 text = stringResource(R.string.tap_the_words),
                 style = MainTypography.body,
-                color = MainColors.onBackground
+                color = MainColors.onBackground,
+                modifier = Modifier.testTag(Tag.RecoveryTestScreenScreen.desc)
             )
 
             Spacer(modifier = Modifier.size(36.dp))
@@ -119,7 +125,9 @@ fun RecoveryTestScreenScreen(
             PrimaryButton(
                 text = stringResource(R.string.continue_text),
                 onClick = continueClick,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(Tag.RecoveryTestScreenScreen.continueBtn),
                 enabled = recoveryPhraseUiModel.continueEnabled
             )
 
@@ -170,7 +178,8 @@ private fun SeedTestRow(
             text = if (seedKeyState == SeedKeyState.NotValid) stringResource(R.string.you_got_it_wrong) else "",
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 12.dp),
+                .padding(vertical = 12.dp)
+                .testTag(Tag.RecoveryTestScreenScreen.error),
             textAlign = TextAlign.Center,
             color = MainColors.error,
             style = MainTypography.bodyMediumBold
@@ -188,7 +197,8 @@ private fun SeedTestRow(
                     if (currentSeedGuesses.contains(currentSeed)) null else currentSeed
                 SeedGuessButton(
                     seedKey = seedToUse,
-                    addSeedKeyClick = addSeedKeyClick
+                    addSeedKeyClick = addSeedKeyClick,
+                    prefix = currentSeed.prefix
                 )
             }
         )
@@ -238,6 +248,7 @@ private fun SeedGuessItem(
             )
             .background(if (seedKey != null) MainColors.seedChoice else Color.Transparent)
             .padding(horizontal = 12.dp, vertical = 4.dp)
+            .testTag("${Tag.RecoveryTestScreenScreen.guessSeed}_$prefix")
             .then(
                 if (seedKey != null) Modifier.clickable { removeSeedKeyClick(seedKey) } else Modifier
             )
@@ -261,6 +272,7 @@ private fun SeedGuessItem(
 @Composable
 private fun SeedGuessButton(
     seedKey: SeedKey?,
+    prefix: String,
     addSeedKeyClick: (SeedKey) -> Unit
 ) {
     Row(
@@ -280,6 +292,7 @@ private fun SeedGuessButton(
                     .background(Color.Transparent)
             )
             .padding(horizontal = 12.dp, vertical = 4.dp)
+            .testTag("${Tag.RecoveryTestScreenScreen.choiceSeed}_$prefix")
             .then(
                 if (seedKey != null) Modifier.clickable { addSeedKeyClick(seedKey) } else Modifier
             )

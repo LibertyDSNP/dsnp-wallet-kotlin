@@ -25,13 +25,16 @@ import com.unfinished.uikit.MainTypography
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputTextField(
+    modifier: Modifier = Modifier,
     label: String,
     text: String,
     labelColor: Color = MainColors.grey90,
     focusRequester: FocusRequester? = null,
     onTextChange: (String) -> Unit
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         Text(
             text = label,
             style = MainTypography.bodySmall,

@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -26,6 +27,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -93,14 +95,15 @@ fun LandingPageScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.size(56.dp))
-        Logo()
+        Logo(modifier = Modifier.testTag(Tag.LandingPageScreen.logo))
 
         Spacer(modifier = Modifier.size(24.dp))
         Text(
             text = stringResource(id = R.string.landing_title),
             style = MainTypography.title,
             color = MainColors.onBackground,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.testTag(Tag.LandingPageScreen.title)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
@@ -109,20 +112,25 @@ fun LandingPageScreen(
             style = MainTypography.body,
             color = MainColors.onBackground,
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .testTag(Tag.LandingPageScreen.desc),
             textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.size(56.dp))
         PrimaryButton(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(Tag.LandingPageScreen.createIdentity),
             text = stringResource(id = R.string.landing_create_identity_btn),
             onClick = createIdentityClick
         )
 
         Spacer(modifier = Modifier.size(32.dp))
         PrimaryButton(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(Tag.LandingPageScreen.haveId),
             text = stringResource(id = R.string.landing_have_identity),
             onClick = haveIdClick
         )
@@ -134,13 +142,14 @@ fun LandingPageScreen(
             color = MainColors.onBackground,
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable(onClick = restoreAccountClick),
+                .clickable(onClick = restoreAccountClick)
+                .testTag(Tag.LandingPageScreen.restoreAccount),
             textAlign = TextAlign.Center,
             textDecoration = TextDecoration.Underline
         )
 
         Spacer(modifier = Modifier.weight(1f))
-        TermsAndPrivacy()
+        TermsAndPrivacy(modifier = Modifier.testTag(Tag.LandingPageScreen.termsAndPrivacy))
 
         Spacer(modifier = Modifier.size(32.dp))
     }
@@ -148,6 +157,7 @@ fun LandingPageScreen(
 
 @Composable
 fun TermsAndPrivacy(
+    modifier: Modifier = Modifier,
     textColor: Color = MainColors.onBackground
 ) {
     val context = LocalContext.current
@@ -157,7 +167,7 @@ fun TermsAndPrivacy(
     val privacyPolicy = stringResource(id = R.string.privacy_policy)
 
     HyperlinkText(
-        modifier = Modifier.padding(horizontal = 24.dp),
+        modifier = modifier.padding(horizontal = 24.dp),
         style = MainTypography.body.copy(
             color = textColor,
             textAlign = TextAlign.Center

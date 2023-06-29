@@ -18,15 +18,11 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.ui.DebugNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.Back
 import com.unfinished.uikit.components.SimpleToolbar
-
-private class NavigateItem(
-    val text: String,
-    val onClick: () -> Unit
-)
 
 @DebugNavGraph
 @Destination
@@ -35,21 +31,24 @@ fun DebugNavigateScreen(
     navigator: DestinationsNavigator,
 ) {
     DebugNavigateScreen(
-        navigateItems = listOf(
-            NavigateItem(
+        debugItems = listOf(
+            DebugItem(
                 text = "Splash Screen",
+                testTag = Tag.DebugNavigateScreen.splash,
                 onClick = {
                     navigator.navigateAwayFromDebug(NavGraphs.splash)
                 }
             ),
-            NavigateItem(
+            DebugItem(
                 text = "Landing Screen",
+                testTag = Tag.DebugNavigateScreen.landing,
                 onClick = {
                     navigator.navigateAwayFromDebug(NavGraphs.landing)
                 }
             ),
-            NavigateItem(
+            DebugItem(
                 text = "Home Screen",
+                testTag = Tag.DebugNavigateScreen.home,
                 onClick = {
                     navigator.navigateAwayFromDebug(NavGraphs.main)
                 }
@@ -77,25 +76,27 @@ private fun DestinationsNavigator.navigateAwayFromDebug(
 
 @Composable
 private fun DebugNavigateScreen(
-    navigateItems: List<NavigateItem>
+    debugItems: List<DebugItem>
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MainColors.background)
     ) {
-        SimpleToolbar(title = "Debug Navigate")
+        SimpleToolbar(
+            title = "Debug Navigate",
+            testTag = Tag.DebugNavigateScreen.title
+        )
 
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            itemsIndexed(navigateItems) { index, navigateItem ->
+            itemsIndexed(debugItems) { index, debugItem ->
                 DebugMenuItem(
-                    text = navigateItem.text,
-                    onClick = navigateItem.onClick
+                    debugItem = debugItem
                 )
 
-                if (index != navigateItems.lastIndex) Divider(
+                if (index != debugItems.lastIndex) Divider(
                     color = MainColors.divider
                 )
 
@@ -109,10 +110,11 @@ private fun DebugNavigateScreen(
 fun SampleDebugNavigateScreen() {
     MainTheme {
         DebugNavigateScreen(
-            navigateItems = listOf(
-                NavigateItem(
+            debugItems = listOf(
+                DebugItem(
                     text = "Sample Text",
-                    onClick = {}
+                    onClick = {},
+                    testTag = ""
                 )
             )
         )
