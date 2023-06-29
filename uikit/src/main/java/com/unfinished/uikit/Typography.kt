@@ -121,6 +121,12 @@ object MainTypography {
         lineHeight = 24.sp
     )
 
+    val dialogTitle: TextStyle = poppinsTextStyle.copy(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp,
+        lineHeight = 24.sp
+    )
+
 }
 
 val mainTypography = Typography()

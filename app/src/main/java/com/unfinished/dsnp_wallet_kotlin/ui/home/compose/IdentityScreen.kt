@@ -35,6 +35,7 @@ import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.UiState
+import com.unfinished.uikit.components.CloseableDialog
 import com.unfinished.uikit.components.Edit
 import com.unfinished.uikit.components.Handle
 import com.unfinished.uikit.components.Overlay
@@ -50,23 +51,33 @@ fun IdentityScreen(
     identityViewModel: IdentityViewModel
 ) {
     val uiState = identityViewModel.uiStateFLow.collectAsState()
+    val dialogStateFlow = identityViewModel.dialogStateFlow.collectAsState()
 
     IdentityScreen(
         uiState = uiState.value,
+        dialogState = dialogStateFlow.value,
         editProfileClick = {
             //TODO
         },
         seeAllClick = {
-            navigator.navigate(NavGraphs.socialSetup.route)
-        }
+            navigator.navigate(NavGraphs.socialSetup)
+        },
+        letsGoClick = {
+            identityViewModel.hideCreateAccountDialog()
+            navigator.navigate(NavGraphs.socialSetup)
+        },
+        createDialogDismiss = { identityViewModel.hideCreateAccountDialog() }
     )
 }
 
 @Composable
 fun IdentityScreen(
     uiState: UiState<IdentityUiModel>,
+    dialogState: IdentityViewModel.Dialog,
     editProfileClick: () -> Unit,
-    seeAllClick: () -> Unit
+    seeAllClick: () -> Unit,
+    letsGoClick: () -> Unit,
+    createDialogDismiss: () -> Unit
 ) {
     Column(
         modifier = Modifier.background(MainColors.background)
@@ -91,6 +102,17 @@ fun IdentityScreen(
                     )
                     Overlay(modifier = Modifier.fillMaxSize())
                 }
+
+                if (dialogState == IdentityViewModel.Dialog.ShowCreate) CloseableDialog(
+                    content = {
+                        CongratulationsScreen(
+                            username = identityUiModel.username,
+                            letsGoClick = letsGoClick,
+                            onDismiss = createDialogDismiss
+                        )
+                    },
+                    onDismiss = createDialogDismiss
+                )
             }
 
             is UiState.Loading -> {
@@ -227,8 +249,11 @@ private fun SampleIdentityScreen() {
                     )
                 )
             ).toDataLoaded(),
+            dialogState = IdentityViewModel.Dialog.Init,
             editProfileClick = {},
-            seeAllClick = {}
+            seeAllClick = {},
+            letsGoClick = {},
+            createDialogDismiss = {}
         )
     }
 }

@@ -20,6 +20,9 @@ class IdentityViewModel @Inject constructor(
         MutableStateFlow<UiState<IdentityUiModel>>(UiState.Loading())
     val uiStateFLow = _uiStateFLow.asStateFlow()
 
+    private val _dialogStateFlow = MutableStateFlow(Dialog.Init)
+    val dialogStateFlow = _dialogStateFlow.asStateFlow()
+
     init {
         /**
          * TODO: make calls to fetch info for ui state
@@ -41,6 +44,18 @@ class IdentityViewModel @Inject constructor(
                 )
             )
         ).toDataLoaded()
+    }
+
+    fun showCreateAccountDialog() {
+        _dialogStateFlow.value = Dialog.ShowCreate
+    }
+
+    fun hideCreateAccountDialog() {
+        _dialogStateFlow.value = Dialog.HideCreate
+    }
+
+    enum class Dialog {
+        Init, ShowCreate, HideCreate
     }
 
 }

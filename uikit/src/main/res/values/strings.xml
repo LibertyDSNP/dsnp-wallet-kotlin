@@ -14,4 +14,5 @@
     <string name="checkmark">Checkmark</string>
     <string name="arrow_right">Arrow Right</string>
     <string name="log_out">Log Out</string>
+    <string name="success">Success</string>
 </resources>

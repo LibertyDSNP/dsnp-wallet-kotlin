@@ -38,7 +38,7 @@ class DarkColors : Colors {
 
     override val editTextBackground: Color = Color(0xFFFFFFFF)
     override val onEditTextBackground: Color = Color(0xFF232330)
-    override val onEditTextTitle: Color = Color(0xFF000000)
+    override val onEditTextTitle: Color = Color(0xFF232330)
 
     override val pullDown: Color = Color(0xFF707070)
 
@@ -61,7 +61,9 @@ class DarkColors : Colors {
     override val error: Color = Color(0xFFFB0B0B)
 
     override val successSnackbar: Color = Color(0xFFEDF7EF)
-    override val onSuccessSnackbar: Color = Color(0xFF000000)
+    override val onSuccessSnackbar: Color = Color(0xFF232330)
     override val successSnackbarBorder: Color = Color(0xFF6ABC6C)
 
+    override val dialog: Color = Color(0xFFFFFFFF)
+    override val onDialog: Color = Color(0xFF232330)
 }

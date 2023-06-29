@@ -9,9 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
-import com.unfinished.dsnp_wallet_kotlin.ui.destinations.IdentityScreenDestination
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.MainScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.uikit.MainColors
@@ -31,6 +36,7 @@ import com.unfinished.uikit.components.Handle
 import com.unfinished.uikit.components.InputTextField
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PullDown
+import kotlinx.coroutines.delay
 
 @Composable
 fun CreateIdentityScreen(
@@ -38,10 +44,14 @@ fun CreateIdentityScreen(
     createIdentityViewModel: CreateIdentityViewModel = hiltViewModel()
 ) {
     val uiState = createIdentityViewModel.uiStateFLow.collectAsState()
+    val bottomSheetVisibleStateFlow = createIdentityViewModel.visibleStateFlow.collectAsState()
+
+    val bottomSheetVisibleState = bottomSheetVisibleStateFlow.value
 
     when (val value = uiState.value) {
         is UiState.DataLoaded -> CreateIdentityScreen(
             createIdentityUiModel = value.data,
+            showKeyboard = bottomSheetVisibleState == CreateIdentityViewModel.ShowCreateIdentity,
             handleChange = {
                 createIdentityViewModel.updateHandle(it)
             },
@@ -49,7 +59,12 @@ fun CreateIdentityScreen(
                 createIdentityViewModel.nextStep()
             }
         )
-        is CreateIdentityViewModel.GoToIdentity -> navigator.navigate(IdentityScreenDestination)
+
+        is CreateIdentityViewModel.GoToIdentity -> navigator.navigate(
+            MainScreenDestination(
+                createdAccount = true
+            )
+        )
     }
 
 
@@ -58,6 +73,7 @@ fun CreateIdentityScreen(
 @Composable
 fun CreateIdentityScreen(
     createIdentityUiModel: CreateIdentityUiModel,
+    showKeyboard: Boolean,
     handleChange: (String) -> Unit,
     nextClick: () -> Unit
 ) {
@@ -92,6 +108,7 @@ fun CreateIdentityScreen(
             1 -> CreateHandleScreen(
                 handle = createIdentityUiModel.handle,
                 handleIsValid = createIdentityUiModel.handleIsValid,
+                showKeyboard = showKeyboard,
                 handleChange = handleChange,
                 nextClick = nextClick
             )
@@ -112,13 +129,18 @@ fun CreateIdentityScreen(
 
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun CreateHandleScreen(
     handle: String,
     handleIsValid: Boolean,
+    showKeyboard: Boolean,
     handleChange: (String) -> Unit,
     nextClick: () -> Unit
 ) {
+    val focusRequester = remember { FocusRequester() }
+    val keyboard = LocalSoftwareKeyboardController.current
+
     Column {
         Spacer(modifier = Modifier.size(6.dp))
         Text(
@@ -131,7 +153,8 @@ private fun CreateHandleScreen(
         InputTextField(
             label = stringResource(R.string.claim_your_handle),
             text = handle,
-            onTextChange = handleChange
+            onTextChange = handleChange,
+            focusRequester = focusRequester
         )
 
         Spacer(modifier = Modifier.size(12.dp))
@@ -148,6 +171,14 @@ private fun CreateHandleScreen(
             enabled = handleIsValid,
             onClick = nextClick
         )
+    }
+
+    LaunchedEffect(showKeyboard) {
+        if (showKeyboard) {
+            focusRequester.requestFocus()
+            delay(100)
+            keyboard?.show()
+        }
     }
 }
 
@@ -251,6 +282,7 @@ fun SampleCreateIdentityScreenStep1() {
     MainTheme {
         CreateIdentityScreen(
             createIdentityUiModel = createIdentityUiModel,
+            showKeyboard = true,
             handleChange = {},
             nextClick = {}
         )
@@ -266,6 +298,7 @@ fun SampleCreateIdentityScreenStep2() {
                 currentStep = 2,
                 handleIsValid = true
             ),
+            showKeyboard = true,
             handleChange = {},
             nextClick = {}
         )
@@ -281,6 +314,7 @@ fun SampleCreateIdentityScreenStep3() {
                 currentStep = 3,
                 handleIsValid = true
             ),
+            showKeyboard = true,
             handleChange = {},
             nextClick = {}
         )
