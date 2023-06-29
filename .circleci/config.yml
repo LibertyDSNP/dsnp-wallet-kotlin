@@ -32,6 +32,8 @@ commands: # a reusable command with parameters
             } 
           event: <<parameters.event>>
           channel: android-ci-alerts
+      - android/change-java-version:
+          java-version: 17
 
 parameters: # parameters are at the job level
   build_env:
