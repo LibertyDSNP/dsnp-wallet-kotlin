@@ -55,7 +55,7 @@ jobs:
           message: "Building an app ... \\n *Git Branch*: $CIRCLE_BRANCH \\n *Launch trigger*: $CIRCLE_USERNAME"
       - checkout
       - android/change-java-version:
-            java-version: 17
+            java-version: 20
       - run:
           name: Install dependecies
           command: |
