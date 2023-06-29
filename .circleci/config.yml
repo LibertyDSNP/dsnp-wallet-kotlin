@@ -32,6 +32,7 @@ commands: # a reusable command with parameters
             } 
           event: <<parameters.event>>
           channel: android-ci-alerts
+      - checkout
       - android/change-java-version:
           java-version: 17
 
