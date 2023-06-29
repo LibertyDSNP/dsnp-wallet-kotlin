@@ -164,9 +164,11 @@ fun Checkmark(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PullDown() {
+fun PullDown(
+    modifier: Modifier = Modifier
+) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(width = 84.dp, height = 5.dp)
             .clip(MainShapes.button)
             .background(MainColors.pullDown)

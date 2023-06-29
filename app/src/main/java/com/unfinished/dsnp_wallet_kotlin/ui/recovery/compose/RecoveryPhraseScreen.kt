@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.RecoveryPhraseUiMod
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKey
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKeyState
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -52,7 +54,10 @@ fun RecoveryPhraseScreen(
             .fillMaxSize()
             .background(MainColors.background)
     ) {
-        SimpleToolbar(title = stringResource(id = R.string.recovery_phrase))
+        SimpleToolbar(
+            title = stringResource(id = R.string.recovery_phrase),
+            testTag = Tag.RecoveryPhraseScreen.title
+        )
         Spacer(modifier = Modifier.size(16.dp))
 
         when (val uiState = uiStateFlow.value) {
@@ -93,21 +98,24 @@ fun RecoveryPhraseScreen(
             Text(
                 text = stringResource(R.string.security_is_important),
                 style = MainTypography.largeButtonText,
-                color = MainColors.onBackground
+                color = MainColors.onBackground,
+                modifier = Modifier.testTag(Tag.RecoveryPhraseScreen.securityTitle)
             )
 
             Spacer(modifier = Modifier.size(12.dp))
             Text(
                 text = stringResource(R.string.back_up_your_recovery_phrase),
                 style = MainTypography.bodySemiBold,
-                color = MainColors.onBackground
+                color = MainColors.onBackground,
+                modifier = Modifier.testTag(Tag.RecoveryPhraseScreen.securityDesc)
             )
 
             Spacer(modifier = Modifier.size(55.dp))
             Text(
                 text = stringResource(R.string.there_will_be_a_test),
                 style = MainTypography.largeButtonText,
-                color = MainColors.onBackground
+                color = MainColors.onBackground,
+                modifier = Modifier.testTag(Tag.RecoveryPhraseScreen.testTitle)
             )
 
             Spacer(modifier = Modifier.size(12.dp))
@@ -115,7 +123,8 @@ fun RecoveryPhraseScreen(
                 fullText = stringResource(R.string.please_carefully_write),
                 clickableTexts = listOf(stringResource(id = R.string.please_carefully_write_link_text)),
                 style = MainTypography.body.copy(color = MainColors.onBackground),
-                onClicked = {}
+                onClicked = {},
+                modifier = Modifier.testTag(Tag.RecoveryPhraseScreen.testDesc)
             )
 
             Spacer(modifier = Modifier.size(22.dp))
@@ -125,7 +134,9 @@ fun RecoveryPhraseScreen(
             PrimaryButton(
                 text = stringResource(R.string.i_ve_written_it_down),
                 onClick = nextClick,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(Tag.RecoveryPhraseScreen.writtenDown)
             )
         }
     }
@@ -156,7 +167,10 @@ private fun SeedColumn(seedKeys: List<SeedKey>) {
             Text(
                 text = "${it.prefix} ${it.key}",
                 style = MainTypography.seedText,
-                color = MainColors.onBackground
+                color = MainColors.onBackground,
+                modifier = Modifier.testTag(
+                    "${Tag.RecoveryPhraseScreen.seed}_${it.prefix}"
+                )
             )
         }
     }

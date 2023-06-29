@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,6 +33,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RecoveryPhraseScreenDes
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.uimodel.Setting
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.uimodel.SettingsUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.viewmodel.SettingsViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -100,7 +102,8 @@ fun SettingsScreen(
     ) {
         SimpleToolbar(
             title = stringResource(id = R.string.settings),
-            showNav = false
+            showNav = false,
+            testTag = Tag.SettingsScreen.title
         )
 
         Spacer(modifier = Modifier.size(16.dp))
@@ -146,6 +149,7 @@ private fun Body(
                 .fillMaxWidth()
                 .padding(start = 29.dp, end = 33.dp)
                 .clickable(onClick = logOutClick)
+                .testTag(Tag.SettingsScreen.logout)
         ) {
             Text(
                 text = stringResource(id = com.unfinished.uikit.R.string.log_out).uppercase(),
@@ -176,7 +180,9 @@ private fun RecoveryRow(
             text = stringResource(R.string.you_have_never_backed_up),
             color = MainColors.onBackground,
             style = MainTypography.body,
-            modifier = Modifier.padding(horizontal = 14.dp)
+            modifier = Modifier
+                .padding(horizontal = 14.dp)
+                .testTag(Tag.SettingsScreen.neverBackup)
         )
 
         Spacer(modifier = Modifier.size(14.dp))
@@ -184,12 +190,16 @@ private fun RecoveryRow(
             text = stringResource(R.string.recovery_phrase_is_very_important),
             color = MainColors.onBackground,
             style = MainTypography.body,
-            modifier = Modifier.padding(horizontal = 14.dp)
+            modifier = Modifier
+                .padding(horizontal = 14.dp)
+                .testTag(Tag.SettingsScreen.recovery_desc)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
         PrimaryButton(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(Tag.SettingsScreen.revealRecovery),
             text = stringResource(R.string.reveal_recovery_phrase),
             onClick = recoveryPhraseClick
         )
@@ -218,14 +228,16 @@ private fun SettingsRow(
                     Text(
                         text = stringResource(id = setting.title),
                         color = MainColors.onBackground,
-                        style = MainTypography.bodyMediumBold
+                        style = MainTypography.bodyMediumBold,
+                        modifier = Modifier.testTag("${Tag.SettingsScreen.settingTitle}_$index")
                     )
 
                     Spacer(modifier = Modifier.size(16.dp))
                     Text(
                         text = stringResource(id = setting.desc),
                         color = MainColors.onBackground,
-                        style = MainTypography.body
+                        style = MainTypography.body,
+                        modifier = Modifier.testTag("${Tag.SettingsScreen.settingDesc}_$index")
                     )
                 }
 
