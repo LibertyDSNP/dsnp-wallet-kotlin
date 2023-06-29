@@ -32,9 +32,6 @@ commands: # a reusable command with parameters
             } 
           event: <<parameters.event>>
           channel: android-ci-alerts
-      - checkout
-      - android/change-java-version:
-          java-version: 17
 
 parameters: # parameters are at the job level
   build_env:
@@ -57,6 +54,8 @@ jobs:
           event: "always"
           message: "Building an app ... \\n *Git Branch*: $CIRCLE_BRANCH \\n *Launch trigger*: $CIRCLE_USERNAME"
       - checkout
+      - android/change-java-version:
+            java-version: 17
       - run:
           name: Install dependecies
           command: |
