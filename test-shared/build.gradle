@@ -20,6 +20,15 @@ android {
         }
     }
     namespace 'com.unfinished.test_shared.test_shared'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 }
 
 
