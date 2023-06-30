@@ -54,6 +54,10 @@ jobs:
           event: "always"
           message: "Building an app ... \\n *Git Branch*: $CIRCLE_BRANCH \\n *Launch trigger*: $CIRCLE_USERNAME"
       - checkout
+      - run:
+          name: Apt update
+          command: |
+            sudo apt update
       - android/change-java-version:
             java-version: 17
       - run:
