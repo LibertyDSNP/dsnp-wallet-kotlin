@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@2.3.0
+  android: circleci/android@2.0.3
   slack: circleci/slack@4.12.0
 
 commands: # a reusable command with parameters
@@ -55,7 +55,7 @@ jobs:
           message: "Building an app ... \\n *Git Branch*: $CIRCLE_BRANCH \\n *Launch trigger*: $CIRCLE_USERNAME"
       - checkout
       - android/change-java-version:
-            java-version: 20
+            java-version: 17
       - run:
           name: Install dependecies
           command: |
