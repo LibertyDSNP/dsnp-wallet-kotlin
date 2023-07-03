@@ -1,17 +1,13 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -21,11 +17,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RestoreWalletScreenDestination
+import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
@@ -33,9 +30,8 @@ import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.components.BottomSheet
 import com.unfinished.uikit.components.HyperlinkText
-import com.unfinished.uikit.components.Logo
+import com.unfinished.uikit.components.LogoLayout
 import com.unfinished.uikit.components.PrimaryButton
-import com.unfinished.uikit.exts.comingSoonToast
 import com.unfinished.uikit.exts.launchChromeTab
 
 @LandingNavGraph(start = true)
@@ -43,7 +39,8 @@ import com.unfinished.uikit.exts.launchChromeTab
 @Composable
 fun LandingPageScreen(
     navigator: DestinationsNavigator,
-    createIdentityViewModel: CreateIdentityViewModel = hiltViewModel()
+    identityViewModel: IdentityViewModel,
+    createIdentityViewModel: CreateIdentityViewModel
 ) {
     val context = LocalContext.current
     val haveIdLink = stringResource(id = R.string.have_id_link)
@@ -56,6 +53,7 @@ fun LandingPageScreen(
         sheetContent = {
             CreateIdentityScreen(
                 navigator = navigator,
+                identityViewModel = identityViewModel,
                 createIdentityViewModel = createIdentityViewModel
             )
         },
@@ -68,7 +66,7 @@ fun LandingPageScreen(
                     context.launchChromeTab(haveIdLink, showBackButton = true)
                 },
                 restoreAccountClick = {
-                    context.comingSoonToast()
+                    navigator.navigate(RestoreWalletScreenDestination)
                 }
             )
         },
@@ -87,16 +85,10 @@ fun LandingPageScreen(
     haveIdClick: () -> Unit,
     restoreAccountClick: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MainColors.background)
-            .padding(horizontal = 36.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    LogoLayout(
+        modifier = Modifier.padding(horizontal = 36.dp),
+        logoTestTag = Tag.LandingPageScreen.logo,
     ) {
-        Spacer(modifier = Modifier.size(56.dp))
-        Logo(modifier = Modifier.testTag(Tag.LandingPageScreen.logo))
-
         Spacer(modifier = Modifier.size(24.dp))
         Text(
             text = stringResource(id = R.string.landing_title),
