@@ -14,15 +14,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
+import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.spec.NavHostEngine
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.debug.DebugToolbar
+import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.util.exts.safeGetBackStackEntry
 import com.unfinished.uikit.MainTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,7 +71,21 @@ class MainActivity : AppCompatActivity() {
                             .weight(1F),
                         navGraph = NavGraphs.root,
                         engine = engine,
-                        navController = navController
+                        navController = navController,
+                        dependenciesContainerBuilder = {
+                            /**
+                             * https://composedestinations.rafaelcosta.xyz/common-use-cases/providing-viewmodels
+                             */
+
+                            dependency(NavGraphs.landing) {
+                                val parentEntry = remember(navBackStackEntry) {
+                                    navController.safeGetBackStackEntry(NavGraphs.landing.route)
+                                }
+                                hiltViewModel<CreateIdentityViewModel>(parentEntry)
+                            }
+
+                            dependency(hiltViewModel<IdentityViewModel>(this@MainActivity))
+                        }
                     )
 
                 }

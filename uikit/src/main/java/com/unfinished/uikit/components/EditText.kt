@@ -3,10 +3,13 @@ package com.unfinished.uikit.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -63,6 +66,39 @@ fun InputTextField(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OutlinedText(
+    modifier: Modifier = Modifier,
+    text: String,
+    hint: String,
+    isError: Boolean = false,
+    onTextChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        modifier = modifier,
+        value = text,
+        onValueChange = onTextChange,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            containerColor = MainColors.import,
+            textColor = MainColors.onImport,
+            cursorColor = MainColors.onImport,
+            errorBorderColor = MainColors.error,
+            errorLabelColor = MainColors.import
+        ),
+        placeholder = {
+            Text(
+                text = hint,
+                style = MainTypography.stepCounter,
+                color = MainColors.onHintImport
+            )
+        },
+        shape = MainShapes.input,
+        textStyle = MainTypography.stepCounter,
+        isError = isError
+    )
+}
+
 @Preview
 @Composable
 private fun SampleEditTexts() {
@@ -70,12 +106,40 @@ private fun SampleEditTexts() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MainColors.bottomSheetBackground)
+                .background(MainColors.background)
                 .padding(16.dp)
         ) {
-            InputTextField(
-                label = "Claim your handle",
-                text = "neverendingwinter",
+            Column(
+                modifier = Modifier
+                    .background(MainColors.bottomSheetBackground)
+                    .padding(16.dp)
+            ) {
+                InputTextField(
+                    label = "Claim your handle",
+                    text = "neverendingwinter",
+                    onTextChange = {}
+                )
+            }
+
+            Spacer(modifier = Modifier.size(16.dp))
+            OutlinedText(
+                text = "",
+                hint = "Placeholder",
+                onTextChange = {}
+            )
+
+            Spacer(modifier = Modifier.size(16.dp))
+            OutlinedText(
+                text = "Actual text",
+                hint = "Placeholder",
+                onTextChange = {}
+            )
+
+            Spacer(modifier = Modifier.size(16.dp))
+            OutlinedText(
+                text = "Actual text",
+                hint = "Placeholder",
+                isError = true,
                 onTextChange = {}
             )
         }

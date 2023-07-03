@@ -26,11 +26,9 @@ import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseVie
 @Composable
 fun MainScreen(
     navigator: DestinationsNavigator,
-    createdAccount: Boolean = false,
-    identityViewModel: IdentityViewModel = hiltViewModel()
+    identityViewModel: IdentityViewModel
 ) {
     val navController = rememberNavController()
-    val dialogStateFlow = identityViewModel.dialogStateFlow.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -59,6 +57,4 @@ fun MainScreen(
             }
         )
     }
-
-    if (dialogStateFlow.value == IdentityViewModel.Dialog.Init && createdAccount) identityViewModel.showCreateAccountDialog()
 }

@@ -32,7 +32,7 @@ object MainTypography {
 
     val bodyMedium = poppinsTextStyle.copy(
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
+        fontSize = 12.sp,
         lineHeight = 24.sp,
     )
 
@@ -50,8 +50,14 @@ object MainTypography {
 
     val bodyLarge = poppinsTextStyle.copy(
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        lineHeight = 20.sp
+        fontSize = 24.sp,
+        lineHeight = 24.sp
+    )
+
+    val bodyLargeBold = poppinsTextStyle.copy(
+        fontWeight = FontWeight.Bold,
+        fontSize = 24.sp,
+        lineHeight = 24.sp
     )
 
     val profile = poppinsTextStyle.copy(

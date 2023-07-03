@@ -68,4 +68,9 @@ interface Colors {
 
     val dialog: Color
     val onDialog: Color
+
+    val import: Color
+    val onImport: Color
+    val onHintImport: Color
+    val importBorder: Color
 }

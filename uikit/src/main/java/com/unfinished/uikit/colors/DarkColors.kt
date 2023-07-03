@@ -66,4 +66,9 @@ class DarkColors : Colors {
 
     override val dialog: Color = Color(0xFFFFFFFF)
     override val onDialog: Color = Color(0xFF232330)
+
+    override val import: Color = Color(0x335D8B82)
+    override val onImport: Color = Color(0xFFFFFFFF)
+    override val onHintImport: Color = Color(0x66FFFFFF)
+    override val importBorder: Color = Color(0x80FFFFFF)
 }

@@ -46,16 +46,16 @@ class IdentityViewModel @Inject constructor(
         ).toDataLoaded()
     }
 
-    fun showCreateAccountDialog() {
-        _dialogStateFlow.value = Dialog.ShowCreate
+    fun showCongratulationDialog() {
+        _dialogStateFlow.value = Dialog.Congratulation
     }
 
-    fun hideCreateAccountDialog() {
-        _dialogStateFlow.value = Dialog.HideCreate
+    fun hideDialog() {
+        _dialogStateFlow.value = Dialog.Init
     }
 
     enum class Dialog {
-        Init, ShowCreate, HideCreate
+        Init, Congratulation
     }
 
 }

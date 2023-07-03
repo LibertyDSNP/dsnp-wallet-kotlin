@@ -19,6 +19,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.DebugNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
+import com.unfinished.dsnp_wallet_kotlin.util.exts.navigateWithNoBackstack
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.Back
@@ -36,41 +37,24 @@ fun DebugNavigateScreen(
                 text = "Splash Screen",
                 testTag = Tag.DebugNavigateScreen.splash,
                 onClick = {
-                    navigator.navigateAwayFromDebug(NavGraphs.splash)
+                    navigator.navigateWithNoBackstack(NavGraphs.splash)
                 }
             ),
             DebugItem(
                 text = "Landing Screen",
                 testTag = Tag.DebugNavigateScreen.landing,
                 onClick = {
-                    navigator.navigateAwayFromDebug(NavGraphs.landing)
+                    navigator.navigateWithNoBackstack(NavGraphs.landing)
                 }
             ),
             DebugItem(
                 text = "Home Screen",
                 testTag = Tag.DebugNavigateScreen.home,
                 onClick = {
-                    navigator.navigateAwayFromDebug(NavGraphs.main)
+                    navigator.navigateWithNoBackstack(NavGraphs.main)
                 }
             )
         )
-    )
-}
-
-private fun DestinationsNavigator.navigateAwayFromDebug(
-    navGraph: NavGraph
-) {
-    navigate(
-        navGraph.route,
-        builder = {
-            launchSingleTop = true
-            popUpTo(
-                route = NavGraphs.root.route,
-                popUpToBuilder = {
-                    inclusive = true
-                }
-            )
-        }
     )
 }
 

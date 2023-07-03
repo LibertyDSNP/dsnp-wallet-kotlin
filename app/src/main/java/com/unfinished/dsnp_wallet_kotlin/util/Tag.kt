@@ -131,4 +131,16 @@ sealed class Tag {
          */
         const val task = "btn_task"
     }
+
+    object RestoreWalletScreen : Tag() {
+        const val logo = "img_logo"
+        const val title = "txt_title"
+        const val recoveryPhrase = "txt_recovery_phase"
+        const val recoveryPhraseDesc = "txt_recovery_phase_desc"
+        const val recoveryPhraseError = "txt_recovery_phase_error"
+        const val connect = "btn_connect"
+        const val cancel = "btn_cancel"
+        const val tryAgain = "btn_try_again"
+        const val createIdentity = "btn_create_identity"
+    }
 }
