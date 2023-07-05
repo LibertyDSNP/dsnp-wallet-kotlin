@@ -1,9 +1,11 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -80,6 +82,7 @@ fun CreateIdentityScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .fillMaxHeight(.7F)
             .background(MainColors.bottomSheetBackground)
             .padding(horizontal = 36.dp, vertical = 12.dp)
     ) {
@@ -235,36 +238,41 @@ private fun ConfirmHandleScreen(
 private fun AgreeToTermsScreen(
     handle: String, suffix: String, agreeClick: () -> Unit
 ) {
-    Column {
-        Spacer(modifier = Modifier.size(26.dp))
-        Text(
-            text = stringResource(R.string.agree_to_terms),
-            style = MainTypography.title.copy(lineHeight = 34.sp),
-            color = MainColors.onEditTextTitle,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.header)
-        )
+    Column(
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        Column(
+            modifier = Modifier.weight(1F)
+        ) {
+            Spacer(modifier = Modifier.size(26.dp))
+            Text(
+                text = stringResource(R.string.agree_to_terms),
+                style = MainTypography.title.copy(lineHeight = 34.sp),
+                color = MainColors.onEditTextTitle,
+                modifier = Modifier.testTag(Tag.CreateIdentityScreen.header)
+            )
 
-        Spacer(modifier = Modifier.size(18.dp))
-        Handle(
-            handle = handle,
-            suffix = suffix,
-            handleColor = MainColors.primary,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.handle)
-        )
+            Spacer(modifier = Modifier.size(18.dp))
+            Handle(
+                handle = handle,
+                suffix = suffix,
+                handleColor = MainColors.primary,
+                modifier = Modifier.testTag(Tag.CreateIdentityScreen.handle)
+            )
 
-        Spacer(modifier = Modifier.size(30.dp))
-        AgreeText()
+            Spacer(modifier = Modifier.size(30.dp))
+            AgreeText()
 
-        Spacer(modifier = Modifier.size(30.dp))
-        PrimaryButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .testTag(Tag.CreateIdentityScreen.agree),
-            text = stringResource(R.string.agree),
-            onClick = agreeClick
-        )
+            Spacer(modifier = Modifier.size(30.dp))
+            PrimaryButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(Tag.CreateIdentityScreen.agree),
+                text = stringResource(R.string.agree),
+                onClick = agreeClick
+            )
+        }
 
-        Spacer(modifier = Modifier.size(100.dp))
         TermsAndPrivacy(
             textColor = MainColors.onBottomSheetBackground,
             modifier = Modifier.testTag(Tag.CreateIdentityScreen.termsAndPrivacy)

@@ -152,9 +152,10 @@ private fun Body(
                 .testTag(Tag.SettingsScreen.logout)
         ) {
             Text(
-                text = stringResource(id = com.unfinished.uikit.R.string.log_out).uppercase(),
+                text = stringResource(id = com.unfinished.uikit.R.string.log_out),
                 modifier = Modifier.align(Alignment.CenterStart),
-                color = MainColors.onBackground
+                color = MainColors.onBackground,
+                style = MainTypography.bodyMediumBold
             )
             LogOut(
                 modifier = Modifier.align(Alignment.CenterEnd)
