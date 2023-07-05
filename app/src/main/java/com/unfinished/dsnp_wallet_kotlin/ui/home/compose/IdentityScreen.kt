@@ -65,10 +65,10 @@ fun IdentityScreen(
             navigator.navigate(NavGraphs.socialSetup)
         },
         letsGoClick = {
-            identityViewModel.hideCreateAccountDialog()
+            identityViewModel.hideDialog()
             navigator.navigate(NavGraphs.socialSetup)
         },
-        createDialogDismiss = { identityViewModel.hideCreateAccountDialog() }
+        createDialogDismiss = { identityViewModel.hideDialog() }
     )
 }
 
@@ -105,7 +105,7 @@ fun IdentityScreen(
                     Overlay(modifier = Modifier.fillMaxSize())
                 }
 
-                if (dialogState == IdentityViewModel.Dialog.ShowCreate) CloseableDialog(
+                if (dialogState == IdentityViewModel.Dialog.Congratulation) CloseableDialog(
                     content = {
                         CongratulationsScreen(
                             username = identityUiModel.username,

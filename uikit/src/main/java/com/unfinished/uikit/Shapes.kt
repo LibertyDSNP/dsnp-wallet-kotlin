@@ -16,4 +16,8 @@ object MainShapes {
 
     val dialog: Shape
         @Composable get() = RoundedCornerShape(40.dp)
+
+    val input: Shape
+        @Composable get() = RoundedCornerShape(10.dp)
+
 }

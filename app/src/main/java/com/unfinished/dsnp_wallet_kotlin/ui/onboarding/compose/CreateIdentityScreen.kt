@@ -25,10 +25,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
-import com.unfinished.dsnp_wallet_kotlin.ui.destinations.MainScreenDestination
+import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
+import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
+import com.unfinished.dsnp_wallet_kotlin.util.exts.navigateWithNoBackstack
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
@@ -43,6 +45,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun CreateIdentityScreen(
     navigator: DestinationsNavigator,
+    identityViewModel: IdentityViewModel,
     createIdentityViewModel: CreateIdentityViewModel = hiltViewModel()
 ) {
     val uiState = createIdentityViewModel.uiStateFLow.collectAsState()
@@ -51,25 +54,20 @@ fun CreateIdentityScreen(
     val bottomSheetVisibleState = bottomSheetVisibleStateFlow.value
 
     when (val value = uiState.value) {
-        is UiState.DataLoaded -> CreateIdentityScreen(
-            createIdentityUiModel = value.data,
+        is UiState.DataLoaded -> CreateIdentityScreen(createIdentityUiModel = value.data,
             showKeyboard = bottomSheetVisibleState == CreateIdentityViewModel.ShowCreateIdentity,
             handleChange = {
                 createIdentityViewModel.updateHandle(it)
             },
             nextClick = {
                 createIdentityViewModel.nextStep()
-            }
-        )
+            })
 
-        is CreateIdentityViewModel.GoToIdentity -> navigator.navigate(
-            MainScreenDestination(
-                createdAccount = true
-            )
-        )
+        is CreateIdentityViewModel.GoToIdentityFromCreate -> {
+            identityViewModel.showCongratulationDialog()
+            navigator.navigateWithNoBackstack(NavGraphs.main)
+        }
     }
-
-
 }
 
 @Composable
@@ -195,9 +193,7 @@ private fun CreateHandleScreen(
 
 @Composable
 private fun ConfirmHandleScreen(
-    handle: String,
-    suffix: String,
-    nextClick: () -> Unit
+    handle: String, suffix: String, nextClick: () -> Unit
 ) {
     Column {
         Spacer(modifier = Modifier.size(26.dp))
@@ -237,9 +233,7 @@ private fun ConfirmHandleScreen(
 
 @Composable
 private fun AgreeToTermsScreen(
-    handle: String,
-    suffix: String,
-    agreeClick: () -> Unit
+    handle: String, suffix: String, agreeClick: () -> Unit
 ) {
     Column {
         Spacer(modifier = Modifier.size(26.dp))
@@ -310,12 +304,10 @@ private val createIdentityUiModel: CreateIdentityUiModel by lazy {
 @Composable
 fun SampleCreateIdentityScreenStep1() {
     MainTheme {
-        CreateIdentityScreen(
-            createIdentityUiModel = createIdentityUiModel,
+        CreateIdentityScreen(createIdentityUiModel = createIdentityUiModel,
             showKeyboard = true,
             handleChange = {},
-            nextClick = {}
-        )
+            nextClick = {})
     }
 }
 
@@ -323,15 +315,9 @@ fun SampleCreateIdentityScreenStep1() {
 @Composable
 fun SampleCreateIdentityScreenStep2() {
     MainTheme {
-        CreateIdentityScreen(
-            createIdentityUiModel = createIdentityUiModel.copy(
-                currentStep = 2,
-                handleIsValid = true
-            ),
-            showKeyboard = true,
-            handleChange = {},
-            nextClick = {}
-        )
+        CreateIdentityScreen(createIdentityUiModel = createIdentityUiModel.copy(
+            currentStep = 2, handleIsValid = true
+        ), showKeyboard = true, handleChange = {}, nextClick = {})
     }
 }
 
@@ -339,14 +325,8 @@ fun SampleCreateIdentityScreenStep2() {
 @Composable
 fun SampleCreateIdentityScreenStep3() {
     MainTheme {
-        CreateIdentityScreen(
-            createIdentityUiModel = createIdentityUiModel.copy(
-                currentStep = 3,
-                handleIsValid = true
-            ),
-            showKeyboard = true,
-            handleChange = {},
-            nextClick = {}
-        )
+        CreateIdentityScreen(createIdentityUiModel = createIdentityUiModel.copy(
+            currentStep = 3, handleIsValid = true
+        ), showKeyboard = true, handleChange = {}, nextClick = {})
     }
 }

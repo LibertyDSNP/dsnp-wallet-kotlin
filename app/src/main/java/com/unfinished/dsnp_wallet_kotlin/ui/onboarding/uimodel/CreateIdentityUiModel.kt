@@ -5,5 +5,6 @@ data class CreateIdentityUiModel(
     val handleIsValid: Boolean = false,
     val suffix: String = "##",
     val currentStep: Int = 1,
-    val totalSteps: Int = 3
+    val totalSteps: Int = 3,
+    val restoreWalletUiModel: RestoreWalletUiModel = RestoreWalletUiModel()
 )

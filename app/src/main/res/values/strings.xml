@@ -117,5 +117,13 @@
     <string name="congratulations">Congratulations!</string>
     <string name="let_s_go">Let\'s Go!</string>
     <string name="skip_for_now">Skip for now</string>
+    <string name="import_hint">race boat delve king cousin field sunny best loony wild running</string>
+    <string name="enter_your_12_word_recovery_phrase">Enter your 12 word recovery phrase to connect your account</string>
+    <string name="connect">Connect</string>
+    <string name="import_account">Import Account</string>
+    <string name="try_again">Try Again</string>
+    <string name="create_identity">Create Identity</string>
+    <string name="invalid_phrase">When you encounter an \"Invalid menemonic phrase\" Error, you need to check the following:\n\nThe words are separated by a single space.\nThe words should be in the correct order.\nThe words are spelled correctly.</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
