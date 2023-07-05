@@ -202,22 +202,25 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             chain = chain,
                             enteredAmount = binding.balance.text.toString().toFloat(),
                             paymentInfo = { feeResponse ->
-                                Log.e("Fee","Fee for this transaction ${feeResponse.partialFee} UNIT")
+                                Log.e(
+                                    "Fee",
+                                    "Fee for this transaction ${feeResponse.partialFee} UNIT"
+                                )
                             }
                         ).collectLatest {
-                                if (it.second.isNullOrEmpty()) {
-                                    binding.transferResult.setText(it.first)
-                                } else {
-                                    binding.transferResult.setText(
-                                        it.second ?: "Invalid Transaction"
-                                    )
-                                    Toast.makeText(
-                                        requireContext(),
-                                        it.second ?: "Invalid Transaction",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            if (it.second.isNullOrEmpty()) {
+                                binding.transferResult.setText(it.first)
+                            } else {
+                                binding.transferResult.setText(
+                                    it.second ?: "Invalid Transaction"
+                                )
+                                Toast.makeText(
+                                    requireContext(),
+                                    it.second ?: "Invalid Transaction",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
+                        }
                     }
                 }
             }
@@ -244,7 +247,10 @@ class TestFragment : BaseFragment<TestViewModel>() {
                         viewModel.createMsa(
                             chain = chain,
                             paymentInfo = { feeResponse ->
-                                Log.e("Fee","Fee for this transaction ${feeResponse.partialFee} UNIT")
+                                Log.e(
+                                    "Fee",
+                                    "Fee for this transaction ${feeResponse.partialFee} UNIT"
+                                )
                             }
                         ).catch {
                             binding.createMsa.setText(it.message ?: "Invalid Transaction")
@@ -336,7 +342,10 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             msaOwnerMetaAccount = msaOwnerMetaAccount,
                             newKeyOwnerMetaAccount = newKeyOwnerMetaAccount,
                             paymentInfo = { feeResponse ->
-                                Log.e("Fee","Fee for this transaction ${feeResponse.partialFee} UNIT")
+                                Log.e(
+                                    "Fee",
+                                    "Fee for this transaction ${feeResponse.partialFee} UNIT"
+                                )
                             }
                         ).collectLatest {
                             if (it.second.isNullOrEmpty()) {
@@ -361,13 +370,43 @@ class TestFragment : BaseFragment<TestViewModel>() {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     viewModel.getChain()?.let {
-                        viewModel.getPublicKeyToMsaId(it, metaAccounts[binding.publicKeyToMsaId.selectedItemPosition]).collectLatest {
+                        viewModel.getPublicKeyToMsaId(
+                            it,
+                            metaAccounts[binding.publicKeyToMsaId.selectedItemPosition]
+                        ).collectLatest {
                             if (it.second == null) {
                                 binding.publicKeyToMsaIdTv.setText("${it.first ?: "No Msa Id found"}")
                             } else {
                                 Toast.makeText(
                                     requireContext(),
                                     it.second ?: "Error get msa id",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.fireChainDeletePublicKeyToMsaId.setOnSafeClickListener {
+            lifecycleScope.launch {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    viewModel.getChain()?.let {
+                        viewModel.deletePublicKeyToMsaId(
+                            chain = it,
+                            metaAccount = metaAccounts[binding.deleteOwnerPublicKeyToMsaId.selectedItemPosition],
+                            newMetaAccount = metaAccounts[binding.deletePublicKeyToMsaId.selectedItemPosition],
+                            paymentInfo = { feeResponse ->
+                                Log.e("Fee", "Fee for this transaction ${feeResponse.partialFee} UNIT")
+                            }
+                        ).collectLatest {
+                            if (it.second == null) {
+                                binding.deletePublicKeyToMsaIdTv.setText("${it.first ?: "No Msa Id found"}")
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    it.second ?: "Error delete public key to msa id",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -394,6 +433,10 @@ class TestFragment : BaseFragment<TestViewModel>() {
         binding.newKeyOwnerAccount.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
         binding.publicKeyToMsaId.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.deletePublicKeyToMsaId.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.deleteOwnerPublicKeyToMsaId.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
     }
 

@@ -104,6 +104,7 @@ class TestViewModel @Inject constructor(
     var accountAddres2 = "5CV1EtqhSyompvpNnZ2pWvcFp2rycoRVFUxAHyAuVMvb9SnG"
     var accountAddresForMsa = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"
     var accountAddresForBalance = "5GNQNJaWFUXQdHSYSKYQGvkzoDbt11xNgHq2xra23Noxpxyn"
+
     init {
         getGesisHashFromBlockHash()
     }
@@ -415,6 +416,7 @@ class TestViewModel @Inject constructor(
     suspend fun paymentQueryInfo(chain: Chain, extrinsic: String): FeeResponse {
         return rpcCalls.getExtrinsicFee(chain.id, extrinsic)
     }
+
     suspend fun checkAccountDetails(chain: Chain): AccountInfo? {
         val runtime = chainRegistry.getRuntime(chain.id)
         val key = runtime.metadata.system().storage("Account")
@@ -424,7 +426,11 @@ class TestViewModel @Inject constructor(
         return accountInfo
     }
 
-    suspend fun testTransfer(chain: Chain, enteredAmount: Float, paymentInfo: (FeeResponse) -> Unit) = flow {
+    suspend fun testTransfer(
+        chain: Chain,
+        enteredAmount: Float,
+        paymentInfo: (FeeResponse) -> Unit
+    ) = flow {
         kotlin.runCatching {
             val metaAccount = accountRepository.findMetaAccount(chain.accountIdOf(accountAddres))
             val signer = signerProvider.signerFor(metaAccount!!)
@@ -437,7 +443,7 @@ class TestViewModel @Inject constructor(
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
                 .filterIsInstance<ExtrinsicStatus.Finalized>()
                 .first()
-            paymentInfo.invoke(paymentQueryInfo(chain,extrinsic))
+            paymentInfo.invoke(paymentQueryInfo(chain, extrinsic))
             val events = getBlockEvents(chain, extrinsicStatus.blockHash)
             events.onSuccess {
                 it.checkIfExtrinsicFailed()?.let {
@@ -461,8 +467,9 @@ class TestViewModel @Inject constructor(
                 .createMsa()
                 .build()
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
-            paymentInfo.invoke(paymentQueryInfo(chain,extrinsic))
-            val finalized = extrinsicStatus.filterIsInstance<ExtrinsicStatus.Finalized>().firstOrNull()
+            paymentInfo.invoke(paymentQueryInfo(chain, extrinsic))
+            val finalized =
+                extrinsicStatus.filterIsInstance<ExtrinsicStatus.Finalized>().firstOrNull()
             finalized?.apply {
                 val events = getBlockEvents(chain, finalized.blockHash)
                 events.onSuccess {
@@ -533,7 +540,7 @@ class TestViewModel @Inject constructor(
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
                 .filterIsInstance<ExtrinsicStatus.Finalized>()
                 .first()
-            paymentInfo.invoke(paymentQueryInfo(chain,extrinsic))
+            paymentInfo.invoke(paymentQueryInfo(chain, extrinsic))
             val events = getBlockEvents(chain, extrinsicStatus.blockHash)
             events.onSuccess {
                 it.checkIfExtrinsicFailed()?.let {
@@ -550,13 +557,46 @@ class TestViewModel @Inject constructor(
 
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getPublicKeyToMsaId(chain: Chain,account: MetaAccount) = flow {
+    suspend fun getPublicKeyToMsaId(chain: Chain, account: MetaAccount) = flow {
         val runtime = chainRegistry.getRuntime(chain.id)
-        val events = eventsRepository.getMsaIdFromFrequencyChain(chain, runtime, account.substrateAccountId!!)
+        val events = eventsRepository.getMsaIdFromFrequencyChain(
+            chain,
+            runtime,
+            account.substrateAccountId!!
+        )
         events.onSuccess {
             emit(Pair(it, null))
         }.onFailure {
             emit(Pair(0.toBigInteger(), it.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun deletePublicKeyToMsaId(
+        chain: Chain,
+        metaAccount: MetaAccount,
+        newMetaAccount: MetaAccount,
+        paymentInfo: (FeeResponse) -> Unit
+    ) = flow {
+        kotlin.runCatching {
+            val signer = signerProvider.signerFor(metaAccount)
+            val extrinsic =
+                extrinsicBuilderFactory.create(chain, signer, metaAccount.substrateAccountId!!)
+                    .deletePublicKeyToMsa(publicKeyToDelete = newMetaAccount.substrateAccountId)
+                    .build()
+            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
+                .filterIsInstance<ExtrinsicStatus.Finalized>()
+                .first()
+            paymentInfo.invoke(paymentQueryInfo(chain, extrinsic))
+            val events = getBlockEvents(chain, extrinsicStatus.blockHash)
+            events.onSuccess {
+                it.checkIfExtrinsicFailed()?.let {
+                    emit(Pair(extrinsicStatus.blockHash, it.error?.second?.name))
+                } ?: kotlin.run {
+                    emit(Pair(extrinsicStatus.blockHash, null))
+                }
+            }.onFailure {
+                emit(Pair(extrinsicStatus.blockHash, it.message ?: "Error"))
+            }
         }
     }.flowOn(Dispatchers.IO)
 

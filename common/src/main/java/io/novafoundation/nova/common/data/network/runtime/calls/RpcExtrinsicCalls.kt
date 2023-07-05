@@ -72,9 +72,16 @@ fun ExtrinsicBuilder.addPublicKeyToMsa(
     )
 }
 
-data class AddKeyPayload(
-    val msaId: Any,
-    val expiration: Any,
-    val newPublicKey: Any,
-)
+fun ExtrinsicBuilder.deletePublicKeyToMsa(
+    publicKeyToDelete: ByteArray?
+): ExtrinsicBuilder {
+    return call(
+        moduleName = "Msa",
+        callName = "delete_msa_public_key",
+        arguments = mapOf(
+            "public_key_to_delete" to publicKeyToDelete,
+        )
+    )
+}
+
 
