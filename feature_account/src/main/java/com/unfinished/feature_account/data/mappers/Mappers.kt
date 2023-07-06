@@ -184,7 +184,7 @@ fun mapAddAccountPayloadToAddAccountType(
     accountNameState: AccountNameChooserMixin.State,
 ): AddAccountType {
     return when (payload) {
-        AddAccountPayload.MetaAccount -> {
+        is AddAccountPayload.MetaAccount -> {
             require(accountNameState is AccountNameChooserMixin.State.Input) { "Name input should be present for meta account" }
 
             AddAccountType.MetaAccount(accountNameState.value)

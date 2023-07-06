@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -17,6 +17,7 @@ import com.ramcosta.composedestinations.navigation.dependency
 import com.unfinished.dsnp_wallet_kotlin.ui.MainNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.bottombar.BottomBar
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DirectionDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseViewModel
 
@@ -26,7 +27,8 @@ import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseVie
 @Composable
 fun MainScreen(
     navigator: DestinationsNavigator,
-    identityViewModel: IdentityViewModel
+    identityViewModel: IdentityViewModel,
+    directionRoute: String? = null
 ) {
     val navController = rememberNavController()
 
@@ -57,4 +59,13 @@ fun MainScreen(
             }
         )
     }
+
+    LaunchedEffect(
+        key1 = directionRoute,
+        block = {
+            if (directionRoute != null) {
+                navController.navigate(directionRoute)
+            }
+        }
+    )
 }

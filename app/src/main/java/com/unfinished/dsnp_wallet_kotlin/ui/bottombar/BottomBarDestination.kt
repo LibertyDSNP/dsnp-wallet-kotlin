@@ -20,6 +20,9 @@ enum class BottomBarDestination(
         direction = IdentityScreenDestination,
         icon = com.unfinished.uikit.R.drawable.home,
         label = com.unfinished.uikit.R.string.home,
+        childrenDestinations = mutableListOf<Destination>().apply {
+            addAll(NavGraphs.socialSetup.destinations)
+        },
         testTag = Tag.BottomBar.home
     ),
     Settings(
