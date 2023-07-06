@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     if (
-                        BuildConfig.DEBUG
+                        BuildConfig.FLAVOR == "dev"
                         && !debugRoutes.contains(navBackStackEntry?.destination?.route)
                         && showDebug
                     ) DebugToolbar(
