@@ -415,6 +415,32 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 }
             }
         }
+
+        binding.fireChainRetireMsa.setOnSafeClickListener {
+            lifecycleScope.launch {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    viewModel.getChain()?.let {
+                        viewModel.retireMsa(
+                            chain = it,
+                            metaAccount = metaAccounts[binding.deleteOwnerPublicKeyToMsaId.selectedItemPosition],
+                            paymentInfo = { feeResponse ->
+                                Log.e("Fee", "Fee for this transaction ${feeResponse.partialFee} UNIT")
+                            }
+                        ).collectLatest {
+                            if (it.second == null) {
+                                binding.retireMsaTv.setText("${it.first ?: "No Msa Id found"}")
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    it.second ?: "Error retire msa",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun updateAdapters() {
@@ -437,6 +463,8 @@ class TestFragment : BaseFragment<TestViewModel>() {
         binding.deletePublicKeyToMsaId.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
         binding.deleteOwnerPublicKeyToMsaId.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.retireMsaAccount.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
     }
 
