@@ -84,4 +84,12 @@ fun ExtrinsicBuilder.deletePublicKeyToMsa(
     )
 }
 
+fun ExtrinsicBuilder.retireMsa(): ExtrinsicBuilder {
+    return call(
+        moduleName = "Msa",
+        callName = "retire_msa",
+        arguments = mapOf()
+    )
+}
+
 

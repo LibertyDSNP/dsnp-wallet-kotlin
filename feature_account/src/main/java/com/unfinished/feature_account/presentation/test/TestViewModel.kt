@@ -65,6 +65,7 @@ import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadRaw
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageKey
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct
+import jp.co.soramitsu.fearless_utils.wsrpc.exception.RpcException
 import jp.co.soramitsu.fearless_utils.wsrpc.executeAsync
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
@@ -467,21 +468,20 @@ class TestViewModel @Inject constructor(
                 .createMsa()
                 .build()
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
+                .catch { emit(Triple("",null,(it as RpcException).message)) }
+                .filterIsInstance<ExtrinsicStatus.Finalized>()
+                .first()
             paymentInfo.invoke(paymentQueryInfo(chain, extrinsic))
-            val finalized =
-                extrinsicStatus.filterIsInstance<ExtrinsicStatus.Finalized>().firstOrNull()
-            finalized?.apply {
-                val events = getBlockEvents(chain, finalized.blockHash)
-                events.onSuccess {
-                    it.checkIfExtrinsicFailed()?.let {
-                        emit(Triple(finalized.blockHash, null, it.error?.second?.name))
-                    } ?: kotlin.run {
-                        val msaEvent = it.map { it as? EventType.MsaEvent }.filterNotNull()
-                        emit(Triple(finalized.blockHash, msaEvent.firstOrNull(), null))
-                    }
-                }.onFailure {
-                    emit(Triple(finalized.blockHash, null, it.message ?: "Error"))
+            val events = getBlockEvents(chain, extrinsicStatus.blockHash)
+            events.onSuccess {
+                it.checkIfExtrinsicFailed()?.let {
+                    emit(Triple(extrinsicStatus.blockHash, null, it.error?.second?.name))
+                } ?: kotlin.run {
+                    val msaEvent = it.map { it as? EventType.MsaEvent }.filterNotNull()
+                    emit(Triple(extrinsicStatus.blockHash, msaEvent.firstOrNull(), null))
                 }
+            }.onFailure {
+                emit(Triple(extrinsicStatus.blockHash, null, it.message ?: "Error"))
             }
         }.onFailure { exception ->
             emit(Triple(null, null, exception.message ?: "Error"))
@@ -584,6 +584,7 @@ class TestViewModel @Inject constructor(
                     .deletePublicKeyToMsa(publicKeyToDelete = newMetaAccount.substrateAccountId)
                     .build()
             val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
+                .catch { emit(Pair("",(it as RpcException).message)) }
                 .filterIsInstance<ExtrinsicStatus.Finalized>()
                 .first()
             paymentInfo.invoke(paymentQueryInfo(chain, extrinsic))
@@ -600,6 +601,34 @@ class TestViewModel @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
+    suspend fun retireMsa(
+        chain: Chain,
+        metaAccount: MetaAccount,
+        paymentInfo: (FeeResponse) -> Unit
+    ) = flow {
+        kotlin.runCatching {
+            val signer = signerProvider.signerFor(metaAccount)
+            val extrinsic =
+                extrinsicBuilderFactory.create(chain, signer, metaAccount.substrateAccountId!!)
+                    .retireMsa()
+                    .build()
+            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
+                .catch { emit(Pair("",(it as RpcException).message)) }
+                .filterIsInstance<ExtrinsicStatus.Finalized>()
+                .first()
+            paymentInfo.invoke(paymentQueryInfo(chain, extrinsic))
+            val events = getBlockEvents(chain, extrinsicStatus.blockHash)
+            events.onSuccess {
+                it.checkIfExtrinsicFailed()?.let {
+                    emit(Pair(extrinsicStatus.blockHash, it.error?.second?.name))
+                } ?: kotlin.run {
+                    emit(Pair(extrinsicStatus.blockHash, null))
+                }
+            }.onFailure {
+                emit(Pair(extrinsicStatus.blockHash, it.message ?: "Error"))
+            }
+        }
+    }.flowOn(Dispatchers.IO)
     suspend fun generateAddMsaKeyPayload(
         msaId: BigInteger,
         expiration: BigInteger,
