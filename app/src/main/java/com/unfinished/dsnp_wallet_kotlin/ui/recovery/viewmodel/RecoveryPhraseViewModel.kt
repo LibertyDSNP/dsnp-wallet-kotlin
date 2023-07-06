@@ -5,7 +5,6 @@ import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.RecoveryPhraseUiMod
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKey
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKeyState
 import com.unfinished.dsnp_wallet_kotlin.usecase.AccountUseCase
-import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,9 +56,15 @@ class RecoveryPhraseViewModel @Inject constructor(
     fun addSeedKeyToGuess(seedKey: SeedKey) {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
             _uiStateFLow.value = it.copy(
-                currentSeedGuesses = it.currentSeedGuesses.toMutableList()
-                    .apply { add(seedKey) },
-                seedKeyState = SeedKeyState.Init
+                seedKeyState = SeedKeyState.Init,
+                currentSeedGuesses = it.currentSeedGuesses.toMutableList().apply {
+                    val index = indexOfFirst { index -> index == null }
+
+                    if (index > -1) {
+                        removeAt(index)
+                        add(index, seedKey)
+                    }
+                }
             ).toDataLoaded()
         }
     }
@@ -67,9 +72,12 @@ class RecoveryPhraseViewModel @Inject constructor(
     fun removeSeedKeyFromGuess(seedKey: SeedKey) {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
             _uiStateFLow.value = it.copy(
-                currentSeedGuesses = it.currentSeedGuesses.toMutableList()
-                    .apply { remove(seedKey) },
-                seedKeyState = SeedKeyState.Init
+                seedKeyState = SeedKeyState.Init,
+                currentSeedGuesses = it.currentSeedGuesses.toMutableList().apply {
+                    val index = indexOf(seedKey)
+                    removeAt(index)
+                    add(index, null)
+                }
             ).toDataLoaded()
         }
     }
@@ -82,7 +90,7 @@ class RecoveryPhraseViewModel @Inject constructor(
 
             val uiModel = it.copy(
                 seedKeyState = seedKeyState,
-                currentSeedGuesses = if (invalidSeedKeys) emptyList() else it.currentSeedGuesses
+                currentSeedGuesses = if (invalidSeedKeys) it.createEmptyGuesses() else it.currentSeedGuesses
             )
 
             _uiStateFLow.value = uiModel.toDataLoaded()
