@@ -108,7 +108,7 @@ fun Loading(
 ) {
     CircularProgressIndicator(
         modifier = Modifier
-            .size(100.dp)
+            .size(50.dp)
             .then(modifier),
         color = MainColors.loading,
         strokeWidth = 4.dp

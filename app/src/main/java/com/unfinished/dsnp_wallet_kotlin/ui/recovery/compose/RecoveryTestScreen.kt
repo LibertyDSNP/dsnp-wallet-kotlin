@@ -69,8 +69,12 @@ fun RecoveryTestScreenScreen(
             is UiState.DataLoaded -> {
                 RecoveryTestScreenScreen(
                     recoveryPhraseUiModel = uiState.data,
-                    addSeedKeyClick = { recoveryPhraseViewModel.addSeedKeyToGuess(it) },
-                    removeSeedKeyClick = { recoveryPhraseViewModel.removeSeedKeyFromGuess(it) },
+                    addSeedKeyClick = {
+                        recoveryPhraseViewModel.addSeedKeyToGuess(it)
+                    },
+                    removeSeedKeyClick = {
+                        recoveryPhraseViewModel.removeSeedKeyFromGuess(it)
+                    },
                     continueClick = { recoveryPhraseViewModel.verifySeedKeys() }
                 )
 
@@ -135,6 +139,7 @@ fun RecoveryTestScreenScreen(
                         .testTag(Tag.RecoveryTestScreenScreen.continueBtn),
                     enabled = recoveryPhraseUiModel.continueEnabled
                 )
+
                 SeedKeyState.Verifying, SeedKeyState.Finish -> Box(modifier = Modifier.fillMaxWidth()) {
                     Loading(modifier = Modifier.align(Alignment.Center))
                 }
@@ -148,7 +153,7 @@ fun RecoveryTestScreenScreen(
 @Composable
 private fun SeedTestRow(
     seedKeys: List<SeedKey>,
-    currentSeedGuesses: List<SeedKey>,
+    currentSeedGuesses: List<SeedKey?>,
     currentRandomSeedKeys: List<SeedKey>,
     seedKeyState: SeedKeyState,
     addSeedKeyClick: (SeedKey) -> Unit,
@@ -219,19 +224,19 @@ private fun SeedTestRow(
 private fun SeedTestColumn(
     modifier: Modifier = Modifier,
     seedKeys: List<SeedKey>,
-    currentSeedGuesses: List<SeedKey>,
+    currentSeedGuesses: List<SeedKey?>,
     offsetIndex: Int = 0,
     removeSeedKeyClick: (SeedKey) -> Unit
 ) {
     Column(
         modifier = modifier
     ) {
+
         seedKeys.forEachIndexed { index, seedKey ->
             val currentIndex = index + offsetIndex
-            val currentSeed =
-                if (currentIndex <= currentSeedGuesses.lastIndex) currentSeedGuesses[currentIndex] else null
+
             SeedGuessItem(
-                seedKey = currentSeed,
+                seedKey = currentSeedGuesses[currentIndex],
                 prefix = seedKey.prefix,
                 removeSeedKeyClick = removeSeedKeyClick
             )
@@ -260,7 +265,9 @@ private fun SeedGuessItem(
             .padding(horizontal = 12.dp, vertical = 4.dp)
             .testTag("${Tag.RecoveryTestScreenScreen.guessSeed}_$prefix")
             .then(
-                if (seedKey != null) Modifier.clickable { removeSeedKeyClick(seedKey) } else Modifier
+                if (seedKey != null) Modifier.clickable {
+                    removeSeedKeyClick(seedKey)
+                } else Modifier
             )
     ) {
         Text(
@@ -304,7 +311,9 @@ private fun SeedGuessButton(
             .padding(horizontal = 12.dp, vertical = 4.dp)
             .testTag("${Tag.RecoveryTestScreenScreen.choiceSeed}_$prefix")
             .then(
-                if (seedKey != null) Modifier.clickable { addSeedKeyClick(seedKey) } else Modifier
+                if (seedKey != null) Modifier.clickable {
+                    addSeedKeyClick(seedKey)
+                } else Modifier
             )
     ) {
         Text(
@@ -333,17 +342,23 @@ private val sampleRecoveryPhraseUiModel: RecoveryPhraseUiModel by lazy {
         SeedKey(prefix = "12", key = "Spin"),
     )
 
-    val currentSeedGuesses = listOf(
-        SeedKey(prefix = "06", key = "Turmoil"),
-        SeedKey(prefix = "11", key = "Running"),
-        SeedKey(prefix = "02", key = "Spike")
-    )
-
-    RecoveryPhraseUiModel(
+    val uiModel = RecoveryPhraseUiModel(
         seedKeys = seedKeys,
         currentRandomSeedKeys = seedKeys.shuffled(),
-        currentSeedGuesses = currentSeedGuesses,
         seedKeyState = SeedKeyState.NotValid
+    )
+
+    return@lazy uiModel.copy(
+        currentSeedGuesses = uiModel.currentSeedGuesses.toMutableList().apply {
+            removeAt(4)
+            add(4, SeedKey(prefix = "06", key = "Turmoil"))
+
+            removeAt(1)
+            add(1, SeedKey(prefix = "11", key = "Running"))
+
+            removeAt(2)
+            add(2, SeedKey(prefix = "02", key = "Spike"))
+        }
     )
 }
 
