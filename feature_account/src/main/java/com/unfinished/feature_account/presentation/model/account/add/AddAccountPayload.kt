@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 sealed class AddAccountPayload : Parcelable {
 
     @Parcelize
-    object MetaAccount : AddAccountPayload()
+    class MetaAccount(val accountName: String) : AddAccountPayload()
 
     @Parcelize
     class ChainAccount(val chainId: ChainId, val metaId: Long) : AddAccountPayload()
