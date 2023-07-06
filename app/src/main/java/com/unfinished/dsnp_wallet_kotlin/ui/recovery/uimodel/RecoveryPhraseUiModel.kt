@@ -8,6 +8,9 @@ data class RecoveryPhraseUiModel(
 ) {
     val continueEnabled: Boolean
         get() = currentSeedGuesses.size == seedKeys.size
+
+    val mnemonicString: String
+        get() = seedKeys.joinToString(separator = " ") { it.key }
 }
 
 data class SeedKey(
@@ -16,5 +19,5 @@ data class SeedKey(
 )
 
 enum class SeedKeyState {
-    Init, NotValid, Finish
+    Init, NotValid, Finish, Verifying
 }

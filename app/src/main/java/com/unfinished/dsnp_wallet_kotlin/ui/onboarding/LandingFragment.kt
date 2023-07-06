@@ -33,7 +33,7 @@ class LandingFragment : BaseFragment<LandingViewModel>() {
         fun bundle(displayBack: Boolean): Bundle {
             return Bundle().apply {
                 putBoolean(KEY_DISPLAY_BACK, displayBack)
-                putParcelable(KEY_ADD_ACCOUNT_PAYLOAD, AddAccountPayload.MetaAccount)
+                //putParcelable(KEY_ADD_ACCOUNT_PAYLOAD, AddAccountPayload.MetaAccount)
             }
         }
 

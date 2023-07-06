@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +17,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -39,6 +41,7 @@ import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.components.Grid
+import com.unfinished.uikit.components.Loading
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.SimpleToolbar
 import com.unfinished.uikit.exts.dashedBorder
@@ -122,14 +125,21 @@ fun RecoveryTestScreenScreen(
             )
 
             Spacer(modifier = Modifier.size(36.dp))
-            PrimaryButton(
-                text = stringResource(R.string.continue_text),
-                onClick = continueClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag(Tag.RecoveryTestScreenScreen.continueBtn),
-                enabled = recoveryPhraseUiModel.continueEnabled
-            )
+
+            when (recoveryPhraseUiModel.seedKeyState) {
+                SeedKeyState.Init, SeedKeyState.NotValid -> PrimaryButton(
+                    text = stringResource(R.string.continue_text),
+                    onClick = continueClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(Tag.RecoveryTestScreenScreen.continueBtn),
+                    enabled = recoveryPhraseUiModel.continueEnabled
+                )
+                SeedKeyState.Verifying, SeedKeyState.Finish -> Box(modifier = Modifier.fillMaxWidth()) {
+                    Loading(modifier = Modifier.align(Alignment.Center))
+                }
+            }
+
 
         }
     }

@@ -75,9 +75,13 @@ class NetworkModule {
             .retryOnConnectionFailure(true)
             .addInterceptor(TimeHeaderInterceptor())
 
-        if (BuildConfig.DEBUG) {
-            builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-        }
+        /**
+         * If you need bodies of payloads from restful calls to be logged, feel free to uncomment
+         * these lines for your local build only.
+         */
+//        if (BuildConfig.DEBUG) {
+//            builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+//        }
 
         return builder.build()
     }

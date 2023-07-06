@@ -13,7 +13,7 @@ class SettingsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     fun openMnemonicScreen(){
-        router.openMnemonicScreen("test${Random.nextInt(1,500)}",AddAccountPayload.MetaAccount)
+        //router.openMnemonicScreen("test${Random.nextInt(1,500)}",AddAccountPayload.MetaAccount)
     }
 
 }
