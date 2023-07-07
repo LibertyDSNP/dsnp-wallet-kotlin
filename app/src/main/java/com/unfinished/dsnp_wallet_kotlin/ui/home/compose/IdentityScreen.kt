@@ -53,33 +53,23 @@ fun IdentityScreen(
     identityViewModel: IdentityViewModel
 ) {
     val uiState = identityViewModel.uiStateFLow.collectAsState()
-    val dialogStateFlow = identityViewModel.dialogStateFlow.collectAsState()
 
     IdentityScreen(
         uiState = uiState.value,
-        dialogState = dialogStateFlow.value,
         editProfileClick = {
             //TODO
         },
         seeAllClick = {
             navigator.navigate(NavGraphs.socialSetup)
-        },
-        letsGoClick = {
-            identityViewModel.hideDialog()
-            navigator.navigate(NavGraphs.socialSetup)
-        },
-        createDialogDismiss = { identityViewModel.hideDialog() }
+        }
     )
 }
 
 @Composable
 fun IdentityScreen(
     uiState: UiState<IdentityUiModel>,
-    dialogState: IdentityViewModel.Dialog,
     editProfileClick: () -> Unit,
-    seeAllClick: () -> Unit,
-    letsGoClick: () -> Unit,
-    createDialogDismiss: () -> Unit
+    seeAllClick: () -> Unit
 ) {
     Column(
         modifier = Modifier.background(MainColors.background)
@@ -104,17 +94,6 @@ fun IdentityScreen(
                     )
                     Overlay(modifier = Modifier.fillMaxSize())
                 }
-
-                if (dialogState == IdentityViewModel.Dialog.Congratulation) CloseableDialog(
-                    content = {
-                        CongratulationsScreen(
-                            username = identityUiModel.username,
-                            letsGoClick = letsGoClick,
-                            onDismiss = createDialogDismiss
-                        )
-                    },
-                    onDismiss = createDialogDismiss
-                )
             }
 
             is UiState.Loading -> {
@@ -263,11 +242,8 @@ private fun SampleIdentityScreen() {
                     )
                 )
             ).toDataLoaded(),
-            dialogState = IdentityViewModel.Dialog.Init,
             editProfileClick = {},
-            seeAllClick = {},
-            letsGoClick = {},
-            createDialogDismiss = {}
+            seeAllClick = {}
         )
     }
 }

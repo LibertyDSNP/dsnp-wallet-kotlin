@@ -31,6 +31,9 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
+import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.compose.BottomSheet
+import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.RestoreWalletUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
@@ -41,7 +44,6 @@ import com.unfinished.uikit.MainShapes
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.UiState
-import com.unfinished.uikit.components.BottomSheet
 import com.unfinished.uikit.components.Loading
 import com.unfinished.uikit.components.LogoLayout
 import com.unfinished.uikit.components.OutlinedText
@@ -54,20 +56,21 @@ import com.unfinished.uikit.components.SecondaryButton
 @Composable
 fun RestoreWalletScreen(
     navigator: DestinationsNavigator,
-    identityViewModel: IdentityViewModel,
+    bottomSheetViewModel: BottomSheetViewModel,
+    dialogViewModel: DialogViewModel,
     createIdentityViewModel: CreateIdentityViewModel
 ) {
     val uiStateFlow = createIdentityViewModel.uiStateFLow.collectAsState()
-    val bottomSheetVisibleStateFlow = createIdentityViewModel.visibleStateFlow.collectAsState()
 
-    val bottomSheetVisibleState = bottomSheetVisibleStateFlow.value
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    BottomSheet(showBottomSheet = bottomSheetVisibleState == CreateIdentityViewModel.ShowCreateIdentity,
+    BottomSheet(
+        bottomSheetViewModel = bottomSheetViewModel,
         sheetContent = {
             CreateIdentityScreen(
                 navigator = navigator,
-                identityViewModel = identityViewModel,
+                bottomSheetViewModel = bottomSheetViewModel,
+                dialogViewModel = dialogViewModel,
                 createIdentityViewModel = createIdentityViewModel
             )
         },
@@ -81,7 +84,7 @@ fun RestoreWalletScreen(
                     },
                     cancelClick = { navigator.popBackStack() },
                     tryAgainClick = { createIdentityViewModel.showRecoveryPhrase() },
-                    createIdentityClick = { createIdentityViewModel.showCreateIdentity() })
+                    createIdentityClick = { bottomSheetViewModel.showCreateAccount() })
 
                 is CreateIdentityViewModel.GoToIdentityFromImport -> {
                     navigator.navigateWithNoBackstack(NavGraphs.main)
@@ -89,11 +92,9 @@ fun RestoreWalletScreen(
             }
         },
         backPress = {
-            createIdentityViewModel.previousStep()
-        },
-        onHidden = {
-            createIdentityViewModel.hideCreateIdentity()
-        })
+            if(createIdentityViewModel.previousStep()) bottomSheetViewModel.hide()
+        }
+    )
 }
 
 @Composable

@@ -7,7 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -21,60 +26,108 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.compose.BottomSheet
+import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RestoreWalletScreenDestination
-import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
-import com.unfinished.uikit.components.BottomSheet
 import com.unfinished.uikit.components.HyperlinkText
 import com.unfinished.uikit.components.LogoLayout
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.exts.launchChromeTab
+
+enum class LandingDirection {
+    Init, CreateIdentity, HaveId, RestoreAccount
+}
 
 @LandingNavGraph(start = true)
 @Destination
 @Composable
 fun LandingPageScreen(
     navigator: DestinationsNavigator,
-    identityViewModel: IdentityViewModel,
+    bottomSheetViewModel: BottomSheetViewModel,
+    dialogViewModel: DialogViewModel,
     createIdentityViewModel: CreateIdentityViewModel
 ) {
+    val bottomSheetUiModelState = bottomSheetViewModel.uiModel.collectAsState()
+    val bottomSheetUiModel = bottomSheetUiModelState.value
+
     val context = LocalContext.current
     val haveIdLink = stringResource(id = R.string.have_id_link)
-    val bottomSheetVisibleStateFlow = createIdentityViewModel.visibleStateFlow.collectAsState()
+    var landingDirection: LandingDirection by remember {
+        mutableStateOf(LandingDirection.Init)
+    }
 
-    val bottomSheetVisibleState = bottomSheetVisibleStateFlow.value
+    val agreeClick: (LandingDirection) -> Unit = {
+        landingDirection = it
+
+        if (bottomSheetUiModel.showAgreeToTerms) {
+            bottomSheetViewModel.showAgreeToUse()
+        } else {
+            bottomSheetViewModel.hide()
+
+            when (landingDirection) {
+                LandingDirection.Init -> {}
+                LandingDirection.CreateIdentity -> bottomSheetViewModel.showCreateAccount()
+                LandingDirection.HaveId -> context.launchChromeTab(
+                    haveIdLink,
+                    showBackButton = true
+                )
+
+                LandingDirection.RestoreAccount -> navigator.navigate(
+                    RestoreWalletScreenDestination
+                )
+            }
+        }
+    }
 
     BottomSheet(
-        showBottomSheet = bottomSheetVisibleState == CreateIdentityViewModel.ShowCreateIdentity,
+        bottomSheetViewModel = bottomSheetViewModel,
         sheetContent = {
-            CreateIdentityScreen(
-                navigator = navigator,
-                identityViewModel = identityViewModel,
-                createIdentityViewModel = createIdentityViewModel
-            )
+            when (it) {
+                BottomSheetViewModel.State.Hide -> {}
+                BottomSheetViewModel.State.CreateAccount -> CreateIdentityScreen(
+                    navigator = navigator,
+                    bottomSheetViewModel = bottomSheetViewModel,
+                    dialogViewModel = dialogViewModel,
+                    createIdentityViewModel = createIdentityViewModel
+                )
+
+                BottomSheetViewModel.State.AgreeToUse -> AgreeToUseScreen(
+                    agreeClick = {
+                        bottomSheetViewModel.agreedToUse()
+                    }
+                )
+            }
         },
         content = {
             LandingPageScreen(
                 createIdentityClick = {
-                    createIdentityViewModel.showCreateIdentity()
+                    agreeClick(LandingDirection.CreateIdentity)
                 },
                 haveIdClick = {
-                    context.launchChromeTab(haveIdLink, showBackButton = true)
+                    agreeClick(LandingDirection.HaveId)
                 },
                 restoreAccountClick = {
-                    navigator.navigate(RestoreWalletScreenDestination)
+                    agreeClick(LandingDirection.RestoreAccount)
                 }
             )
         },
         backPress = {
-            createIdentityViewModel.previousStep()
-        },
-        onHidden = {
-            createIdentityViewModel.hideCreateIdentity()
+            if (createIdentityViewModel.previousStep()) bottomSheetViewModel.hide()
+        }
+    )
+
+    LaunchedEffect(
+        key1 = bottomSheetUiModel.showAgreeToTerms,
+        block = {
+            if (!bottomSheetUiModel.showAgreeToTerms) {
+                agreeClick(landingDirection)
+            }
         }
     )
 }

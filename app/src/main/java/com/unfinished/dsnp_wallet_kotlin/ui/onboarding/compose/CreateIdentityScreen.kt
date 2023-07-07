@@ -27,7 +27,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.ui.NavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
+import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.SocialSetupScreenDestination
+import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
@@ -47,17 +51,19 @@ import kotlinx.coroutines.delay
 @Composable
 fun CreateIdentityScreen(
     navigator: DestinationsNavigator,
-    identityViewModel: IdentityViewModel,
+    bottomSheetViewModel: BottomSheetViewModel,
+    dialogViewModel: DialogViewModel,
     createIdentityViewModel: CreateIdentityViewModel = hiltViewModel()
 ) {
     val uiState = createIdentityViewModel.uiStateFLow.collectAsState()
-    val bottomSheetVisibleStateFlow = createIdentityViewModel.visibleStateFlow.collectAsState()
 
+    val bottomSheetVisibleStateFlow = bottomSheetViewModel.stateFlow.collectAsState()
     val bottomSheetVisibleState = bottomSheetVisibleStateFlow.value
 
     when (val value = uiState.value) {
-        is UiState.DataLoaded -> CreateIdentityScreen(createIdentityUiModel = value.data,
-            showKeyboard = bottomSheetVisibleState == CreateIdentityViewModel.ShowCreateIdentity,
+        is UiState.DataLoaded -> CreateIdentityScreen(
+            createIdentityUiModel = value.data,
+            showKeyboard = bottomSheetVisibleState == BottomSheetViewModel.State.CreateAccount,
             handleChange = {
                 createIdentityViewModel.updateHandle(it)
             },
@@ -66,7 +72,10 @@ fun CreateIdentityScreen(
             })
 
         is CreateIdentityViewModel.GoToIdentityFromCreate -> {
-            identityViewModel.showCongratulationDialog()
+            dialogViewModel.showCongratulation(
+                userName = value.username,
+                letsGoDirection = SocialSetupScreenDestination
+            )
             navigator.navigateWithNoBackstack(NavGraphs.main)
         }
     }
