@@ -629,6 +629,36 @@ class TestViewModel @Inject constructor(
             }
         }
     }.flowOn(Dispatchers.IO)
+
+    suspend fun createProvider(
+        chain: Chain,
+        metaAccount: MetaAccount,
+        name: String,
+        paymentInfo: (FeeResponse) -> Unit
+    ) = flow {
+        kotlin.runCatching {
+            val signer = signerProvider.signerFor(metaAccount)
+            val extrinsic =
+                extrinsicBuilderFactory.create(chain, signer, metaAccount.substrateAccountId!!)
+                    .createProvider(name.toByteArray())
+                    .build()
+            val extrinsicStatus = rpcCalls.submitAndWatchExtrinsic(chain.id, extrinsic)
+                .catch { emit(Pair("",(it as RpcException).message)) }
+                .filterIsInstance<ExtrinsicStatus.Finalized>()
+                .first()
+            paymentInfo.invoke(paymentQueryInfo(chain, extrinsic))
+            val events = getBlockEvents(chain, extrinsicStatus.blockHash)
+            events.onSuccess {
+                it.checkIfExtrinsicFailed()?.let {
+                    emit(Pair(extrinsicStatus.blockHash, it.error?.second?.name))
+                } ?: kotlin.run {
+                    emit(Pair(extrinsicStatus.blockHash, null))
+                }
+            }.onFailure {
+                emit(Pair(extrinsicStatus.blockHash, it.message ?: "Error"))
+            }
+        }
+    }.flowOn(Dispatchers.IO)
     suspend fun generateAddMsaKeyPayload(
         msaId: BigInteger,
         expiration: BigInteger,

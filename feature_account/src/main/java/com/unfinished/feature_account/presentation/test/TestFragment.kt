@@ -441,6 +441,37 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 }
             }
         }
+
+        binding.fireChainCreateProvider.setOnSafeClickListener {
+            if (binding.createProviderEt.text.toString().isNullOrEmpty()){
+                validationError("Provider name is missing")
+                return@setOnSafeClickListener
+            }
+            lifecycleScope.launch {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    viewModel.getChain()?.let {
+                        viewModel.createProvider(
+                            chain = it,
+                            metaAccount = metaAccounts[binding.createProviderAccount.selectedItemPosition],
+                            name = binding.createProviderEt.text.toString(),
+                            paymentInfo = { feeResponse ->
+                                Log.e("Fee", "Fee for this transaction ${feeResponse.partialFee} UNIT")
+                            }
+                        ).collectLatest {
+                            if (it.second == null) {
+                                binding.createProviderResult.setText(it.first)
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    it.second ?: "Error create provider",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun updateAdapters() {
@@ -465,6 +496,8 @@ class TestFragment : BaseFragment<TestViewModel>() {
         binding.deleteOwnerPublicKeyToMsaId.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
         binding.retireMsaAccount.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
+        binding.createProviderAccount.adapter =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, list)
     }
 
