@@ -91,5 +91,14 @@ fun ExtrinsicBuilder.retireMsa(): ExtrinsicBuilder {
         arguments = mapOf()
     )
 }
+fun ExtrinsicBuilder.createProvider(providerName: ByteArray): ExtrinsicBuilder {
+    return call(
+        moduleName = "Msa",
+        callName = "create_provider",
+        arguments = mapOf(
+            "provider_name" to providerName,
+        )
+    )
+}
 
 
