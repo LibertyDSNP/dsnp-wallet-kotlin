@@ -17,7 +17,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "dsnp-wallet-kotlin"
 include ':app'
-include ':ccodepicker'
 include ':common'
 include ':test-shared'
 include ':core-api'

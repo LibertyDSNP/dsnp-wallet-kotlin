@@ -12,8 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
-import com.unfinished.dsnp_wallet_kotlin.ccodepicker.Country
-import com.unfinished.dsnp_wallet_kotlin.ccodepicker.CountryCodeSheet
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLookupBinding
 import com.unfinished.dsnp_wallet_kotlin.util.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +25,6 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
 
     override val viewModel by activityViewModels<LandingViewModel>()
     lateinit var binding: FragmentLookupBinding
-    private var selectedCountry: Country? = null
     private var isEmail: Boolean = true
 
     override fun onCreateView(
@@ -54,12 +51,7 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
         }
 
         binding.countryCode.setOnClickListener {
-           val countryCodeSheet =  CountryCodeSheet()
-            countryCodeSheet.onSetDismissListener {
-                this.selectedCountry = it
-                binding.countryCode.text = it.dial_code
-            }
-            countryCodeSheet.show(childFragmentManager,"ccodepicker_sheet")
+
         }
 
         binding.sendAuthCode.setOnClickListener {

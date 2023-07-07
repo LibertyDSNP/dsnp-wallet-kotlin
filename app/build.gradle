@@ -90,7 +90,6 @@ android {
 
 dependencies {
 
-    implementation project(":ccodepicker")
     implementation project(":feature_account")
     implementation project(":common")
     implementation project(':core-db')
