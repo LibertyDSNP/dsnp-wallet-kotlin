@@ -51,6 +51,8 @@ fun SecondaryButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String,
+    textColor: Color =  MainColors.onButton,
+    textDisabledColor: Color = MainColors.onButtonDisabled,
     textPadding: Dp = 6.dp,
     onClick: () -> Unit
 ) {
@@ -70,7 +72,7 @@ fun SecondaryButton(
             Text(
                 text = text,
                 style = MainTypography.bodyMedium,
-                color = if (enabled) MainColors.onButton else MainColors.onButtonDisabled,
+                color = if (enabled) textColor else textDisabledColor,
                 modifier = Modifier.padding(vertical = textPadding),
                 maxLines = 1,
                 softWrap = false,
