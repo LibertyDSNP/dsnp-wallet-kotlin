@@ -27,7 +27,46 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            debuggable true
+        }
     }
+
+    signingConfigs {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        dev {
+            storeFile file("dev.jks")
+            storePassword properties.getProperty('DEV_STORE_PASSWORD')
+            keyAlias properties.getProperty('DEV_KEY_ALIAS')
+            keyPassword properties.getProperty('DEV_KEY_PASSWORD')
+        }
+
+        prod {
+            storeFile file("prod.jks")
+            storePassword properties.getProperty('PROD_STORE_PASSWORD')
+            keyAlias properties.getProperty('PROD_KEY_ALIAS')
+            keyPassword properties.getProperty('PROD_KEY_PASSWORD')
+        }
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        dev {
+            dimension "version"
+            applicationIdSuffix ".dev"
+            versionNameSuffix " dev"
+
+            store
+        }
+
+        prod {
+            dimension "version"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
