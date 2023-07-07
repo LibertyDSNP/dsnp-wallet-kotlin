@@ -29,16 +29,20 @@ import com.ramcosta.composedestinations.result.NavResult
 import com.ramcosta.composedestinations.result.ResultRecipient
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.BottomBarNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.LandingPageScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RecoveryPhraseScreenDestination
+import com.unfinished.dsnp_wallet_kotlin.ui.home.compose.RootNavigator
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.uimodel.Setting
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.uimodel.SettingsUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.setting.viewmodel.SettingsViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
+import com.unfinished.dsnp_wallet_kotlin.util.exts.navigateWithNoBackstack
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.components.ArrowRight
+import com.unfinished.uikit.components.CloseableDialog
 import com.unfinished.uikit.components.LogOut
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PrimaryToggle
@@ -50,10 +54,12 @@ import com.unfinished.uikit.components.SuccessSnackbar
 @Composable
 fun SettingsScreen(
     navigator: DestinationsNavigator,
+    rootNavigator: RootNavigator,
     resultRecipient: ResultRecipient<RecoveryPhraseScreenDestination, Boolean>,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val uiStateFlow = settingsViewModel.uiStateFLow.collectAsState()
+    val logoutDialogStateFlow = settingsViewModel.logoutDialogStateFlow.collectAsState()
 
     when (val uiState = uiStateFlow.value) {
         is UiState.DataLoaded -> Box(
@@ -64,7 +70,7 @@ fun SettingsScreen(
             SettingsScreen(
                 settingsUiModel = uiState.data,
                 settingClick = {},
-                logOutClick = {},
+                logOutClick = { settingsViewModel.showLogoutDialog() },
                 recoveryPhraseClick = {
                     navigator.navigate(RecoveryPhraseScreenDestination)
                 }
@@ -79,6 +85,22 @@ fun SettingsScreen(
             )
         }
     }
+
+    if (logoutDialogStateFlow.value == SettingsViewModel.Logout.Show) CloseableDialog(
+        content = {
+            LogoutScreen(
+                logoutClick = {
+                    settingsViewModel.logout()
+                    rootNavigator.navigator.navigateWithNoBackstack(LandingPageScreenDestination)
+                },
+                viewRecoveryPhraseClick = {
+                    settingsViewModel.hideLogoutDialog()
+                    navigator.navigate(RecoveryPhraseScreenDestination)
+                }
+            )
+        },
+        onDismiss = { settingsViewModel.hideLogoutDialog() }
+    )
 
     resultRecipient.onNavResult { result ->
         when (result) {

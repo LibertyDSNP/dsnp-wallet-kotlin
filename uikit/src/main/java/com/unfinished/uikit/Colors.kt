@@ -61,6 +61,7 @@ interface Colors {
     val onSeedChoice: Color
 
     val error: Color
+    val alert: Color
 
     val successSnackbar: Color
     val onSuccessSnackbar: Color
