@@ -18,7 +18,6 @@ dependencyResolutionManagement {
 rootProject.name = "dsnp-wallet-kotlin"
 include ':app'
 include ':common'
-include ':test-shared'
 include ':core-api'
 include ':core-db'
 include ':runtime'

@@ -45,7 +45,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(":common")
-    testImplementation project(':test-shared')
 
     implementation deps.nova.fearless_utils
 

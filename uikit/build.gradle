@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-    testImplementation project(':test-shared')
 
     implementation deps.support.core_ktx
     implementation deps.support.app_compat

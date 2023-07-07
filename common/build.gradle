@@ -60,7 +60,6 @@ dependencies {
     implementation(name: 'renderscript-toolkit', ext: 'aar')
 
     api project(":core-api")
-    testImplementation project(':test-shared')
 
     implementation deps.support.core_ktx
     implementation deps.support.app_compat

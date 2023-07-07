@@ -47,7 +47,6 @@ dependencies {
     implementation project(":common")
     implementation project(":core-db")
     implementation project(":core-api")
-    testImplementation project(':test-shared')
 
     implementation deps.retrofit.converter_gson
 

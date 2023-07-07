@@ -41,7 +41,6 @@ dependencies {
     implementation project(':core-db')
     implementation project(':common')
     implementation project(':runtime')
-    testImplementation project(':test-shared')
 
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
