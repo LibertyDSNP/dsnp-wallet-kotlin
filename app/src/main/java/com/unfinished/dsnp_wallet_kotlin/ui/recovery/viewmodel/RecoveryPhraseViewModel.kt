@@ -84,13 +84,18 @@ class RecoveryPhraseViewModel @Inject constructor(
 
     fun verifySeedKeys() {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
-            val invalidSeedKeys = it.seedKeys != it.currentSeedGuesses
+            val validSeedKeys = it.seedKeys.mapIndexed { index, seedKey ->
+                val guessSeedKey = it.currentSeedGuesses[index] ?: return@mapIndexed false
+
+                seedKey.key == guessSeedKey.key
+            }.none { isValid -> !isValid }
+
             val seedKeyState =
-                if (invalidSeedKeys) SeedKeyState.NotValid else SeedKeyState.Verifying
+                if (validSeedKeys) SeedKeyState.Verifying else SeedKeyState.NotValid
 
             val uiModel = it.copy(
                 seedKeyState = seedKeyState,
-                currentSeedGuesses = if (invalidSeedKeys) it.createEmptyGuesses() else it.currentSeedGuesses
+                currentSeedGuesses = if (validSeedKeys) it.currentSeedGuesses else it.createEmptyGuesses()
             )
 
             _uiStateFLow.value = uiModel.toDataLoaded()

@@ -1,5 +1,6 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -55,6 +56,8 @@ enum class LandingDirection {
     deepLinks = [
         DeepLink(
             uriPattern = Deeplink.JUMP_TO_APP
+        ), DeepLink(
+            uriPattern = Deeplink.APP_JUMP_TO_APP
         )
     ]
 )
@@ -154,10 +157,9 @@ fun LandingPageScreen(
             if (deeplink is Deeplink.Valid) {
                 val path = deeplink.path
                 when {
-                    path == BuildConfig.DEEP_LINK_JUMP_TO_APP -> context.launchChromeTab(
-                        url = "https://${BuildConfig.WEB_URL}/test/redirector",
-                        showBackButton = true
-                    )
+                    path == BuildConfig.DEEP_LINK_JUMP_TO_APP -> Toast.makeText(
+                        context, "The app was deep linked", Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
