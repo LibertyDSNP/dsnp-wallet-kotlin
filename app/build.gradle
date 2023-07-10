@@ -21,8 +21,8 @@ android {
         ndkVersion build_versions.ndk_version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "DEEP_LINK_JUMP_TO_APP", "\"/jumpToApp\"")
-        manifestPlaceholders = [deepLinkJumpToApp: "/jumpToApp"]
+        buildConfigField("String", "DEEP_LINK_JUMP_TO_APP", "\"/jumpIntoTheApp\"")
+        manifestPlaceholders = [deepLinkJumpToApp: "/jumpIntoTheApp"]
     }
 
     buildTypes {
@@ -32,23 +32,24 @@ android {
         }
 
         debug {
+            signingConfig null
             debuggable true
         }
     }
 
     signingConfigs {
         Properties properties = new Properties()
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        properties.load(new File(project.rootDir, 'local.properties').newDataInputStream())
 
         dev {
-            storeFile file("dev.jks")
+            storeFile new File(project.rootDir, 'dev.jks')
             storePassword properties.getProperty('DEV_STORE_PASSWORD')
             keyAlias properties.getProperty('DEV_KEY_ALIAS')
             keyPassword properties.getProperty('DEV_KEY_PASSWORD')
         }
 
         prod {
-            storeFile file("prod.jks")
+            storeFile new File(project.rootDir, 'prod.jks')
             storePassword properties.getProperty('PROD_STORE_PASSWORD')
             keyAlias properties.getProperty('PROD_KEY_ALIAS')
             keyPassword properties.getProperty('PROD_KEY_PASSWORD')

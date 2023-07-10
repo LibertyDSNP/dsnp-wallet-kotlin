@@ -32,6 +32,14 @@ commands: # a reusable command with parameters
             } 
           event: <<parameters.event>>
           channel: android-ci-alerts
+  dev_signing:
+    steps:
+      - run:
+          name: Decode Android key store
+          command: echo $DEV_KEYSTORE | base64 -d | tee dev.jks dev.jks >/dev/null
+      - run:
+          name: Create keystore.properties
+          command: printf 'DEV_KEY_ALIAS=%s\nDEV_KEY_PASSWORD=%s\nDEV_STORE_PASSWORD=%s' \ $DEV_KEY_ALIAS $DEV_KEY_PASSWORD $DEV_STORE_PASSWORD > local.properties
 
 parameters: # parameters are at the job level
   build_env:
@@ -60,13 +68,14 @@ jobs:
             sudo apt update
       - android/change-java-version:
             java-version: 17
+      - dev_signing
       - run:
           name: Install dependecies
           command: |
             ./gradlew androidDependencies
       - run:
           name: Build Debug APK
-          command: ./gradlew clean assembleDebug
+          command: ./gradlew clean assembleDevDebug
       - store_artifacts:
           path: app/build/outputs/
           destination: builds/    
