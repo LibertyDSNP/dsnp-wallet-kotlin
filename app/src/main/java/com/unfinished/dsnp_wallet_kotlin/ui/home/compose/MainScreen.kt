@@ -17,7 +17,9 @@ import com.ramcosta.composedestinations.navigation.dependency
 import com.unfinished.dsnp_wallet_kotlin.ui.MainNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.bottombar.BottomBar
-import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DirectionDestination
+import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.dialog.compose.CloseableDialog
+import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseViewModel
 
@@ -28,6 +30,8 @@ import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseVie
 fun MainScreen(
     navigator: DestinationsNavigator,
     identityViewModel: IdentityViewModel,
+    bottomSheetViewModel: BottomSheetViewModel = hiltViewModel(),
+    dialogViewModel: DialogViewModel = hiltViewModel(),
     directionRoute: String? = null
 ) {
     val navController = rememberNavController()
@@ -49,6 +53,9 @@ fun MainScreen(
                  * https://composedestinations.rafaelcosta.xyz/common-use-cases/providing-viewmodels
                  */
                 dependency(identityViewModel)
+                dependency(RootNavigator(navigator))
+                dependency(bottomSheetViewModel)
+                dependency(dialogViewModel)
 
                 dependency(NavGraphs.recovery) {
                     val parentEntry = remember(navBackStackEntry) {
@@ -69,3 +76,5 @@ fun MainScreen(
         }
     )
 }
+
+class RootNavigator(val navigator: DestinationsNavigator)

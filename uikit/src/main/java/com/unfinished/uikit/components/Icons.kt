@@ -195,6 +195,16 @@ fun LogOut(modifier: Modifier = Modifier) {
     )
 }
 
+@Composable
+fun Alert(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.alert),
+        contentDescription = stringResource(id = R.string.alert),
+        tint = MainColors.alert
+    )
+}
+
 @Preview
 @Composable
 private fun SampleIcons() {
@@ -213,6 +223,7 @@ private fun SampleIcons() {
             Checkmark()
             ArrowRight()
             LogOut()
+            Alert()
             Profile(iconUrl = null)
         }
     }

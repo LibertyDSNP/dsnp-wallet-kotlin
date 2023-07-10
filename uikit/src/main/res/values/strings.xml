@@ -15,4 +15,5 @@
     <string name="arrow_right">Arrow Right</string>
     <string name="log_out">Logout</string>
     <string name="success">Success</string>
+    <string name="alert">Alert</string>
 </resources>

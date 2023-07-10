@@ -59,6 +59,7 @@ class DarkColors : Colors {
     override val onSeedChoice: Color = Color(0xFFFFFFFF)
 
     override val error: Color = Color(0xFFFB0B0B)
+    override val alert: Color = Color(0xFFD8593B)
 
     override val successSnackbar: Color = Color(0xFFEDF7EF)
     override val onSuccessSnackbar: Color = Color(0xFF232330)
@@ -71,4 +72,6 @@ class DarkColors : Colors {
     override val onImport: Color = Color(0xFFFFFFFF)
     override val onHintImport: Color = Color(0x66FFFFFF)
     override val importBorder: Color = Color(0x80FFFFFF)
+
+    override val scrollbar: Color = Color(0x80787880)
 }

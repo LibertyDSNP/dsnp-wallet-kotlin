@@ -11,7 +11,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.time.Duration
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,23 +21,23 @@ class CreateIdentityViewModel @Inject constructor(
         MutableStateFlow<UiState<CreateIdentityUiModel>>(CreateIdentityUiModel().toDataLoaded())
     val uiStateFLow = _uiStateFLow.asStateFlow()
 
-    private val _visibleStateFlow =
-        MutableStateFlow<UiState<Unit>>(HideCreateIdentity)
-    val visibleStateFlow = _visibleStateFlow.asStateFlow()
-
     private var tempFlagForLoading: Boolean = false
 
-    fun previousStep() {
-        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
-            when {
-                it.currentStep > 1 -> {
-                    _uiStateFLow.value = it.copy(currentStep = it.currentStep - 1).toDataLoaded()
-                }
-
-                it.currentStep == 1 -> hideCreateIdentity()
+    /**
+     * Returns true if we want to trigger the back button
+     */
+    fun previousStep(): Boolean = (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+        return@let when {
+            it.currentStep > 1 -> {
+                _uiStateFLow.value = it.copy(currentStep = it.currentStep - 1).toDataLoaded()
+                false
             }
+
+            it.currentStep == 1 -> true
+            else -> true
         }
-    }
+    } ?: true
+
 
     fun nextStep() {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
@@ -48,7 +47,7 @@ class CreateIdentityViewModel @Inject constructor(
                 }
 
                 it.currentStep == it.totalSteps -> {
-                    _uiStateFLow.value = GoToIdentityFromCreate
+                    _uiStateFLow.value = GoToIdentityFromCreate(username = it.handle)
                 }
             }
         }
@@ -61,14 +60,6 @@ class CreateIdentityViewModel @Inject constructor(
                 handleIsValid = handle.isNotBlank()
             ).toDataLoaded()
         }
-    }
-
-    fun showCreateIdentity() {
-        _visibleStateFlow.value = ShowCreateIdentity
-    }
-
-    fun hideCreateIdentity() {
-        _visibleStateFlow.value = HideCreateIdentity
     }
 
     fun onRecoveryPhraseChange(text: String) {
@@ -109,19 +100,17 @@ class CreateIdentityViewModel @Inject constructor(
             viewModelScope.launch {
                 delay(3000L)
 
-                if(!tempFlagForLoading) {
+                if (!tempFlagForLoading) {
                     showRecoveryPhraseError()
                     tempFlagForLoading = true
-                }else {
+                } else {
                     _uiStateFLow.value = GoToIdentityFromImport
                 }
             }
         }
     }
 
-    object ShowCreateIdentity : UiState<Unit>
-    object HideCreateIdentity : UiState<Unit>
-    object GoToIdentityFromCreate : UiState<CreateIdentityUiModel>
+    class GoToIdentityFromCreate(val username: String) : UiState<CreateIdentityUiModel>
     object GoToIdentityFromImport : UiState<CreateIdentityUiModel>
 
 }

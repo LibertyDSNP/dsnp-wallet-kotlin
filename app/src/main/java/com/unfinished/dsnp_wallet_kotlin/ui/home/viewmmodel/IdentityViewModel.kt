@@ -20,9 +20,6 @@ class IdentityViewModel @Inject constructor(
         MutableStateFlow<UiState<IdentityUiModel>>(UiState.Loading())
     val uiStateFLow = _uiStateFLow.asStateFlow()
 
-    private val _dialogStateFlow = MutableStateFlow(Dialog.Init)
-    val dialogStateFlow = _dialogStateFlow.asStateFlow()
-
     init {
         /**
          * TODO: make calls to fetch info for ui state
@@ -45,17 +42,4 @@ class IdentityViewModel @Inject constructor(
             )
         ).toDataLoaded()
     }
-
-    fun showCongratulationDialog() {
-        _dialogStateFlow.value = Dialog.Congratulation
-    }
-
-    fun hideDialog() {
-        _dialogStateFlow.value = Dialog.Init
-    }
-
-    enum class Dialog {
-        Init, Congratulation
-    }
-
 }

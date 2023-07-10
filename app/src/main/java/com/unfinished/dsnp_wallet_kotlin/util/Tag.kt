@@ -143,4 +143,21 @@ sealed class Tag {
         const val tryAgain = "btn_try_again"
         const val createIdentity = "btn_create_identity"
     }
+
+    object LogoutScreen: Tag() {
+        const val logoutIcon = "img_logout"
+        const val header = "txt_header"
+        const val desc = "txt_desc"
+        const val primaryButton = "btn_primary"
+        const val secondaryButton = "btn_secondary"
+    }
+
+    object AgreeToUseScreen: Tag() {
+        const val pullDown = "img_pull_down"
+        const val title = "txt_title"
+        const val header = "txt_header"
+        const val body = "txt_body"
+        const val agree = "btn_agree"
+        const val bottomText = "txt_bottom_text"
+    }
 }
