@@ -21,8 +21,8 @@ android {
         ndkVersion build_versions.ndk_version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "DEEP_LINK_JUMP_TO_APP", "\"/jumpIntoTheApp\"")
-        manifestPlaceholders = [deepLinkJumpToApp: "/jumpIntoTheApp"]
+        buildConfigField("String", "DEEP_LINK_JUMP_TO_APP", "\"jumpIntoTheApp\"")
+        manifestPlaceholders = [deepLinkJumpToApp: "jumpIntoTheApp"]
     }
 
     buildTypes {
@@ -69,7 +69,12 @@ android {
             signingConfig devSigning
 
             buildConfigField("String", "WEB_URL", "\"dev-custodial-wallet.liberti.social\"")
-            manifestPlaceholders = [webUrl: "dev-custodial-wallet.liberti.social"]
+            buildConfigField("String", "APP_URL", "\"com.unfinished.us.DSNPWalletApp\"")
+
+            manifestPlaceholders = [
+                    webUrl: "dev-custodial-wallet.liberti.social",
+                    appUrl: "com.unfinished.us.DSNPWalletApp"
+            ]
         }
 
         prod {
@@ -78,8 +83,12 @@ android {
             signingConfig prodSigning
 
             buildConfigField("String", "WEB_URL", "\"dev-custodial-wallet.liberti.social\"")
-            manifestPlaceholders = [webUrl: "dev-custodial-wallet.liberti.social"]
+            buildConfigField("String", "APP_URL", "\"com.unfinished.us.DSNPWalletApp\"")
 
+            manifestPlaceholders = [
+                    webUrl: "dev-custodial-wallet.liberti.social",
+                    appUrl: "com.unfinished.us.DSNPWalletApp"
+            ]
         }
     }
 

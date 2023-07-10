@@ -18,7 +18,7 @@ class DeeplinkViewModel @Inject constructor(
 
     fun setDeeplink(intent: Intent?) {
         _deeplinkStateFlow.value = intent?.data?.toString()?.let {
-            if (it.contains(BuildConfig.WEB_URL)) Deeplink.Valid(
+            if (it.contains(BuildConfig.WEB_URL) || it.contains(BuildConfig.APP_URL)) Deeplink.Valid(
                 url = it,
                 onLinkUsed = { _deeplinkStateFlow.value = Deeplink.None }
             ) else Deeplink.None
