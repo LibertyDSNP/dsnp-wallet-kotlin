@@ -20,6 +20,9 @@ android {
         versionName build_versions.versionName
         ndkVersion build_versions.ndk_version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "DEEP_LINK_JUMP_TO_APP", "\"/jumpToApp\"")
+        manifestPlaceholders = [deepLinkJumpToApp: "/jumpToApp"]
     }
 
     buildTypes {
@@ -54,16 +57,28 @@ android {
 
     flavorDimensions "version"
     productFlavors {
+        def devSigning = signingConfigs.dev
+        def prodSigning = signingConfigs.prod
+
         dev {
             dimension "version"
             applicationIdSuffix ".dev"
             versionNameSuffix " dev"
 
-            store
+            signingConfig devSigning
+
+            buildConfigField("String", "WEB_URL", "\"dev-custodial-wallet.liberti.social\"")
+            manifestPlaceholders = [webUrl: "dev-custodial-wallet.liberti.social"]
         }
 
         prod {
             dimension "version"
+
+            signingConfig prodSigning
+
+            buildConfigField("String", "WEB_URL", "\"dev-custodial-wallet.liberti.social\"")
+            manifestPlaceholders = [webUrl: "dev-custodial-wallet.liberti.social"]
+
         }
     }
 

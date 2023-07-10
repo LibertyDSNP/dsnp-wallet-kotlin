@@ -1,6 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -22,9 +24,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.annotation.DeepLink
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.unfinished.dsnp_wallet_kotlin.BuildConfig
 import com.unfinished.dsnp_wallet_kotlin.R
+import com.unfinished.dsnp_wallet_kotlin.deeplink.Deeplink
+import com.unfinished.dsnp_wallet_kotlin.deeplink.DeeplinkViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.compose.BottomSheet
 import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
@@ -45,16 +51,25 @@ enum class LandingDirection {
 }
 
 @LandingNavGraph(start = true)
-@Destination
+@Destination(
+    deepLinks = [
+        DeepLink(
+            uriPattern = Deeplink.JUMP_TO_APP
+        )
+    ]
+)
 @Composable
 fun LandingPageScreen(
     navigator: DestinationsNavigator,
     bottomSheetViewModel: BottomSheetViewModel,
     dialogViewModel: DialogViewModel,
+    deeplinkViewModel: DeeplinkViewModel,
     createIdentityViewModel: CreateIdentityViewModel
 ) {
     val bottomSheetUiModelState = bottomSheetViewModel.uiModel.collectAsState()
     val bottomSheetUiModel = bottomSheetUiModelState.value
+
+    val deeplinkState = deeplinkViewModel.deeplinkStateFlow.collectAsState()
 
     val context = LocalContext.current
     val haveIdLink = stringResource(id = R.string.have_id_link)
@@ -130,6 +145,23 @@ fun LandingPageScreen(
             }
         }
     )
+
+    LaunchedEffect(
+        key1 = deeplinkState.value,
+        block = {
+            val deeplink = deeplinkState.value
+
+            if (deeplink is Deeplink.Valid) {
+                val path = deeplink.path
+                when {
+                    path == BuildConfig.DEEP_LINK_JUMP_TO_APP -> context.launchChromeTab(
+                        url = "https://${BuildConfig.WEB_URL}/test/redirector",
+                        showBackButton = true
+                    )
+                }
+            }
+        }
+    )
 }
 
 @Composable
@@ -180,18 +212,23 @@ fun LandingPageScreen(
             onClick = haveIdClick
         )
 
-        Spacer(modifier = Modifier.size(32.dp))
-        Text(
-            text = stringResource(id = R.string.restore_account),
-            style = MainTypography.body.copy(),
-            color = MainColors.onBackground,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = restoreAccountClick)
-                .testTag(Tag.LandingPageScreen.restoreAccount),
-            textAlign = TextAlign.Center,
-            textDecoration = TextDecoration.Underline
-        )
+        Spacer(modifier = Modifier.size(16.dp))
+        Box(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = stringResource(id = R.string.restore_account),
+                style = MainTypography.body.copy(),
+                color = MainColors.onBackground,
+                modifier = Modifier
+                    .clickable(onClick = restoreAccountClick)
+                    .testTag(Tag.LandingPageScreen.restoreAccount)
+                    .padding(16.dp)
+                    .align(Alignment.Center),
+                textAlign = TextAlign.Center,
+                textDecoration = TextDecoration.Underline
+            )
+        }
 
         Spacer(modifier = Modifier.weight(1f))
         TermsAndPrivacy(modifier = Modifier.testTag(Tag.LandingPageScreen.termsAndPrivacy))
