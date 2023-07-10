@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.domain.account.export.json.validations
 
-import io.novafoundation.nova.common.validation.ValidationStatus
-import io.novafoundation.nova.common.validation.validOrError
+import com.unfinished.common.validation.ValidationStatus
+import com.unfinished.common.validation.validOrError
 
 class PasswordMatchConfirmationValidation : ExportJsonPasswordValidation {
 

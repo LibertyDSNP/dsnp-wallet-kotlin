@@ -7,8 +7,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.coroutineScope
 import com.unfinished.feature_account.R
 import com.unfinished.feature_account.databinding.ImportSourceMnemonicBinding
-import io.novafoundation.nova.common.utils.bindTo
-import io.novafoundation.nova.common.view.shape.getIdleDrawable
+import com.unfinished.common.utils.bindTo
+import com.unfinished.common.view.shape.getIdleDrawable
 import com.unfinished.feature_account.presentation.importing.source.model.MnemonicImportSource
 
 class MnemonicImportView @JvmOverloads constructor(

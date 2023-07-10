@@ -8,7 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.components.SingletonComponent
-import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.common.data.secrets.v2.SecretStoreV2
 import javax.inject.Singleton
 
 @Module

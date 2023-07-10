@@ -1,11 +1,11 @@
 package com.unfinished.feature_account.domain.account.details
 
-import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
-import io.novafoundation.nova.common.data.secrets.v2.entropy
-import io.novafoundation.nova.common.data.secrets.v2.getAccountSecrets
-import io.novafoundation.nova.common.data.secrets.v2.seed
-import io.novafoundation.nova.common.list.GroupedList
-import io.novafoundation.nova.common.utils.mapToSet
+import com.unfinished.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.common.data.secrets.v2.entropy
+import com.unfinished.common.data.secrets.v2.getAccountSecrets
+import com.unfinished.common.data.secrets.v2.seed
+import com.unfinished.common.list.GroupedList
+import com.unfinished.common.utils.mapToSet
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.LightMetaAccount
 import com.unfinished.feature_account.domain.model.MetaAccount
@@ -15,9 +15,9 @@ import com.unfinished.feature_account.domain.model.hasChainAccountIn
 import com.unfinished.feature_account.domain.account.details.AccountInChain.From
 import com.unfinished.feature_account.domain.validation.SubstrateApplicationConfig
 import com.unfinished.feature_account.presentation.model.account.add.SecretType
-import io.novafoundation.nova.runtime.ext.defaultComparatorFrom
-import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.ext.defaultComparatorFrom
+import com.unfinished.runtime.multiNetwork.ChainRegistry
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext

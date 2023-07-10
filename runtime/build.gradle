@@ -38,15 +38,13 @@ android {
         jvmTarget = '17'
     }
 
-    namespace 'io.novafoundation.nova.runtime'
+    namespace 'com.unfinished.runtime'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(":common")
-    implementation project(":core-db")
-    implementation project(":core-api")
 
     implementation deps.retrofit.converter_gson
 

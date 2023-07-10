@@ -38,7 +38,6 @@ android {
 
 dependencies {
 
-    implementation project(':core-db')
     implementation project(':common')
     implementation project(':runtime')
 

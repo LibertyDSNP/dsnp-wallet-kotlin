@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.unfinished.feature_account.databinding.ItemSourceTypeBinding
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.presentation.model.account.add.SecretType
-import io.novafoundation.nova.common.view.bottomSheet.list.fixed.FixedListBottomSheet
+import com.unfinished.common.view.bottomSheet.list.fixed.FixedListBottomSheet
 
 class ImportTypeChooserBottomSheet(
     context: Context,

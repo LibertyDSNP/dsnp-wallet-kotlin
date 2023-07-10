@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.domain.model
 
-import io.novafoundation.nova.common.utils.amountFromPlanks
-import io.novafoundation.nova.common.utils.planksFromAmount
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.common.utils.amountFromPlanks
+import com.unfinished.common.utils.planksFromAmount
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import java.math.BigDecimal
 import java.math.BigInteger
 

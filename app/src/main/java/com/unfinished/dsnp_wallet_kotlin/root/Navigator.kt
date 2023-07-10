@@ -27,8 +27,8 @@ import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemo
 import com.unfinished.feature_account.presentation.pincode.PinCodeAction
 import com.unfinished.feature_account.presentation.pincode.PincodeFragment
 import com.unfinished.feature_account.presentation.pincode.ToolbarConfiguration
-import io.novafoundation.nova.common.navigation.DelayedNavigation
-import io.novafoundation.nova.common.utils.postToUiThread
+import com.unfinished.common.navigation.DelayedNavigation
+import com.unfinished.common.utils.postToUiThread
 import kotlinx.parcelize.Parcelize
 
 

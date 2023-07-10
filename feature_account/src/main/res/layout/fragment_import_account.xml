@@ -8,7 +8,7 @@
     android:background="@color/secondary_screen_background"
     android:fitsSystemWindows="true">
 
-    <io.novafoundation.nova.common.view.Toolbar
+    <com.unfinished.common.view.Toolbar
         android:id="@+id/importAccountToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <io.novafoundation.nova.common.view.PrimaryButton
+    <com.unfinished.common.view.PrimaryButton
         android:id="@+id/importAccountContinue"
         style="@style/Widget.Nova.Button.Primary"
         android:layout_width="match_parent"

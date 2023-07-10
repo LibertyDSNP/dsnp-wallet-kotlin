@@ -89,7 +89,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/confirm_seed_phrase_rv" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/confirm_seed_phrase_btn"
             android:layout_width="0dp"

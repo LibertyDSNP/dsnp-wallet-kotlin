@@ -12,6 +12,13 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation":
+                                      "$projectDir/schemas".toString()]
+            }
+        }
+
         buildConfigField "String", "WEBSITE_URL", "\"https://novawallet.io\""
         buildConfigField "String", "PRIVACY_URL", "\"https://novawallet.io/privacy\""
         buildConfigField "String", "TERMS_URL", "\"https://novawallet.io/terms\""
@@ -51,15 +58,18 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
-    namespace 'io.novafoundation.nova.common'
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
+    namespace 'com.unfinished.common'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation(name: 'renderscript-toolkit', ext: 'aar')
-
-    api project(":core-api")
 
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
@@ -90,6 +100,11 @@ dependencies {
     implementation deps.retrofit.converter_gson
     implementation deps.retrofit.converter_scalars
     implementation deps.retrofit.interceptor
+
+    implementation deps.room.runtime
+    implementation deps.room.ktx
+    kapt deps.room.compiler
+    implementation deps.room.testing
 
     implementation deps.other.bouncycastle
     implementation deps.nova.fearless_utils

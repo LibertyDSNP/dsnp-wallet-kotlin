@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.presentation.importing
 
 import android.content.Intent
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.data.mappers.mapAddAccountPayloadToAddAccountType
 import com.unfinished.feature_account.domain.interfaces.AccountAlreadyExistsException
 import com.unfinished.feature_account.domain.interfaces.AccountInteractor
@@ -11,11 +11,11 @@ import com.unfinished.feature_account.presentation.mixin.AccountNameChooserMixin
 import com.unfinished.feature_account.presentation.mixin.WithAccountNameChooserMixin
 import com.unfinished.feature_account.presentation.model.account.AdvancedEncryptionPayload
 import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.mixin.MixinFactory
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.withFlagSet
-import io.novafoundation.nova.common.view.ButtonState
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.common.mixin.MixinFactory
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.utils.withFlagSet
+import com.unfinished.common.view.ButtonState
 import com.unfinished.feature_account.presentation.importing.source.ImportSourceFactory
 import com.unfinished.feature_account.presentation.importing.source.model.FileRequester
 import com.unfinished.feature_account.presentation.importing.source.model.ImportError

@@ -6,9 +6,9 @@ import android.content.res.Configuration
 import coil.ImageLoader
 import com.unfinished.dsnp_wallet_kotlin.util.ReleaseTree
 import dagger.hilt.android.HiltAndroidApp
-import io.novafoundation.nova.common.data.network.rpc.SocketSingleRequestExecutor
-import io.novafoundation.nova.common.di.CommonApi
-import io.novafoundation.nova.common.resources.*
+import com.unfinished.common.data.network.rpc.SocketSingleRequestExecutor
+import com.unfinished.common.di.CommonApi
+import com.unfinished.common.resources.*
 import timber.log.Timber
 import javax.inject.Inject
 

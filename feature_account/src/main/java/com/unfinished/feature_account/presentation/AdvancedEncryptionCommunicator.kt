@@ -7,9 +7,9 @@ import com.unfinished.feature_account.domain.account.advancedEncryption.Advanced
 import com.unfinished.feature_account.domain.interactor.AdvancedEncryptionInteractor
 import com.unfinished.feature_account.presentation.model.account.AdvancedEncryptionPayload
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
-import io.novafoundation.nova.common.navigation.InterScreenRequester
-import io.novafoundation.nova.common.navigation.InterScreenResponder
-import io.novafoundation.nova.core.model.CryptoType
+import com.unfinished.common.navigation.InterScreenRequester
+import com.unfinished.common.navigation.InterScreenResponder
+import com.unfinished.common.core.api.model.CryptoType
 import kotlinx.android.parcel.Parcelize
 
 interface AdvancedEncryptionRequester : InterScreenRequester<AdvancedEncryptionPayload, AdvancedEncryptionCommunicator.Response>

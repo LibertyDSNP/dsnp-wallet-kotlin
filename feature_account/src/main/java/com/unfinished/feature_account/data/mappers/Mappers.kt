@@ -1,26 +1,26 @@
 package com.unfinished.feature_account.data.mappers
 
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.domain.model.*
 import com.unfinished.feature_account.presentation.mixin.AccountNameChooserMixin
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import com.unfinished.feature_account.presentation.model.advance.encryption.CryptoTypeModel
 import com.unfinished.feature_account.presentation.model.advance.network.NetworkModel
 import com.unfinished.feature_account.presentation.model.advance.network.NodeModel
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.filterNotNull
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.core.model.Node
-import io.novafoundation.nova.core.model.Node.NetworkType
-import io.novafoundation.nova.core_db.dao.MetaAccountWithBalanceLocal
-import io.novafoundation.nova.core_db.model.NodeLocal
-import io.novafoundation.nova.core_db.model.chain.ChainAccountLocal
-import io.novafoundation.nova.core_db.model.chain.JoinedMetaAccountInfo
-import io.novafoundation.nova.core_db.model.chain.MetaAccountLocal
-import io.novafoundation.nova.runtime.ext.addressOf
-import io.novafoundation.nova.runtime.ext.hexAccountIdOf
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.utils.filterNotNull
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.common.core.api.model.Node
+import com.unfinished.common.core.api.model.Node.NetworkType
+import com.unfinished.core.db.dao.MetaAccountWithBalanceLocal
+import com.unfinished.core.db.model.NodeLocal
+import com.unfinished.core.db.model.chain.ChainAccountLocal
+import com.unfinished.core.db.model.chain.JoinedMetaAccountInfo
+import com.unfinished.core.db.model.chain.MetaAccountLocal
+import com.unfinished.runtime.ext.addressOf
+import com.unfinished.runtime.ext.hexAccountIdOf
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.extensions.toHexString
 
 fun mapNetworkTypeToNetworkModel(networkType: NetworkType): NetworkModel {
@@ -40,19 +40,19 @@ fun mapCryptoTypeToCryptoTypeModel(
 ): CryptoTypeModel {
     val name = when (encryptionType) {
         CryptoType.SR25519 -> "${resourceManager.getString(R.string.sr25519_selection_title)} ${
-        resourceManager.getString(
-            R.string.sr25519_selection_subtitle
-        )
+            resourceManager.getString(
+                R.string.sr25519_selection_subtitle
+            )
         }"
         CryptoType.ED25519 -> "${resourceManager.getString(R.string.ed25519_selection_title)} ${
-        resourceManager.getString(
-            R.string.ed25519_selection_subtitle
-        )
+            resourceManager.getString(
+                R.string.ed25519_selection_subtitle
+            )
         }"
         CryptoType.ECDSA -> "${resourceManager.getString(R.string.ecdsa_selection_title)} ${
-        resourceManager.getString(
-            R.string.ecdsa_selection_subtitle
-        )
+            resourceManager.getString(
+                R.string.ecdsa_selection_subtitle
+            )
         }"
     }
 

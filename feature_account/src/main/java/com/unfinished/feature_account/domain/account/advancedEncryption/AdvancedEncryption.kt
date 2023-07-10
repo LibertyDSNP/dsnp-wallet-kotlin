@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.domain.account.advancedEncryption
 
-import io.novafoundation.nova.common.utils.input.Input
-import io.novafoundation.nova.core.model.CryptoType
+import com.unfinished.common.utils.input.Input
+import com.unfinished.common.core.api.model.CryptoType
 
 class AdvancedEncryptionInput(
     val substrateCryptoType: Input<CryptoType>,

@@ -3,7 +3,7 @@ package com.unfinished.feature_account.data.mappers
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryption
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryptionInput
 import com.unfinished.feature_account.presentation.AdvancedEncryptionCommunicator
-import io.novafoundation.nova.common.utils.input.valueOrNull
+import com.unfinished.common.utils.input.valueOrNull
 
 fun mapAdvancedEncryptionStateToResponse(
     input: AdvancedEncryptionInput

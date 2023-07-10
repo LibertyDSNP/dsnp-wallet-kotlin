@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.domain.account.export.mnemonic.ExportMnemonicInteractor
 import com.unfinished.feature_account.domain.interactor.AdvancedEncryptionInteractor
 import com.unfinished.feature_account.domain.interfaces.AccountInteractor
@@ -13,12 +13,12 @@ import com.unfinished.feature_account.presentation.AdvancedEncryptionCommunicato
 import com.unfinished.feature_account.presentation.AdvancedEncryptionRequester
 import com.unfinished.feature_account.presentation.lastResponseOrDefault
 import com.unfinished.feature_account.presentation.model.account.AdvancedEncryptionPayload
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.Event
-import io.novafoundation.nova.common.utils.flowOf
-import io.novafoundation.nova.common.utils.inBackground
-import io.novafoundation.nova.common.utils.sendEvent
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.utils.Event
+import com.unfinished.common.utils.flowOf
+import com.unfinished.common.utils.inBackground
+import com.unfinished.common.utils.sendEvent
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicPayload.CreateExtras
 import com.unfinished.feature_account.presentation.mnemonic.confirm.MnemonicWord

@@ -10,10 +10,10 @@ import com.unfinished.feature_account.R
 import com.unfinished.feature_account.databinding.ViewChainChipBinding
 import com.unfinished.feature_account.presentation.model.chain.ChainUi
 import com.unfinished.feature_account.presentation.model.chain.loadChainIcon
-import io.novafoundation.nova.common.di.FeatureUtils
-import io.novafoundation.nova.common.utils.setDrawableEnd
-import io.novafoundation.nova.common.utils.setTextColorRes
-import io.novafoundation.nova.common.view.shape.getRoundedCornerDrawable
+import com.unfinished.common.di.FeatureUtils
+import com.unfinished.common.utils.setDrawableEnd
+import com.unfinished.common.utils.setTextColorRes
+import com.unfinished.common.view.shape.getRoundedCornerDrawable
 
 class ChainChipModel(
     val chainUi: ChainUi,
@@ -35,7 +35,7 @@ class ChainChipView @JvmOverloads constructor(
     init {
         binding = ViewChainChipBinding.inflate(LayoutInflater.from(context),this)
 
-        binding.itemAssetGroupLabel.background = context.getRoundedCornerDrawable(io.novafoundation.nova.common.R.color.chips_background, cornerSizeInDp = 8)
+        binding.itemAssetGroupLabel.background = context.getRoundedCornerDrawable(com.unfinished.common.R.color.chips_background, cornerSizeInDp = 8)
     }
 
     fun setModel(chainChipModel: ChainChipModel) {
@@ -47,10 +47,10 @@ class ChainChipView @JvmOverloads constructor(
         binding.itemAssetGroupLabel.isEnabled = changeable
 
         if (changeable) {
-            binding.itemAssetGroupLabel.setTextColorRes(io.novafoundation.nova.common.R.color.button_text_accent)
-            binding.itemAssetGroupLabel.setDrawableEnd(io.novafoundation.nova.common.R.drawable.ic_chevron_down, widthInDp = 16, paddingInDp = 4, tint = io.novafoundation.nova.common.R.color.icon_accent)
+            binding.itemAssetGroupLabel.setTextColorRes(com.unfinished.common.R.color.button_text_accent)
+            binding.itemAssetGroupLabel.setDrawableEnd(com.unfinished.common.R.drawable.ic_chevron_down, widthInDp = 16, paddingInDp = 4, tint = com.unfinished.common.R.color.icon_accent)
         } else {
-            binding.itemAssetGroupLabel.setTextColorRes(io.novafoundation.nova.common.R.color.text_primary)
+            binding.itemAssetGroupLabel.setTextColorRes(com.unfinished.common.R.color.text_primary)
             binding.itemAssetGroupLabel.setDrawableEnd(null)
         }
     }

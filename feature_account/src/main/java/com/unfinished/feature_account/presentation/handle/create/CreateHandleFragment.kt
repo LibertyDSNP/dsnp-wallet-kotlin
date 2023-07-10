@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.unfinished.feature_account.databinding.FragmentCreateHandleBinding
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.utils.showSoftKeyboard
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.utils.showSoftKeyboard
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint

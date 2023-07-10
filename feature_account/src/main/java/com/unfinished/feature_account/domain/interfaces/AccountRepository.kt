@@ -1,13 +1,13 @@
 package com.unfinished.feature_account.domain.interfaces
 
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.core.model.Language
-import io.novafoundation.nova.core.model.Node
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.common.core.api.model.Language
+import com.unfinished.common.core.api.model.Node
 import com.unfinished.feature_account.domain.model.Account
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.MetaAccountAssetBalance
 import com.unfinished.feature_account.domain.model.MetaAccountOrdering
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import kotlinx.coroutines.flow.Flow
@@ -43,8 +43,6 @@ interface AccountRepository {
     suspend fun allMetaAccounts(): List<MetaAccount>
 
     fun allMetaAccountsFlow(): Flow<List<MetaAccount>>
-
-    fun metaAccountBalancesFlow(): Flow<List<MetaAccountAssetBalance>>
 
     suspend fun selectMetaAccount(metaId: Long)
 

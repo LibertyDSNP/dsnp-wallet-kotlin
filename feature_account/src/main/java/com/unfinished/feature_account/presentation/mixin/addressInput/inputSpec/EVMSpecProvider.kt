@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.presentation.mixin.addressInput.inputSpec
 
 import android.graphics.drawable.Drawable
-import io.novafoundation.nova.common.address.AddressIconGenerator
+import com.unfinished.common.address.AddressIconGenerator
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumAddress
 import jp.co.soramitsu.fearless_utils.extensions.isValid
 import jp.co.soramitsu.fearless_utils.extensions.toAccountId

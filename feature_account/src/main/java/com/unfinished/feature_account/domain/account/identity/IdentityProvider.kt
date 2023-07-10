@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.domain.account.identity
 
-import io.novafoundation.nova.common.address.AccountIdKey
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.common.address.AccountIdKey
+import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 
 interface IdentityProvider {
@@ -16,7 +16,7 @@ interface IdentityProvider {
     /**
      * Bulk version of [identityFor]. Default implementation is unoptimized and just performs N single requests to [identityFor].
      */
-    suspend fun identitiesFor(accountIds: Collection<AccountId>, chainId: ChainId): Map<AccountIdKey, Identity?> {
+    suspend fun identitiesFor(accountIds: Collection<AccountId>, chainId: ChainId): Map<com.unfinished.common.address.AccountIdKey, Identity?> {
         return accountIds.associateBy(
             keySelector = ::AccountIdKey,
             valueTransform = { identityFor(it, chainId) }

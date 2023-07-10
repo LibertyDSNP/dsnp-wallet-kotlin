@@ -1,11 +1,11 @@
 package com.unfinished.feature_account.domain.account.export.seed
 
-import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
-import io.novafoundation.nova.common.data.secrets.v2.seed
+import com.unfinished.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.common.data.secrets.v2.seed
 import com.unfinished.feature_account.data.secrets.getAccountSecrets
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
-import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.runtime.multiNetwork.ChainRegistry
+import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.extensions.toHexString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

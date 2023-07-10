@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:background="@color/secondary_screen_background">
 
-    <io.novafoundation.nova.common.view.Toolbar
+    <com.unfinished.common.view.Toolbar
         android:id="@+id/exportSeedToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

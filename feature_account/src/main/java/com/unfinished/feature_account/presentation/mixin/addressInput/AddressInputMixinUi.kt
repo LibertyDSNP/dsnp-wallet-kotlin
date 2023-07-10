@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.presentation.mixin.addressInput
 
 import androidx.lifecycle.lifecycleScope
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.utils.bindTo
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.utils.bindTo
 
 fun BaseFragment<*>.setupAddressInput(
     mixin: AddressInputMixin,

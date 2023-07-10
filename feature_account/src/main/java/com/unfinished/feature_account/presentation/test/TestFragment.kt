@@ -20,11 +20,11 @@ import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.toUnit
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.utils.setOnSafeClickListener
-import io.novafoundation.nova.common.validation.validationError
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.runtime.ext.addressOf
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.utils.setOnSafeClickListener
+import com.unfinished.common.validation.validationError
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.runtime.ext.addressOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest

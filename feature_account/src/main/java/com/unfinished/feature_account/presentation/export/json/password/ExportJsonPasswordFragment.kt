@@ -13,10 +13,10 @@ import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemoni
 import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.mixin.impl.observeValidations
-import io.novafoundation.nova.common.utils.bindTo
-import io.novafoundation.nova.common.view.setState
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.mixin.impl.observeValidations
+import com.unfinished.common.utils.bindTo
+import com.unfinished.common.view.setState
 import javax.inject.Inject
 
 private const val PAYLOAD_KEY = "PAYLOAD_KEY"

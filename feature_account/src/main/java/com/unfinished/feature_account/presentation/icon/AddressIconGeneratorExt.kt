@@ -5,11 +5,11 @@ import androidx.annotation.ColorRes
 import com.unfinished.feature_account.domain.account.identity.IdentityProvider
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.addressIn
-import io.novafoundation.nova.common.address.AddressIconGenerator
-import io.novafoundation.nova.common.address.AddressModel
-import io.novafoundation.nova.runtime.ext.accountIdOf
-import io.novafoundation.nova.runtime.ext.addressOf
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.common.address.AddressIconGenerator
+import com.unfinished.common.address.AddressModel
+import com.unfinished.runtime.ext.accountIdOf
+import com.unfinished.runtime.ext.addressOf
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 
 suspend fun AddressIconGenerator.createAddressModel(

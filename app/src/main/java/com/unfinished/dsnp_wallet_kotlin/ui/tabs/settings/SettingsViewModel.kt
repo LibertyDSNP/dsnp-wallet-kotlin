@@ -3,7 +3,7 @@ package com.unfinished.dsnp_wallet_kotlin.ui.tabs.settings
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.base.BaseViewModel
+import com.unfinished.common.base.BaseViewModel
 import javax.inject.Inject
 import kotlin.random.Random
 

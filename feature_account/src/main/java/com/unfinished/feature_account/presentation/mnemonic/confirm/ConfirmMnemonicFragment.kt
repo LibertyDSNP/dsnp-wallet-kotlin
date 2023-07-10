@@ -12,11 +12,11 @@ import com.unfinished.feature_account.presentation.mnemonic.SharedMnemonicViewMo
 import com.unfinished.feature_account.presentation.mnemonic.adapter.DestinationWordAdapter
 import com.unfinished.feature_account.presentation.mnemonic.adapter.SourceWordAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.utils.ItemOffsetDecoration
-import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.utils.ItemOffsetDecoration
+import com.unfinished.common.utils.setOnSafeClickListener
 import javax.inject.Inject
-import io.novafoundation.nova.common.R as commonR
+import com.unfinished.common.R as commonR
 
 @AndroidEntryPoint
 class ConfirmMnemonicFragment : BaseFragment<ConfirmMnemonicViewModel>() {

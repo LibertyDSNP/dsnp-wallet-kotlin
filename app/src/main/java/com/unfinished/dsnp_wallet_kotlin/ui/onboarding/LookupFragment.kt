@@ -15,9 +15,9 @@ import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLookupBinding
 import com.unfinished.dsnp_wallet_kotlin.util.*
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
-import io.novafoundation.nova.common.R as commonR
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.mixin.impl.observeBrowserEvents
+import com.unfinished.common.R as commonR
 
 
 @AndroidEntryPoint

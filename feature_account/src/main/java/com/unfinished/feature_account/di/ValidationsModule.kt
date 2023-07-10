@@ -9,7 +9,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.scopes.FragmentScoped
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
-import io.novafoundation.nova.common.validation.from
+import com.unfinished.common.validation.from
 import javax.inject.Singleton
 
 @Module

@@ -1,21 +1,21 @@
 package com.unfinished.feature_account.domain.validation
 
 import androidx.annotation.StringRes
-import io.novafoundation.nova.common.mixin.api.CustomDialogDisplayer
-import io.novafoundation.nova.common.mixin.api.CustomDialogDisplayer.Payload.DialogAction.Companion.noOp
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.validation.TransformedFailure
-import io.novafoundation.nova.common.validation.Validation
-import io.novafoundation.nova.common.validation.ValidationStatus
-import io.novafoundation.nova.common.validation.ValidationSystemBuilder
-import io.novafoundation.nova.common.validation.validationError
+import com.unfinished.common.mixin.api.CustomDialogDisplayer
+import com.unfinished.common.mixin.api.CustomDialogDisplayer.Payload.DialogAction.Companion.noOp
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.validation.TransformedFailure
+import com.unfinished.common.validation.Validation
+import com.unfinished.common.validation.ValidationStatus
+import com.unfinished.common.validation.ValidationSystemBuilder
+import com.unfinished.common.validation.validationError
 import com.unfinished.feature_account.R
 import com.unfinished.feature_account.domain.model.LightMetaAccount.Type.LEDGER
 import com.unfinished.feature_account.domain.model.LightMetaAccount.Type.PARITY_SIGNER
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.hasAccountIn
 import com.unfinished.feature_account.domain.validation.NoChainAccountFoundError.AddAccountState
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 
 interface NoChainAccountFoundError {
     val chain: Chain

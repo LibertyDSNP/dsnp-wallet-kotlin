@@ -9,8 +9,8 @@ import com.unfinished.feature_account.R
 import com.unfinished.feature_account.databinding.ItemDestinationWordBinding
 import com.unfinished.feature_account.presentation.mnemonic.confirm.MnemonicWord
 import com.unfinished.feature_account.presentation.mnemonic.util.list.DiffCallback
-import io.novafoundation.nova.common.list.resolvePayload
-import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import com.unfinished.common.list.resolvePayload
+import com.unfinished.common.utils.setOnSafeClickListener
 
 class DestinationWordAdapter(
     val onItemClicked: ((Int, MnemonicWord) -> Unit)? = null,

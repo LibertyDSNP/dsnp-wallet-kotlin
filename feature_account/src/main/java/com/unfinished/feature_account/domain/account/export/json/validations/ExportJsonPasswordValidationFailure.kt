@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.domain.account.export.json.validations
 
-import io.novafoundation.nova.common.base.TitleAndMessage
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.R
+import com.unfinished.common.base.TitleAndMessage
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.R
 
 enum class ExportJsonPasswordValidationFailure {
     PASSWORDS_DO_NOT_MATCH

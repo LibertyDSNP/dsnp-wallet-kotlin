@@ -8,7 +8,7 @@
     tools:background="@color/secondary_screen_background"
     tools:parentTag="android.widget.LinearLayout">
 
-    <io.novafoundation.nova.common.view.LabeledTextView
+    <com.unfinished.common.view.LabeledTextView
         android:id="@+id/importJsonContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:drawableStartCompat="@drawable/ic_warning_filled"
         tools:visibility="visible" />
 
-    <io.novafoundation.nova.common.view.InputField
+    <com.unfinished.common.view.InputField
         android:id="@+id/importJsonPasswordInput"
         style="@style/Widget.Nova.Input.Primary.External"
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:hint="@string/account_import_password_placeholder"
         android:inputType="textPassword" />
 
-    <io.novafoundation.nova.common.view.InputField
+    <com.unfinished.common.view.InputField
         android:id="@+id/importJsonUsernameInput"
         style="@style/Widget.Nova.Input.Primary.External"
         android:layout_width="match_parent"

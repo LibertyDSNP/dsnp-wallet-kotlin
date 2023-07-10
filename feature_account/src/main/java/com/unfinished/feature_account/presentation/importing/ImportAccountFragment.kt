@@ -10,7 +10,7 @@ import coil.ImageLoader
 import com.unfinished.feature_account.databinding.FragmentImportAccountBinding
 import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
+import com.unfinished.common.base.BaseFragment
 import com.unfinished.feature_account.presentation.importing.source.model.FileRequester
 import com.unfinished.feature_account.presentation.importing.source.model.ImportSource
 import com.unfinished.feature_account.presentation.importing.source.model.RequestCode

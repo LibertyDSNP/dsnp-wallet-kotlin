@@ -7,15 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.databinding.ViewAddressInputBinding
-import io.novafoundation.nova.common.utils.WithContextExtensions
-import io.novafoundation.nova.common.utils.makeVisible
-import io.novafoundation.nova.common.utils.setVisible
-import io.novafoundation.nova.common.utils.useAttributes
-import io.novafoundation.nova.common.view.shape.addRipple
-import io.novafoundation.nova.common.view.shape.getInputBackground
-import io.novafoundation.nova.common.view.shape.getRoundedCornerDrawable
+import com.unfinished.common.utils.WithContextExtensions
+import com.unfinished.common.utils.makeVisible
+import com.unfinished.common.utils.setVisible
+import com.unfinished.common.utils.useAttributes
+import com.unfinished.common.view.shape.addRipple
+import com.unfinished.common.view.shape.getInputBackground
+import com.unfinished.common.view.shape.getRoundedCornerDrawable
 
 class AddressInputField @JvmOverloads constructor(
     context: Context,

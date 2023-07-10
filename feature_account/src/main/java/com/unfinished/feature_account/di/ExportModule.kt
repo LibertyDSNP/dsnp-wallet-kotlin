@@ -8,8 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
-import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
+import com.unfinished.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.runtime.multiNetwork.ChainRegistry
 import javax.inject.Singleton
 
 @Module

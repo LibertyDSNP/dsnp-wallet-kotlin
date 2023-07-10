@@ -16,10 +16,10 @@ import com.unfinished.feature_account.presentation.mnemonic.WarningDialogButton
 import com.unfinished.feature_account.presentation.mnemonic.WarningDialogFragment
 import com.unfinished.feature_account.presentation.mnemonic.adapter.BackupWordAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.R
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.utils.createSpannable
-import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import com.unfinished.common.R
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.utils.createSpannable
+import com.unfinished.common.utils.setOnSafeClickListener
 import javax.inject.Inject
 
 @AndroidEntryPoint

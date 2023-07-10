@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.domain.validation
 
 
-import io.novafoundation.nova.runtime.ext.Geneses
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.ext.Geneses
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 
 class SubstrateApplicationConfig(
     val chainId: String,

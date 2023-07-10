@@ -111,7 +111,7 @@
             app:layout_constraintStart_toStartOf="@+id/input_field"
             app:layout_constraintTop_toBottomOf="@+id/input_field" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             android:id="@+id/create_handle_next"
             style="@style/Widget.Nova.Button.Primary"
             android:layout_width="0dp"

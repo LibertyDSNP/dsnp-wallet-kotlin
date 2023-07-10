@@ -108,7 +108,7 @@ class PinCodeView @JvmOverloads constructor(
     }
 
     private fun shakeDotsAnimation() {
-        val animation = AnimationUtils.loadAnimation(context, io.novafoundation.nova.common.R.anim.shake)
+        val animation = AnimationUtils.loadAnimation(context, com.unfinished.common.R.anim.shake)
         progressView?.startAnimation(animation)
     }
 }

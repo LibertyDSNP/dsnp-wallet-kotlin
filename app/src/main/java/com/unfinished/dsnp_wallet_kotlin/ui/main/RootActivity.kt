@@ -18,9 +18,9 @@ import com.unfinished.dsnp_wallet_kotlin.root.NavigationHolder
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.hide
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseActivity
-import io.novafoundation.nova.common.resources.ContextManager
-import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
+import com.unfinished.common.base.BaseActivity
+import com.unfinished.common.resources.ContextManager
+import com.unfinished.common.utils.systemCall.SystemCallExecutor
 import javax.inject.Inject
 
 

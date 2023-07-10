@@ -3,8 +3,8 @@ package com.unfinished.feature_account.presentation.pincode
 import android.os.Parcelable
 import androidx.annotation.StringRes
 import com.unfinished.feature_account.R
-import io.novafoundation.nova.common.R as commonR
-import io.novafoundation.nova.common.navigation.DelayedNavigation
+import com.unfinished.common.R as commonR
+import com.unfinished.common.navigation.DelayedNavigation
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

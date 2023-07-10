@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.presentation.pincode
 
 import androidx.lifecycle.*
-import io.novafoundation.nova.common.R as commonR
+import com.unfinished.common.R as commonR
 import com.unfinished.feature_account.domain.interfaces.AccountInteractor
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicPayload
@@ -9,10 +9,10 @@ import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemoni
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.Event
-import io.novafoundation.nova.common.vibration.DeviceVibrator
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.utils.Event
+import com.unfinished.common.vibration.DeviceVibrator
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

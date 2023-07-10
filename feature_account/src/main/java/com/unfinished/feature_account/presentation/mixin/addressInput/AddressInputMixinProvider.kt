@@ -1,15 +1,15 @@
 package com.unfinished.feature_account.presentation.mixin.addressInput
 
 import com.unfinished.feature_account.domain.interfaces.SelectedAccountUseCase
-import io.novafoundation.nova.common.R
-import io.novafoundation.nova.common.address.AddressIconGenerator
-import io.novafoundation.nova.common.resources.ClipboardManager
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.WithCoroutineScopeExtensions
-import io.novafoundation.nova.common.utils.inBackground
-import io.novafoundation.nova.common.utils.systemCall.ScanQrCodeCall
-import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
-import io.novafoundation.nova.common.utils.systemCall.onSystemCallFailure
+import com.unfinished.common.R
+import com.unfinished.common.address.AddressIconGenerator
+import com.unfinished.common.resources.ClipboardManager
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.utils.WithCoroutineScopeExtensions
+import com.unfinished.common.utils.inBackground
+import com.unfinished.common.utils.systemCall.ScanQrCodeCall
+import com.unfinished.common.utils.systemCall.SystemCallExecutor
+import com.unfinished.common.utils.systemCall.onSystemCallFailure
 import com.unfinished.feature_account.presentation.mixin.addressInput.inputSpec.AddressInputSpec
 import com.unfinished.feature_account.presentation.mixin.addressInput.inputSpec.AddressInputSpecProvider
 import com.unfinished.feature_account.presentation.mixin.addressInput.inputSpec.EVMSpecProvider
@@ -19,8 +19,8 @@ import com.unfinished.feature_account.presentation.mixin.addressInput.myselfBeha
 import com.unfinished.feature_account.presentation.mixin.addressInput.myselfBehavior.MyselfBehavior
 import com.unfinished.feature_account.presentation.mixin.addressInput.myselfBehavior.MyselfBehaviorProvider
 import com.unfinished.feature_account.presentation.mixin.addressInput.myselfBehavior.NoMyselfBehaviorProvider
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
-import io.novafoundation.nova.runtime.multiNetwork.qr.MultiChainQrSharingFactory
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.qr.MultiChainQrSharingFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers

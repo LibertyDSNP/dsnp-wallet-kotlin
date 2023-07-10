@@ -1,23 +1,23 @@
 package com.unfinished.feature_account.data.repository.datasource
 
-import io.novafoundation.nova.common.data.secrets.v1.SecretStoreV1
-import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
-import io.novafoundation.nova.common.data.secrets.v2.KeyPairSchema
-import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
-import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
-import io.novafoundation.nova.common.data.storage.Preferences
-import io.novafoundation.nova.common.data.storage.encrypt.EncryptedPreferences
-import io.novafoundation.nova.common.utils.inBackground
-import io.novafoundation.nova.common.utils.mapList
-import io.novafoundation.nova.common.utils.substrateAccountId
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.core.model.Language
-import io.novafoundation.nova.core.model.Node
-import io.novafoundation.nova.core_db.dao.MetaAccountDao
-import io.novafoundation.nova.core_db.dao.NodeDao
-import io.novafoundation.nova.core_db.model.chain.ChainAccountLocal
-import io.novafoundation.nova.core_db.model.chain.MetaAccountLocal
-import io.novafoundation.nova.core_db.model.chain.MetaAccountPositionUpdate
+import com.unfinished.common.data.secrets.v1.SecretStoreV1
+import com.unfinished.common.data.secrets.v2.ChainAccountSecrets
+import com.unfinished.common.data.secrets.v2.KeyPairSchema
+import com.unfinished.common.data.secrets.v2.MetaAccountSecrets
+import com.unfinished.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.common.data.storage.Preferences
+import com.unfinished.common.data.storage.encrypt.EncryptedPreferences
+import com.unfinished.common.utils.inBackground
+import com.unfinished.common.utils.mapList
+import com.unfinished.common.utils.substrateAccountId
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.common.core.api.model.Language
+import com.unfinished.common.core.api.model.Node
+import com.unfinished.core.db.dao.MetaAccountDao
+import com.unfinished.core.db.dao.NodeDao
+import com.unfinished.core.db.model.chain.ChainAccountLocal
+import com.unfinished.core.db.model.chain.MetaAccountLocal
+import com.unfinished.core.db.model.chain.MetaAccountPositionUpdate
 import com.unfinished.feature_account.domain.model.Account
 import com.unfinished.feature_account.domain.model.AuthType
 import com.unfinished.feature_account.domain.model.MetaAccount
@@ -30,9 +30,9 @@ import com.unfinished.feature_account.data.mappers.mapMetaAccountWithBalanceFrom
 import com.unfinished.feature_account.data.mappers.mapNodeLocalToNode
 import com.unfinished.feature_account.data.repository.datasource.migration.AccountDataMigration
 import com.unfinished.feature_account.domain.interfaces.AccountDataSource
-import io.novafoundation.nova.runtime.ext.accountIdOf
-import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.ext.accountIdOf
+import com.unfinished.runtime.multiNetwork.ChainRegistry
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey
 import jp.co.soramitsu.fearless_utils.extensions.toAccountId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
@@ -48,7 +48,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.security.KeyPair
 
 private const val PREFS_AUTH_TYPE = "auth_type"
 private const val PREFS_PIN_CODE = "pin_code"
@@ -184,13 +183,6 @@ class AccountDataSourceImpl(
             }
         }
     }
-
-    override fun metaAccountsWithBalancesFlow(): Flow<List<MetaAccountAssetBalance>> {
-        return metaAccountDao.metaAccountsWithBalanceFlow().mapList {
-            mapMetaAccountWithBalanceFromLocal(it)
-        }
-    }
-
     override suspend fun selectMetaAccount(metaId: Long) {
         metaAccountDao.selectMetaAccount(metaId)
     }

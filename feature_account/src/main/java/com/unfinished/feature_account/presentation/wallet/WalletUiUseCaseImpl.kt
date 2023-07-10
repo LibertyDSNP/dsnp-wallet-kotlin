@@ -3,10 +3,10 @@ package com.unfinished.feature_account.presentation.wallet
 import android.graphics.drawable.Drawable
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.MetaAccount
-import io.novafoundation.nova.common.address.AddressIconGenerator
-import io.novafoundation.nova.common.address.AddressIconGenerator.Companion.BACKGROUND_DEFAULT
-import io.novafoundation.nova.common.address.AddressIconGenerator.Companion.BACKGROUND_TRANSPARENT
-import io.novafoundation.nova.common.utils.ByteArrayComparator
+import com.unfinished.common.address.AddressIconGenerator
+import com.unfinished.common.address.AddressIconGenerator.Companion.BACKGROUND_DEFAULT
+import com.unfinished.common.address.AddressIconGenerator.Companion.BACKGROUND_TRANSPARENT
+import com.unfinished.common.utils.ByteArrayComparator
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest

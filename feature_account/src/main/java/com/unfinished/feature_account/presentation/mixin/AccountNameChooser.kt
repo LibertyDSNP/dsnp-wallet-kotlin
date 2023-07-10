@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.presentation.mixin
 
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
-import io.novafoundation.nova.common.mixin.MixinFactory
+import com.unfinished.common.mixin.MixinFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

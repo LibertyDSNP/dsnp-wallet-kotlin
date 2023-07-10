@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.mnemonic.confirm.CongratulationDialogButton
-import io.novafoundation.nova.common.base.BaseViewModel
+import com.unfinished.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.utils.Event
+import com.unfinished.common.utils.Event
 import javax.inject.Inject
 
 @HiltViewModel

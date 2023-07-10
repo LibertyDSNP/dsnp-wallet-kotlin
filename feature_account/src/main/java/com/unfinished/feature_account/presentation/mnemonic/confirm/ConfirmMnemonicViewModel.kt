@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.unfinished.feature_account.data.mappers.mapAddAccountPayloadToAddAccountType
 import com.unfinished.feature_account.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
 import com.unfinished.feature_account.data.mappers.mapOptionalNameToNameChooserState
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.domain.account.add.AddAccountInteractor
 import com.unfinished.feature_account.domain.interfaces.AccountInteractor
 import com.unfinished.feature_account.presentation.AccountRouter
@@ -14,12 +14,12 @@ import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemoni
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.Event
-import io.novafoundation.nova.common.utils.modified
-import io.novafoundation.nova.common.utils.sendEvent
-import io.novafoundation.nova.common.vibration.DeviceVibrator
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.utils.Event
+import com.unfinished.common.utils.modified
+import com.unfinished.common.utils.sendEvent
+import com.unfinished.common.vibration.DeviceVibrator
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
 import kotlinx.coroutines.flow.Flow

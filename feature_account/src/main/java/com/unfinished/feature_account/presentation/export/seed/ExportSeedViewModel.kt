@@ -14,8 +14,8 @@ import com.unfinished.feature_account.presentation.model.account.AdvancedEncrypt
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.utils.flowOf
-import io.novafoundation.nova.common.utils.inBackground
+import com.unfinished.common.utils.flowOf
+import com.unfinished.common.utils.inBackground
 import javax.inject.Inject
 
 class ExportSeedViewModel @AssistedInject constructor(

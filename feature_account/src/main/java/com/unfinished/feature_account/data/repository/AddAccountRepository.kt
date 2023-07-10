@@ -2,15 +2,15 @@ package com.unfinished.feature_account.data.repository
 
 import android.database.sqlite.SQLiteConstraintException
 import com.unfinished.feature_account.data.secrets.AccountSecretsFactory
-import io.novafoundation.nova.common.data.mappers.mapEncryptionToCryptoType
-import io.novafoundation.nova.common.utils.removeHexPrefix
-import io.novafoundation.nova.core.model.CryptoType
+import com.unfinished.common.data.mappers.mapEncryptionToCryptoType
+import com.unfinished.common.utils.removeHexPrefix
+import com.unfinished.common.core.api.model.CryptoType
 import com.unfinished.feature_account.domain.interfaces.AccountAlreadyExistsException
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.ImportJsonMetaData
 import com.unfinished.feature_account.domain.interfaces.AccountDataSource
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryption
-import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
+import com.unfinished.runtime.multiNetwork.ChainRegistry
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.model.NetworkTypeIdentifier
 import kotlinx.coroutines.Dispatchers

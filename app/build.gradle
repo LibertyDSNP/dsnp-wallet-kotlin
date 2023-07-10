@@ -92,8 +92,6 @@ dependencies {
 
     implementation project(":feature_account")
     implementation project(":common")
-    implementation project(':core-db')
-    implementation project(':core-api')
     implementation project(':runtime')
     implementation project(':uikit')
 

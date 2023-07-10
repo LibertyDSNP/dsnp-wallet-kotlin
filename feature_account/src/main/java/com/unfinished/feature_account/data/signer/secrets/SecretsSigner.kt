@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.data.signer.secrets
 
-import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
-import io.novafoundation.nova.common.data.secrets.v2.getChainAccountKeypair
-import io.novafoundation.nova.common.data.secrets.v2.getMetaAccountKeypair
+import com.unfinished.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.common.data.secrets.v2.getChainAccountKeypair
+import com.unfinished.common.data.secrets.v2.getMetaAccountKeypair
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.multiChainEncryptionFor
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption

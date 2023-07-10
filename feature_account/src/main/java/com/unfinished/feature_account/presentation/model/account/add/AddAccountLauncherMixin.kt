@@ -3,8 +3,8 @@ package com.unfinished.feature_account.presentation.model.account.add
 import androidx.lifecycle.LiveData
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.presentation.mixin.importType.ImportTypeChooserMixin
-import io.novafoundation.nova.common.utils.Event
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.common.utils.Event
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 
 interface AddAccountLauncherMixin {
 

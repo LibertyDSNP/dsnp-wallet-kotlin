@@ -15,8 +15,8 @@ import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemoni
 import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.di.FeatureUtils
-import io.novafoundation.nova.common.utils.assistedViewModel
+import com.unfinished.common.di.FeatureUtils
+import com.unfinished.common.utils.assistedViewModel
 import javax.inject.Inject
 
 private const val PAYLOAD_KEY = "PAYLOAD_KEY"

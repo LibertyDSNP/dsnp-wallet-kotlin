@@ -96,7 +96,7 @@
             app:layout_constraintStart_toEndOf="@+id/confirm_handle_prefix"
             app:layout_constraintTop_toTopOf="@+id/confirm_handle_prefix" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/confirm_handle_next"
             android:layout_width="0dp"

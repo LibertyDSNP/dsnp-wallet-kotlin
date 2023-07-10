@@ -11,8 +11,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentSettingsBinding
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.LandingViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.utils.setOnSafeClickListener
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<SettingsViewModel>() {

@@ -80,7 +80,7 @@
         app:constraint_referenced_ids="advertisementCardLearnMoreArrow,advertisementCardLearnMoreContent"
         tools:visibility="visible" />
 
-    <io.novafoundation.nova.common.view.PrimaryButton
+    <com.unfinished.common.view.PrimaryButton
         android:layout_width="0dp"
         android:id="@+id/advertisementCardButton"
         android:layout_height="wrap_content"

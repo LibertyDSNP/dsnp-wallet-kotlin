@@ -1,12 +1,12 @@
 package com.unfinished.feature_account.domain.interfaces
 
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.core.model.Language
-import io.novafoundation.nova.core.model.Node
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.common.core.api.model.Language
+import com.unfinished.common.core.api.model.Node
 import com.unfinished.feature_account.domain.model.Account
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.PreferredCryptoType
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import kotlinx.coroutines.flow.Flow
 

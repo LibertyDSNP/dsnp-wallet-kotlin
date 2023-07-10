@@ -3,7 +3,7 @@ package com.unfinished.feature_account.presentation.export.json.password
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.domain.account.export.json.ExportJsonInteractor
 import com.unfinished.feature_account.domain.account.export.json.validations.ExportJsonPasswordValidationPayload
 import com.unfinished.feature_account.domain.account.export.json.validations.ExportJsonPasswordValidationSystem
@@ -16,12 +16,12 @@ import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemoni
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.mixin.api.Validatable
-import io.novafoundation.nova.common.presentation.DescriptiveButtonState
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.validation.ValidationExecutor
-import io.novafoundation.nova.common.validation.progressConsumer
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.common.mixin.api.Validatable
+import com.unfinished.common.presentation.DescriptiveButtonState
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.validation.ValidationExecutor
+import com.unfinished.common.validation.progressConsumer
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine

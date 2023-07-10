@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.databinding.FragmentExportSeedBinding
 import com.unfinished.feature_account.presentation.export.ExportFragment
 import com.unfinished.feature_account.presentation.export.ExportPayload
@@ -15,7 +15,7 @@ import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemoni
 import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
 import com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.view.shape.getRoundedCornerDrawable
+import com.unfinished.common.view.shape.getRoundedCornerDrawable
 import javax.inject.Inject
 
 private const val PAYLOAD_KEY = "PAYLOAD_KEY"

@@ -1,7 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.root
 
 import androidx.navigation.NavController
-import io.novafoundation.nova.common.resources.ContextManager
+import com.unfinished.common.resources.ContextManager
 
 class NavigationHolder(val contextManager: ContextManager) {
 

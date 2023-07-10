@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     tools:background="@color/solid_navigation_background">
 
-    <io.novafoundation.nova.common.view.SearchView
+    <com.unfinished.common.view.SearchView
         android:id="@+id/searchToolbarSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

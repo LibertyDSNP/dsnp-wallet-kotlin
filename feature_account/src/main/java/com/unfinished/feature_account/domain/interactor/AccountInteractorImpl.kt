@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.domain.interactor
 
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.core.model.Language
-import io.novafoundation.nova.core.model.Node
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.common.core.api.model.Language
+import com.unfinished.common.core.api.model.Node
 import com.unfinished.feature_account.domain.interfaces.AccountInteractor
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.Account
@@ -12,8 +12,8 @@ import com.unfinished.feature_account.domain.model.PreferredCryptoType
 import com.unfinished.feature_account.domain.model.addressIn
 import com.unfinished.feature_account.domain.errors.NodeAlreadyExistsException
 import com.unfinished.feature_account.domain.errors.UnsupportedNetworkException
-import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.runtime.multiNetwork.ChainRegistry
+import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

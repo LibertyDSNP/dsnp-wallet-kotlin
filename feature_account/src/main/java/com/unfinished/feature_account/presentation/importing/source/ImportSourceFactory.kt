@@ -3,7 +3,7 @@ package com.unfinished.feature_account.presentation.importing.source
 import com.unfinished.feature_account.domain.account.add.AddAccountInteractor
 import com.unfinished.feature_account.domain.interactor.AdvancedEncryptionInteractor
 import com.unfinished.feature_account.presentation.AdvancedEncryptionRequester
-import io.novafoundation.nova.common.resources.ClipboardManager
+import com.unfinished.common.resources.ClipboardManager
 import com.unfinished.feature_account.presentation.importing.FileReader
 import com.unfinished.feature_account.presentation.mixin.AccountNameChooserMixin
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload

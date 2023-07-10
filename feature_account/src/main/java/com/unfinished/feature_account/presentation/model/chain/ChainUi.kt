@@ -3,7 +3,7 @@ package com.unfinished.feature_account.presentation.model.chain
 import android.widget.ImageView
 import coil.ImageLoader
 import coil.load
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 
 data class ChainUi(
     val id: String,

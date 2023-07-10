@@ -1,11 +1,11 @@
 package com.unfinished.feature_account.presentation.model.advance.network
 
-import io.novafoundation.nova.core.model.Node
-import io.novafoundation.nova.core.model.Node.NetworkType.KUSAMA
-import io.novafoundation.nova.core.model.Node.NetworkType.POLKADOT
-import io.novafoundation.nova.core.model.Node.NetworkType.ROCOCO
-import io.novafoundation.nova.core.model.Node.NetworkType.WESTEND
-import io.novafoundation.nova.common.R
+import com.unfinished.common.core.api.model.Node
+import com.unfinished.common.core.api.model.Node.NetworkType.KUSAMA
+import com.unfinished.common.core.api.model.Node.NetworkType.POLKADOT
+import com.unfinished.common.core.api.model.Node.NetworkType.ROCOCO
+import com.unfinished.common.core.api.model.Node.NetworkType.WESTEND
+import com.unfinished.common.R
 
 data class NetworkModel(
     val name: String,

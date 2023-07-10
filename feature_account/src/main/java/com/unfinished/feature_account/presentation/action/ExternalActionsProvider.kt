@@ -3,15 +3,15 @@ package com.unfinished.feature_account.presentation.action
 import androidx.lifecycle.MutableLiveData
 import com.unfinished.feature_account.data.mappers.mapChainToUi
 import com.unfinished.feature_account.presentation.icon.createAccountAddressModel
-import io.novafoundation.nova.common.R
-import io.novafoundation.nova.common.address.AddressIconGenerator
-import io.novafoundation.nova.common.resources.ClipboardManager
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.Event
-import io.novafoundation.nova.runtime.ext.accountUrlOf
-import io.novafoundation.nova.runtime.ext.eventUrlOf
-import io.novafoundation.nova.runtime.ext.extrinsicUrlOf
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.common.R
+import com.unfinished.common.address.AddressIconGenerator
+import com.unfinished.common.resources.ClipboardManager
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.utils.Event
+import com.unfinished.runtime.ext.accountUrlOf
+import com.unfinished.runtime.ext.eventUrlOf
+import com.unfinished.runtime.ext.extrinsicUrlOf
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 
 class ExternalActionsProvider(
     private val clipboardManager: ClipboardManager,

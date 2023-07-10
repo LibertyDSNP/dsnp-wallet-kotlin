@@ -1,10 +1,10 @@
 package com.unfinished.feature_account.presentation.mixin.addressInput.inputSpec
 
 import android.graphics.drawable.Drawable
-import io.novafoundation.nova.common.address.AddressIconGenerator
-import io.novafoundation.nova.runtime.ext.accountIdOf
-import io.novafoundation.nova.runtime.ext.isValidAddress
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.common.address.AddressIconGenerator
+import com.unfinished.runtime.ext.accountIdOf
+import com.unfinished.runtime.ext.isValidAddress
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

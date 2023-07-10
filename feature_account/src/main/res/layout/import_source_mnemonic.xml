@@ -64,7 +64,7 @@
         android:text="@string/account_import_mnemonic_hint"
         android:textColor="@color/text_secondary" />
 
-    <io.novafoundation.nova.common.view.InputField
+    <com.unfinished.common.view.InputField
         android:id="@+id/importMnemonicUsernameInput"
         style="@style/Widget.Nova.Input.Primary.External"
         android:layout_width="match_parent"

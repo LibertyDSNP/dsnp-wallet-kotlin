@@ -1,17 +1,17 @@
 package com.unfinished.feature_account.data.secrets
 
-import io.novafoundation.nova.common.data.secrets.v2.AccountSecrets
-import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
-import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
-import io.novafoundation.nova.common.data.secrets.v2.getAccountSecrets
-import io.novafoundation.nova.common.data.secrets.v2.mapChainAccountSecretsToKeypair
-import io.novafoundation.nova.common.data.secrets.v2.mapMetaAccountSecretsToDerivationPath
-import io.novafoundation.nova.common.data.secrets.v2.mapMetaAccountSecretsToKeypair
-import io.novafoundation.nova.common.utils.fold
+import com.unfinished.common.data.secrets.v2.AccountSecrets
+import com.unfinished.common.data.secrets.v2.ChainAccountSecrets
+import com.unfinished.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.common.data.secrets.v2.getAccountSecrets
+import com.unfinished.common.data.secrets.v2.mapChainAccountSecretsToKeypair
+import com.unfinished.common.data.secrets.v2.mapMetaAccountSecretsToDerivationPath
+import com.unfinished.common.data.secrets.v2.mapMetaAccountSecretsToKeypair
+import com.unfinished.common.utils.fold
 import jp.co.soramitsu.fearless_utils.encrypt.keypair.Keypair
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.accountIdIn
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 
 suspend fun SecretStoreV2.getAccountSecrets(
     metaAccount: MetaAccount,

@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
-import io.novafoundation.nova.common.view.InputField
+import com.unfinished.common.view.InputField
 import com.unfinished.feature_account.presentation.importing.ImportAccountViewModel
 import com.unfinished.feature_account.presentation.importing.source.model.ImportSource
 import com.unfinished.feature_account.presentation.mixin.setupAccountNameChooserUi

@@ -1,12 +1,12 @@
 package com.unfinished.feature_account.domain.model
 
-import io.novafoundation.nova.common.data.mappers.mapCryptoTypeToEncryption
-import io.novafoundation.nova.common.utils.DEFAULT_PREFIX
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.runtime.ext.addressOf
-import io.novafoundation.nova.runtime.ext.toEthereumAddress
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.common.data.mappers.mapCryptoTypeToEncryption
+import com.unfinished.common.utils.DEFAULT_PREFIX
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.runtime.ext.addressOf
+import com.unfinished.runtime.ext.toEthereumAddress
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey
 import jp.co.soramitsu.fearless_utils.extensions.toAccountId

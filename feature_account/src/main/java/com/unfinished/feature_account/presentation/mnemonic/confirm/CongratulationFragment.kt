@@ -10,8 +10,8 @@ import androidx.fragment.app.activityViewModels
 import com.unfinished.feature_account.databinding.FragmentCongratulationDialogBinding
 import com.unfinished.feature_account.presentation.mnemonic.SharedMnemonicViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseDialogFragment
-import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import com.unfinished.common.base.BaseDialogFragment
+import com.unfinished.common.utils.setOnSafeClickListener
 
 enum class CongratulationDialogButton{
     CREATE_PINCODE,

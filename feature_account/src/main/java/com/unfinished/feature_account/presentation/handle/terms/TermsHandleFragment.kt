@@ -8,7 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.unfinished.feature_account.databinding.FragmentTermsHandleBinding
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
+import com.unfinished.common.base.BaseFragment
 
 @AndroidEntryPoint
 class TermsHandleFragment : BaseFragment<TermsHandleViewModel>() {

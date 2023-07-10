@@ -8,7 +8,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.base.BaseFragment
 import com.unfinished.dsnp_wallet_kotlin.util.hide
 import com.unfinished.dsnp_wallet_kotlin.util.show
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.utils.setOnSafeClickListener
+import com.unfinished.common.utils.setOnSafeClickListener
 
 
 @AndroidEntryPoint

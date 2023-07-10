@@ -6,8 +6,8 @@ import com.unfinished.feature_account.domain.interactor.AdvancedEncryptionIntera
 import com.unfinished.feature_account.presentation.AdvancedEncryptionCommunicator
 import dagger.Module
 import dagger.Provides
-import io.novafoundation.nova.common.mixin.MixinFactory
-import io.novafoundation.nova.common.resources.ClipboardManager
+import com.unfinished.common.mixin.MixinFactory
+import com.unfinished.common.resources.ClipboardManager
 import com.unfinished.feature_account.presentation.importing.FileReader
 import com.unfinished.feature_account.presentation.importing.source.ImportSourceFactory
 import com.unfinished.feature_account.presentation.mixin.AccountNameChooserFactory

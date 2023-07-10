@@ -6,7 +6,7 @@ import android.os.Build
 import androidx.annotation.CallSuper
 import androidx.annotation.RequiresApi
 import com.unfinished.feature_account.presentation.export.json.confirm.ShareCompletedReceiver
-import io.novafoundation.nova.common.base.BaseFragment
+import com.unfinished.common.base.BaseFragment
 
 abstract class ExportFragment<V : ExportViewModel> : BaseFragment<V>() {
 
@@ -18,7 +18,7 @@ abstract class ExportFragment<V : ExportViewModel> : BaseFragment<V>() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     private fun shareTextWithCallback(text: String) {
-        val title = getString(io.novafoundation.nova.common.R.string.common_share)
+        val title = getString(com.unfinished.common.R.string.common_share)
 
         val intent = Intent(Intent.ACTION_SEND)
             .putExtra(Intent.EXTRA_TEXT, text)

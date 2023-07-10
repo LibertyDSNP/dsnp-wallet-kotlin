@@ -28,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/google_drive"
             android:layout_width="150dp"
@@ -44,7 +44,7 @@
             app:layout_constraintStart_toStartOf="@+id/backup_label"
             app:layout_constraintTop_toBottomOf="@+id/backup_label" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/email"
             android:layout_width="150dp"
@@ -60,7 +60,7 @@
             app:layout_constraintStart_toStartOf="@+id/backup_label"
             app:layout_constraintTop_toBottomOf="@+id/google_drive" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/save_to_device"
             android:layout_width="150dp"

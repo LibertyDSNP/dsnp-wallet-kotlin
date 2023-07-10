@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.domain.account.export.json
 
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
-import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.runtime.multiNetwork.ChainRegistry
+import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 
 class ExportJsonInteractor(
     private val accountRepository: AccountRepository,

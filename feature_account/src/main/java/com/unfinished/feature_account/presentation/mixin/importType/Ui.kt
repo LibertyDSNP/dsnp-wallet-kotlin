@@ -1,6 +1,6 @@
 package com.unfinished.feature_account.presentation.mixin.importType
 
-import io.novafoundation.nova.common.base.BaseFragment
+import com.unfinished.common.base.BaseFragment
 
 fun BaseFragment<*>.setupImportTypeChooser(mixin: ImportTypeChooserMixin) {
     mixin.showChooserEvent.observeEvent {

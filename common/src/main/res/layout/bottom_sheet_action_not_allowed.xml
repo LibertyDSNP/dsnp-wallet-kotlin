@@ -38,7 +38,7 @@
         android:text="@string/account_watch_key_missing_description"
         android:textColor="@color/text_secondary" />
 
-    <io.novafoundation.nova.common.view.PrimaryButton
+    <com.unfinished.common.view.PrimaryButton
         android:id="@+id/actionNotAllowedOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

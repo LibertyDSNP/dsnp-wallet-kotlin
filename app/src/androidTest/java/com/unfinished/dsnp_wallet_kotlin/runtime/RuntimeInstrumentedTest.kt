@@ -6,24 +6,24 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.gson.Gson
 import com.unfinished.feature_account.domain.model.planksFromAmount
 import com.unfinished.feature_account.domain.model.toPlanks
-import io.novafoundation.nova.common.data.mappers.mapCryptoTypeToEncryption
-import io.novafoundation.nova.common.data.network.runtime.binding.bindAccountInfo
-import io.novafoundation.nova.common.data.network.runtime.calls.*
-import io.novafoundation.nova.common.data.network.runtime.model.SignedBlock
-import io.novafoundation.nova.common.di.FeatureUtils
-import io.novafoundation.nova.common.utils.deriveSeed32
-import io.novafoundation.nova.common.utils.extrinsicHash
-import io.novafoundation.nova.common.utils.orZero
-import io.novafoundation.nova.common.utils.system
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.runtime.ext.accountIdOf
-import io.novafoundation.nova.runtime.ext.hexAccountIdOf
-import io.novafoundation.nova.runtime.ext.utilityAsset
-import io.novafoundation.nova.runtime.extrinsic.CustomSignedExtensions
-import io.novafoundation.nova.runtime.extrinsic.asExtrinsicStatus
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
-import io.novafoundation.nova.runtime.multiNetwork.getRuntime
-import io.novafoundation.nova.runtime.multiNetwork.getSocket
+import com.unfinished.common.data.mappers.mapCryptoTypeToEncryption
+import com.unfinished.common.data.network.runtime.binding.bindAccountInfo
+import com.unfinished.common.data.network.runtime.calls.*
+import com.unfinished.common.data.network.runtime.model.SignedBlock
+import com.unfinished.common.di.FeatureUtils
+import com.unfinished.common.utils.deriveSeed32
+import com.unfinished.common.utils.extrinsicHash
+import com.unfinished.common.utils.orZero
+import com.unfinished.common.utils.system
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.runtime.ext.accountIdOf
+import com.unfinished.runtime.ext.hexAccountIdOf
+import com.unfinished.runtime.ext.utilityAsset
+import com.unfinished.runtime.extrinsic.CustomSignedExtensions
+import com.unfinished.runtime.extrinsic.asExtrinsicStatus
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.getRuntime
+import com.unfinished.runtime.multiNetwork.getSocket
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 import jp.co.soramitsu.fearless_utils.encrypt.junction.SubstrateJunctionDecoder
@@ -183,7 +183,8 @@ class RuntimeInstrumentedTest {
         val response_gensisHash = executeCallWithMapper(request_gensisHash,pojo<String>().nonNull())
 
         //Extrinsic Builder
-        val signer = KeyPairSigner(accountKeypairForMSA, MultiChainEncryption.Substrate(mapCryptoTypeToEncryption(CryptoType.SR25519)))
+        val signer = KeyPairSigner(accountKeypairForMSA, MultiChainEncryption.Substrate(mapCryptoTypeToEncryption(
+            CryptoType.SR25519)))
         val extrinsicBuilder = ExtrinsicBuilder(
             tip = chain.additional?.defaultTip.orZero(),
             runtime = runtime,
@@ -230,7 +231,8 @@ class RuntimeInstrumentedTest {
         val response_gensisHash = executeCallWithMapper(request_gensisHash,pojo<String>().nonNull())
 
         //Extrinsic Builder
-        val signer = KeyPairSigner(senderAccountKeyPair, MultiChainEncryption.Substrate(mapCryptoTypeToEncryption(CryptoType.SR25519)))
+        val signer = KeyPairSigner(senderAccountKeyPair, MultiChainEncryption.Substrate(mapCryptoTypeToEncryption(
+            CryptoType.SR25519)))
         val extrinsicBuilder = ExtrinsicBuilder(
             tip = chain.additional?.defaultTip.orZero(),
             runtime = runtime,

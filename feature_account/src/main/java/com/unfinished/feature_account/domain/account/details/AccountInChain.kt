@@ -1,6 +1,6 @@
 package com.unfinished.feature_account.domain.account.details
 
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 
 class AccountInChain(

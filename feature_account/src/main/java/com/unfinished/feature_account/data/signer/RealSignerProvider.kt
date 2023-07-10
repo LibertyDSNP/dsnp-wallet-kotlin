@@ -3,8 +3,8 @@ package com.unfinished.feature_account.data.signer
 import com.unfinished.feature_account.domain.model.LightMetaAccount
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.data.signer.secrets.SecretsSignerFactory
-import io.novafoundation.nova.runtime.extrinsic.FeeSigner
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.extrinsic.FeeSigner
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.Signer
 
 internal class RealSignerProvider(

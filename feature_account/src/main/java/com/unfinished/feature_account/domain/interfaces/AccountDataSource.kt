@@ -1,18 +1,18 @@
 package com.unfinished.feature_account.domain.interfaces
 
-import io.novafoundation.nova.common.data.secrets.v1.SecretStoreV1
-import io.novafoundation.nova.common.data.secrets.v2.ChainAccountSecrets
-import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
-import io.novafoundation.nova.core.model.CryptoType
-import io.novafoundation.nova.core.model.Language
-import io.novafoundation.nova.core.model.Node
+import com.unfinished.common.data.secrets.v1.SecretStoreV1
+import com.unfinished.common.data.secrets.v2.ChainAccountSecrets
+import com.unfinished.common.data.secrets.v2.MetaAccountSecrets
+import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.common.core.api.model.Language
+import com.unfinished.common.core.api.model.Node
 import com.unfinished.feature_account.domain.model.Account
 import com.unfinished.feature_account.domain.model.AuthType
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.MetaAccountAssetBalance
 import com.unfinished.feature_account.domain.model.MetaAccountOrdering
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct
 import kotlinx.coroutines.flow.Flow
@@ -46,8 +46,6 @@ interface AccountDataSource : SecretStoreV1 {
 
     suspend fun allMetaAccounts(): List<MetaAccount>
     fun allMetaAccountsFlow(): Flow<List<MetaAccount>>
-
-    fun metaAccountsWithBalancesFlow(): Flow<List<MetaAccountAssetBalance>>
     suspend fun selectMetaAccount(metaId: Long)
     suspend fun updateAccountPositions(accountOrdering: List<MetaAccountOrdering>)
 

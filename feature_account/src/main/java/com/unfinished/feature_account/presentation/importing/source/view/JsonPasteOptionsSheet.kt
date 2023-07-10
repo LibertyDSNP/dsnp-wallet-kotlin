@@ -2,9 +2,9 @@ package com.unfinished.feature_account.presentation.importing.source.view
 
 import android.content.Context
 import android.os.Bundle
-import io.novafoundation.nova.common.R
-import io.novafoundation.nova.common.view.bottomSheet.list.fixed.FixedListBottomSheet
-import io.novafoundation.nova.common.view.bottomSheet.list.fixed.item
+import com.unfinished.common.R
+import com.unfinished.common.view.bottomSheet.list.fixed.FixedListBottomSheet
+import com.unfinished.common.view.bottomSheet.list.fixed.item
 
 class JsonPasteOptionsSheet(
     context: Context,

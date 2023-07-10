@@ -1,6 +1,5 @@
 package com.unfinished.feature_account.di
 
-import androidx.navigation.Navigator
 import com.google.gson.Gson
 import com.unfinished.feature_account.BuildConfig
 import com.unfinished.feature_account.data.blockchain.AccountSubstrateSource
@@ -20,7 +19,6 @@ import com.unfinished.feature_account.domain.interactor.AdvancedEncryptionIntera
 import com.unfinished.feature_account.domain.interactor.MetaAccountGroupingInteractorImpl
 import com.unfinished.feature_account.domain.interfaces.*
 import com.unfinished.feature_account.domain.updaters.AccountUpdateScope
-import com.unfinished.feature_account.presentation.AdvancedEncryptionCommunicator
 import com.unfinished.feature_account.presentation.action.ExternalActions
 import com.unfinished.feature_account.presentation.action.ExternalActionsProvider
 import com.unfinished.feature_account.presentation.icon.AddressDisplayUseCase
@@ -34,26 +32,25 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.novafoundation.nova.common.address.AddressIconGenerator
-import io.novafoundation.nova.common.data.network.rpc.SocketSingleRequestExecutor
-import io.novafoundation.nova.common.data.secrets.v1.SecretStoreV1
-import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
-import io.novafoundation.nova.common.data.storage.Preferences
-import io.novafoundation.nova.common.data.storage.encrypt.EncryptedPreferences
-import io.novafoundation.nova.common.resources.ClipboardManager
-import io.novafoundation.nova.common.resources.LanguagesHolder
-import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
-import io.novafoundation.nova.core_db.dao.AccountDao
-import io.novafoundation.nova.core_db.dao.MetaAccountDao
-import io.novafoundation.nova.core_db.dao.NodeDao
-import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
-import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
-import io.novafoundation.nova.runtime.multiNetwork.qr.MultiChainQrSharingFactory
-import io.novafoundation.nova.runtime.network.rpc.RpcCalls
+import com.unfinished.common.address.AddressIconGenerator
+import com.unfinished.common.data.network.rpc.SocketSingleRequestExecutor
+import com.unfinished.common.data.secrets.v1.SecretStoreV1
+import com.unfinished.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.common.data.storage.Preferences
+import com.unfinished.common.data.storage.encrypt.EncryptedPreferences
+import com.unfinished.common.resources.ClipboardManager
+import com.unfinished.common.resources.LanguagesHolder
+import com.unfinished.common.resources.ResourceManager
+import com.unfinished.common.utils.systemCall.SystemCallExecutor
+import com.unfinished.core.db.dao.AccountDao
+import com.unfinished.core.db.dao.MetaAccountDao
+import com.unfinished.core.db.dao.NodeDao
+import com.unfinished.runtime.extrinsic.ExtrinsicBuilderFactory
+import com.unfinished.runtime.multiNetwork.ChainRegistry
+import com.unfinished.runtime.multiNetwork.qr.MultiChainQrSharingFactory
+import com.unfinished.runtime.network.rpc.RpcCalls
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedEncoder
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -2,9 +2,9 @@ package com.unfinished.feature_account.presentation.action
 
 import android.content.Context
 import androidx.lifecycle.lifecycleScope
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.common.mixin.impl.observeBrowserEvents
 
 fun <T> BaseFragment<T>.setupExternalActions(viewModel: T) where T : BaseViewModel, T : ExternalActions {
     setupExternalActions(viewModel) { context, payload ->

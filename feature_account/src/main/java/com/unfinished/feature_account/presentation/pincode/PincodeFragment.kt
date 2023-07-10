@@ -8,11 +8,11 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.databinding.FragmentPincodeBinding
 import com.unfinished.feature_account.presentation.pincode.fingerprint.FingerprintWrapper
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
+import com.unfinished.common.base.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint

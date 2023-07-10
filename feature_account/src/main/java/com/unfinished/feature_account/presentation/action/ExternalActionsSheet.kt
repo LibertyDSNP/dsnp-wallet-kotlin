@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.widget.TextView
 import com.unfinished.feature_account.R
 import com.unfinished.feature_account.databinding.BottomSheetExternalActionsBinding
-import io.novafoundation.nova.common.utils.makeGone
-import io.novafoundation.nova.common.utils.makeVisible
-import io.novafoundation.nova.common.view.bottomSheet.list.fixed.FixedListBottomSheet
-import io.novafoundation.nova.common.view.bottomSheet.list.fixed.item
-import io.novafoundation.nova.runtime.ext.availableExplorersFor
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.common.utils.makeGone
+import com.unfinished.common.utils.makeVisible
+import com.unfinished.common.view.bottomSheet.list.fixed.FixedListBottomSheet
+import com.unfinished.common.view.bottomSheet.list.fixed.item
+import com.unfinished.runtime.ext.availableExplorersFor
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 
 typealias ExternalViewCallback = (Chain.Explorer, ExternalActions.Type) -> Unit
 typealias CopyCallback = (String) -> Unit
@@ -55,7 +55,7 @@ open class ExternalActionsSheet(
         setTitle(primaryValue)
 
         primaryValue?.let {
-            item(io.novafoundation.nova.common.R.drawable.ic_copy_outline, payload.copyLabelRes) {
+            item(com.unfinished.common.R.drawable.ic_copy_outline, payload.copyLabelRes) {
                 onCopy(primaryValue)
             }
 
@@ -67,9 +67,9 @@ open class ExternalActionsSheet(
         payload.chain
             .availableExplorersFor(payload.type.explorerTemplateExtractor)
             .forEach { explorer ->
-                val title = context.getString(io.novafoundation.nova.common.R.string.transaction_details_view_explorer, explorer.name)
+                val title = context.getString(com.unfinished.common.R.string.transaction_details_view_explorer, explorer.name)
 
-                item(io.novafoundation.nova.common.R.drawable.ic_browser_outline, title, showArrow = true) {
+                item(com.unfinished.common.R.drawable.ic_browser_outline, title, showArrow = true) {
                     onViewExternal(explorer, payload.type)
                 }
             }

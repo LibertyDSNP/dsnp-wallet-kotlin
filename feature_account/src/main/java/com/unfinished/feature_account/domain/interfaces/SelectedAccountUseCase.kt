@@ -2,13 +2,13 @@ package com.unfinished.feature_account.domain.interfaces
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
-import io.novafoundation.nova.common.R
+import com.unfinished.common.R
 import com.unfinished.feature_account.domain.model.LightMetaAccount
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.presentation.icon.createAccountAddressModel
 import com.unfinished.feature_account.presentation.wallet.WalletUiUseCase
-import io.novafoundation.nova.common.address.AddressIconGenerator
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.common.address.AddressIconGenerator
+import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

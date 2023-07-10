@@ -13,9 +13,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.novafoundation.nova.common.R
-import io.novafoundation.nova.common.io.MainThreadExecutor
-import io.novafoundation.nova.common.resources.ResourceManager
+import com.unfinished.common.R
+import com.unfinished.common.io.MainThreadExecutor
+import com.unfinished.common.resources.ResourceManager
 
 @Module
 @InstallIn(FragmentComponent::class)
