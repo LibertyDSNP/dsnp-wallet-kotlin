@@ -1,5 +1,6 @@
 package com.unfinished.dsnp_wallet_kotlin
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -24,9 +25,11 @@ import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultA
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.spec.NavHostEngine
+import com.unfinished.dsnp_wallet_kotlin.deeplink.DeeplinkViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.debug.DebugToolbar
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.LandingPageScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.dialog.compose.CloseableDialog
 import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
@@ -42,9 +45,12 @@ class MainActivity : AppCompatActivity() {
     private val dialogViewModel: DialogViewModel by viewModels()
     private val bottomSheetViewModel: BottomSheetViewModel by viewModels()
 
+    private val deeplinkViewModel: DeeplinkViewModel by viewModels()
+
     @OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             MainTheme {
                 val engine: NavHostEngine = rememberAnimatedNavHostEngine(
@@ -73,6 +79,7 @@ class MainActivity : AppCompatActivity() {
                         hideDebugClick = { showDebug = false }
                     )
 
+                    LandingPageScreenDestination
                     DestinationsNavHost(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -95,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                             dependency(identityViewModel)
                             dependency(dialogViewModel)
                             dependency(bottomSheetViewModel)
+                            dependency(deeplinkViewModel)
                         }
                     )
                 }
@@ -105,5 +113,10 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        deeplinkViewModel.setDeeplink(intent)
     }
 }
