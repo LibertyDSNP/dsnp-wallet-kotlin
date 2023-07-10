@@ -143,4 +143,9 @@ dependencies {
     implementation deps.compose.destinations
     implementation deps.compose.viewbinding
     ksp deps.compose.ksp
+
+    /**
+     * Temp library until compose officially supports scrollbars
+     */
+    implementation 'com.github.nanihadesuka:LazyColumnScrollbar:1.6.3'
 }

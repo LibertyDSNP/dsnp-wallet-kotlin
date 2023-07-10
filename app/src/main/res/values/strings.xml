@@ -82,7 +82,7 @@
     <string name="numerical_suffix_auto_assigned">The numerical suffix is auto-assigned by Amplica Access to make sure every handle is unique. They will not be visible in some cases.</string>
     <string name="agree_to_terms">Agree to Terms</string>
     <string name="agree">Agree</string>
-    <string name="by_agreeing">By agreeing, you grant Amplica access to:</string>
+    <string name="by_agreeing">By agreeing, you grant Amplica Pro:</string>
     <string name="update_your_handle_and_profile_information">Update your handle and profile information</string>
     <string name="update_your_contacts_groups">Update your contacts &amp; groups</string>
     <string name="you_may_update_permissions_at_any_time">You may update permissions at any time.</string>
@@ -127,5 +127,8 @@
     <string name="cancel">Cancel</string>
     <string name="logout_dialog_desc">This action will result in deleting all accounts from this device. Make sure you have backed up your recovery phrase before proceeding otherwise you won’t be able to restore your wallet.</string>
     <string name="view_recovery_phrase">View recovery phrase</string>
+    <string name="agree_terms_body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.\n\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum\n                \n                orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.\n\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum\n\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="agree_to_terms_of_use">Agree to Terms of Use</string>
+    <string name="by_clicking_the_agree_button_you_agree">By clicking the agree button you agree</string>
 
 </resources>

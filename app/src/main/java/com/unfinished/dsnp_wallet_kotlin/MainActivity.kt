@@ -2,6 +2,7 @@ package com.unfinished.dsnp_wallet_kotlin
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -24,7 +25,10 @@ import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.spec.NavHostEngine
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
+import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.debug.DebugToolbar
+import com.unfinished.dsnp_wallet_kotlin.ui.dialog.compose.CloseableDialog
+import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.exts.safeGetBackStackEntry
@@ -33,6 +37,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val identityViewModel: IdentityViewModel by viewModels()
+    private val dialogViewModel: DialogViewModel by viewModels()
+    private val bottomSheetViewModel: BottomSheetViewModel by viewModels()
 
     @OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,11 +92,17 @@ class MainActivity : AppCompatActivity() {
                                 hiltViewModel<CreateIdentityViewModel>(parentEntry)
                             }
 
-                            dependency(hiltViewModel<IdentityViewModel>(this@MainActivity))
+                            dependency(identityViewModel)
+                            dependency(dialogViewModel)
+                            dependency(bottomSheetViewModel)
                         }
                     )
-
                 }
+
+                CloseableDialog(
+                    navController = navController,
+                    dialogViewModel = dialogViewModel
+                )
             }
         }
     }

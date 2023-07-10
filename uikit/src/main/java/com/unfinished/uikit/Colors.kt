@@ -74,4 +74,6 @@ interface Colors {
     val onImport: Color
     val onHintImport: Color
     val importBorder: Color
+
+    val scrollbar: Color
 }

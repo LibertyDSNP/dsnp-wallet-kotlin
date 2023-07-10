@@ -151,4 +151,13 @@ sealed class Tag {
         const val primaryButton = "btn_primary"
         const val secondaryButton = "btn_secondary"
     }
+
+    object AgreeToUseScreen: Tag() {
+        const val pullDown = "img_pull_down"
+        const val title = "txt_title"
+        const val header = "txt_header"
+        const val body = "txt_body"
+        const val agree = "btn_agree"
+        const val bottomText = "txt_bottom_text"
+    }
 }

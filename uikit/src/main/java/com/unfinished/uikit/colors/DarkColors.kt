@@ -72,4 +72,6 @@ class DarkColors : Colors {
     override val onImport: Color = Color(0xFFFFFFFF)
     override val onHintImport: Color = Color(0x66FFFFFF)
     override val importBorder: Color = Color(0x80FFFFFF)
+
+    override val scrollbar: Color = Color(0x80787880)
 }
