@@ -36,7 +36,7 @@ platform :android do
       owner_name: "Unfinished",
       app_name: "standalone-wallet-" + options[:"env"],
       version: options[:"build_version"], #TODO needs to be 
-      file: project_path + "/app/build/outputs/apk/debug/app-debug.apk"
+      file: project_path + "/app/build/outputs/apk/dev/debug/app-dev-debug.apk"
     )
   end
 

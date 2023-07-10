@@ -9,7 +9,7 @@ sealed class Deeplink {
      * We are hardcoding these values until the above issue has been resolved
      */
     companion object {
-        const val JUMP_TO_APP: String = "https://dev-custodial-wallet.liberti.social/jumpToApp"
+        const val JUMP_TO_APP: String = "https://dev-custodial-wallet.liberti.social/jumpIntoTheApp"
     }
 
     data class Valid(
