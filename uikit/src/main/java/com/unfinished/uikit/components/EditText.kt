@@ -61,7 +61,8 @@ fun InputTextField(
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
-            shape = MainShapes.button
+            shape = MainShapes.button,
+            singleLine = true
         )
     }
 }
