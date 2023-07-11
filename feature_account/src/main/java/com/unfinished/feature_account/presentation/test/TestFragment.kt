@@ -18,12 +18,12 @@ import com.unfinished.feature_account.databinding.FragmentTestBinding
 import com.unfinished.feature_account.domain.account.advancedEncryption.AdvancedEncryption
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.MetaAccount
-import com.unfinished.feature_account.domain.model.toUnit
 import dagger.hilt.android.AndroidEntryPoint
 import com.unfinished.common.base.BaseFragment
 import com.unfinished.common.utils.setOnSafeClickListener
 import com.unfinished.common.validation.validationError
 import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.common.utils.toUnit
 import com.unfinished.runtime.ext.addressOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch

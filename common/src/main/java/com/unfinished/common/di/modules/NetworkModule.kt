@@ -16,10 +16,7 @@ import com.unfinished.common.data.network.TimeHeaderInterceptor
 import com.unfinished.common.data.network.rpc.SocketSingleRequestExecutor
 import com.unfinished.common.mixin.api.NetworkStateMixin
 import com.unfinished.common.mixin.impl.NetworkStateProvider
-import com.unfinished.common.resources.ContextManager
 import com.unfinished.common.resources.ResourceManager
-import com.unfinished.common.utils.bluetooth.BluetoothManager
-import com.unfinished.common.utils.bluetooth.RealBluetoothManager
 import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 import jp.co.soramitsu.fearless_utils.wsrpc.logging.Logger
 import jp.co.soramitsu.fearless_utils.wsrpc.recovery.Reconnector
@@ -137,9 +134,4 @@ class NetworkModule {
     @Singleton
     fun provideJsonMapper() = Gson()
 
-    @Provides
-    @Singleton
-    fun provideBluetoothManager(
-        contextManager: ContextManager
-    ): BluetoothManager = RealBluetoothManager(contextManager)
 }

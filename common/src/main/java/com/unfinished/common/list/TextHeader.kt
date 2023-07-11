@@ -1,11 +1,6 @@
-package com.unfinished.common.list.headers
+package com.unfinished.common.list
 
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
-import com.unfinished.common.R
-import com.unfinished.common.list.GroupedListHolder
-import com.unfinished.common.utils.inflateChild
 
 class TextHeader(val content: String) {
 
@@ -21,12 +16,5 @@ class TextHeader(val content: String) {
                 return true
             }
         }
-    }
-}
-
-class TextHeaderHolder(parentView: ViewGroup) : GroupedListHolder(parentView.inflateChild(R.layout.item_text_header)) {
-
-    fun bind(item: TextHeader) {
-        (containerView as? TextView)?.text = item.content
     }
 }

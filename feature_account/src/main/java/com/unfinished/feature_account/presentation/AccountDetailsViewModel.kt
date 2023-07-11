@@ -15,8 +15,7 @@ import com.unfinished.feature_account.presentation.model.account.details.ChainAc
 import com.unfinished.feature_account.presentation.model.common.chainAccount.AccountInChainUi
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.base.BaseViewModel
-import com.unfinished.common.list.headers.TextHeader
-import com.unfinished.common.list.toListWithHeaders
+import com.unfinished.common.list.TextHeader
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.utils.filterToSet
 import com.unfinished.common.utils.flowOf
@@ -63,16 +62,6 @@ class AccountDetailsViewModel(
     val typeAlert = flowOf {
         accountTypeAlertFor(metaAccount().type)
     }.shareInBackground()
-
-    val chainAccountProjections = flowOf { interactor.getChainProjections(metaAccount()) }
-        .map { groupedList ->
-            groupedList.toListWithHeaders(
-                keyMapper = { type, _ -> mapFromToTextHeader(type) },
-                valueMapper = { mapChainAccountProjectionToUi(metaAccount(), it) }
-            )
-        }
-        .inBackground()
-        .share()
 
     init {
         launch {

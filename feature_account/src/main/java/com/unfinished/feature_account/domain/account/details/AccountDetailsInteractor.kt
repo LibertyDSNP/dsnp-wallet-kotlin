@@ -4,7 +4,6 @@ import com.unfinished.common.data.secrets.v2.SecretStoreV2
 import com.unfinished.common.data.secrets.v2.entropy
 import com.unfinished.common.data.secrets.v2.getAccountSecrets
 import com.unfinished.common.data.secrets.v2.seed
-import com.unfinished.common.list.GroupedList
 import com.unfinished.common.utils.mapToSet
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.LightMetaAccount
@@ -34,30 +33,6 @@ class AccountDetailsInteractor(
 
     suspend fun updateName(metaId: Long, newName: String) {
         accountRepository.updateMetaAccountName(metaId, newName)
-    }
-
-    suspend fun getChainProjections(metaAccount: MetaAccount): GroupedList<From, AccountInChain> = withContext(Dispatchers.Default) {
-        val chains = shownChainsFor(metaAccount.type)
-
-        chains.map { chain ->
-            val address = metaAccount.addressIn(chain)
-            val accountId = metaAccount.accountIdIn(chain)
-
-            val projection = if (address != null && accountId != null) {
-                AccountInChain.Projection(address, accountId)
-            } else {
-                null
-            }
-
-            AccountInChain(
-                chain = chain,
-                projection = projection,
-                from = if (metaAccount.hasChainAccountIn(chain.id)) From.CHAIN_ACCOUNT else From.META_ACCOUNT
-            )
-        }
-            .sortedWith(accountInChainComparator(metaAccount.type))
-            .groupBy(AccountInChain::from)
-            .toSortedMap(compareBy(From::ordering))
     }
 
     suspend fun availableExportTypes(

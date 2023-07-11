@@ -1,6 +1,5 @@
 package com.unfinished.feature_account.domain.interactor
 
-import com.unfinished.common.list.GroupedList
 import com.unfinished.common.utils.flowOf
 import com.unfinished.common.utils.removed
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
@@ -12,20 +11,11 @@ import com.unfinished.feature_account.domain.model.hasAccountIn
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
-import kotlinx.coroutines.flow.Flow
 
 class MetaAccountGroupingInteractorImpl(
     private val chainRegistry: ChainRegistry,
     private val accountRepository: AccountRepository,
 ) : MetaAccountGroupingInteractor {
-
-    override fun getMetaAccountsForTransaction(fromId: ChainId, destinationId: ChainId): Flow<GroupedList<LightMetaAccount.Type, MetaAccount>> = flowOf {
-        val fromChain = chainRegistry.getChain(fromId)
-        val destinationChain = chainRegistry.getChain(destinationId)
-        getValidMetaAccountsForTransaction(fromChain, destinationChain)
-            .groupBy(MetaAccount::type)
-            .toSortedMap(metaAccountTypeComparator())
-    }
 
     override suspend fun hasAvailableMetaAccountsForDestination(fromId: ChainId, destinationId: ChainId): Boolean {
         val fromChain = chainRegistry.getChain(fromId)

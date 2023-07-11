@@ -8,7 +8,6 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.unfinished.common.R
-import com.unfinished.common.utils.bindTo
 import com.unfinished.common.utils.formatting.TimerValue
 import com.unfinished.common.utils.formatting.format
 import com.unfinished.common.utils.onDestroy
@@ -103,8 +102,3 @@ fun TextView.stopTimer() {
     }
 }
 
-fun <K> CompoundButton.bindFromMap(key: K, map: Map<out K, MutableStateFlow<Boolean>>, lifecycleScope: LifecycleCoroutineScope) {
-    val source = map[key] ?: error("Cannot find $key source")
-
-    bindTo(source, lifecycleScope)
-}

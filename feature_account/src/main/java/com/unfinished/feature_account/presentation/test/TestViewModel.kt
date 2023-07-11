@@ -14,7 +14,6 @@ import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.LightMetaAccount
 import com.unfinished.feature_account.domain.model.MetaAccount
-import com.unfinished.feature_account.domain.model.toPlanks
 import com.unfinished.feature_account.presentation.importing.source.model.ImportError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unfinished.common.R
