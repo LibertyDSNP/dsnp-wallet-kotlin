@@ -48,6 +48,7 @@ import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PrimaryToggle
 import com.unfinished.uikit.components.SimpleToolbar
 import com.unfinished.uikit.components.SuccessSnackbar
+import com.unfinished.uikit.exts.tag
 
 @BottomBarNavGraph
 @Destination
@@ -171,7 +172,7 @@ private fun Body(
                 .fillMaxWidth()
                 .padding(start = 29.dp, end = 33.dp)
                 .clickable(onClick = logOutClick)
-                .testTag(Tag.SettingsScreen.logout)
+                .tag(Tag.SettingsScreen.logout)
         ) {
             Text(
                 text = stringResource(id = com.unfinished.uikit.R.string.log_out),
@@ -205,7 +206,7 @@ private fun RecoveryRow(
             style = MainTypography.body,
             modifier = Modifier
                 .padding(horizontal = 14.dp)
-                .testTag(Tag.SettingsScreen.neverBackup)
+                .tag(Tag.SettingsScreen.neverBackup)
         )
 
         Spacer(modifier = Modifier.size(14.dp))
@@ -215,14 +216,14 @@ private fun RecoveryRow(
             style = MainTypography.body,
             modifier = Modifier
                 .padding(horizontal = 14.dp)
-                .testTag(Tag.SettingsScreen.recovery_desc)
+                .tag(Tag.SettingsScreen.recovery_desc)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.SettingsScreen.revealRecovery),
+                .tag(Tag.SettingsScreen.revealRecovery),
             text = stringResource(R.string.reveal_recovery_phrase),
             onClick = recoveryPhraseClick
         )
@@ -252,7 +253,7 @@ private fun SettingsRow(
                         text = stringResource(id = setting.title),
                         color = MainColors.onBackground,
                         style = MainTypography.bodyMediumBold,
-                        modifier = Modifier.testTag("${Tag.SettingsScreen.settingTitle}_$index")
+                        modifier = Modifier.tag("${Tag.SettingsScreen.settingTitle}_$index")
                     )
 
                     Spacer(modifier = Modifier.size(16.dp))
@@ -260,7 +261,7 @@ private fun SettingsRow(
                         text = stringResource(id = setting.desc),
                         color = MainColors.onBackground,
                         style = MainTypography.body,
-                        modifier = Modifier.testTag("${Tag.SettingsScreen.settingDesc}_$index")
+                        modifier = Modifier.tag("${Tag.SettingsScreen.settingDesc}_$index")
                     )
                 }
 

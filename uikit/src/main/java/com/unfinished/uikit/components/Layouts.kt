@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
+import com.unfinished.uikit.exts.tag
 
 @Composable
 fun LogoLayout(
@@ -30,7 +31,7 @@ fun LogoLayout(
         horizontalAlignment = horizontalAlignment
     ) {
         Spacer(modifier = Modifier.size(46.dp))
-        Logo(modifier = Modifier.testTag(logoTestTag))
+        Logo(modifier = Modifier.tag(logoTestTag))
         content()
     }
 }

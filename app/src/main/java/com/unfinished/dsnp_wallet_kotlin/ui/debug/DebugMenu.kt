@@ -25,6 +25,7 @@ import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.SimpleToolbar
+import com.unfinished.uikit.exts.tag
 
 @DebugNavGraph(start = true)
 @Destination
@@ -88,7 +89,7 @@ fun DebugMenuItem(
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .clickable(onClick = debugItem.onClick)
-            .testTag(debugItem.testTag),
+            .tag(debugItem.testTag),
         fontSize = 24.sp,
         color = MainColors.onBackground
     )

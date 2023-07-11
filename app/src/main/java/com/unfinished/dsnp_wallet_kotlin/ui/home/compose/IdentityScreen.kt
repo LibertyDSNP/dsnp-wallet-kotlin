@@ -43,6 +43,7 @@ import com.unfinished.uikit.components.Handle
 import com.unfinished.uikit.components.Overlay
 import com.unfinished.uikit.components.Profile
 import com.unfinished.uikit.components.RoundedProgressBar
+import com.unfinished.uikit.exts.tag
 import com.unfinished.uikit.toDataLoaded
 
 @BottomBarNavGraph(start = true)
@@ -127,7 +128,7 @@ private fun ProfileRow(
             Profile(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .testTag(Tag.IdentityScreen.profile),
+                    .tag(Tag.IdentityScreen.profile),
                 iconUrl = iconUrl
             )
 
@@ -138,7 +139,7 @@ private fun ProfileRow(
                     .background(MainColors.button)
                     .align(Alignment.BottomEnd)
                     .clickable(onClick = editProfileClick)
-                    .testTag(Tag.IdentityScreen.edit),
+                    .tag(Tag.IdentityScreen.edit),
                 contentAlignment = Alignment.Center
             ) {
                 Edit()
@@ -147,7 +148,7 @@ private fun ProfileRow(
 
         Spacer(modifier = Modifier.size(10.dp))
         Handle(
-            modifier = Modifier.testTag(Tag.IdentityScreen.username),
+            modifier = Modifier.tag(Tag.IdentityScreen.username),
             handle = name,
             suffix = number
         )
@@ -167,7 +168,7 @@ fun SocialProcessBar(
     val progress = currentCount.toFloat() / totalCount.toFloat()
 
     Row(
-        modifier = Modifier.testTag(socialProgressTestTag)
+        modifier = Modifier.tag(socialProgressTestTag)
     ) {
         Text(
             text = stringResource(R.string.social_identity_complete),
@@ -185,7 +186,7 @@ fun SocialProcessBar(
 
     Spacer(modifier = Modifier.size(12.dp))
     RoundedProgressBar(
-        modifier = Modifier.testTag(socialProgressBarTestTag),
+        modifier = Modifier.tag(socialProgressBarTestTag),
         progress = progress
     )
 }
@@ -218,7 +219,7 @@ private fun SocialProcessRow(
             modifier = Modifier
                 .align(Alignment.End)
                 .clickable(onClick = seeAllClick)
-                .testTag(Tag.IdentityScreen.seeAll)
+                .tag(Tag.IdentityScreen.seeAll)
         )
     }
 }

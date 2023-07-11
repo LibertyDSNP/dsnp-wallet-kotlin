@@ -20,6 +20,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.startAppDestination
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
+import com.unfinished.uikit.exts.tag
 
 @Composable
 fun BottomBar(
@@ -57,7 +58,7 @@ fun BottomBar(
                         painter = painterResource(id = destination.icon),
                         contentDescription = stringResource(destination.label),
                         tint = iconColor,
-                        modifier = Modifier.testTag(destination.testTag)
+                        modifier = Modifier.tag(destination.testTag)
                     )
                 },
                 label = {

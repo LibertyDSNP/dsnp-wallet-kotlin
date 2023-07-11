@@ -38,6 +38,7 @@ import com.unfinished.uikit.UiState
 import com.unfinished.uikit.components.HyperlinkText
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.SimpleToolbar
+import com.unfinished.uikit.exts.tag
 
 @RecoveryNavGraph(start = true)
 @Destination
@@ -99,7 +100,7 @@ fun RecoveryPhraseScreen(
                 text = stringResource(R.string.security_is_important),
                 style = MainTypography.largeButtonText,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RecoveryPhraseScreen.securityTitle)
+                modifier = Modifier.tag(Tag.RecoveryPhraseScreen.securityTitle)
             )
 
             Spacer(modifier = Modifier.size(12.dp))
@@ -107,7 +108,7 @@ fun RecoveryPhraseScreen(
                 text = stringResource(R.string.back_up_your_recovery_phrase),
                 style = MainTypography.bodySemiBold,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RecoveryPhraseScreen.securityDesc)
+                modifier = Modifier.tag(Tag.RecoveryPhraseScreen.securityDesc)
             )
 
             Spacer(modifier = Modifier.size(55.dp))
@@ -115,7 +116,7 @@ fun RecoveryPhraseScreen(
                 text = stringResource(R.string.there_will_be_a_test),
                 style = MainTypography.largeButtonText,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RecoveryPhraseScreen.testTitle)
+                modifier = Modifier.tag(Tag.RecoveryPhraseScreen.testTitle)
             )
 
             Spacer(modifier = Modifier.size(12.dp))
@@ -124,7 +125,7 @@ fun RecoveryPhraseScreen(
                 clickableTexts = listOf(stringResource(id = R.string.please_carefully_write_link_text)),
                 style = MainTypography.body.copy(color = MainColors.onBackground),
                 onClicked = {},
-                modifier = Modifier.testTag(Tag.RecoveryPhraseScreen.testDesc)
+                modifier = Modifier.tag(Tag.RecoveryPhraseScreen.testDesc)
             )
 
             Spacer(modifier = Modifier.size(22.dp))
@@ -136,7 +137,7 @@ fun RecoveryPhraseScreen(
                 onClick = nextClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .testTag(Tag.RecoveryPhraseScreen.writtenDown)
+                    .tag(Tag.RecoveryPhraseScreen.writtenDown)
             )
         }
     }
@@ -168,7 +169,7 @@ private fun SeedColumn(seedKeys: List<SeedKey>) {
                 text = "${it.prefix} ${it.key}",
                 style = MainTypography.seedText,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(
+                modifier = Modifier.tag(
                     "${Tag.RecoveryPhraseScreen.seed}_${it.prefix}"
                 )
             )

@@ -49,6 +49,7 @@ import com.unfinished.uikit.components.LogoLayout
 import com.unfinished.uikit.components.OutlinedText
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.SecondaryButton
+import com.unfinished.uikit.exts.tag
 
 @OptIn(ExperimentalComposeUiApi::class)
 @LandingNavGraph
@@ -120,7 +121,7 @@ fun RestoreWalletScreen(
                 text = stringResource(R.string.import_account),
                 style = MainTypography.bodyLargeBold,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RestoreWalletScreen.title)
+                modifier = Modifier.tag(Tag.RestoreWalletScreen.title)
             )
 
             Spacer(modifier = Modifier.size(24.dp))
@@ -138,7 +139,7 @@ fun RestoreWalletScreen(
                     .padding(
                         horizontal = 12.dp, vertical = 32.dp
                     )
-                    .testTag(Tag.RestoreWalletScreen.recoveryPhraseError),
+                    .tag(Tag.RestoreWalletScreen.recoveryPhraseError),
                 text = stringResource(R.string.invalid_phrase),
                 style = MainTypography.stepCounter,
                 color = MainColors.onBackground,
@@ -148,7 +149,7 @@ fun RestoreWalletScreen(
                     .fillMaxWidth()
                     .height(190.dp)
                     .padding(horizontal = 28.dp)
-                    .testTag(Tag.RestoreWalletScreen.recoveryPhrase),
+                    .tag(Tag.RestoreWalletScreen.recoveryPhrase),
                 text = restoreWalletUiModel.recoveryPhrase,
                 hint = stringResource(R.string.import_hint),
                 onTextChange = onRecoveryChange
@@ -162,7 +163,7 @@ fun RestoreWalletScreen(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth(.65F)
-                    .testTag(Tag.RestoreWalletScreen.recoveryPhraseDesc)
+                    .tag(Tag.RestoreWalletScreen.recoveryPhraseDesc)
             )
 
             Spacer(modifier = Modifier.size(16.dp))
@@ -171,7 +172,7 @@ fun RestoreWalletScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 46.dp)
-                        .testTag(Tag.RestoreWalletScreen.connect),
+                        .tag(Tag.RestoreWalletScreen.connect),
                     text = stringResource(R.string.connect),
                     onClick = connectClick,
                     enabled = restoreWalletUiModel.continueEnabled
@@ -192,7 +193,7 @@ fun RestoreWalletScreen(
                 textDecoration = TextDecoration.Underline,
                 modifier = Modifier
                     .clickable(onClick = cancelClick)
-                    .testTag(Tag.RestoreWalletScreen.cancel)
+                    .tag(Tag.RestoreWalletScreen.cancel)
             )
         }
 
@@ -215,7 +216,7 @@ private fun TryAgainRow(
             text = stringResource(R.string.try_again),
             modifier = Modifier
                 .weight(.55F)
-                .testTag(Tag.RestoreWalletScreen.tryAgain),
+                .tag(Tag.RestoreWalletScreen.tryAgain),
             onClick = tryAgainClick
         )
         Spacer(modifier = Modifier.size(8.dp))
@@ -223,7 +224,7 @@ private fun TryAgainRow(
             text = stringResource(R.string.create_identity),
             modifier = Modifier
                 .weight(.4F)
-                .testTag(Tag.RestoreWalletScreen.createIdentity),
+                .tag(Tag.RestoreWalletScreen.createIdentity),
             onClick = createIdentityClick
         )
     }

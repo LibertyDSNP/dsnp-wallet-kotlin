@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
+import com.unfinished.uikit.exts.tag
 
 @Composable
 fun SimpleToolbar(
@@ -40,7 +41,7 @@ fun SimpleToolbar(
         Text(
             modifier = Modifier
                 .align(Alignment.Center)
-                .testTag(testTag),
+                .tag(testTag),
             text = title,
             color = MainColors.onBackground,
             style = MainTypography.toolbarTitle,

@@ -46,6 +46,7 @@ import com.unfinished.uikit.components.Handle
 import com.unfinished.uikit.components.InputTextField
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PullDown
+import com.unfinished.uikit.exts.tag
 import kotlinx.coroutines.delay
 
 @Composable
@@ -98,7 +99,7 @@ fun CreateIdentityScreen(
 
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             PullDown(
-                modifier = Modifier.testTag(Tag.CreateIdentityScreen.pullDown)
+                modifier = Modifier.tag(Tag.CreateIdentityScreen.pullDown)
             )
         }
 
@@ -111,13 +112,13 @@ fun CreateIdentityScreen(
             ),
             style = MainTypography.stepCounter,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.stepTracker)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.stepTracker)
         )
         Text(
             text = stringResource(R.string.create_digital_identity),
             style = MainTypography.bodyMedium,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.title)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.title)
         )
 
         when (createIdentityUiModel.currentStep) {
@@ -163,7 +164,7 @@ private fun CreateHandleScreen(
             text = stringResource(R.string.your_unique_handle),
             style = MainTypography.body,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.header)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.header)
         )
 
         Spacer(modifier = Modifier.size(20.dp))
@@ -172,7 +173,7 @@ private fun CreateHandleScreen(
             text = handle,
             onTextChange = handleChange,
             focusRequester = focusRequester,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.claimHandle)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.claimHandle)
         )
 
         Spacer(modifier = Modifier.size(12.dp))
@@ -180,14 +181,14 @@ private fun CreateHandleScreen(
             text = stringResource(R.string.handle_rules),
             style = MainTypography.body,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.handleRequirements)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.handleRequirements)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.CreateIdentityScreen.next),
+                .tag(Tag.CreateIdentityScreen.next),
             text = stringResource(R.string.next),
             enabled = handleIsValid,
             onClick = nextClick
@@ -213,7 +214,7 @@ private fun ConfirmHandleScreen(
             text = stringResource(R.string.confirm_your_handle),
             style = MainTypography.title.copy(lineHeight = 34.sp),
             color = MainColors.onEditTextTitle,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.header)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.header)
         )
 
         Spacer(modifier = Modifier.size(18.dp))
@@ -221,14 +222,14 @@ private fun ConfirmHandleScreen(
             handle = handle,
             suffix = suffix,
             handleColor = MainColors.primary,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.handle)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.handle)
         )
 
         Spacer(modifier = Modifier.size(30.dp))
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.CreateIdentityScreen.next),
+                .tag(Tag.CreateIdentityScreen.next),
             text = stringResource(R.string.next),
             onClick = nextClick
         )
@@ -238,7 +239,7 @@ private fun ConfirmHandleScreen(
             text = stringResource(R.string.numerical_suffix_auto_assigned),
             style = MainTypography.body,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.numberDesc)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.numberDesc)
         )
     }
 }
@@ -258,7 +259,7 @@ private fun AgreeToTermsScreen(
                 text = stringResource(R.string.agree_to_terms),
                 style = MainTypography.title.copy(lineHeight = 34.sp),
                 color = MainColors.onEditTextTitle,
-                modifier = Modifier.testTag(Tag.CreateIdentityScreen.header)
+                modifier = Modifier.tag(Tag.CreateIdentityScreen.header)
             )
 
             Spacer(modifier = Modifier.size(18.dp))
@@ -266,7 +267,7 @@ private fun AgreeToTermsScreen(
                 handle = handle,
                 suffix = suffix,
                 handleColor = MainColors.primary,
-                modifier = Modifier.testTag(Tag.CreateIdentityScreen.handle)
+                modifier = Modifier.tag(Tag.CreateIdentityScreen.handle)
             )
 
             Spacer(modifier = Modifier.size(30.dp))
@@ -276,7 +277,7 @@ private fun AgreeToTermsScreen(
             PrimaryButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .testTag(Tag.CreateIdentityScreen.agree),
+                    .tag(Tag.CreateIdentityScreen.agree),
                 text = stringResource(R.string.agree),
                 onClick = agreeClick
             )
@@ -284,7 +285,7 @@ private fun AgreeToTermsScreen(
 
         TermsAndPrivacy(
             textColor = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.termsAndPrivacy)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.termsAndPrivacy)
         )
     }
 }
@@ -292,7 +293,7 @@ private fun AgreeToTermsScreen(
 @Composable
 private fun AgreeText() {
     Column(
-        modifier = Modifier.testTag(Tag.CreateIdentityScreen.agreeTextBlock)
+        modifier = Modifier.tag(Tag.CreateIdentityScreen.agreeTextBlock)
     ) {
         Text(
             text = stringResource(R.string.by_agreeing),
