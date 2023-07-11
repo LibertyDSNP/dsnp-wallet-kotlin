@@ -17,6 +17,12 @@ import javax.inject.Inject
 class CreateIdentityViewModel @Inject constructor(
 
 ) : BaseViewModel() {
+
+    private companion object {
+        const val MIN_HANDLE_LENGTH = 4
+        const val MAX_HANDLE_LENGTH = 16
+    }
+
     private val _uiStateFLow =
         MutableStateFlow<UiState<CreateIdentityUiModel>>(CreateIdentityUiModel().toDataLoaded())
     val uiStateFLow = _uiStateFLow.asStateFlow()
@@ -55,9 +61,11 @@ class CreateIdentityViewModel @Inject constructor(
 
     fun updateHandle(handle: String) {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+            if (handle.length > MAX_HANDLE_LENGTH) return
+
             _uiStateFLow.value = it.copy(
                 handle = handle,
-                handleIsValid = handle.isNotBlank()
+                handleIsValid = handle.isNotBlank() && handle.length >= MIN_HANDLE_LENGTH
             ).toDataLoaded()
         }
     }
