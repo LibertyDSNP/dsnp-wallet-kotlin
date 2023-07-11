@@ -30,6 +30,7 @@ import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.components.Bullet
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PullDown
+import com.unfinished.uikit.exts.tag
 import my.nanihadesuka.compose.ColumnScrollbar
 import my.nanihadesuka.compose.ScrollbarSelectionMode
 
@@ -53,7 +54,7 @@ fun AgreeToUseScreen(
         ) {
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 PullDown(
-                    modifier = Modifier.testTag(Tag.AgreeToUseScreen.pullDown)
+                    modifier = Modifier.tag(Tag.AgreeToUseScreen.pullDown)
                 )
             }
 
@@ -62,7 +63,7 @@ fun AgreeToUseScreen(
                 text = stringResource(R.string.agree_to_terms_of_use),
                 style = MainTypography.bodyLarge,
                 color = MainColors.onBottomSheetBackground,
-                modifier = Modifier.testTag(Tag.AgreeToUseScreen.title)
+                modifier = Modifier.tag(Tag.AgreeToUseScreen.title)
             )
 
             Spacer(modifier = Modifier.size(8.dp))
@@ -202,7 +203,7 @@ fun AgreeToUseScreen(
                         """.trimIndent(),
                         style = MainTypography.body,
                         color = MainColors.onBottomSheetBackground,
-                        modifier = Modifier.testTag(Tag.AgreeToUseScreen.body)
+                        modifier = Modifier.tag(Tag.AgreeToUseScreen.body)
                     )
                 }
             }
@@ -212,7 +213,7 @@ fun AgreeToUseScreen(
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.AgreeToUseScreen.agree),
+                .tag(Tag.AgreeToUseScreen.agree),
             text = stringResource(R.string.agree),
             enabled = !scrollState.canScrollForward,
             onClick = agreeClick
@@ -225,7 +226,7 @@ fun AgreeToUseScreen(
             color = MainColors.onTaskButton,
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.AgreeToUseScreen.bottomText),
+                .tag(Tag.AgreeToUseScreen.bottomText),
             textAlign = TextAlign.Center
         )
 

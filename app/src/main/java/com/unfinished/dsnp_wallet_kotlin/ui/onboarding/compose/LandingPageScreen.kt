@@ -16,11 +16,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,6 +49,7 @@ import com.unfinished.uikit.components.HyperlinkText
 import com.unfinished.uikit.components.LogoLayout
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.exts.launchChromeTab
+import com.unfinished.uikit.exts.tag
 
 enum class LandingDirection {
     Init, CreateIdentity, HaveId, RestoreAccount
@@ -166,6 +170,7 @@ fun LandingPageScreen(
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LandingPageScreen(
     createIdentityClick: () -> Unit,
@@ -182,7 +187,7 @@ fun LandingPageScreen(
             style = MainTypography.title,
             color = MainColors.onBackground,
             textAlign = TextAlign.Center,
-            modifier = Modifier.testTag(Tag.LandingPageScreen.title)
+            modifier = Modifier.tag(Tag.LandingPageScreen.title)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
@@ -192,7 +197,7 @@ fun LandingPageScreen(
             color = MainColors.onBackground,
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.LandingPageScreen.desc),
+                .tag(Tag.LandingPageScreen.desc),
             textAlign = TextAlign.Center
         )
 
@@ -200,7 +205,7 @@ fun LandingPageScreen(
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.LandingPageScreen.createIdentity),
+                .tag(Tag.LandingPageScreen.createIdentity),
             text = stringResource(id = R.string.landing_create_identity_btn),
             onClick = createIdentityClick
         )
@@ -209,7 +214,7 @@ fun LandingPageScreen(
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.LandingPageScreen.haveId),
+                .tag(Tag.LandingPageScreen.haveId),
             text = stringResource(id = R.string.landing_have_identity),
             onClick = haveIdClick
         )
@@ -224,7 +229,7 @@ fun LandingPageScreen(
                 color = MainColors.onBackground,
                 modifier = Modifier
                     .clickable(onClick = restoreAccountClick)
-                    .testTag(Tag.LandingPageScreen.restoreAccount)
+                    .tag(Tag.LandingPageScreen.restoreAccount)
                     .padding(16.dp)
                     .align(Alignment.Center),
                 textAlign = TextAlign.Center,
@@ -233,7 +238,7 @@ fun LandingPageScreen(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-        TermsAndPrivacy(modifier = Modifier.testTag(Tag.LandingPageScreen.termsAndPrivacy))
+        TermsAndPrivacy(modifier = Modifier.tag(Tag.LandingPageScreen.termsAndPrivacy))
 
         Spacer(modifier = Modifier.size(32.dp))
     }

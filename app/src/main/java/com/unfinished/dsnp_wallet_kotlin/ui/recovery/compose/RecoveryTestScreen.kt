@@ -45,6 +45,7 @@ import com.unfinished.uikit.components.Loading
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.SimpleToolbar
 import com.unfinished.uikit.exts.dashedBorder
+import com.unfinished.uikit.exts.tag
 
 @RecoveryNavGraph
 @Destination
@@ -107,7 +108,7 @@ fun RecoveryTestScreenScreen(
                 text = stringResource(R.string.this_is_the_test),
                 style = MainTypography.largeButtonText,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RecoveryTestScreenScreen.header)
+                modifier = Modifier.tag(Tag.RecoveryTestScreenScreen.header)
             )
 
             Spacer(modifier = Modifier.size(12.dp))
@@ -115,7 +116,7 @@ fun RecoveryTestScreenScreen(
                 text = stringResource(R.string.tap_the_words),
                 style = MainTypography.body,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RecoveryTestScreenScreen.desc)
+                modifier = Modifier.tag(Tag.RecoveryTestScreenScreen.desc)
             )
 
             Spacer(modifier = Modifier.size(36.dp))
@@ -136,7 +137,7 @@ fun RecoveryTestScreenScreen(
                     onClick = continueClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .testTag(Tag.RecoveryTestScreenScreen.continueBtn),
+                        .tag(Tag.RecoveryTestScreenScreen.continueBtn),
                     enabled = recoveryPhraseUiModel.continueEnabled
                 )
 
@@ -194,7 +195,7 @@ private fun SeedTestRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 12.dp)
-                .testTag(Tag.RecoveryTestScreenScreen.error),
+                .tag(Tag.RecoveryTestScreenScreen.error),
             textAlign = TextAlign.Center,
             color = MainColors.error,
             style = MainTypography.bodyMediumBold
@@ -263,7 +264,7 @@ private fun SeedGuessItem(
             )
             .background(if (seedKey != null) MainColors.seedChoice else Color.Transparent)
             .padding(horizontal = 12.dp, vertical = 4.dp)
-            .testTag("${Tag.RecoveryTestScreenScreen.guessSeed}_$prefix")
+            .tag("${Tag.RecoveryTestScreenScreen.guessSeed}_$prefix")
             .then(
                 if (seedKey != null) Modifier.clickable {
                     removeSeedKeyClick(seedKey)
@@ -309,7 +310,7 @@ private fun SeedGuessButton(
                     .background(Color.Transparent)
             )
             .padding(horizontal = 12.dp, vertical = 4.dp)
-            .testTag("${Tag.RecoveryTestScreenScreen.choiceSeed}_$prefix")
+            .tag("${Tag.RecoveryTestScreenScreen.choiceSeed}_$prefix")
             .then(
                 if (seedKey != null) Modifier.clickable {
                     addSeedKeyClick(seedKey)

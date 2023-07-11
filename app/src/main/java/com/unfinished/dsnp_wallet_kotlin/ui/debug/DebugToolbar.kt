@@ -20,6 +20,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DebugMenuDestination
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.components.PrimaryButton
+import com.unfinished.uikit.exts.tag
 
 @Composable
 fun DebugToolbar(
@@ -51,7 +52,7 @@ fun DebugToolbar(
             text = "Debug menu",
             textPadding = 2.dp,
             onClick = debugMenuClick,
-            modifier = Modifier.testTag(Tag.DebugToolbar.menu)
+            modifier = Modifier.tag(Tag.DebugToolbar.menu)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
@@ -59,7 +60,7 @@ fun DebugToolbar(
             text = "Hide debug",
             textPadding = 2.dp,
             onClick = hideDebugClick,
-            modifier = Modifier.testTag(Tag.DebugToolbar.hide)
+            modifier = Modifier.tag(Tag.DebugToolbar.hide)
         )
     }
 }

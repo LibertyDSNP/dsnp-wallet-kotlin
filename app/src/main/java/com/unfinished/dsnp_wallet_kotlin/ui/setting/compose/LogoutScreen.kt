@@ -24,6 +24,7 @@ import com.unfinished.uikit.components.Alert
 import com.unfinished.uikit.components.CloseableDialog
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.SecondaryButton
+import com.unfinished.uikit.exts.tag
 
 @Composable
 fun LogoutScreen(
@@ -41,7 +42,7 @@ fun LogoutScreen(
             text = stringResource(id = com.unfinished.uikit.R.string.log_out),
             color = MainColors.onDialog,
             style = MainTypography.dialogTitle,
-            modifier = Modifier.testTag(Tag.LogoutScreen.header)
+            modifier = Modifier.tag(Tag.LogoutScreen.header)
         )
 
         Spacer(modifier = Modifier.size(8.dp))
@@ -49,14 +50,14 @@ fun LogoutScreen(
             text = stringResource(R.string.logout_dialog_desc),
             color = MainColors.onDialog,
             style = MainTypography.bodySmall,
-            modifier = Modifier.testTag(Tag.LogoutScreen.desc)
+            modifier = Modifier.tag(Tag.LogoutScreen.desc)
         )
 
         Spacer(modifier = Modifier.size(28.dp))
         PrimaryButton(
             modifier = Modifier
                 .width(223.dp)
-                .testTag(Tag.LogoutScreen.primaryButton),
+                .tag(Tag.LogoutScreen.primaryButton),
             text = stringResource(com.unfinished.uikit.R.string.log_out),
             onClick = logoutClick
         )
@@ -65,7 +66,7 @@ fun LogoutScreen(
         SecondaryButton(
             modifier = Modifier
                 .width(223.dp)
-                .testTag(Tag.LogoutScreen.secondaryButton),
+                .tag(Tag.LogoutScreen.secondaryButton),
             text = stringResource(R.string.view_recovery_phrase),
             onClick = viewRecoveryPhraseClick,
             textColor = MainColors.primary

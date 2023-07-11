@@ -36,6 +36,7 @@ import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.components.Checkmark
 import com.unfinished.uikit.components.SimpleToolbar
+import com.unfinished.uikit.exts.tag
 
 @SocialSetupNavGraph(start = true)
 @Destination
@@ -91,7 +92,7 @@ private fun Body(
         Text(
             modifier = Modifier
                 .padding(horizontal = 10.dp)
-                .testTag(Tag.SocialSetupScreen.desc),
+                .tag(Tag.SocialSetupScreen.desc),
             text = stringResource(R.string.your_real_name),
             color = MainColors.onBackground,
             textAlign = TextAlign.Center,
@@ -122,7 +123,7 @@ private fun TaskButton(
             .clip(roundedCorners)
             .background(if (identityTask.isComplete) MainColors.taskButtonDone else MainColors.taskButton)
             .padding(start = 24.dp, end = 10.dp, top = 18.dp, bottom = 18.dp)
-            .testTag(testTag)
+            .tag(testTag)
     ) {
         Text(
             modifier = Modifier.align(Alignment.CenterStart),
