@@ -1,6 +1,6 @@
 package com.unfinished.runtime.multiNetwork.runtime
 
-import com.unfinished.common.interfaces.FileProvider
+import com.unfinished.data.file.FileProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File

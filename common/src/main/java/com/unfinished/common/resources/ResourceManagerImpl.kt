@@ -4,11 +4,11 @@ import android.graphics.drawable.Drawable
 import android.text.format.DateUtils
 import androidx.core.content.ContextCompat
 import com.unfinished.common.R
-import com.unfinished.common.utils.daysFromMillis
+import com.unfinished.data.util.daysFromMillis
 import com.unfinished.common.utils.formatting.format
 import com.unfinished.common.utils.formatting.formatDateTime
 import com.unfinished.common.utils.getDrawableCompat
-import com.unfinished.common.utils.readText
+import com.unfinished.data.util.readText
 import javax.inject.Singleton
 import kotlin.time.Duration
 import kotlin.time.DurationUnit

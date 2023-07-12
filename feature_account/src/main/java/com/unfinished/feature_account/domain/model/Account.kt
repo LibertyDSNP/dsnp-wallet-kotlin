@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.domain.model
 
 
-import com.unfinished.common.core.api.model.CryptoType
-import com.unfinished.common.core.api.model.Network
+import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.api.model.Network
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
 
 

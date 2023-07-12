@@ -1,6 +1,6 @@
 package com.unfinished.runtime.multiNetwork.runtime
 
-import com.unfinished.core.db.dao.ChainDao
+import com.unfinished.data.db.dao.ChainDao
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.connection.ChainConnection
 import kotlinx.coroutines.cancel

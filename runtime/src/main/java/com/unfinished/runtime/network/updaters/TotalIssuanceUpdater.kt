@@ -1,10 +1,10 @@
 package com.unfinished.runtime.network.updaters
 
-import com.unfinished.common.data.holders.ChainIdHolder
-import com.unfinished.common.utils.Modules
-import com.unfinished.common.utils.balances
-import com.unfinished.common.core.api.storage.StorageCache
-import com.unfinished.common.core.api.updater.GlobalScope
+import com.unfinished.data.holders.ChainIdHolder
+import com.unfinished.data.api.storage.StorageCache
+import com.unfinished.data.api.updater.GlobalScope
+import com.unfinished.data.util.Modules
+import com.unfinished.data.util.balances
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage

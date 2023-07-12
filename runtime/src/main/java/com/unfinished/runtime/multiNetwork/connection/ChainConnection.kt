@@ -1,7 +1,7 @@
 package com.unfinished.runtime.multiNetwork.connection
 
 import android.util.Log
-import com.unfinished.common.utils.LOG_TAG
+import com.unfinished.data.util.LOG_TAG
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.connection.autobalance.NodeAutobalancer
 import jp.co.soramitsu.fearless_utils.wsrpc.SocketService

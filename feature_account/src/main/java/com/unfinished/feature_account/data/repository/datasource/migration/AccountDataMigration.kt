@@ -1,12 +1,12 @@
 package com.unfinished.feature_account.data.repository.datasource.migration
 
 import android.annotation.SuppressLint
-import com.unfinished.common.data.secrets.v1.Keypair
-import com.unfinished.common.data.storage.Preferences
-import com.unfinished.common.data.storage.encrypt.EncryptedPreferences
-import com.unfinished.common.core.api.model.SecuritySource
-import com.unfinished.core.db.dao.AccountDao
-import com.unfinished.core.db.model.AccountLocal
+import com.unfinished.data.secrets.v1.Keypair
+import com.unfinished.data.storage.Preferences
+import com.unfinished.data.storage.encrypt.EncryptedPreferences
+import com.unfinished.data.api.model.SecuritySource
+import com.unfinished.data.db.dao.AccountDao
+import com.unfinished.data.db.model.AccountLocal
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator
 import jp.co.soramitsu.fearless_utils.scale.Schema
 import jp.co.soramitsu.fearless_utils.scale.byteArray

@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import coil.ImageLoader
 import com.unfinished.dsnp_wallet_kotlin.util.ReleaseTree
 import dagger.hilt.android.HiltAndroidApp
-import com.unfinished.common.data.network.rpc.SocketSingleRequestExecutor
 import com.unfinished.common.di.CommonApi
 import com.unfinished.common.resources.*
 import timber.log.Timber
@@ -18,7 +17,6 @@ class MyApplication: Application(), CommonApi {
     @Inject lateinit var imageLoader: ImageLoader
     @Inject lateinit var clipboardManager: ClipboardManager
     @Inject lateinit var contextManager: ContextManager
-    @Inject lateinit var singleRequestExecutor: SocketSingleRequestExecutor
     private val languagesHolder: LanguagesHolder = LanguagesHolder()
 
     override fun attachBaseContext(base: Context) {
@@ -44,5 +42,4 @@ class MyApplication: Application(), CommonApi {
     override fun imageLoader() = imageLoader
     override fun provideClipboardManager() = clipboardManager
     override fun contextManager() = contextManager
-    override fun socketSingleRequestExecutor() = singleRequestExecutor
 }

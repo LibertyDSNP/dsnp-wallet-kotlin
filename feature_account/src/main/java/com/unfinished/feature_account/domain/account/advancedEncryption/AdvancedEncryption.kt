@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.domain.account.advancedEncryption
 
 import com.unfinished.common.utils.input.Input
-import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.data.api.model.CryptoType
 
 class AdvancedEncryptionInput(
     val substrateCryptoType: Input<CryptoType>,

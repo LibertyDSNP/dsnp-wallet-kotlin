@@ -17,6 +17,7 @@ import com.unfinished.common.R
 import com.unfinished.common.view.shape.addRipple
 import com.unfinished.common.view.shape.getRippleMask
 import com.unfinished.common.view.shape.getRoundedCornerDrawable
+import com.unfinished.data.util.readText
 
 fun Context.getDrawableCompat(@DrawableRes drawableRes: Int) =
     ContextCompat.getDrawable(this, drawableRes)!!

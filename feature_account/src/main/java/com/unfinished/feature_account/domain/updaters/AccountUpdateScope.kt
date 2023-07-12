@@ -1,6 +1,6 @@
 package com.unfinished.feature_account.domain.updaters
 
-import com.unfinished.common.core.api.updater.UpdateScope
+import com.unfinished.data.api.updater.UpdateScope
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.MetaAccount
 import kotlinx.coroutines.flow.Flow

@@ -2,9 +2,9 @@ package com.unfinished.feature_account.data.repository
 
 import android.database.sqlite.SQLiteConstraintException
 import com.unfinished.feature_account.data.secrets.AccountSecretsFactory
-import com.unfinished.common.data.mappers.mapEncryptionToCryptoType
-import com.unfinished.common.utils.removeHexPrefix
-import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.data.mappers.mapEncryptionToCryptoType
+import com.unfinished.data.util.removeHexPrefix
+import com.unfinished.data.api.model.CryptoType
 import com.unfinished.feature_account.domain.interfaces.AccountAlreadyExistsException
 import com.unfinished.feature_account.domain.model.AddAccountType
 import com.unfinished.feature_account.domain.model.ImportJsonMetaData

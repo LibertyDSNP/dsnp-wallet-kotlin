@@ -3,7 +3,7 @@ package com.unfinished.feature_account.presentation.mixin.addressInput.myselfBeh
 import com.unfinished.feature_account.domain.interfaces.SelectedAccountUseCase
 import com.unfinished.feature_account.domain.model.addressIn
 import com.unfinished.feature_account.domain.model.hasAccountIn
-import com.unfinished.common.utils.invoke
+import com.unfinished.data.util.invoke
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.Flow

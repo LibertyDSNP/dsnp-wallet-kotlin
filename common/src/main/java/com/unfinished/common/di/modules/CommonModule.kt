@@ -15,26 +15,13 @@ import dagger.hilt.components.SingletonComponent
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.address.CachingAddressIconGenerator
 import com.unfinished.common.address.StatelessAddressIconGenerator
-import com.unfinished.common.data.FileProviderImpl
-import com.unfinished.common.data.memory.ComputationalCache
-import com.unfinished.common.data.memory.RealComputationalCache
-import com.unfinished.common.data.network.rpc.BulkRetriever
-import com.unfinished.common.data.secrets.v1.SecretStoreV1
-import com.unfinished.common.data.secrets.v1.SecretStoreV1Impl
-import com.unfinished.common.data.secrets.v2.SecretStoreV2
-import com.unfinished.common.data.storage.Preferences
-import com.unfinished.common.data.storage.PreferencesImpl
-import com.unfinished.common.data.storage.encrypt.EncryptedPreferences
-import com.unfinished.common.data.storage.encrypt.EncryptedPreferencesImpl
-import com.unfinished.common.data.storage.encrypt.EncryptionUtil
-import com.unfinished.common.interfaces.FileCache
-import com.unfinished.common.interfaces.FileProvider
-import com.unfinished.common.interfaces.InternalFileSystemCache
 import com.unfinished.common.mixin.actionAwaitable.ActionAwaitableMixin
 import com.unfinished.common.mixin.actionAwaitable.ActionAwaitableProvider
 import com.unfinished.common.mixin.api.CustomDialogDisplayer
+import com.unfinished.common.mixin.api.NetworkStateMixin
 import com.unfinished.common.mixin.hints.ResourcesHintsMixinFactory
 import com.unfinished.common.mixin.impl.CustomDialogProvider
+import com.unfinished.common.mixin.impl.NetworkStateProvider
 import com.unfinished.common.resources.AppVersionProvider
 import com.unfinished.common.resources.ClipboardManager
 import com.unfinished.common.resources.ContextManager
@@ -42,12 +29,12 @@ import com.unfinished.common.resources.LanguagesHolder
 import com.unfinished.common.resources.OSAppVersionProvider
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.resources.ResourceManagerImpl
+import com.unfinished.common.utils.AppLinksProvider
 import com.unfinished.common.utils.QrCodeGenerator
 import com.unfinished.common.utils.permissions.PermissionsAskerFactory
 import com.unfinished.common.utils.systemCall.SystemCallExecutor
 import com.unfinished.common.validation.ValidationExecutor
 import com.unfinished.common.vibration.DeviceVibrator
-import jp.co.soramitsu.fearless_utils.encrypt.Signer
 import jp.co.soramitsu.fearless_utils.icon.IconGenerator
 import java.security.SecureRandom
 import java.util.Random
@@ -64,9 +51,6 @@ annotation class Caching
 @InstallIn(SingletonComponent::class)
 class CommonModule {
 
-    @Provides
-    @Singleton
-    fun provideComputationalCache(): ComputationalCache = RealComputationalCache()
 
     @Provides
     @Singleton
@@ -86,33 +70,6 @@ class CommonModule {
     @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences(SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE)
-    }
-
-    @Provides
-    @Singleton
-    fun providePreferences(sharedPreferences: SharedPreferences): Preferences {
-        return PreferencesImpl(sharedPreferences)
-    }
-
-    @Provides
-    @Singleton
-    fun provideEncryptionUtil(@ApplicationContext context: Context): EncryptionUtil {
-        return EncryptionUtil(context)
-    }
-
-    @Provides
-    @Singleton
-    fun provideEncryptedPreferences(
-        preferences: Preferences,
-        encryptionUtil: EncryptionUtil,
-    ): EncryptedPreferences {
-        return EncryptedPreferencesImpl(preferences, encryptionUtil)
-    }
-
-    @Provides
-    @Singleton
-    fun provideSigner(): Signer {
-        return Signer
     }
 
     @Provides
@@ -168,11 +125,6 @@ class CommonModule {
         return ContextManager(context,languagesHolder)
     }
 
-    @Provides
-    @Singleton
-    fun provideFileProvider(contextManager: ContextManager): FileProvider {
-        return FileProviderImpl(contextManager.getApplicationContext())
-    }
 
     @Provides
     @Singleton
@@ -188,27 +140,10 @@ class CommonModule {
 
     @Provides
     @Singleton
-    fun provideDefaultPagedKeysRetriever(): BulkRetriever {
-        return BulkRetriever()
-    }
-
-    @Provides
-    @Singleton
     fun provideValidationExecutor(): ValidationExecutor {
         return ValidationExecutor()
     }
 
-    @Provides
-    @Singleton
-    fun provideSecretStoreV1(
-        encryptedPreferences: EncryptedPreferences,
-    ): SecretStoreV1 = SecretStoreV1Impl(encryptedPreferences)
-
-    @Provides
-    @Singleton
-    fun provideSecretStoreV2(
-        encryptedPreferences: EncryptedPreferences,
-    ) = SecretStoreV2(encryptedPreferences)
 
     @Provides
     @Singleton
@@ -236,9 +171,6 @@ class CommonModule {
         resourceManager: ResourceManager,
     ) = ResourcesHintsMixinFactory(resourceManager)
 
-    @Provides
-    @Singleton
-    fun provideFileCache(fileProvider: FileProvider): FileCache = InternalFileSystemCache(fileProvider)
 
     @Provides
     @Singleton
@@ -246,4 +178,28 @@ class CommonModule {
         actionAwaitableMixinFactory: ActionAwaitableMixin.Factory
     ) = PermissionsAskerFactory(actionAwaitableMixinFactory)
 
+    @Provides
+    fun provideNetworkStateMixin(): NetworkStateMixin = NetworkStateProvider()
+
+    @Provides
+    @Singleton
+    fun provideAppLinksProvider(): AppLinksProvider {
+        return AppLinksProvider(
+            termsUrl = com.unfinished.common.BuildConfig.TERMS_URL,
+            privacyUrl = com.unfinished.common.BuildConfig.PRIVACY_URL,
+            payoutsLearnMore = com.unfinished.common.BuildConfig.PAYOUTS_LEARN_MORE,
+            twitterAccountTemplate = com.unfinished.common.BuildConfig.TWITTER_ACCOUNT_TEMPLATE,
+            setControllerLearnMore = com.unfinished.common.BuildConfig.SET_CONTROLLER_LEARN_MORE,
+            recommendedValidatorsLearnMore = com.unfinished.common.BuildConfig.RECOMMENDED_VALIDATORS_LEARN_MORE,
+            paritySignerTroubleShooting = com.unfinished.common.BuildConfig.PARITY_SIGNER_TROUBLESHOOTING,
+            ledgerBluetoothGuide = com.unfinished.common.BuildConfig.LEDGER_BLEUTOOTH_GUIDE,
+            telegram = com.unfinished.common.BuildConfig.TELEGRAM_URL,
+            twitter = com.unfinished.common.BuildConfig.TWITTER_URL,
+            rateApp = com.unfinished.common.BuildConfig.RATE_URL,
+            website = com.unfinished.common.BuildConfig.WEBSITE_URL,
+            github = com.unfinished.common.BuildConfig.GITHUB_URL,
+            email = com.unfinished.common.BuildConfig.EMAIL,
+            youtube = com.unfinished.common.BuildConfig.YOUTUBE_URL,
+        )
+    }
 }

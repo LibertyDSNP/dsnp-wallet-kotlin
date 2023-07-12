@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.unfinished.common.base.BaseFragment
 import com.unfinished.common.utils.setOnSafeClickListener
 import com.unfinished.common.validation.validationError
-import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.data.api.model.CryptoType
 import com.unfinished.common.utils.toUnit
 import com.unfinished.runtime.ext.addressOf
 import kotlinx.coroutines.Dispatchers

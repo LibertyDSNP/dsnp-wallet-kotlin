@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveDataScope
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.unfinished.data.util.ComponentHolder
 import kotlinx.coroutines.flow.Flow
 
 fun MutableLiveData<Event<Unit>>.sendEvent() {

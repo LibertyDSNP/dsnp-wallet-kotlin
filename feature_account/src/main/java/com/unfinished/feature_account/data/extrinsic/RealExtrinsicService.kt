@@ -1,9 +1,9 @@
 package com.unfinished.feature_account.data.extrinsic
 
-import com.unfinished.common.data.network.runtime.model.FeeResponse
-import com.unfinished.common.utils.orZero
+import com.unfinished.data.network.runtime.model.FeeResponse
+import com.unfinished.data.util.orZero
 import com.unfinished.common.utils.takeWhileInclusive
-import com.unfinished.common.utils.tip
+import com.unfinished.data.util.tip
 import com.unfinished.feature_account.data.signer.SignerProvider
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.accountIdIn

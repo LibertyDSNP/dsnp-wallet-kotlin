@@ -1,13 +1,13 @@
 package com.unfinished.runtime.di
 
 import android.content.Context
+import androidx.core.content.FileProvider
 import com.google.gson.Gson
-import com.unfinished.common.data.network.NetworkApiCreator
-import com.unfinished.common.data.network.rpc.BulkRetriever
-import com.unfinished.common.data.storage.Preferences
-import com.unfinished.common.interfaces.FileProvider
-import com.unfinished.core.db.dao.ChainDao
-import com.unfinished.core.db.dao.StorageDao
+import com.unfinished.data.network.NetworkApiCreator
+import com.unfinished.data.network.rpc.BulkRetriever
+import com.unfinished.data.storage.Preferences
+import com.unfinished.data.db.dao.ChainDao
+import com.unfinished.data.db.dao.StorageDao
 import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 
 interface RuntimeDependencies {

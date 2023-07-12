@@ -1,15 +1,15 @@
 package com.unfinished.runtime.network.rpc
 
-import com.unfinished.common.data.network.runtime.binding.BlockNumber
-import com.unfinished.common.data.network.runtime.binding.bindNumber
-import com.unfinished.common.data.network.runtime.binding.castToStruct
-import com.unfinished.common.data.network.runtime.binding.fromHexOrIncompatible
-import com.unfinished.common.data.network.runtime.calls.*
-import com.unfinished.common.data.network.runtime.model.FeeResponse
-import com.unfinished.common.data.network.runtime.model.SignedBlock
-import com.unfinished.common.data.network.runtime.model.SignedBlock.Block.Header
-import com.unfinished.common.utils.extrinsicHash
-import com.unfinished.common.utils.removeHexPrefix
+import com.unfinished.data.network.runtime.binding.BlockNumber
+import com.unfinished.data.network.runtime.binding.bindNumber
+import com.unfinished.data.network.runtime.binding.castToStruct
+import com.unfinished.data.network.runtime.binding.fromHexOrIncompatible
+import com.unfinished.data.network.runtime.calls.*
+import com.unfinished.data.network.runtime.model.FeeResponse
+import com.unfinished.data.network.runtime.model.SignedBlock
+import com.unfinished.data.network.runtime.model.SignedBlock.Block.Header
+import com.unfinished.data.util.extrinsicHash
+import com.unfinished.data.util.removeHexPrefix
 import com.unfinished.runtime.extrinsic.ExtrinsicStatus
 import com.unfinished.runtime.extrinsic.asExtrinsicStatus
 import com.unfinished.runtime.multiNetwork.ChainRegistry

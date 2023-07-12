@@ -1,6 +1,6 @@
 package com.unfinished.runtime.state
 
-import com.unfinished.common.resources.ResourceManager
+import com.unfinished.data.util.resource.ResourceManager
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 
 object NothingAdditional : AssetSharedStateAdditionalData {

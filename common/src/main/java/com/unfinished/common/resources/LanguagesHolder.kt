@@ -1,6 +1,6 @@
 package com.unfinished.common.resources
 
-import com.unfinished.common.core.api.model.Language
+import com.unfinished.data.api.model.Language
 
 class LanguagesHolder {
 

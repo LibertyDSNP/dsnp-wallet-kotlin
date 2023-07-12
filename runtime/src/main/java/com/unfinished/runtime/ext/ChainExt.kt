@@ -1,10 +1,10 @@
 package com.unfinished.runtime.ext
 
-import com.unfinished.common.data.network.runtime.binding.MultiAddress
-import com.unfinished.common.data.network.runtime.binding.bindOrNull
-import com.unfinished.common.utils.Modules
-import com.unfinished.common.utils.formatNamed
-import com.unfinished.common.utils.substrateAccountId
+import com.unfinished.data.network.runtime.binding.MultiAddress
+import com.unfinished.data.network.runtime.binding.bindOrNull
+import com.unfinished.data.util.Modules
+import com.unfinished.data.util.formatNamed
+import com.unfinished.data.util.substrateAccountId
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.model.Chain.Asset.Type
 import com.unfinished.runtime.multiNetwork.chain.model.ExplorerTemplateExtractor

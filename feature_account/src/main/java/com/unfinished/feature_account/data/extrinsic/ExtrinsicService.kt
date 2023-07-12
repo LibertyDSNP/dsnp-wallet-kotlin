@@ -1,6 +1,6 @@
 package com.unfinished.feature_account.data.extrinsic
 
-import com.unfinished.common.data.network.runtime.model.FeeResponse
+import com.unfinished.data.network.runtime.model.FeeResponse
 import com.unfinished.runtime.extrinsic.ExtrinsicStatus
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId

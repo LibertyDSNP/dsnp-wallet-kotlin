@@ -6,8 +6,8 @@ import com.unfinished.feature_account.presentation.model.account.add.AddAccountP
 import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unfinished.common.base.BaseViewModel
-import com.unfinished.common.data.network.AppLinksProvider
 import com.unfinished.common.mixin.api.Browserable
+import com.unfinished.common.utils.AppLinksProvider
 import com.unfinished.common.utils.Event
 import javax.inject.Inject
 

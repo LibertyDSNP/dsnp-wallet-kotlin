@@ -1,11 +1,11 @@
 package com.unfinished.runtime.network.updaters
 
 import android.util.Log
-import com.unfinished.common.data.network.StorageSubscriptionBuilder
-import com.unfinished.common.utils.LOG_TAG
-import com.unfinished.common.utils.hasModule
-import com.unfinished.common.core.api.updater.UpdateSystem
-import com.unfinished.common.core.api.updater.Updater
+import com.unfinished.data.network.StorageSubscriptionBuilder
+import com.unfinished.data.api.updater.UpdateSystem
+import com.unfinished.data.api.updater.Updater
+import com.unfinished.data.util.LOG_TAG
+import com.unfinished.data.util.hasModule
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.getRuntime

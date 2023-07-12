@@ -1,7 +1,7 @@
 package com.unfinished.runtime.multiNetwork.runtime.repository
 
-import com.unfinished.core.db.dao.ChainDao
-import com.unfinished.core.db.model.chain.ChainRuntimeInfoLocal
+import com.unfinished.data.db.dao.ChainDao
+import com.unfinished.data.db.model.chain.ChainRuntimeInfoLocal
 
 interface RuntimeVersionsRepository {
 

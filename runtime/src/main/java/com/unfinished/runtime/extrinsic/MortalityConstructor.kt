@@ -1,6 +1,6 @@
 package com.unfinished.runtime.extrinsic
 
-import com.unfinished.common.utils.invoke
+import com.unfinished.data.util.invoke
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import com.unfinished.runtime.network.rpc.RpcCalls
 import com.unfinished.runtime.repository.ChainStateRepository

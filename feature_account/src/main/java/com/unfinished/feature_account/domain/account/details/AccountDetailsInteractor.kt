@@ -1,16 +1,14 @@
 package com.unfinished.feature_account.domain.account.details
 
-import com.unfinished.common.data.secrets.v2.SecretStoreV2
-import com.unfinished.common.data.secrets.v2.entropy
-import com.unfinished.common.data.secrets.v2.getAccountSecrets
-import com.unfinished.common.data.secrets.v2.seed
-import com.unfinished.common.utils.mapToSet
+import com.unfinished.data.secrets.v2.SecretStoreV2
+import com.unfinished.data.secrets.v2.entropy
+import com.unfinished.data.secrets.v2.getAccountSecrets
+import com.unfinished.data.secrets.v2.seed
+import com.unfinished.data.util.mapToSet
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.LightMetaAccount
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.accountIdIn
-import com.unfinished.feature_account.domain.model.addressIn
-import com.unfinished.feature_account.domain.model.hasChainAccountIn
 import com.unfinished.feature_account.domain.account.details.AccountInChain.From
 import com.unfinished.feature_account.domain.validation.SubstrateApplicationConfig
 import com.unfinished.feature_account.presentation.model.account.add.SecretType

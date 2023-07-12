@@ -1,18 +1,18 @@
 package com.unfinished.feature_account.domain.account.advancedEncryption
 
-import com.unfinished.common.data.mappers.mapEncryptionToCryptoType
-import com.unfinished.common.data.secrets.v2.SecretStoreV2
-import com.unfinished.common.data.secrets.v2.derivationPath
-import com.unfinished.common.data.secrets.v2.ethereumDerivationPath
-import com.unfinished.common.data.secrets.v2.substrateDerivationPath
-import com.unfinished.common.utils.DEFAULT_DERIVATION_PATH
-import com.unfinished.common.utils.fold
+import com.unfinished.data.mappers.mapEncryptionToCryptoType
+import com.unfinished.data.secrets.v2.SecretStoreV2
+import com.unfinished.data.secrets.v2.derivationPath
+import com.unfinished.data.secrets.v2.ethereumDerivationPath
+import com.unfinished.data.secrets.v2.substrateDerivationPath
+import com.unfinished.data.util.DEFAULT_DERIVATION_PATH
+import com.unfinished.data.util.fold
 import com.unfinished.common.utils.input.Input
 import com.unfinished.common.utils.input.disabledInput
 import com.unfinished.common.utils.input.modifiableInput
 import com.unfinished.common.utils.input.unmodifiableInput
-import com.unfinished.common.utils.nullIfEmpty
-import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.data.util.nullIfEmpty
+import com.unfinished.data.api.model.CryptoType
 import com.unfinished.feature_account.data.secrets.getAccountSecrets
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.chainAccountFor

@@ -1,9 +1,9 @@
 package com.unfinished.runtime.storage.source.query
 
-import com.unfinished.common.data.network.rpc.BulkRetriever
-import com.unfinished.common.data.network.rpc.queryKey
-import com.unfinished.common.data.network.rpc.retrieveAllValues
-import com.unfinished.common.data.network.runtime.binding.BlockHash
+import com.unfinished.data.network.rpc.BulkRetriever
+import com.unfinished.data.network.rpc.queryKey
+import com.unfinished.data.network.rpc.retrieveAllValues
+import com.unfinished.data.network.runtime.binding.BlockHash
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.storage.SubscribeStorageRequest

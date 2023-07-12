@@ -3,9 +3,9 @@ package com.unfinished.common.utils.formatting
 import android.content.Context
 import android.text.format.DateUtils
 import com.unfinished.common.R
-import com.unfinished.common.utils.daysFromMillis
-import com.unfinished.common.utils.fractionToPercentage
-import com.unfinished.common.utils.isNonNegative
+import com.unfinished.data.util.daysFromMillis
+import com.unfinished.data.util.fractionToPercentage
+import com.unfinished.data.util.isNonNegative
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode

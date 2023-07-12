@@ -1,7 +1,7 @@
 package com.unfinished.common.validation
 
-import com.unfinished.common.utils.requireException
-import com.unfinished.common.utils.requireValue
+import com.unfinished.data.util.requireException
+import com.unfinished.data.util.requireValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

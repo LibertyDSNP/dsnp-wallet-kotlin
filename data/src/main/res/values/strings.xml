@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="undefined_error_message">Please, try again with another input. If the error appears again, please, contact support.</string>
+    <string name="connection_error_message_v2_2_0">Please, check your connection or try again later</string>
+</resources>

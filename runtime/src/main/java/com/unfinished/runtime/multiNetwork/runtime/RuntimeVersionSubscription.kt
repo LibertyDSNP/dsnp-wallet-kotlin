@@ -1,6 +1,6 @@
 package com.unfinished.runtime.multiNetwork.runtime
 
-import com.unfinished.core.db.dao.ChainDao
+import com.unfinished.data.db.dao.ChainDao
 import com.unfinished.runtime.multiNetwork.connection.ChainConnection
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.runtimeVersionChange
 import jp.co.soramitsu.fearless_utils.wsrpc.subscriptionFlow

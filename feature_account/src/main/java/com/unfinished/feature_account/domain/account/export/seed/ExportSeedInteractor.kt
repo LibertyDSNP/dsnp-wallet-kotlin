@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.domain.account.export.seed
 
-import com.unfinished.common.data.secrets.v2.SecretStoreV2
-import com.unfinished.common.data.secrets.v2.seed
+import com.unfinished.data.secrets.v2.SecretStoreV2
+import com.unfinished.data.secrets.v2.seed
 import com.unfinished.feature_account.data.secrets.getAccountSecrets
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.runtime.multiNetwork.ChainRegistry

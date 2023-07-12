@@ -1,11 +1,11 @@
 package com.unfinished.runtime.multiNetwork
 
 import com.google.gson.Gson
-import com.unfinished.common.utils.diffed
-import com.unfinished.common.utils.inBackground
-import com.unfinished.common.utils.mapList
-import com.unfinished.common.utils.removeHexPrefix
-import com.unfinished.core.db.dao.ChainDao
+import com.unfinished.data.db.dao.ChainDao
+import com.unfinished.data.util.diffed
+import com.unfinished.data.util.inBackground
+import com.unfinished.data.util.mapList
+import com.unfinished.data.util.removeHexPrefix
 import com.unfinished.runtime.multiNetwork.chain.ChainSyncService
 import com.unfinished.runtime.multiNetwork.chain.mapChainLocalToChain
 import com.unfinished.runtime.multiNetwork.chain.model.Chain

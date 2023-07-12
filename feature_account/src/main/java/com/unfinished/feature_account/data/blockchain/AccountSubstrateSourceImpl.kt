@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.data.blockchain
 
 import com.unfinished.feature_account.data.blockchain.AccountSubstrateSource
-import com.unfinished.common.data.network.rpc.SocketSingleRequestExecutor
+import com.unfinished.data.network.rpc.SocketSingleRequestExecutor
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.nonNull
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.pojo
 import jp.co.soramitsu.fearless_utils.wsrpc.request.base.RpcRequest

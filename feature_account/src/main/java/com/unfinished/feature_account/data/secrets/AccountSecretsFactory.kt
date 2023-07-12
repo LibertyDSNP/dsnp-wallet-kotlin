@@ -1,13 +1,13 @@
 package com.unfinished.feature_account.data.secrets
 
-import com.unfinished.common.data.mappers.mapCryptoTypeToEncryption
-import com.unfinished.common.data.mappers.mapEncryptionToCryptoType
-import com.unfinished.common.data.secrets.v2.ChainAccountSecrets
-import com.unfinished.common.data.secrets.v2.MetaAccountSecrets
-import com.unfinished.common.data.secrets.v2.mapKeypairStructToKeypair
-import com.unfinished.common.utils.castOrNull
-import com.unfinished.common.utils.deriveSeed32
-import com.unfinished.common.core.api.model.CryptoType
+import com.unfinished.data.mappers.mapCryptoTypeToEncryption
+import com.unfinished.data.mappers.mapEncryptionToCryptoType
+import com.unfinished.data.secrets.v2.ChainAccountSecrets
+import com.unfinished.data.secrets.v2.MetaAccountSecrets
+import com.unfinished.data.secrets.v2.mapKeypairStructToKeypair
+import com.unfinished.data.util.castOrNull
+import com.unfinished.data.util.deriveSeed32
+import com.unfinished.data.api.model.CryptoType
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder

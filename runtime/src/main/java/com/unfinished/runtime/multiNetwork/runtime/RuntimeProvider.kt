@@ -1,7 +1,7 @@
 package com.unfinished.runtime.multiNetwork.runtime
 
 import android.util.Log
-import com.unfinished.common.utils.LOG_TAG
+import com.unfinished.data.util.LOG_TAG
 import com.unfinished.runtime.ext.typesUsage
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.model.TypesUsage

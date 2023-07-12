@@ -39,6 +39,7 @@ android {
 dependencies {
 
     implementation project(':common')
+    implementation project(':data')
     implementation project(':runtime')
 
     implementation deps.support.core_ktx

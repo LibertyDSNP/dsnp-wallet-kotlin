@@ -5,11 +5,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.unfinished.common.data.network.rpc.BulkRetriever
-import com.unfinished.common.data.storage.Preferences
-import com.unfinished.common.core.api.storage.StorageCache
-import com.unfinished.core.db.dao.ChainDao
-import com.unfinished.core.db.dao.StorageDao
+import com.unfinished.data.network.rpc.BulkRetriever
+import com.unfinished.data.storage.Preferences
+import com.unfinished.data.api.storage.StorageCache
+import com.unfinished.data.db.dao.ChainDao
+import com.unfinished.data.db.dao.StorageDao
 import com.unfinished.runtime.extrinsic.ExtrinsicBuilderFactory
 import com.unfinished.runtime.extrinsic.ExtrinsicSerializers
 import com.unfinished.runtime.extrinsic.ExtrinsicValidityUseCase

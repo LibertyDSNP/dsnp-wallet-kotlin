@@ -5,9 +5,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.unfinished.common.data.network.NetworkApiCreator
-import com.unfinished.common.interfaces.FileProvider
-import com.unfinished.core.db.dao.ChainDao
+import com.unfinished.data.network.NetworkApiCreator
+import com.unfinished.data.db.dao.ChainDao
+import com.unfinished.data.file.FileProvider
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.ChainSyncService
 import com.unfinished.runtime.multiNetwork.chain.remote.ChainFetcher

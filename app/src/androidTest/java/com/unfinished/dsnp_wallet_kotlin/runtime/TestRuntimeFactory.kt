@@ -2,7 +2,6 @@ package com.unfinished.dsnp_wallet_kotlin.runtime
 
 import android.content.Context
 import com.google.gson.Gson
-import com.unfinished.common.utils.md5
 import com.unfinished.runtime.multiNetwork.runtime.types.custom.vote.SiVoteTypeMapping
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.definitions.TypeDefinitionParser.parseBaseDefinitions

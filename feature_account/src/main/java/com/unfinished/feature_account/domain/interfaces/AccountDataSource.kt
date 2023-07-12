@@ -1,11 +1,11 @@
 package com.unfinished.feature_account.domain.interfaces
 
-import com.unfinished.common.data.secrets.v1.SecretStoreV1
-import com.unfinished.common.data.secrets.v2.ChainAccountSecrets
-import com.unfinished.common.data.secrets.v2.MetaAccountSecrets
-import com.unfinished.common.core.api.model.CryptoType
-import com.unfinished.common.core.api.model.Language
-import com.unfinished.common.core.api.model.Node
+import com.unfinished.data.secrets.v1.SecretStoreV1
+import com.unfinished.data.secrets.v2.ChainAccountSecrets
+import com.unfinished.data.secrets.v2.MetaAccountSecrets
+import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.api.model.Language
+import com.unfinished.data.api.model.Node
 import com.unfinished.feature_account.domain.model.Account
 import com.unfinished.feature_account.domain.model.AuthType
 import com.unfinished.feature_account.domain.model.MetaAccount

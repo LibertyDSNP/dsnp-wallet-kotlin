@@ -2,16 +2,13 @@ package com.unfinished.common.view
 
 import android.content.Context
 import android.os.CountDownTimer
-import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleCoroutineScope
 import com.unfinished.common.R
-import com.unfinished.common.utils.formatting.TimerValue
+import com.unfinished.data.util.formating.TimerValue
 import com.unfinished.common.utils.formatting.format
 import com.unfinished.common.utils.onDestroy
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime

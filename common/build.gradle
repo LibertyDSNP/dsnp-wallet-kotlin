@@ -71,12 +71,12 @@ dependencies {
 
     implementation(name: 'renderscript-toolkit', ext: 'aar')
 
+    implementation project(':data')
+
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
     implementation deps.support.material
     implementation deps.support.constraint_layout
-
-    implementation deps.test.mockito_inline
 
     implementation deps.lifecycle.extensions
     implementation deps.lifecycle.compiler
@@ -95,24 +95,11 @@ dependencies {
     kapt deps.daggerHilt.android_compiler
     kapt deps.daggerHilt.hilt_compiler
 
-    implementation deps.retrofit.okhttp
-    implementation deps.retrofit.retrofit
-    implementation deps.retrofit.converter_gson
-    implementation deps.retrofit.converter_scalars
-    implementation deps.retrofit.interceptor
-
-    implementation deps.room.runtime
-    implementation deps.room.ktx
-    kapt deps.room.compiler
-    implementation deps.room.testing
-
-    implementation deps.other.bouncycastle
     implementation deps.nova.fearless_utils
 
     implementation deps.other.zxing
     implementation deps.other.zxing_android
     implementation deps.other.progressbutton
-    implementation deps.other.websocket
     implementation deps.other.shimmer
     implementation deps.other.insetter_widgets
     implementation deps.other.coil

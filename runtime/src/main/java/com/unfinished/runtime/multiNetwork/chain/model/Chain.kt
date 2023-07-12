@@ -1,6 +1,6 @@
 package com.unfinished.runtime.multiNetwork.chain.model
 
-import com.unfinished.common.utils.Identifiable
+import com.unfinished.data.util.Identifiable
 import java.math.BigInteger
 
 typealias ChainId = String

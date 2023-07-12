@@ -1,11 +1,11 @@
 package com.unfinished.runtime.state
 
-import com.unfinished.common.data.holders.ChainIdHolder
-import com.unfinished.common.data.storage.Preferences
-import com.unfinished.common.utils.Identifiable
-import com.unfinished.common.utils.findById
-import com.unfinished.common.utils.formatting.Formatable
-import com.unfinished.common.utils.inBackground
+import com.unfinished.data.holders.ChainIdHolder
+import com.unfinished.data.storage.Preferences
+import com.unfinished.data.util.Identifiable
+import com.unfinished.data.util.findById
+import com.unfinished.data.util.formating.Formatable
+import com.unfinished.data.util.inBackground
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.ChainWithAsset
 import com.unfinished.runtime.multiNetwork.chain.model.Chain

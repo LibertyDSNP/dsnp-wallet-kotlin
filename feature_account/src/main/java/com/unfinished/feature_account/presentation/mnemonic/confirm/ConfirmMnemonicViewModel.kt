@@ -9,15 +9,12 @@ import com.unfinished.feature_account.domain.account.add.AddAccountInteractor
 import com.unfinished.feature_account.domain.interfaces.AccountInteractor
 import com.unfinished.feature_account.presentation.AccountRouter
 import com.unfinished.feature_account.presentation.mnemonic.*
-import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicPayload
-import com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unfinished.common.base.BaseViewModel
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.utils.Event
-import com.unfinished.common.utils.modified
+import com.unfinished.data.util.modified
 import com.unfinished.common.utils.sendEvent
 import com.unfinished.common.vibration.DeviceVibrator
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
@@ -26,7 +23,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class ConfirmMnemonicViewModel @AssistedInject constructor(
     private val interactor: AccountInteractor,

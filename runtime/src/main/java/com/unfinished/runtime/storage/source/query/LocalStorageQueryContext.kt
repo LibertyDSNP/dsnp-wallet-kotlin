@@ -1,8 +1,8 @@
 package com.unfinished.runtime.storage.source.query
 
-import com.unfinished.common.data.network.runtime.binding.BlockHash
-import com.unfinished.common.core.api.model.StorageEntry
-import com.unfinished.common.core.api.storage.StorageCache
+import com.unfinished.data.network.runtime.binding.BlockHash
+import com.unfinished.data.api.model.StorageEntry
+import com.unfinished.data.api.storage.StorageCache
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import kotlinx.coroutines.flow.Flow

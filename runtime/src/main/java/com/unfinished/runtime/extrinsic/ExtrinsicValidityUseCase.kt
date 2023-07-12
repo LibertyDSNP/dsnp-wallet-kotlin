@@ -3,11 +3,9 @@ package com.unfinished.runtime.extrinsic
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
-import com.unfinished.common.utils.formatting.TimerValue
-import com.unfinished.common.utils.formatting.remainingTime
-import com.unfinished.common.utils.setTextColorRes
-import com.unfinished.common.view.startTimer
-import com.unfinished.common.R
+import com.unfinished.data.util.formating.TimerValue
+import com.unfinished.data.util.formating.remainingTime
+import com.unfinished.runtime.R
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadExtrinsic
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
@@ -44,22 +42,22 @@ internal class RealExtrinsicValidityUseCase(
         return ValidityPeriod(timerValue)
     }
 }
-
-fun LifecycleOwner.startExtrinsicValidityTimer(
-    validityPeriod: ValidityPeriod,
-    @StringRes timerFormat: Int,
-    timerView: TextView,
-    onTimerFinished: () -> Unit
-) {
-    timerView.startTimer(
-        value = validityPeriod.period,
-        customMessageFormat = timerFormat,
-        lifecycle = lifecycle,
-        onTick = { view, _ ->
-            val textColorRes = if (validityPeriod.closeToExpire()) R.color.text_negative else R.color.text_secondary
-
-            view.setTextColorRes(textColorRes)
-        },
-        onFinish = { onTimerFinished() }
-    )
-}
+//TODO need to check If it's any of use
+//fun LifecycleOwner.startExtrinsicValidityTimer(
+//    validityPeriod: ValidityPeriod,
+//    @StringRes timerFormat: Int,
+//    timerView: TextView,
+//    onTimerFinished: () -> Unit
+//) {
+//    timerView.startTimer(
+//        value = validityPeriod.period,
+//        customMessageFormat = timerFormat,
+//        lifecycle = lifecycle,
+//        onTick = { view, _ ->
+//            val textColorRes = if (validityPeriod.closeToExpire()) R.color.text_negative else R.color.text_secondary
+//
+//            view.setTextColorRes(textColorRes)
+//        },
+//        onFinish = { onTimerFinished() }
+//    )
+//}

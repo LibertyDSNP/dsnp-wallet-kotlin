@@ -1,9 +1,9 @@
 package com.unfinished.runtime.storage.source
 
-import com.unfinished.common.data.network.rpc.BulkRetriever
-import com.unfinished.common.data.network.rpc.queryKey
-import com.unfinished.common.data.network.runtime.binding.BlockHash
-import com.unfinished.common.data.network.runtime.calls.GetChildStateRequest
+import com.unfinished.data.network.rpc.BulkRetriever
+import com.unfinished.data.network.rpc.queryKey
+import com.unfinished.data.network.runtime.binding.BlockHash
+import com.unfinished.data.network.runtime.calls.GetChildStateRequest
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.getSocket
 import com.unfinished.runtime.storage.source.query.RemoteStorageQueryContext

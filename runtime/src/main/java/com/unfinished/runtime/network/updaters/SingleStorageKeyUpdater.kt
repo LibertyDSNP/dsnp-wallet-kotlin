@@ -1,12 +1,12 @@
 package com.unfinished.runtime.network.updaters
 
-import com.unfinished.common.data.holders.ChainIdHolder
-import com.unfinished.common.core.api.model.StorageChange
-import com.unfinished.common.core.api.model.StorageEntry
-import com.unfinished.common.core.api.storage.StorageCache
-import com.unfinished.common.core.api.updater.SubscriptionBuilder
-import com.unfinished.common.core.api.updater.UpdateScope
-import com.unfinished.common.core.api.updater.Updater
+import com.unfinished.data.holders.ChainIdHolder
+import com.unfinished.data.api.model.StorageChange
+import com.unfinished.data.api.model.StorageEntry
+import com.unfinished.data.api.storage.StorageCache
+import com.unfinished.data.api.updater.SubscriptionBuilder
+import com.unfinished.data.api.updater.UpdateScope
+import com.unfinished.data.api.updater.Updater
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.getRuntime
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot

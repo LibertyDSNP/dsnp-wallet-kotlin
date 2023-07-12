@@ -2,9 +2,9 @@ package com.unfinished.common.resources
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import com.unfinished.common.data.storage.PreferencesImpl
 import com.unfinished.common.di.modules.SHARED_PREFERENCES_FILE
 import com.unfinished.common.utils.SingletonHolder
+import com.unfinished.data.storage.PreferencesImpl
 import java.util.Locale
 import javax.inject.Inject
 

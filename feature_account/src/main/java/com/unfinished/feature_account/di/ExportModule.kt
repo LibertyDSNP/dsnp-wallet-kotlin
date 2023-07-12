@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.unfinished.common.data.secrets.v2.SecretStoreV2
+import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import javax.inject.Singleton
 

@@ -1,6 +1,6 @@
 package com.unfinished.runtime.storage.source.query
 
-import com.unfinished.common.utils.ComponentHolder
+import com.unfinished.data.util.ComponentHolder
 import com.unfinished.runtime.storage.source.multi.MultiQueryBuilder
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.metadata.module.StorageEntry

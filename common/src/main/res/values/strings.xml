@@ -698,6 +698,7 @@
     <string name="common_edit">Edit</string>
     <string name="common_email_chooser_title">Select email app</string>
     <string name="common_error_general_title">Error</string>
+    <string name="common_undefined_error_message">Please, try again with another input. If the error appears again, please, contact support.</string>
     <string name="common_event">Event</string>
     <string name="common_existential_warning_message_v2_2_0">Your account will be removed from blockchain after this operation cause it makes total balance lower than minimal</string>
     <string name="common_existential_warning_title">Operation will remove account</string>
@@ -731,7 +732,6 @@
     <string name="common_skip_process">Skip process</string>
     <string name="common_time_left">Time left</string>
     <string name="common_transaction_submitted">Transaction submitted</string>
-    <string name="common_undefined_error_message">Please, try again with another input. If the error appears again, please, contact support.</string>
     <string name="common_unknown">Unknown</string>
     <string name="common_unlimited">Unlimited</string>
     <string name="common_update">Update</string>
@@ -743,7 +743,6 @@
     <string name="connection_delete_confirm">Delete</string>
     <string name="connection_delete_description">Confirm %s deletion.</string>
     <string name="connection_delete_title">Delete network?</string>
-    <string name="connection_error_message_v2_2_0">Please, check your connection or try again later</string>
     <string name="connection_management_custom_title">Custom</string>
     <string name="connection_management_default_title">Default</string>
     <string name="connection_management_title">Networks</string>

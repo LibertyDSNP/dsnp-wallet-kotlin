@@ -1,11 +1,11 @@
 package com.unfinished.runtime.multiNetwork.chain
 
 import com.google.gson.Gson
-import com.unfinished.common.utils.CollectionDiffer
-import com.unfinished.common.utils.Identifiable
-import com.unfinished.common.utils.map
-import com.unfinished.common.utils.retryUntilDone
-import com.unfinished.core.db.dao.ChainDao
+import com.unfinished.data.db.dao.ChainDao
+import com.unfinished.data.util.CollectionDiffer
+import com.unfinished.data.util.Identifiable
+import com.unfinished.data.util.map
+import com.unfinished.data.util.retryUntilDone
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.remote.ChainFetcher
 import kotlinx.coroutines.Dispatchers

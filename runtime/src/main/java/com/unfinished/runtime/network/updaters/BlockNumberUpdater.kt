@@ -1,9 +1,9 @@
 package com.unfinished.runtime.network.updaters
 
-import com.unfinished.common.utils.Modules
-import com.unfinished.common.utils.system
-import com.unfinished.common.core.api.storage.StorageCache
-import com.unfinished.common.core.api.updater.GlobalScope
+import com.unfinished.data.api.storage.StorageCache
+import com.unfinished.data.api.updater.GlobalScope
+import com.unfinished.data.util.Modules
+import com.unfinished.data.util.system
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.state.SingleAssetSharedState
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot

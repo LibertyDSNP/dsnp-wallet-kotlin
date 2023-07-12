@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.domain.interfaces
 
-import com.unfinished.common.core.api.model.CryptoType
-import com.unfinished.common.core.api.model.Language
-import com.unfinished.common.core.api.model.Node
+import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.api.model.Language
+import com.unfinished.data.api.model.Node
 import com.unfinished.feature_account.domain.model.Account
 import com.unfinished.feature_account.domain.model.MetaAccount
 import com.unfinished.feature_account.domain.model.PreferredCryptoType
