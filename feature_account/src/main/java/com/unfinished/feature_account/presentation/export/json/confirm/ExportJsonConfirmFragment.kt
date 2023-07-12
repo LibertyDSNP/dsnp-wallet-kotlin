@@ -43,7 +43,7 @@ class ExportJsonConfirmFragment : ExportFragment<ExportJsonConfirmViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentExportJsonConfirmBinding.inflate(layoutInflater)
         return binding.root
     }

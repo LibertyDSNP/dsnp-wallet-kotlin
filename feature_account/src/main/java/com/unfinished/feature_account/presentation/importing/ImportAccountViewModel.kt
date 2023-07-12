@@ -70,7 +70,7 @@ class ImportAccountViewModel(
 
     fun nextClicked() = launch {
         importInProgressFlow.withFlagSet {
-            val nameState = accountNameChooser.nameState.value!!
+            val nameState = accountNameChooser.nameState.value
             val addAccountType = mapAddAccountPayloadToAddAccountType(payload.addAccountPayload, nameState)
 
             importSource.performImport(addAccountType)

@@ -18,22 +18,15 @@ import com.unfinished.feature_account.presentation.importing.source.model.Import
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unfinished.common.R
 import com.unfinished.common.base.BaseViewModel
-import com.unfinished.data.network.runtime.binding.AccountInfo
-import com.unfinished.data.network.runtime.binding.bindAccountInfo
-import com.unfinished.data.network.runtime.binding.checkIfExtrinsicFailed
-import com.unfinished.data.network.runtime.calls.*
-import com.unfinished.data.network.runtime.model.FeeResponse
-import com.unfinished.data.network.runtime.model.SignedBlock
-import com.unfinished.data.network.runtime.model.event.*
 import com.unfinished.data.secrets.v2.ChainAccountSecrets
 import com.unfinished.data.secrets.v2.KeyPairSchema
 import com.unfinished.data.secrets.v2.MetaAccountSecrets
 import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.utils.*
-import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.model.CryptoType
 import com.unfinished.data.util.substrateAccountId
-import com.unfinished.data.util.system
+import com.unfinished.runtime.util.system
 import com.unfinished.runtime.ext.*
 import com.unfinished.runtime.extrinsic.ExtrinsicBuilderFactory
 import com.unfinished.runtime.extrinsic.ExtrinsicStatus
@@ -45,6 +38,21 @@ import com.unfinished.runtime.multiNetwork.getRuntime
 import com.unfinished.runtime.multiNetwork.getSocket
 import com.unfinished.runtime.multiNetwork.runtime.repository.EventsRepository
 import com.unfinished.runtime.network.rpc.RpcCalls
+import com.unfinished.runtime.network.runtime.binding.AccountInfo
+import com.unfinished.runtime.network.runtime.binding.bindAccountInfo
+import com.unfinished.runtime.network.runtime.binding.checkIfExtrinsicFailed
+import com.unfinished.runtime.network.runtime.calls.GetBlockHashRequest
+import com.unfinished.runtime.network.runtime.calls.GetBlockRequest
+import com.unfinished.runtime.network.runtime.calls.GetStateRequest
+import com.unfinished.runtime.network.runtime.calls.addPublicKeyToMsa
+import com.unfinished.runtime.network.runtime.calls.createMsa
+import com.unfinished.runtime.network.runtime.calls.createProvider
+import com.unfinished.runtime.network.runtime.calls.deletePublicKeyToMsa
+import com.unfinished.runtime.network.runtime.calls.retireMsa
+import com.unfinished.runtime.network.runtime.calls.transferCall
+import com.unfinished.runtime.network.runtime.model.FeeResponse
+import com.unfinished.runtime.network.runtime.model.SignedBlock
+import com.unfinished.runtime.network.runtime.model.event.EventType
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
@@ -522,8 +530,7 @@ class TestViewModel @Inject constructor(
                 chain,
                 signerProvider.signerFor(msaOwnerMetaAccount),
                 msaOwnerAccountId
-            )
-                .addPublicKeyToMsa(
+            ).addPublicKeyToMsa(
                     msaOwnerPublicKey = msaOwnerAccountId,
                     msaOwnerProof = msaOwnerProof,
                     newKeyOwnerProof = newKeyOwnerProof,

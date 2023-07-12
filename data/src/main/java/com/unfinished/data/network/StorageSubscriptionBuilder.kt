@@ -1,7 +1,7 @@
 package com.unfinished.data.network
 
-import com.unfinished.data.api.model.StorageChange
-import com.unfinished.data.api.updater.SubscriptionBuilder
+import com.unfinished.data.model.StorageChange
+import com.unfinished.data.updater.SubscriptionBuilder
 import jp.co.soramitsu.fearless_utils.wsrpc.SocketService
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.storage.StorageSubscriptionMultiplexer
 import jp.co.soramitsu.fearless_utils.wsrpc.subscribe

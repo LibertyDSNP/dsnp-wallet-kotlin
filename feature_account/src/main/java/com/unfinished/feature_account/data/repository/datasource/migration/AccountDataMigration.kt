@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.unfinished.data.secrets.v1.Keypair
 import com.unfinished.data.storage.Preferences
 import com.unfinished.data.storage.encrypt.EncryptedPreferences
-import com.unfinished.data.api.model.SecuritySource
+import com.unfinished.data.model.SecuritySource
 import com.unfinished.data.db.dao.AccountDao
 import com.unfinished.data.db.model.AccountLocal
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator

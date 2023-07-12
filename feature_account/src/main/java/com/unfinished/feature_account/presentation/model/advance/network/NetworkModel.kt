@@ -1,10 +1,10 @@
 package com.unfinished.feature_account.presentation.model.advance.network
 
-import com.unfinished.data.api.model.Node
-import com.unfinished.data.api.model.Node.NetworkType.KUSAMA
-import com.unfinished.data.api.model.Node.NetworkType.POLKADOT
-import com.unfinished.data.api.model.Node.NetworkType.ROCOCO
-import com.unfinished.data.api.model.Node.NetworkType.WESTEND
+import com.unfinished.data.model.Node
+import com.unfinished.data.model.Node.NetworkType.KUSAMA
+import com.unfinished.data.model.Node.NetworkType.POLKADOT
+import com.unfinished.data.model.Node.NetworkType.ROCOCO
+import com.unfinished.data.model.Node.NetworkType.WESTEND
 import com.unfinished.common.R
 
 data class NetworkModel(

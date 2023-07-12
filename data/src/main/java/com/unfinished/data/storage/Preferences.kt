@@ -1,6 +1,6 @@
 package com.unfinished.data.storage
 
-import com.unfinished.data.api.model.Language
+import com.unfinished.data.model.Language
 import kotlinx.coroutines.flow.Flow
 
 typealias InitialValueProducer<T> = suspend () -> T

@@ -34,7 +34,7 @@ class CongratulationFragment : BaseDialogFragment<SharedMnemonicViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCongratulationDialogBinding.inflate(layoutInflater)
         return binding.root
     }

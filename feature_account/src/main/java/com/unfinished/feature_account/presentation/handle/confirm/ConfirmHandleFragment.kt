@@ -51,7 +51,7 @@ class ConfirmHandleFragment : BaseFragment<ConfirmHandleViewModel>() {
     }
 
     override fun subscribe(viewModel: ConfirmHandleViewModel) {
-        binding.confirmHandlePrefix.setText(viewModel.handle)
+        binding.confirmHandlePrefix.text = viewModel.handle
     }
 
 }

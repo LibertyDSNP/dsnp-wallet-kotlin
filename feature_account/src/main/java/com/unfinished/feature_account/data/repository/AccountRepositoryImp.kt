@@ -5,11 +5,11 @@ import com.unfinished.data.secrets.v2.getAccountSecrets
 import com.unfinished.data.secrets.v2.seed
 import com.unfinished.common.resources.LanguagesHolder
 import com.unfinished.common.utils.mapList
-import com.unfinished.data.util.networkType
-import com.unfinished.data.api.model.CryptoType
-import com.unfinished.data.api.model.Language
-import com.unfinished.data.api.model.Network
-import com.unfinished.data.api.model.Node
+import com.unfinished.runtime.util.networkType
+import com.unfinished.data.model.CryptoType
+import com.unfinished.data.model.Language
+import com.unfinished.data.model.Network
+import com.unfinished.data.model.Node
 import com.unfinished.data.db.dao.AccountDao
 import com.unfinished.data.db.dao.NodeDao
 import com.unfinished.data.db.model.AccountLocal

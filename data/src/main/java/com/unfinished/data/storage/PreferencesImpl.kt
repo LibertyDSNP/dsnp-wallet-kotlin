@@ -1,7 +1,7 @@
 package com.unfinished.data.storage
 
 import android.content.SharedPreferences
-import com.unfinished.data.api.model.Language
+import com.unfinished.data.model.Language
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

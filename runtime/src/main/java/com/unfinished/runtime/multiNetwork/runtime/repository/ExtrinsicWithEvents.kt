@@ -1,6 +1,6 @@
 package com.unfinished.runtime.multiNetwork.runtime.repository
 
-import com.unfinished.data.util.Modules
+import com.unfinished.runtime.util.Modules
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Extrinsic
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.GenericEvent
 

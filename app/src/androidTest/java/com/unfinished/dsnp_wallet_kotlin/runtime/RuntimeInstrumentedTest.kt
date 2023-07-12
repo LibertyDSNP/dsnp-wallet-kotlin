@@ -98,7 +98,7 @@ class RuntimeInstrumentedTest {
         val response = executeCall(request)
         println(gson.toJson(response))
         //Make test fail if the error exists
-        Assert.assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
+        assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
     }
 
     @Test
@@ -107,7 +107,7 @@ class RuntimeInstrumentedTest {
         val response = executeCallWithMapper(request, pojo<String>().nonNull())
         println(gson.toJson(response))
         //Make test fail if the error exists
-        Assert.assertTrue("Metadata is empty or not valid", response.isNotEmpty())
+        assertTrue("Metadata is empty or not valid", response.isNotEmpty())
     }
 
     @Test
@@ -116,7 +116,7 @@ class RuntimeInstrumentedTest {
         val response = executeCall(request)
         println(gson.toJson(response))
         //Make test fail if the error exists
-        Assert.assertTrue(gson.toJson(response.error) ?: "Error", response.error == null)
+        assertTrue(gson.toJson(response.error) ?: "Error", response.error == null)
     }
 
     @Test
@@ -125,7 +125,7 @@ class RuntimeInstrumentedTest {
         val response = executeCallWithMapper(request,pojo<String>().nonNull())
         println(response)
         //Make test fail if the error exists
-        Assert.assertTrue("Block hash is empty",response.isNotEmpty())
+        assertTrue("Block hash is empty",response.isNotEmpty())
     }
 
     /**
@@ -139,8 +139,8 @@ class RuntimeInstrumentedTest {
         val response = executeCallWithMapper(request,pojo<SignedBlock>().nonNull())
         println(gson.toJson(response))
         //Make test fail if the error exists
-        Assert.assertTrue("Parent hash is null",response.block.header.parentHash?.isNotEmpty() ?: false)
-        Assert.assertTrue("Block number is negative",response.block.header.number > -1)
+        assertTrue("Parent hash is null",response.block.header.parentHash?.isNotEmpty() ?: false)
+        assertTrue("Block number is negative",response.block.header.number > -1)
     }
 
     @Test
@@ -152,7 +152,7 @@ class RuntimeInstrumentedTest {
         val scale = response.result as? String
         val accountInfo = bindAccountInfo(scale!!, runtime)
         println(gson.toJson(accountInfo))
-        Assert.assertTrue("Scale is empty",scale.isNotEmpty())
+        assertTrue("Scale is empty",scale.isNotEmpty())
     }
 
     @Test
@@ -197,7 +197,7 @@ class RuntimeInstrumentedTest {
         val response = executeCall(request)
         println("Create Msa Response:"+gson.toJson(response))
         //Make test fail if the error exists
-        Assert.assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
+        assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
     }
 
     @Test
@@ -245,7 +245,7 @@ class RuntimeInstrumentedTest {
         val request = SubmitAndWatchExtrinsicRequest(extrinsic)
         val response = executeCall(request)
         //Make test fail if the error exists
-        Assert.assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
+        assertTrue(gson.toJson(response.error)  ?: "Error", response.error == null)
         println("Transfer Extrinsic Response:" + gson.toJson(response))
         println("After Transfer Sender Account Details:" + printAccountDetails(senderAccountAddress))
         println("After Transfer Reciever Account Details:" + printAccountDetails(recieverAccountAddress))
@@ -256,7 +256,7 @@ class RuntimeInstrumentedTest {
         val request_storage_query = GetStateRequest(key)
         val response_storage_query = executeCall(request_storage_query)
         val scale = response_storage_query.result as? String
-        Assert.assertTrue("Scale is empty",scale?.isNotEmpty() ?: false)
+        assertTrue("Scale is empty",scale?.isNotEmpty() ?: false)
         val accountInfo = bindAccountInfo(scale!!, runtime)
         return gson.toJson(accountInfo)
     }

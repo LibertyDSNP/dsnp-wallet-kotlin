@@ -9,9 +9,9 @@ import com.unfinished.feature_account.presentation.model.advance.network.Network
 import com.unfinished.feature_account.presentation.model.advance.network.NodeModel
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.data.util.filterNotNull
-import com.unfinished.data.api.model.CryptoType
-import com.unfinished.data.api.model.Node
-import com.unfinished.data.api.model.Node.NetworkType
+import com.unfinished.data.model.CryptoType
+import com.unfinished.data.model.Node
+import com.unfinished.data.model.Node.NetworkType
 import com.unfinished.data.db.dao.MetaAccountWithBalanceLocal
 import com.unfinished.data.db.model.NodeLocal
 import com.unfinished.data.db.model.chain.ChainAccountLocal

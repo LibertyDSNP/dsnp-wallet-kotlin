@@ -1,12 +1,10 @@
 package com.unfinished.data.di
 
-
 import android.content.Context
 import android.content.SharedPreferences
 import com.unfinished.data.file.FileProviderImpl
 import com.unfinished.data.memory.ComputationalCache
 import com.unfinished.data.memory.RealComputationalCache
-import com.unfinished.data.network.rpc.BulkRetriever
 import com.unfinished.data.secrets.v1.SecretStoreV1
 import com.unfinished.data.secrets.v1.SecretStoreV1Impl
 import com.unfinished.data.secrets.v2.SecretStoreV2
@@ -58,11 +56,7 @@ object DataModule {
         return FileProviderImpl(context)
     }
 
-    @Provides
-    @Singleton
-    fun provideDefaultPagedKeysRetriever(): BulkRetriever {
-        return BulkRetriever()
-    }
+
 
     @Provides
     @Singleton

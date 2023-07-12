@@ -1,15 +1,14 @@
 package com.unfinished.runtime.di
 
 import com.google.gson.Gson
+import com.unfinished.data.storage.StorageCache
+import com.unfinished.data.db.dao.ChainDao
+import com.unfinished.data.db.dao.StorageDao
+import com.unfinished.data.storage.Preferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.unfinished.data.network.rpc.BulkRetriever
-import com.unfinished.data.storage.Preferences
-import com.unfinished.data.api.storage.StorageCache
-import com.unfinished.data.db.dao.ChainDao
-import com.unfinished.data.db.dao.StorageDao
 import com.unfinished.runtime.extrinsic.ExtrinsicBuilderFactory
 import com.unfinished.runtime.extrinsic.ExtrinsicSerializers
 import com.unfinished.runtime.extrinsic.ExtrinsicValidityUseCase
@@ -22,6 +21,7 @@ import com.unfinished.runtime.multiNetwork.runtime.repository.EventsRepository
 import com.unfinished.runtime.multiNetwork.runtime.repository.RemoteEventsRepository
 import com.unfinished.runtime.multiNetwork.runtime.repository.RuntimeVersionsRepository
 import com.unfinished.runtime.network.rpc.RpcCalls
+import com.unfinished.runtime.network.rpc.bulkRetriever.BulkRetriever
 import com.unfinished.runtime.repository.ChainStateRepository
 import com.unfinished.runtime.repository.ParachainInfoRepository
 import com.unfinished.runtime.repository.RealParachainInfoRepository
@@ -29,7 +29,7 @@ import com.unfinished.runtime.repository.RealTotalIssuanceRepository
 import com.unfinished.runtime.repository.RemoteTimestampRepository
 import com.unfinished.runtime.repository.TimestampRepository
 import com.unfinished.runtime.repository.TotalIssuanceRepository
-import com.unfinished.runtime.storage.DbStorageCache
+import com.unfinished.data.storage.DbStorageCache
 import com.unfinished.runtime.storage.PrefsSampledBlockTimeStorage
 import com.unfinished.runtime.storage.SampledBlockTimeStorage
 import com.unfinished.runtime.storage.source.LocalStorageSource
@@ -153,4 +153,10 @@ class RuntimeModule {
     fun provideTotalIssuanceRepository(
         @Named(LOCAL_STORAGE_SOURCE) localStorageSource: StorageDataSource,
     ): TotalIssuanceRepository = RealTotalIssuanceRepository(localStorageSource)
+
+    @Provides
+    @Singleton
+    fun provideDefaultPagedKeysRetriever(): BulkRetriever {
+        return BulkRetriever()
+    }
 }

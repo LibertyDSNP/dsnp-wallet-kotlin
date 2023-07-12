@@ -78,7 +78,7 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
     }
 
     private fun showDefaultUI(){
-        binding.textinputError.setText(getText(R.string.lookup_temp_error))
+        binding.textinputError.text = getText(R.string.lookup_temp_error)
         binding.textinputError.hide()
         binding.countryCodeBaseline.setBackgroundTintColorId(commonR.color.input_field_line)
         binding.phoneBaseline.setBackgroundTintColorId(commonR.color.input_field_line)
@@ -88,7 +88,7 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
     }
 
     private fun showPhoneErrorUI(){
-        binding.textinputError.setText(getText(R.string.lookup_temp_error))
+        binding.textinputError.text = getText(R.string.lookup_temp_error)
         binding.textinputError.show()
         binding.countryCodeBaseline.setBackgroundTintColorId(commonR.color.orange)
         binding.phoneBaseline.setBackgroundTintColorId(commonR.color.orange)
@@ -96,7 +96,7 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
     }
 
     private fun showEmailErrorUI(){
-        binding.textinputError.setText(getText(R.string.lookup_temp_error))
+        binding.textinputError.text = getText(R.string.lookup_temp_error)
         binding.textinputError.show()
         binding.emailBaseline.setBackgroundTintColorId(commonR.color.orange)
         binding.buttonSwitcher.displayedChild = 1

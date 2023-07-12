@@ -65,8 +65,8 @@ class WalletUiUseCaseImpl(
 
     private fun MetaAccount.walletIconSeed(): ByteArray {
         return when {
-            substrateAccountId != null -> substrateAccountId!!
-            ethereumAddress != null -> ethereumAddress!!
+            substrateAccountId != null -> substrateAccountId
+            ethereumAddress != null -> ethereumAddress
 
             // if both default accounts are null there MUST be at least one chain account. Otherwise wallet is in invalid state
             else -> {

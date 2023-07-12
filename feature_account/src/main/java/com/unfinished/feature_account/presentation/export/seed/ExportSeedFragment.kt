@@ -39,7 +39,7 @@ class ExportSeedFragment : ExportFragment<ExportSeedViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentExportSeedBinding.inflate(layoutInflater)
         return binding.root
     }

@@ -96,9 +96,6 @@ inline fun <K, V> Map<K, V?>.filterNotNull(): Map<K, V> {
     return filterValues { it != null } as Map<K, V>
 }
 
-fun String.bigIntegerFromHex() = removeHexPrefix().toBigInteger(16)
-fun String.intFromHex() = removeHexPrefix().toInt(16)
-
 /**
  * Complexity: O(n * log(n))
  */

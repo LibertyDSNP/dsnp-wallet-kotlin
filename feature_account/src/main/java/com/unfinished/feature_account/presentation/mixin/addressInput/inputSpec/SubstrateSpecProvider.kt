@@ -2,7 +2,7 @@ package com.unfinished.feature_account.presentation.mixin.addressInput.inputSpec
 
 import android.graphics.drawable.Drawable
 import com.unfinished.common.address.AddressIconGenerator
-import com.unfinished.data.util.isValidSS58Address
+import com.unfinished.runtime.util.isValidSS58Address
 import jp.co.soramitsu.fearless_utils.ss58.SS58Encoder.toAccountId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

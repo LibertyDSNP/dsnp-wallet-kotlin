@@ -5,7 +5,7 @@ import com.unfinished.data.db.dao.ChainDao
 import com.unfinished.data.util.diffed
 import com.unfinished.data.util.inBackground
 import com.unfinished.data.util.mapList
-import com.unfinished.data.util.removeHexPrefix
+import com.unfinished.runtime.util.removeHexPrefix
 import com.unfinished.runtime.multiNetwork.chain.ChainSyncService
 import com.unfinished.runtime.multiNetwork.chain.mapChainLocalToChain
 import com.unfinished.runtime.multiNetwork.chain.model.Chain

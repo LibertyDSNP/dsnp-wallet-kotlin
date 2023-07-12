@@ -1,6 +1,6 @@
 package com.unfinished.data.mappers
 
-import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.model.CryptoType
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 
 fun mapCryptoTypeToEncryption(cryptoType: CryptoType): EncryptionType {

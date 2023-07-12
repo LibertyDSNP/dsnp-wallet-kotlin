@@ -1,11 +1,7 @@
 package com.unfinished.runtime.extrinsic
 
-import android.widget.TextView
-import androidx.annotation.StringRes
-import androidx.lifecycle.LifecycleOwner
 import com.unfinished.data.util.formating.TimerValue
 import com.unfinished.data.util.formating.remainingTime
-import com.unfinished.runtime.R
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadExtrinsic
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes

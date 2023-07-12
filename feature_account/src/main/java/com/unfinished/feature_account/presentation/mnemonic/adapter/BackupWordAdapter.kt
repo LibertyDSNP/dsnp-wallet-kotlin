@@ -27,7 +27,7 @@ class BackupWordAdapter(
 
     inner class MyViewHolder(private val binding: ItemBackupMnemonicWordBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MnemonicWord) {
-            binding.item.setText("${item.indexDisplay} ${item.content}")
+            binding.item.text = "${item.indexDisplay} ${item.content}"
         }
     }
 }

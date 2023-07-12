@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.unfinished.common.base.BaseFragment
 import com.unfinished.common.utils.setOnSafeClickListener
 import com.unfinished.common.validation.validationError
-import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.model.CryptoType
 import com.unfinished.common.utils.toUnit
 import com.unfinished.runtime.ext.addressOf
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +58,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 val account = metaAccounts[position]
                 viewModel.setSelectedAccount(account)
                 viewModel.getChain()?.let {
-                    binding.accountAddress.setText(it.addressOf(account.substrateAccountId!!))
+                    binding.accountAddress.text = it.addressOf(account.substrateAccountId!!)
                 }
             }
 
@@ -77,7 +77,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             result.append("feeFrozen: ${accountInfo.data.feeFrozen}").append("\n")
                             result.append("miscFrozen: ${accountInfo.data.miscFrozen}").append("\n")
                             result.append("reserved: ${accountInfo.data.reserved}").append("\n")
-                            binding.storageQuery.setText(result.toString())
+                            binding.storageQuery.text = result.toString()
                         }
                     }
                 }
@@ -90,7 +90,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                         viewModel.getMetaData(chain).let { metdata ->
                             val result = java.lang.StringBuilder()
                             result.append("Metadata: ${metdata.metadata.runtimeVersion}")
-                            binding.stateGetMetaData.setText(result.toString())
+                            binding.stateGetMetaData.text = result.toString()
                         }
                     }
                 }
@@ -105,7 +105,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             result.append("specVersion: ${runtimeVersions.specVersion}")
                                 .append("\n")
                             result.append("transactionVersion: ${runtimeVersions.transactionVersion}")
-                            binding.runtimeVersion.setText(result.toString())
+                            binding.runtimeVersion.text = result.toString()
                         }
                     }
                 }
@@ -118,7 +118,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                         viewModel.getBlock(chain).let { block ->
                             val result = java.lang.StringBuilder()
                             result.append("header.parentHash: ${block.block.header.parentHash}")
-                            binding.chainGetBlock.setText(result.toString())
+                            binding.chainGetBlock.text = result.toString()
                         }
                     }
                 }
@@ -131,7 +131,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                         viewModel.getGenesisHash(chain).let { block ->
                             val result = java.lang.StringBuilder()
                             result.append("blockHash: ${block}")
-                            binding.chainGetBlockHash.setText(result.toString())
+                            binding.chainGetBlockHash.text = result.toString()
                         }
                     }
                 }
@@ -166,9 +166,9 @@ class TestFragment : BaseFragment<TestViewModel>() {
 //                            append("MiscFrozen:${accountInfo.data.miscFrozen}\n")
 //                            append("FeeFrozen:${accountInfo.data.feeFrozen}")
                             }.toString()
-                            binding.balanceResult.setText(result)
+                            binding.balanceResult.text = result
                         } ?: kotlin.run {
-                            binding.balanceResult.setText("Token: 0.0000 UNIT")
+                            binding.balanceResult.text = "Token: 0.0000 UNIT"
                         }
                     }
                 }
@@ -211,9 +211,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             if (it.second.isNullOrEmpty()) {
                                 binding.transferResult.setText(it.first)
                             } else {
-                                binding.transferResult.setText(
-                                    it.second ?: "Invalid Transaction"
-                                )
+                                binding.transferResult.text = it.second ?: "Invalid Transaction"
                                 Toast.makeText(
                                     requireContext(),
                                     it.second ?: "Invalid Transaction",
@@ -253,7 +251,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                                 )
                             }
                         ).catch {
-                            binding.createMsa.setText(it.message ?: "Invalid Transaction")
+                            binding.createMsa.text = it.message ?: "Invalid Transaction"
                         }.collectLatest {
                             if (it.third.isNullOrEmpty()) {
                                 val builer = java.lang.StringBuilder()
@@ -263,9 +261,9 @@ class TestFragment : BaseFragment<TestViewModel>() {
                                 builer.append("Msa ID: ${it.second?.value?.value?.msa_id}")
                                     .append("\n")
                                 builer.append("Block Hash: ${it.first}").append("\n")
-                                binding.createMsa.setText(builer.toString())
+                                binding.createMsa.text = builer.toString()
                             } else {
-                                binding.createMsa.setText(it.third ?: "Error create msa id")
+                                binding.createMsa.text = it.third ?: "Error create msa id"
                                 Toast.makeText(
                                     requireContext(),
                                     it.third ?: "Error create msa id",
@@ -310,7 +308,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                 ) {
                     val account = metaAccounts[position]
                     viewModel.getChain()?.let {
-                        binding.newPublicKey.setText("newPublicKey: ${it.addressOf(account.substratePublicKey!!)}")
+                        binding.newPublicKey.text = "newPublicKey: ${it.addressOf(account.substratePublicKey!!)}"
                     }
                 }
 
@@ -351,9 +349,9 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             if (it.second.isNullOrEmpty()) {
                                 val builer = java.lang.StringBuilder()
                                 builer.append("Block Hash: ${it.first}").append("\n")
-                                binding.createMsa.setText(builer.toString())
+                                binding.createMsa.text = builer.toString()
                             } else {
-                                binding.createMsa.setText(it.second ?: "Error add public key msa")
+                                binding.createMsa.text = it.second ?: "Error add public key msa"
                                 Toast.makeText(
                                     requireContext(),
                                     it.second ?: "Error add public key msa",
@@ -375,7 +373,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             metaAccounts[binding.publicKeyToMsaId.selectedItemPosition]
                         ).collectLatest {
                             if (it.second == null) {
-                                binding.publicKeyToMsaIdTv.setText("${it.first ?: "No Msa Id found"}")
+                                binding.publicKeyToMsaIdTv.text = "${it.first ?: "No Msa Id found"}"
                             } else {
                                 Toast.makeText(
                                     requireContext(),
@@ -402,7 +400,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             }
                         ).collectLatest {
                             if (it.second == null) {
-                                binding.deletePublicKeyToMsaIdTv.setText("${it.first ?: "No Msa Id found"}")
+                                binding.deletePublicKeyToMsaIdTv.text = "${it.first ?: "No Msa Id found"}"
                             } else {
                                 Toast.makeText(
                                     requireContext(),
@@ -428,7 +426,7 @@ class TestFragment : BaseFragment<TestViewModel>() {
                             }
                         ).collectLatest {
                             if (it.second == null) {
-                                binding.retireMsaTv.setText("${it.first ?: "No Msa Id found"}")
+                                binding.retireMsaTv.text = "${it.first ?: "No Msa Id found"}"
                             } else {
                                 Toast.makeText(
                                     requireContext(),

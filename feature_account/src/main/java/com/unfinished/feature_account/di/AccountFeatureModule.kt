@@ -33,7 +33,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import com.unfinished.common.address.AddressIconGenerator
-import com.unfinished.data.network.rpc.SocketSingleRequestExecutor
+import com.unfinished.runtime.network.rpc.SocketSingleRequestExecutor
 import com.unfinished.data.secrets.v1.SecretStoreV1
 import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.data.storage.Preferences

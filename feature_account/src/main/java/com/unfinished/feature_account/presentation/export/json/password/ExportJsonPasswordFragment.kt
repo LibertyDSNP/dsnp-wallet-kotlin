@@ -41,7 +41,7 @@ class ExportJsonPasswordFragment : BaseFragment<ExportJsonPasswordViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentExportJsonPasswordBinding.inflate(layoutInflater)
         return binding.root
     }

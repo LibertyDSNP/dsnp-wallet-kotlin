@@ -1,7 +1,7 @@
 package com.unfinished.runtime.di
 
 import com.google.gson.Gson
-import com.unfinished.data.api.storage.StorageCache
+import com.unfinished.data.storage.StorageCache
 import com.unfinished.runtime.extrinsic.ExtrinsicBuilderFactory
 import com.unfinished.runtime.extrinsic.ExtrinsicValidityUseCase
 import com.unfinished.runtime.extrinsic.MortalityConstructor

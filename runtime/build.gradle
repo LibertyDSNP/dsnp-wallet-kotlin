@@ -49,7 +49,7 @@ dependencies {
     implementation deps.retrofit.converter_gson
 
     implementation deps.nova.fearless_utils
-
+    implementation deps.other.websocket
     implementation deps.coroutines.core
 
     implementation deps.retrofit.retrofit

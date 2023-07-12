@@ -1,13 +1,13 @@
 package com.unfinished.runtime.di
 
 import com.google.gson.Gson
+import com.unfinished.data.db.dao.ChainDao
+import com.unfinished.data.file.FileProvider
+import com.unfinished.data.network.NetworkApiCreator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.unfinished.data.network.NetworkApiCreator
-import com.unfinished.data.db.dao.ChainDao
-import com.unfinished.data.file.FileProvider
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.ChainSyncService
 import com.unfinished.runtime.multiNetwork.chain.remote.ChainFetcher

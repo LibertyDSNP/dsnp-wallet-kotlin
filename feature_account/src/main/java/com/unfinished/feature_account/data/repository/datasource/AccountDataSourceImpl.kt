@@ -9,9 +9,9 @@ import com.unfinished.data.storage.Preferences
 import com.unfinished.data.storage.encrypt.EncryptedPreferences
 import com.unfinished.common.utils.inBackground
 import com.unfinished.data.util.substrateAccountId
-import com.unfinished.data.api.model.CryptoType
-import com.unfinished.data.api.model.Language
-import com.unfinished.data.api.model.Node
+import com.unfinished.data.model.CryptoType
+import com.unfinished.data.model.Language
+import com.unfinished.data.model.Node
 import com.unfinished.data.db.dao.MetaAccountDao
 import com.unfinished.data.db.dao.NodeDao
 import com.unfinished.data.db.model.chain.ChainAccountLocal

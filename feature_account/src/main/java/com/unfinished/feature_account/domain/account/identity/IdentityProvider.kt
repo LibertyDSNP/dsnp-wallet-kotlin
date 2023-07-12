@@ -16,7 +16,7 @@ interface IdentityProvider {
     /**
      * Bulk version of [identityFor]. Default implementation is unoptimized and just performs N single requests to [identityFor].
      */
-    suspend fun identitiesFor(accountIds: Collection<AccountId>, chainId: ChainId): Map<com.unfinished.common.address.AccountIdKey, Identity?> {
+    suspend fun identitiesFor(accountIds: Collection<AccountId>, chainId: ChainId): Map<AccountIdKey, Identity?> {
         return accountIds.associateBy(
             keySelector = ::AccountIdKey,
             valueTransform = { identityFor(it, chainId) }

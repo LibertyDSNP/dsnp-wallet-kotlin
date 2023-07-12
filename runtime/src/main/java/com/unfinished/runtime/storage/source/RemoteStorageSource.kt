@@ -1,11 +1,11 @@
 package com.unfinished.runtime.storage.source
 
-import com.unfinished.data.network.rpc.BulkRetriever
-import com.unfinished.data.network.rpc.queryKey
-import com.unfinished.data.network.runtime.binding.BlockHash
-import com.unfinished.data.network.runtime.calls.GetChildStateRequest
+import com.unfinished.runtime.network.runtime.binding.BlockHash
+import com.unfinished.runtime.network.runtime.calls.GetChildStateRequest
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.getSocket
+import com.unfinished.runtime.network.rpc.bulkRetriever.BulkRetriever
+import com.unfinished.runtime.network.rpc.bulkRetriever.queryKey
 import com.unfinished.runtime.storage.source.query.RemoteStorageQueryContext
 import com.unfinished.runtime.storage.source.query.StorageQueryContext
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot

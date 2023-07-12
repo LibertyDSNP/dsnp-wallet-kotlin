@@ -9,7 +9,7 @@ import com.unfinished.feature_account.presentation.model.account.AdvancedEncrypt
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import com.unfinished.common.navigation.InterScreenRequester
 import com.unfinished.common.navigation.InterScreenResponder
-import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.model.CryptoType
 import kotlinx.android.parcel.Parcelize
 
 interface AdvancedEncryptionRequester : InterScreenRequester<AdvancedEncryptionPayload, AdvancedEncryptionCommunicator.Response>

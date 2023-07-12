@@ -11,14 +11,14 @@ import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.data.secrets.v2.derivationPath
 import com.unfinished.data.secrets.v2.ethereumDerivationPath
 import com.unfinished.data.secrets.v2.substrateDerivationPath
-import com.unfinished.data.util.DEFAULT_DERIVATION_PATH
+import com.unfinished.runtime.util.DEFAULT_DERIVATION_PATH
 import com.unfinished.data.util.fold
 import com.unfinished.common.utils.input.Input
 import com.unfinished.common.utils.input.disabledInput
 import com.unfinished.common.utils.input.modifiableInput
 import com.unfinished.common.utils.input.unmodifiableInput
 import com.unfinished.data.util.nullIfEmpty
-import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.model.CryptoType
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType

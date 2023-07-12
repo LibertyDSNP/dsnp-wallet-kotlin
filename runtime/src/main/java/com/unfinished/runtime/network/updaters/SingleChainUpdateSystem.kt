@@ -2,10 +2,10 @@ package com.unfinished.runtime.network.updaters
 
 import android.util.Log
 import com.unfinished.data.network.StorageSubscriptionBuilder
-import com.unfinished.data.api.updater.UpdateSystem
-import com.unfinished.data.api.updater.Updater
 import com.unfinished.data.util.LOG_TAG
-import com.unfinished.data.util.hasModule
+import com.unfinished.data.updater.UpdateSystem
+import com.unfinished.data.updater.Updater
+import com.unfinished.runtime.util.hasModule
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.getRuntime
@@ -53,7 +53,7 @@ abstract class SingleChainUpdateSystem(
                     val cancellable = socket.subscribeUsing(subscriptionBuilder.build())
 
                     updatersFlow.merge().onCompletion {
-                        cancellable?.cancel()
+                        cancellable.cancel()
                     }
                 } else {
                     emptyFlow()

@@ -1,9 +1,8 @@
 package com.unfinished.feature_account.data.extrinsic
 
-import com.unfinished.data.network.runtime.model.FeeResponse
 import com.unfinished.data.util.orZero
 import com.unfinished.common.utils.takeWhileInclusive
-import com.unfinished.data.util.tip
+import com.unfinished.runtime.util.tip
 import com.unfinished.feature_account.data.signer.SignerProvider
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
 import com.unfinished.feature_account.domain.model.accountIdIn
@@ -13,6 +12,7 @@ import com.unfinished.runtime.extrinsic.create
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import com.unfinished.runtime.network.rpc.RpcCalls
+import com.unfinished.runtime.network.runtime.model.FeeResponse
 import jp.co.soramitsu.fearless_utils.extensions.toHexString
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Extrinsic

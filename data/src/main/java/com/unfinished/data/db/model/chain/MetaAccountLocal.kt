@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import com.unfinished.data.api.model.CryptoType
+import com.unfinished.data.model.CryptoType
 
 @Entity(
     tableName = MetaAccountLocal.TABLE_NAME,
@@ -17,7 +17,7 @@ import com.unfinished.data.api.model.CryptoType
 )
 class MetaAccountLocal(
     val substratePublicKey: ByteArray?,
-    val substrateCryptoType: com.unfinished.data.api.model.CryptoType?,
+    val substrateCryptoType: CryptoType?,
     val substrateAccountId: ByteArray?,
     val ethereumPublicKey: ByteArray?,
     val ethereumAddress: ByteArray?,
@@ -78,7 +78,7 @@ class ChainAccountLocal(
     val chainId: String,
     val publicKey: ByteArray?,
     val accountId: ByteArray,
-    val cryptoType: com.unfinished.data.api.model.CryptoType?,
+    val cryptoType: CryptoType?,
 )
 
 interface JoinedMetaAccountInfo {

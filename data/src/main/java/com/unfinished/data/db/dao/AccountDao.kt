@@ -5,8 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.unfinished.data.api.model.Node
 import com.unfinished.data.db.model.AccountLocal
+import com.unfinished.data.model.Node
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -40,7 +40,7 @@ abstract class AccountDao {
     abstract suspend fun getAccountsByNetworkType(networkType: Int): List<AccountLocal>
 
     @Query("select * from users where (address LIKE '%' || :query  || '%') AND networkType = :networkType")
-    abstract suspend fun getAccounts(query: String, networkType: com.unfinished.data.api.model.Node.NetworkType): List<AccountLocal>
+    abstract suspend fun getAccounts(query: String, networkType: Node.NetworkType): List<AccountLocal>
 
     @Query("SELECT EXISTS(SELECT * FROM users WHERE address = :accountAddress)")
     abstract suspend fun accountExists(accountAddress: String): Boolean

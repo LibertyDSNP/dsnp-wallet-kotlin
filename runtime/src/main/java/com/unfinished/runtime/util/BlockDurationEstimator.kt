@@ -1,8 +1,8 @@
 package com.unfinished.runtime.util
 
-import com.unfinished.data.network.runtime.binding.BlockNumber
 import com.unfinished.data.util.formating.TimerValue
 import com.unfinished.data.util.formating.toTimerValue
+import com.unfinished.runtime.network.runtime.binding.BlockNumber
 import java.math.BigInteger
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds

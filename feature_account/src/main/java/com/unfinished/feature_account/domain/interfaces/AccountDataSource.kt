@@ -3,9 +3,9 @@ package com.unfinished.feature_account.domain.interfaces
 import com.unfinished.data.secrets.v1.SecretStoreV1
 import com.unfinished.data.secrets.v2.ChainAccountSecrets
 import com.unfinished.data.secrets.v2.MetaAccountSecrets
-import com.unfinished.data.api.model.CryptoType
-import com.unfinished.data.api.model.Language
-import com.unfinished.data.api.model.Node
+import com.unfinished.data.model.CryptoType
+import com.unfinished.data.model.Language
+import com.unfinished.data.model.Node
 import com.unfinished.feature_account.domain.model.Account
 import com.unfinished.feature_account.domain.model.AuthType
 import com.unfinished.feature_account.domain.model.MetaAccount

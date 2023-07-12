@@ -1,7 +1,7 @@
 package com.unfinished.runtime.repository
 
-import com.unfinished.data.network.runtime.binding.bindNumber
-import com.unfinished.data.util.timestamp
+import com.unfinished.runtime.network.runtime.binding.bindNumber
+import com.unfinished.runtime.util.timestamp
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import com.unfinished.runtime.storage.source.StorageDataSource
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage

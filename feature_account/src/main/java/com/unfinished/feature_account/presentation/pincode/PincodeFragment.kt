@@ -23,7 +23,7 @@ class PincodeFragment : BaseFragment<PinCodeViewModel>() {
     lateinit var viewModelFactory: PinCodeViewModel.AssistedFactory
 
     override val viewModel: PinCodeViewModel by viewModels {
-        PinCodeViewModel.provideFactory(viewModelFactory, argument(PincodeFragment.KEY_PINCODE_ACTION))
+        PinCodeViewModel.provideFactory(viewModelFactory, argument(KEY_PINCODE_ACTION))
     }
 
     companion object {
@@ -44,7 +44,7 @@ class PincodeFragment : BaseFragment<PinCodeViewModel>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentPincodeBinding.inflate(layoutInflater)
         return binding.root
     }

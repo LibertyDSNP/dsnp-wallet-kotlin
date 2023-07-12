@@ -11,8 +11,4 @@ import com.unfinished.common.vibration.DeviceVibrator
 import kotlinx.coroutines.launch
 
 
-class AccountViewModel(
-
-) : BaseViewModel() {
-
-}
+class AccountViewModel : BaseViewModel()

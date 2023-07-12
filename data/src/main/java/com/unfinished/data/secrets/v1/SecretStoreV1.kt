@@ -1,14 +1,14 @@
 package com.unfinished.data.secrets.v1
 
+import com.unfinished.data.model.SecuritySource
+import com.unfinished.data.model.WithDerivationPath
+import com.unfinished.data.model.WithMnemonic
+import com.unfinished.data.model.WithSeed
 import com.unfinished.data.storage.encrypt.EncryptedPreferences
-import com.unfinished.data.util.invoke
-import com.unfinished.data.api.model.SecuritySource
-import com.unfinished.data.api.model.WithDerivationPath
-import com.unfinished.data.api.model.WithMnemonic
-import com.unfinished.data.api.model.WithSeed
 import jp.co.soramitsu.fearless_utils.encrypt.keypair.substrate.Sr25519Keypair
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import com.unfinished.data.util.invoke
 
 interface SecretStoreV1 {
 

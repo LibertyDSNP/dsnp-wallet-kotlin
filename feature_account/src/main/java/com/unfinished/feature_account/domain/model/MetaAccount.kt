@@ -1,8 +1,8 @@
 package com.unfinished.feature_account.domain.model
 
 import com.unfinished.data.mappers.mapCryptoTypeToEncryption
-import com.unfinished.data.util.DEFAULT_PREFIX
-import com.unfinished.data.api.model.CryptoType
+import com.unfinished.runtime.util.DEFAULT_PREFIX
+import com.unfinished.data.model.CryptoType
 import com.unfinished.runtime.ext.addressOf
 import com.unfinished.runtime.ext.toEthereumAddress
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
