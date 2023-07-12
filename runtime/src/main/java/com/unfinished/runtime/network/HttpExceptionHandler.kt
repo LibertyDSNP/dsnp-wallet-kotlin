@@ -1,8 +1,8 @@
-package com.unfinished.data.network
+package com.unfinished.runtime.network
 
 import com.unfinished.data.R
-import com.unfinished.data.util.error.BaseException
-import com.unfinished.data.util.resource.ResourceManager
+import com.unfinished.runtime.util.error.BaseException
+import com.unfinished.runtime.util.resource.ResourceManager
 import retrofit2.HttpException
 import java.io.IOException
 

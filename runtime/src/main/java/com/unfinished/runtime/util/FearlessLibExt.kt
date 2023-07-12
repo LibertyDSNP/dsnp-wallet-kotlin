@@ -3,7 +3,6 @@ package com.unfinished.runtime.util
 import io.emeraldpay.polkaj.scale.ScaleCodecReader
 import io.emeraldpay.polkaj.scale.ScaleCodecWriter
 import com.unfinished.data.model.Node
-import com.unfinished.data.util.ComponentHolder
 import com.unfinished.runtime.network.runtime.binding.bindNullableNumberConstant
 import com.unfinished.runtime.network.runtime.binding.bindNumberConstant
 import com.unfinished.runtime.network.runtime.binding.fromByteArrayOrIncompatible
@@ -210,10 +209,6 @@ fun RuntimeMetadata.firstExistingModule(vararg options: String): String {
 }
 
 fun RuntimeMetadata.xcmPalletName() = firstExistingModule("XcmPallet", "PolkadotXcm")
-
-fun StorageEntry.splitKeyToComponents(runtime: RuntimeSnapshot, key: String): ComponentHolder {
-    return ComponentHolder(splitKey(runtime, key))
-}
 
 fun String.networkType() = Node.NetworkType.findByAddressByte(addressPrefix())!!
 

@@ -5,8 +5,8 @@ import com.neovisionaries.ws.client.WebSocket
 import com.neovisionaries.ws.client.WebSocketAdapter
 import com.neovisionaries.ws.client.WebSocketException
 import com.neovisionaries.ws.client.WebSocketFactory
-import com.unfinished.data.util.error.NovaException
-import com.unfinished.data.util.resource.ResourceManager
+import com.unfinished.runtime.util.error.NovaException
+import com.unfinished.runtime.util.resource.ResourceManager
 import jp.co.soramitsu.fearless_utils.wsrpc.logging.Logger
 import jp.co.soramitsu.fearless_utils.wsrpc.mappers.ResponseMapper
 import jp.co.soramitsu.fearless_utils.wsrpc.request.base.RpcRequest

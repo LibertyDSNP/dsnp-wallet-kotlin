@@ -2,8 +2,8 @@ package com.unfinished.runtime.multiNetwork.runtime
 
 import com.google.gson.Gson
 import com.unfinished.data.db.dao.ChainDao
-import com.unfinished.data.util.md5
-import com.unfinished.data.util.newLimitedThreadPoolExecutor
+import com.unfinished.runtime.util.md5
+import com.unfinished.runtime.util.newLimitedThreadPoolExecutor
 import com.unfinished.runtime.multiNetwork.chain.model.TypesUsage
 import com.unfinished.runtime.multiNetwork.runtime.types.custom.vote.SiVoteTypeMapping
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot

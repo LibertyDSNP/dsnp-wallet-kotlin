@@ -1,4 +1,4 @@
-package com.unfinished.data.util
+package com.unfinished.runtime.util
 
 import android.util.Base64
 import jp.co.soramitsu.fearless_utils.hash.Hasher.blake2b256

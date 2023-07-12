@@ -1,4 +1,4 @@
-package com.unfinished.data.storage
+package com.unfinished.data.storage.cache
 
 import com.unfinished.data.db.dao.StorageDao
 import com.unfinished.data.db.model.StorageEntryLocal

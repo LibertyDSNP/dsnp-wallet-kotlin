@@ -7,25 +7,10 @@ import androidx.lifecycle.LiveDataScope
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.unfinished.data.util.ComponentHolder
 import kotlinx.coroutines.flow.Flow
 
 fun MutableLiveData<Event<Unit>>.sendEvent() {
     this.value = Event(Unit)
-}
-
-fun <FROM, TO> LiveData<FROM>.map(mapper: (FROM) -> TO): LiveData<TO> {
-    return map(null, mapper)
-}
-
-fun <FROM, TO> LiveData<FROM>.map(initial: TO?, mapper: (FROM) -> TO): LiveData<TO> {
-    return MediatorLiveData<TO>().apply {
-        addSource(this@map) {
-            value = mapper.invoke(it)
-        }
-
-        initial?.let(::setValue)
-    }
 }
 
 fun <T> mediatorLiveData(mediatorBuilder: MediatorLiveData<T>.() -> Unit): MediatorLiveData<T> {
@@ -44,29 +29,6 @@ fun <T> multipleSourceLiveData(vararg sources: LiveData<T>): MediatorLiveData<T>
 
 fun <T> MediatorLiveData<T>.updateFrom(other: LiveData<T>) = addSource(other) {
     value = it
-}
-
-/**
- * Supports up to N sources, where N is last componentN() in ComponentHolder
- * @see ComponentHolder
- */
-fun <R> combine(
-    vararg sources: LiveData<*>,
-    combiner: (ComponentHolder) -> R
-): LiveData<R> {
-    return MediatorLiveData<R>().apply {
-        for (source in sources) {
-            addSource(source) {
-                val values = sources.map { it.value }
-
-                val nonNull = values.filterNotNull()
-
-                if (nonNull.size == values.size) {
-                    value = combiner.invoke(ComponentHolder(nonNull))
-                }
-            }
-        }
-    }
 }
 
 fun <FIRST, SECOND, RESULT> LiveData<FIRST>.combine(

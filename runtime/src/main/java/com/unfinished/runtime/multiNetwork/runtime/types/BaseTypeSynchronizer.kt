@@ -1,7 +1,7 @@
 package com.unfinished.runtime.multiNetwork.runtime.types
 
-import com.unfinished.data.util.md5
-import com.unfinished.data.util.retryUntilDone
+import com.unfinished.runtime.util.md5
+import com.unfinished.runtime.util.retryUntilDone
 import com.unfinished.runtime.multiNetwork.runtime.FileHash
 import com.unfinished.runtime.multiNetwork.runtime.RuntimeFilesCache
 import kotlinx.coroutines.CoroutineScope

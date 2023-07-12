@@ -1,4 +1,4 @@
-package com.unfinished.data.updater
+package com.unfinished.runtime.network.updaters
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

@@ -1,5 +1,5 @@
 
-package com.unfinished.data.network
+package com.unfinished.runtime.network
 
 import android.util.Log
 import jp.co.soramitsu.fearless_utils.wsrpc.logging.Logger

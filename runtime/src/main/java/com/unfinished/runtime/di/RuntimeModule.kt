@@ -1,7 +1,7 @@
 package com.unfinished.runtime.di
 
 import com.google.gson.Gson
-import com.unfinished.data.storage.StorageCache
+import com.unfinished.data.storage.cache.StorageCache
 import com.unfinished.data.db.dao.ChainDao
 import com.unfinished.data.db.dao.StorageDao
 import com.unfinished.data.storage.Preferences
@@ -29,7 +29,7 @@ import com.unfinished.runtime.repository.RealTotalIssuanceRepository
 import com.unfinished.runtime.repository.RemoteTimestampRepository
 import com.unfinished.runtime.repository.TimestampRepository
 import com.unfinished.runtime.repository.TotalIssuanceRepository
-import com.unfinished.data.storage.DbStorageCache
+import com.unfinished.data.storage.cache.DbStorageCache
 import com.unfinished.runtime.storage.PrefsSampledBlockTimeStorage
 import com.unfinished.runtime.storage.SampledBlockTimeStorage
 import com.unfinished.runtime.storage.source.LocalStorageSource

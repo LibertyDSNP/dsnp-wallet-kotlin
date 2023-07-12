@@ -25,7 +25,7 @@ import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.utils.*
 import com.unfinished.data.model.CryptoType
-import com.unfinished.data.util.substrateAccountId
+import com.unfinished.runtime.util.substrateAccountId
 import com.unfinished.runtime.util.system
 import com.unfinished.runtime.ext.*
 import com.unfinished.runtime.extrinsic.ExtrinsicBuilderFactory

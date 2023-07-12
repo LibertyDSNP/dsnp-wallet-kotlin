@@ -2,7 +2,7 @@ package com.unfinished.runtime.storage
 
 import com.google.gson.Gson
 import com.unfinished.data.storage.Preferences
-import com.unfinished.data.util.fromJson
+import com.unfinished.runtime.util.fromJson
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import com.unfinished.runtime.network.updaters.SampledBlockTime
 import kotlinx.coroutines.flow.Flow

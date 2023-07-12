@@ -1,6 +1,6 @@
-package com.unfinished.data.util.error
+package com.unfinished.runtime.util.error
 
-import com.unfinished.data.util.resource.ResourceManager
+import com.unfinished.runtime.util.resource.ResourceManager
 
 class NovaException(
     val kind: Kind,

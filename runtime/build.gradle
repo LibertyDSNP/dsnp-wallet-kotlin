@@ -49,10 +49,15 @@ dependencies {
     implementation deps.retrofit.converter_gson
 
     implementation deps.nova.fearless_utils
+    implementation deps.other.bouncycastle
     implementation deps.other.websocket
     implementation deps.coroutines.core
 
+    implementation deps.retrofit.okhttp
     implementation deps.retrofit.retrofit
+    implementation deps.retrofit.converter_gson
+    implementation deps.retrofit.converter_scalars
+    implementation deps.retrofit.interceptor
 
     implementation deps.daggerHilt.hilt_android
     kapt deps.daggerHilt.android_compiler

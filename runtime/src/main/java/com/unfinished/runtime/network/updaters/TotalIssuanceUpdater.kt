@@ -1,8 +1,7 @@
 package com.unfinished.runtime.network.updaters
 
-import com.unfinished.data.storage.StorageCache
-import com.unfinished.data.updater.GlobalScope
-import com.unfinished.data.holders.ChainIdHolder
+import com.unfinished.data.storage.cache.StorageCache
+import com.unfinished.runtime.multiNetwork.chain.ChainIdHolder
 import com.unfinished.runtime.util.Modules
 import com.unfinished.runtime.util.balances
 import com.unfinished.runtime.multiNetwork.ChainRegistry

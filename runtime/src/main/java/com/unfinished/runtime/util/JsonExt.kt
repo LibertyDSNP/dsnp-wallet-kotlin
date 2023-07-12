@@ -1,4 +1,4 @@
-package com.unfinished.data.util
+package com.unfinished.runtime.util
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

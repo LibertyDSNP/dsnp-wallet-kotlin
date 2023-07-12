@@ -1,4 +1,4 @@
-package com.unfinished.data.util.formating
+package com.unfinished.runtime.util.formating
 
 import kotlin.time.Duration
 import kotlin.time.DurationUnit

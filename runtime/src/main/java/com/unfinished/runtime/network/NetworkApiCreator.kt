@@ -1,4 +1,4 @@
-package com.unfinished.data.network
+package com.unfinished.runtime.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

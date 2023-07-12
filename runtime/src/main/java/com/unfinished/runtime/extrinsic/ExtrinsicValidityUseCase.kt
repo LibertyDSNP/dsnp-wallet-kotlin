@@ -1,7 +1,7 @@
 package com.unfinished.runtime.extrinsic
 
-import com.unfinished.data.util.formating.TimerValue
-import com.unfinished.data.util.formating.remainingTime
+import com.unfinished.runtime.util.formating.TimerValue
+import com.unfinished.runtime.util.formating.remainingTime
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadExtrinsic
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes

@@ -1,5 +1,6 @@
-package com.unfinished.data.util
+package com.unfinished.runtime.util
 
+import com.unfinished.data.util.requireValue
 import jp.co.soramitsu.fearless_utils.wsrpc.recovery.LinearReconnectStrategy
 import jp.co.soramitsu.fearless_utils.wsrpc.recovery.ReconnectStrategy
 import kotlinx.coroutines.delay

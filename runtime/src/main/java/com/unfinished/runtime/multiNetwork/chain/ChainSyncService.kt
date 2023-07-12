@@ -5,7 +5,7 @@ import com.unfinished.data.db.dao.ChainDao
 import com.unfinished.data.util.CollectionDiffer
 import com.unfinished.data.util.Identifiable
 import com.unfinished.data.util.map
-import com.unfinished.data.util.retryUntilDone
+import com.unfinished.runtime.util.retryUntilDone
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.remote.ChainFetcher
 import kotlinx.coroutines.Dispatchers

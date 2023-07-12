@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.lifecycle.Lifecycle
 import com.unfinished.common.R
-import com.unfinished.data.util.formating.TimerValue
 import com.unfinished.common.utils.formatting.format
 import com.unfinished.common.utils.onDestroy
 import kotlin.time.Duration
@@ -15,14 +14,6 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
 private val TIMER_TAG = R.string.common_time_left
-
-fun TextView.startTimer(
-    value: TimerValue,
-    @StringRes customMessageFormat: Int? = null,
-    lifecycle: Lifecycle? = null,
-    onTick: ((view: TextView, millisUntilFinished: Long) -> Unit)? = null,
-    onFinish: ((view: TextView) -> Unit)? = null
-) = startTimer(value.millis, value.millisCalculatedAt, lifecycle, customMessageFormat, onTick, onFinish)
 
 @OptIn(ExperimentalTime::class)
 fun TextView.startTimer(

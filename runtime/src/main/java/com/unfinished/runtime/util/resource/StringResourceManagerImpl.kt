@@ -1,10 +1,8 @@
-package com.unfinished.data.util.resource
+package com.unfinished.runtime.util.resource
 
 import android.content.Context
-import javax.inject.Singleton
-import kotlin.time.ExperimentalTime
 
-class ResourceManagerImpl(
+class StringResourceManagerImpl(
     private val context: Context
 ) : ResourceManager {
 

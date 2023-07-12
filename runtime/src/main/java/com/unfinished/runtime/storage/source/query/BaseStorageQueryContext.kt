@@ -1,16 +1,9 @@
 package com.unfinished.runtime.storage.source.query
 
-import com.unfinished.data.util.ComponentHolder
 import com.unfinished.runtime.network.runtime.binding.BlockHash
-import com.unfinished.runtime.network.runtime.binding.fromHexOrIncompatible
-import com.unfinished.runtime.network.runtime.binding.incompatible
-import com.unfinished.runtime.util.splitKeyToComponents
-import com.unfinished.runtime.storage.source.multi.MultiQueryBuilder
-import com.unfinished.runtime.storage.source.multi.MultiQueryBuilderImpl
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.metadata.module.StorageEntry
-import jp.co.soramitsu.fearless_utils.runtime.metadata.splitKey
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageKey
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storageKeys
 import kotlinx.coroutines.flow.Flow
@@ -34,61 +27,6 @@ abstract class BaseStorageQueryContext(
     protected abstract suspend fun observeKeys(keys: List<String>): Flow<Map<String, String?>>
 
     protected abstract suspend fun observeKeysByPrefix(prefix: String): Flow<Map<String, String?>>
-
-    override suspend fun StorageEntry.keys(vararg prefixArgs: Any?): List<StorageKeyComponents> {
-        val prefix = storageKey(runtime, *prefixArgs)
-
-        return queryKeysByPrefix(prefix, at).map { ComponentHolder(splitKey(runtime, it)) }
-    }
-
-    override suspend fun <K, V> StorageEntry.entries(
-        vararg prefixArgs: Any?,
-        keyExtractor: (StorageKeyComponents) -> K,
-        binding: DynamicInstanceBinderWithKey<K, V>
-    ): Map<K, V> {
-        val prefix = storageKey(runtime, *prefixArgs)
-
-        val entries = queryEntriesByPrefix(prefix, at)
-
-        return applyMappersToEntries(
-            entries = entries,
-            storageEntry = this,
-            keyExtractor = keyExtractor,
-            binding = binding
-        )
-    }
-
-    override suspend fun <K, V> StorageEntry.entries(
-        keysArguments: List<List<Any?>>,
-        keyExtractor: (StorageKeyComponents) -> K,
-        binding: DynamicInstanceBinderWithKey<K, V>
-    ): Map<K, V> {
-        val entries = queryKeys(storageKeys(runtime, keysArguments), at)
-
-        return applyMappersToEntries(
-            entries = entries,
-            storageEntry = this,
-            keyExtractor = keyExtractor,
-            binding = binding
-        )
-    }
-
-    override suspend fun <K, V> StorageEntry.observeByPrefix(
-        vararg prefixArgs: Any?,
-        keyExtractor: (StorageKeyComponents) -> K,
-        binding: DynamicInstanceBinderWithKey<K, V>
-    ): Flow<Map<K, V>> {
-        val prefixKey = storageKey(runtime, *prefixArgs)
-
-        return observeKeysByPrefix(prefixKey).map { valuesByKey ->
-            applyMappersToEntries(
-                entries = valuesByKey,
-                storageEntry = this,
-                keyExtractor = keyExtractor,
-                binding = binding
-            )
-        }
-    }
 
     override suspend fun StorageEntry.entriesRaw(vararg prefixArgs: Any?): Map<String, String?> {
         return queryEntriesByPrefix(storageKey(runtime, *prefixArgs), at)
@@ -130,65 +68,11 @@ abstract class BaseStorageQueryContext(
         }
     }
 
-    override suspend fun <K, V> StorageEntry.observe(
-        keysArguments: List<List<Any?>>,
-        keyExtractor: (StorageKeyComponents) -> K,
-        binding: DynamicInstanceBinderWithKey<K, V>
-    ): Flow<Map<K, V>> {
-        val storageKeys = storageKeys(runtime, keysArguments)
-
-        return observeKeys(storageKeys).map { valuesByKey ->
-            applyMappersToEntries(
-                entries = valuesByKey,
-                storageEntry = this,
-                keyExtractor = keyExtractor,
-                binding = binding
-            )
-        }
-    }
-
-    override suspend fun multi(
-        builderBlock: MultiQueryBuilder.() -> Unit
-    ): Map<StorageEntry, Map<StorageKeyComponents, Any?>> {
-        val keysByStorageEntry = MultiQueryBuilderImpl(runtime).apply(builderBlock).build()
-
-        val keys = keysByStorageEntry.flatMap { (_, keys) -> keys }
-        val values = queryKeys(keys, at)
-
-        return keysByStorageEntry.mapValues { (storageEntry, keys) ->
-            val valueType = storageEntry.type.value!!
-
-            keys.associateBy(
-                keySelector = { key -> storageEntry.splitKeyToComponents(runtime, key) },
-                valueTransform = { key -> values[key]?.let { valueType.fromHex(runtime, it) } }
-            )
-        }
-    }
-
     private fun StorageEntry.storageKeyWith(keyArguments: Array<out Any?>): String {
         return if (keyArguments.isEmpty()) {
             storageKey()
         } else {
             storageKey(runtime, *keyArguments)
-        }
-    }
-
-    private fun <K, V> applyMappersToEntries(
-        entries: Map<String, String?>,
-        storageEntry: StorageEntry,
-        keyExtractor: (StorageKeyComponents) -> K,
-        binding: DynamicInstanceBinderWithKey<K, V>,
-    ): Map<K, V> {
-        val returnType = storageEntry.type.value ?: incompatible()
-
-        return entries.mapKeys { (key, _) ->
-            val keyComponents = ComponentHolder(storageEntry.splitKey(runtime, key))
-
-            keyExtractor(keyComponents)
-        }.mapValues { (key, value) ->
-            val decoded = value?.let { returnType.fromHexOrIncompatible(value, runtime) }
-
-            binding(decoded, key)
         }
     }
 }

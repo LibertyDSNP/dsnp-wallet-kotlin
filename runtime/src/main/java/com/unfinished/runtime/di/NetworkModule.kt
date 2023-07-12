@@ -4,12 +4,12 @@ import android.content.Context
 import com.google.gson.Gson
 import com.neovisionaries.ws.client.WebSocketFactory
 import com.unfinished.data.BuildConfig
-import com.unfinished.data.network.AndroidLogger
-import com.unfinished.data.network.HttpExceptionHandler
-import com.unfinished.data.network.NetworkApiCreator
-import com.unfinished.data.network.TimeHeaderInterceptor
-import com.unfinished.data.util.resource.ResourceManager
-import com.unfinished.data.util.resource.ResourceManagerImpl
+import com.unfinished.runtime.network.AndroidLogger
+import com.unfinished.runtime.network.HttpExceptionHandler
+import com.unfinished.runtime.network.NetworkApiCreator
+import com.unfinished.runtime.network.TimeHeaderInterceptor
+import com.unfinished.runtime.util.resource.ResourceManager
+import com.unfinished.runtime.util.resource.StringResourceManagerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -110,8 +110,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideResourceManager(@ApplicationContext context: Context): ResourceManager {
-        return ResourceManagerImpl(context)
+    fun provideStringResourceManager(@ApplicationContext context: Context): ResourceManager {
+        return StringResourceManagerImpl(context)
     }
 
     @Provides

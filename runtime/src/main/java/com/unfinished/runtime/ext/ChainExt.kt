@@ -1,7 +1,7 @@
 package com.unfinished.runtime.ext
 
 import com.unfinished.data.util.formatNamed
-import com.unfinished.data.util.substrateAccountId
+import com.unfinished.runtime.util.substrateAccountId
 import com.unfinished.runtime.network.runtime.binding.MultiAddress
 import com.unfinished.runtime.network.runtime.binding.bindOrNull
 import com.unfinished.runtime.util.Modules
