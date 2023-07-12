@@ -1,6 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.social.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,14 +18,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.SocialSetupNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RecoveryPhraseScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.home.compose.SocialProcessBar
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityTask
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
@@ -42,18 +44,29 @@ import com.unfinished.uikit.exts.tag
 @Destination
 @Composable
 fun SocialSetupScreen(
+    navigator: DestinationsNavigator,
     identityViewModel: IdentityViewModel
 ) {
     val uiStateFlow = identityViewModel.uiStateFLow.collectAsState()
 
     when (val uiState = uiStateFlow.value) {
-        is UiState.DataLoaded -> SocialSetupScreen(identityUiModel = uiState.data)
+        is UiState.DataLoaded -> SocialSetupScreen(
+            identityUiModel = uiState.data,
+            taskClick = {
+                when (it.title) {
+                    R.string.backup_seed_phrase -> navigator.navigate(
+                        RecoveryPhraseScreenDestination
+                    )
+                }
+            }
+        )
     }
 }
 
 @Composable
 fun SocialSetupScreen(
-    identityUiModel: IdentityUiModel
+    identityUiModel: IdentityUiModel,
+    taskClick: (IdentityTask) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -66,14 +79,16 @@ fun SocialSetupScreen(
         )
         Spacer(modifier = Modifier.size(34.dp))
         Body(
-            identityUiModel = identityUiModel
+            identityUiModel = identityUiModel,
+            taskClick = taskClick
         )
     }
 }
 
 @Composable
 private fun Body(
-    identityUiModel: IdentityUiModel
+    identityUiModel: IdentityUiModel,
+    taskClick: (IdentityTask) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -103,7 +118,8 @@ private fun Body(
         identityUiModel.identityTasks.forEachIndexed { index, identityTask ->
             TaskButton(
                 identityTask = identityTask,
-                testTag = "${Tag.SocialSetupScreen.task}_$index"
+                testTag = "${Tag.SocialSetupScreen.task}_$index",
+                taskClick = taskClick
             )
             Spacer(modifier = Modifier.size(12.dp))
         }
@@ -113,7 +129,8 @@ private fun Body(
 @Composable
 private fun TaskButton(
     identityTask: IdentityTask,
-    testTag: String
+    testTag: String,
+    taskClick: (IdentityTask) -> Unit
 ) {
     val roundedCorners = RoundedCornerShape(15.dp)
 
@@ -123,6 +140,13 @@ private fun TaskButton(
             .clip(roundedCorners)
             .background(if (identityTask.isComplete) MainColors.taskButtonDone else MainColors.taskButton)
             .padding(start = 24.dp, end = 10.dp, top = 18.dp, bottom = 18.dp)
+            .then(
+                if (identityTask.isComplete) Modifier else Modifier.clickable {
+                    taskClick(
+                        identityTask
+                    )
+                }
+            )
             .tag(testTag)
     ) {
         Text(
@@ -164,7 +188,8 @@ private fun SampleSocialSetupScreen() {
                         title = R.string.choose_a_handle, isComplete = true
                     )
                 )
-            )
+            ),
+            taskClick = {}
         )
     }
 }

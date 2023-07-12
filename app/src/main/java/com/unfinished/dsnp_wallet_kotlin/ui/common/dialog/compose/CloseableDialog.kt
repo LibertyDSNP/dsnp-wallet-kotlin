@@ -1,9 +1,9 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.dialog.compose
+package com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
-import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.compose.CongratulationsScreen
 
 @Composable

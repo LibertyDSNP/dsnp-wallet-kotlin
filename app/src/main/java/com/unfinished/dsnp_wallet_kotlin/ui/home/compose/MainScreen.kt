@@ -17,9 +17,10 @@ import com.ramcosta.composedestinations.navigation.dependency
 import com.unfinished.dsnp_wallet_kotlin.ui.MainNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.bottombar.BottomBar
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.dialog.compose.CloseableDialog
-import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.snackbar.compose.Snackbar
+import com.unfinished.dsnp_wallet_kotlin.ui.common.snackbar.viewmodel.SnackbarViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseViewModel
 
@@ -32,6 +33,7 @@ fun MainScreen(
     identityViewModel: IdentityViewModel,
     bottomSheetViewModel: BottomSheetViewModel = hiltViewModel(),
     dialogViewModel: DialogViewModel = hiltViewModel(),
+    snackbarViewModel: SnackbarViewModel = hiltViewModel(),
     directionRoute: String? = null
 ) {
     val navController = rememberNavController()
@@ -39,6 +41,11 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomBar(navController)
+        },
+        snackbarHost = {
+            Snackbar(
+                snackbarViewModel = snackbarViewModel
+            )
         }
     ) {
         DestinationsNavHost(
@@ -56,6 +63,7 @@ fun MainScreen(
                 dependency(RootNavigator(navigator))
                 dependency(bottomSheetViewModel)
                 dependency(dialogViewModel)
+                dependency(snackbarViewModel)
 
                 dependency(NavGraphs.recovery) {
                     val parentEntry = remember(navBackStackEntry) {

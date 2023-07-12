@@ -1,4 +1,4 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel
+package com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel
 
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DirectionDestination

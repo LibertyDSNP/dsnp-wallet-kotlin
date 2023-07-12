@@ -1,10 +1,10 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.compose
+package com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.compose
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
 
 
 @Composable

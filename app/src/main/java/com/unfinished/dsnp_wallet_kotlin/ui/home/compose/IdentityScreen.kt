@@ -29,6 +29,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.BottomBarNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.SocialSetupScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityTask
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
@@ -61,7 +62,7 @@ fun IdentityScreen(
             //TODO
         },
         seeAllClick = {
-            navigator.navigate(NavGraphs.socialSetup)
+            navigator.navigate(SocialSetupScreenDestination)
         }
     )
 }

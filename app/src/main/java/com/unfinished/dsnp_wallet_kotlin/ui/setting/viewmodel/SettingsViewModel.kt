@@ -29,18 +29,6 @@ class SettingsViewModel @Inject constructor(
     private val _logoutDialogStateFlow = MutableStateFlow<Logout>(Logout.Hide)
     val logoutDialogStateFlow = _logoutDialogStateFlow.asStateFlow()
 
-    fun showSnackbar() {
-        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
-            _uiStateFLow.value = it.copy(showSnackbar = true).toDataLoaded()
-        }
-    }
-
-    fun hideSnackbar() {
-        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
-            _uiStateFLow.value = it.copy(showSnackbar = false).toDataLoaded()
-        }
-    }
-
     fun showLogoutDialog() {
         _logoutDialogStateFlow.value = Logout.Show
     }
