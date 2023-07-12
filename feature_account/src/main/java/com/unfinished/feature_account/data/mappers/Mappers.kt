@@ -17,8 +17,8 @@ import com.unfinished.data.db.model.NodeLocal
 import com.unfinished.data.db.model.chain.ChainAccountLocal
 import com.unfinished.data.db.model.chain.JoinedMetaAccountInfo
 import com.unfinished.data.db.model.chain.MetaAccountLocal
-import com.unfinished.runtime.ext.addressOf
-import com.unfinished.runtime.ext.hexAccountIdOf
+import com.unfinished.runtime.util.addressOf
+import com.unfinished.runtime.util.hexAccountIdOf
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.extensions.toHexString

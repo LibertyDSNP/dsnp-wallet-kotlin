@@ -27,7 +27,7 @@ import com.unfinished.feature_account.data.mappers.mapMetaAccountToAccount
 import com.unfinished.feature_account.data.mappers.mapNodeLocalToNode
 import com.unfinished.feature_account.data.repository.datasource.migration.AccountDataMigration
 import com.unfinished.feature_account.domain.interfaces.AccountDataSource
-import com.unfinished.runtime.ext.accountIdOf
+import com.unfinished.runtime.util.accountIdOf
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey

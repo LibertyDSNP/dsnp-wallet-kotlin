@@ -1,7 +1,7 @@
 package com.unfinished.runtime.extrinsic
 
 import com.unfinished.data.util.orZero
-import com.unfinished.runtime.ext.addressOf
+import com.unfinished.runtime.util.addressOf
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.getRuntime

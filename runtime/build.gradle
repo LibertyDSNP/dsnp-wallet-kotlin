@@ -46,11 +46,8 @@ dependencies {
 
     implementation project(":data")
 
-    implementation deps.retrofit.converter_gson
+    implementation deps.lifecycle.extensions
 
-    implementation deps.nova.fearless_utils
-    implementation deps.other.bouncycastle
-    implementation deps.other.websocket
     implementation deps.coroutines.core
 
     implementation deps.retrofit.okhttp
@@ -63,13 +60,8 @@ dependencies {
     kapt deps.daggerHilt.android_compiler
     kapt deps.daggerHilt.hilt_compiler
 
-    implementation deps.lifecycle.extensions
-
-    implementation deps.test.runner
-    implementation deps.test.rules
-    implementation deps.test.ext_junit
-
-    //There is a part of code that needs this to support for under api 24
-    implementation deps.other.streamsupport
-
+    implementation deps.nova.fearless_utils
+    implementation deps.other.bouncycastle
+    implementation deps.other.websocket
+    implementation deps.other.streamsupport //There is a part of code that needs this to support for under api 24
 }

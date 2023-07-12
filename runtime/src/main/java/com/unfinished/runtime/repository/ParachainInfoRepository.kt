@@ -9,6 +9,10 @@ import jp.co.soramitsu.fearless_utils.runtime.metadata.storage
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
+/*
+    TODO: It's not using but leave it incase we need it in future
+ */
+
 interface ParachainInfoRepository {
 
     suspend fun paraId(chainId: ChainId): ParaId?

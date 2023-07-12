@@ -27,8 +27,8 @@ import com.unfinished.feature_account.domain.model.publicKeyIn
 import com.unfinished.feature_account.data.mappers.mapNodeLocalToNode
 import com.unfinished.feature_account.data.blockchain.AccountSubstrateSource
 import com.unfinished.feature_account.domain.interfaces.AccountDataSource
-import com.unfinished.runtime.ext.genesisHash
-import com.unfinished.runtime.ext.isValidAddress
+import com.unfinished.runtime.util.genesisHash
+import com.unfinished.runtime.util.isValidAddress
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.qr.MultiChainQrSharingFactory
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedEncoder

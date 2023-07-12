@@ -8,9 +8,9 @@ import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.resources.ClipboardManager
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.utils.Event
-import com.unfinished.runtime.ext.accountUrlOf
-import com.unfinished.runtime.ext.eventUrlOf
-import com.unfinished.runtime.ext.extrinsicUrlOf
+import com.unfinished.runtime.util.accountUrlOf
+import com.unfinished.runtime.util.eventUrlOf
+import com.unfinished.runtime.util.extrinsicUrlOf
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 
 class ExternalActionsProvider(

@@ -24,12 +24,10 @@ import com.unfinished.common.utils.setOnSafeClickListener
 import com.unfinished.common.validation.validationError
 import com.unfinished.data.model.CryptoType
 import com.unfinished.common.utils.toUnit
-import com.unfinished.runtime.ext.addressOf
-import kotlinx.coroutines.Dispatchers
+import com.unfinished.runtime.util.addressOf
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class TestFragment : BaseFragment<TestViewModel>() {

@@ -12,7 +12,7 @@ import com.unfinished.feature_account.domain.model.accountIdIn
 import com.unfinished.feature_account.domain.account.details.AccountInChain.From
 import com.unfinished.feature_account.domain.validation.SubstrateApplicationConfig
 import com.unfinished.feature_account.presentation.model.account.add.SecretType
-import com.unfinished.runtime.ext.defaultComparatorFrom
+import com.unfinished.runtime.util.defaultComparatorFrom
 import com.unfinished.runtime.multiNetwork.ChainRegistry
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.Dispatchers

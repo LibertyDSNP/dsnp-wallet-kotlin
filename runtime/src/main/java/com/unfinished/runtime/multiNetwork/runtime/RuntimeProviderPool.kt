@@ -1,6 +1,6 @@
 package com.unfinished.runtime.multiNetwork.runtime
 
-import com.unfinished.runtime.ext.typesUsage
+import com.unfinished.runtime.util.typesUsage
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.runtime.types.BaseTypeSynchronizer
 import java.util.concurrent.ConcurrentHashMap

@@ -2,8 +2,8 @@ package com.unfinished.feature_account.presentation.mixin.addressInput.inputSpec
 
 import android.graphics.drawable.Drawable
 import com.unfinished.common.address.AddressIconGenerator
-import com.unfinished.runtime.ext.accountIdOf
-import com.unfinished.runtime.ext.isValidAddress
+import com.unfinished.runtime.util.accountIdOf
+import com.unfinished.runtime.util.isValidAddress
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

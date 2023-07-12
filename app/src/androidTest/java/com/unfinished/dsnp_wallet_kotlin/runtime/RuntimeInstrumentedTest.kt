@@ -15,8 +15,8 @@ import com.unfinished.data.util.orZero
 import com.unfinished.data.util.system
 import com.unfinished.common.core.api.model.CryptoType
 import com.unfinished.common.utils.toPlanks
-import com.unfinished.runtime.ext.accountIdOf
-import com.unfinished.runtime.ext.hexAccountIdOf
+import com.unfinished.runtime.util.accountIdOf
+import com.unfinished.runtime.util.hexAccountIdOf
 import com.unfinished.runtime.extrinsic.CustomSignedExtensions
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
@@ -42,7 +42,6 @@ import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersion
 import jp.co.soramitsu.fearless_utils.wsrpc.request.runtime.chain.RuntimeVersionRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.*

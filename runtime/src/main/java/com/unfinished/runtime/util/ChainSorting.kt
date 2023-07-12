@@ -1,4 +1,4 @@
-package com.unfinished.runtime.ext
+package com.unfinished.runtime.util
 
 import android.os.Build
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
@@ -6,8 +6,8 @@ import java8.util.Comparators
 
 val Chain.relaychainsFirstAscendingOrder
     get() = when (genesisHash) {
-        Chain.Geneses.POLKADOT -> 0
-        Chain.Geneses.KUSAMA -> 1
+        ChainGeneses.POLKADOT -> 0
+        ChainGeneses.KUSAMA -> 1
         else -> 2
     }
 

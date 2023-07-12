@@ -3,8 +3,8 @@ package com.unfinished.feature_account.domain.model
 import com.unfinished.data.mappers.mapCryptoTypeToEncryption
 import com.unfinished.runtime.util.DEFAULT_PREFIX
 import com.unfinished.data.model.CryptoType
-import com.unfinished.runtime.ext.addressOf
-import com.unfinished.runtime.ext.toEthereumAddress
+import com.unfinished.runtime.util.addressOf
+import com.unfinished.runtime.util.toEthereumAddress
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import com.unfinished.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption

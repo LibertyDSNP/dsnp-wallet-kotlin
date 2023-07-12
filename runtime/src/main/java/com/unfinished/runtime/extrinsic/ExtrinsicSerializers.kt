@@ -40,7 +40,6 @@ private class CallRepresentationAdapter : JsonSerializer<Extrinsic.EncodingInsta
 }
 
 object ExtrinsicSerializers {
-
     fun gson() = GsonBuilder()
         .registerTypeHierarchyAdapter(ByteArray::class.java, ByteArrayHexAdapter())
         .registerTypeHierarchyAdapter(GenericCall.Instance::class.java, GenericCallAdapter())

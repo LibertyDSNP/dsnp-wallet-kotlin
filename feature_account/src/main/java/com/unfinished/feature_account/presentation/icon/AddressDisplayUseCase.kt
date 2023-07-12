@@ -1,7 +1,7 @@
 package com.unfinished.feature_account.presentation.icon
 
 import com.unfinished.feature_account.domain.interfaces.AccountRepository
-import com.unfinished.runtime.ext.accountIdOf
+import com.unfinished.runtime.util.accountIdOf
 import com.unfinished.runtime.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import kotlinx.coroutines.Dispatchers

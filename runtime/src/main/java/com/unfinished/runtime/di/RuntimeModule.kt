@@ -36,11 +36,14 @@ import com.unfinished.runtime.storage.source.LocalStorageSource
 import com.unfinished.runtime.storage.source.RemoteStorageSource
 import com.unfinished.runtime.storage.source.StorageDataSource
 import javax.inject.Named
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 const val LOCAL_STORAGE_SOURCE = "LOCAL_STORAGE_SOURCE"
 const val REMOTE_STORAGE_SOURCE = "REMOTE_STORAGE_SOURCE"
-
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ExtrinsicSerialization
 @Module
 @InstallIn(SingletonComponent::class)
 class RuntimeModule {
