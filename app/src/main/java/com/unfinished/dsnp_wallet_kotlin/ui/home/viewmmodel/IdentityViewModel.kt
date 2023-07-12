@@ -42,4 +42,21 @@ class IdentityViewModel @Inject constructor(
             )
         ).toDataLoaded()
     }
+
+    fun backUpSeedCompleted() {
+        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let { uiModel ->
+            _uiStateFLow.value = uiModel.copy(
+                identityTasks = uiModel.identityTasks.toMutableList().apply {
+                    val backupTask = first { it.title == R.string.backup_seed_phrase }
+                    val index = indexOf(backupTask)
+
+                    removeAt(index)
+                    add(
+                        index,
+                        backupTask.copy(isComplete = true)
+                    )
+                }
+            ).toDataLoaded()
+        }
+    }
 }

@@ -36,10 +36,10 @@ import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.deeplink.Deeplink
 import com.unfinished.dsnp_wallet_kotlin.deeplink.DeeplinkViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.compose.BottomSheet
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.compose.BottomSheet
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RestoreWalletScreenDestination
-import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors

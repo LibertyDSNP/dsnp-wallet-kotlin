@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +29,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.RecoveryNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.common.snackbar.viewmodel.SnackbarViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.RecoveryPhraseUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKey
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKeyState
@@ -52,6 +53,8 @@ import com.unfinished.uikit.exts.tag
 @Composable
 fun RecoveryTestScreenScreen(
     navigator: DestinationsNavigator,
+    snackbarViewModel: SnackbarViewModel,
+    identityViewModel: IdentityViewModel,
     recoveryPhraseViewModel: RecoveryPhraseViewModel
 ) {
     val uiStateFlow = recoveryPhraseViewModel.uiStateFLow.collectAsState()
@@ -79,7 +82,11 @@ fun RecoveryTestScreenScreen(
                     continueClick = { recoveryPhraseViewModel.verifySeedKeys() }
                 )
 
-                if (uiState.data.seedKeyState == SeedKeyState.Finish) navigator.popBackStack()
+                if (uiState.data.seedKeyState == SeedKeyState.Finish) {
+                    snackbarViewModel.showSuccess(stringResource(R.string.congratulations))
+                    identityViewModel.backUpSeedCompleted()
+                    navigator.popBackStack()
+                }
             }
         }
     }

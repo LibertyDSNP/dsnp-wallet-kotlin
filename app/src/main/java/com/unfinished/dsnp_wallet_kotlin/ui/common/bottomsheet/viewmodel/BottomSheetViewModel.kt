@@ -1,6 +1,6 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel
+package com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel
 
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.uimodel.BottomSheetUiModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.uimodel.BottomSheetUiModel
 import com.unfinished.uikit.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.base.BaseViewModel

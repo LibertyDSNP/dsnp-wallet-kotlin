@@ -31,9 +31,9 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.compose.BottomSheet
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.compose.BottomSheet
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.RestoreWalletUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel

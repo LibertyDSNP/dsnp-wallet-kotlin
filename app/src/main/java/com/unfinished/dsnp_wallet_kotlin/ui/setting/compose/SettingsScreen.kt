@@ -56,35 +56,20 @@ import com.unfinished.uikit.exts.tag
 fun SettingsScreen(
     navigator: DestinationsNavigator,
     rootNavigator: RootNavigator,
-    resultRecipient: ResultRecipient<RecoveryPhraseScreenDestination, Boolean>,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val uiStateFlow = settingsViewModel.uiStateFLow.collectAsState()
     val logoutDialogStateFlow = settingsViewModel.logoutDialogStateFlow.collectAsState()
 
     when (val uiState = uiStateFlow.value) {
-        is UiState.DataLoaded -> Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MainColors.background)
-        ) {
-            SettingsScreen(
-                settingsUiModel = uiState.data,
-                settingClick = {},
-                logOutClick = { settingsViewModel.showLogoutDialog() },
-                recoveryPhraseClick = {
-                    navigator.navigate(RecoveryPhraseScreenDestination)
-                }
-            )
-
-            SuccessSnackbar(
-                text = stringResource(R.string.congratulations),
-                showSnackbar = uiState.data.showSnackbar,
-                modifier = Modifier.align(Alignment.BottomCenter),
-                onDismiss = { settingsViewModel.hideSnackbar() },
-                onShown = { settingsViewModel.hideSnackbar() }
-            )
-        }
+        is UiState.DataLoaded -> SettingsScreen(
+            settingsUiModel = uiState.data,
+            settingClick = {},
+            logOutClick = { settingsViewModel.showLogoutDialog() },
+            recoveryPhraseClick = {
+                navigator.navigate(RecoveryPhraseScreenDestination)
+            }
+        )
     }
 
     if (logoutDialogStateFlow.value == SettingsViewModel.Logout.Show) CloseableDialog(
@@ -102,13 +87,6 @@ fun SettingsScreen(
         },
         onDismiss = { settingsViewModel.hideLogoutDialog() }
     )
-
-    resultRecipient.onNavResult { result ->
-        when (result) {
-            NavResult.Canceled -> {}
-            is NavResult.Value -> settingsViewModel.showSnackbar()
-        }
-    }
 }
 
 @Composable
