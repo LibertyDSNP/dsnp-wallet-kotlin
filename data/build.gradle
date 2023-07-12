@@ -37,26 +37,18 @@ dependencies {
     implementation deps.support.app_compat
     implementation deps.support.material
 
-    implementation deps.coroutines.core
-    implementation deps.coroutines.android
-
     implementation deps.daggerHilt.hilt_android
     kapt deps.daggerHilt.android_compiler
     kapt deps.daggerHilt.hilt_compiler
-
-    implementation deps.retrofit.okhttp
-    implementation deps.retrofit.retrofit
-    implementation deps.retrofit.converter_gson
-    implementation deps.retrofit.converter_scalars
-    implementation deps.retrofit.interceptor
 
     implementation deps.room.runtime
     implementation deps.room.ktx
     kapt deps.room.compiler
     implementation deps.room.testing
 
+    implementation deps.coroutines.core
+    implementation deps.coroutines.android
+
     implementation deps.other.bouncycastle
     implementation deps.nova.fearless_utils
-
-    implementation deps.other.websocket
 }
