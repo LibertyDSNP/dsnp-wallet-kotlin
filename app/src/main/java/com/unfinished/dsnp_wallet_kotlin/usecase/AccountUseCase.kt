@@ -1,14 +1,14 @@
 package com.unfinished.dsnp_wallet_kotlin.usecase
 
-import com.unfinished.feature_account.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
-import com.unfinished.feature_account.domain.account.add.AddAccountInteractor
-import com.unfinished.feature_account.domain.account.export.mnemonic.ExportMnemonicInteractor
-import com.unfinished.feature_account.domain.interactor.AdvancedEncryptionInteractor
-import com.unfinished.feature_account.domain.interfaces.AccountInteractor
-import com.unfinished.feature_account.domain.model.AddAccountType
-import com.unfinished.feature_account.presentation.AdvancedEncryptionCommunicator
-import com.unfinished.feature_account.presentation.lastResponseOrDefault
-import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
+import com.unfinished.account.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
+import com.unfinished.account.domain.account.add.AddAccountInteractor
+import com.unfinished.account.domain.account.export.mnemonic.ExportMnemonicInteractor
+import com.unfinished.account.domain.interactor.AdvancedEncryptionInteractor
+import com.unfinished.account.domain.interfaces.AccountInteractor
+import com.unfinished.account.domain.model.AddAccountType
+import com.unfinished.account.presentation.AdvancedEncryptionCommunicator
+import com.unfinished.account.presentation.lastResponseOrDefault
+import com.unfinished.account.presentation.model.account.add.AddAccountPayload
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import javax.inject.Inject
 

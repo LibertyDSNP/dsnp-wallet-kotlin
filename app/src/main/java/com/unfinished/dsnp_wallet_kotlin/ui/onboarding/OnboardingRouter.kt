@@ -1,7 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding
 
-import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
-import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
+import com.unfinished.account.presentation.model.account.add.AddAccountPayload
+import com.unfinished.account.presentation.model.account.add.ImportAccountPayload
 
 interface OnboardingRouter {
 

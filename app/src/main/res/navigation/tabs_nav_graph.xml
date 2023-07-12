@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/pincodeFragment"
-        android:name="com.unfinished.feature_account.presentation.pincode.PincodeFragment"
+        android:name="com.unfinished.account.presentation.pincode.PincodeFragment"
         android:label="fragment_pincode"
         tools:layout="@layout/fragment_pincode" />
 

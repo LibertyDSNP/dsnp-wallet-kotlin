@@ -1,7 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.splash
 
 import androidx.lifecycle.viewModelScope
-import com.unfinished.feature_account.domain.interfaces.AccountRepository
+import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.uikit.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unfinished.common.base.BaseViewModel

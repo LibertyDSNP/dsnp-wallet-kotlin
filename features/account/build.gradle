@@ -1,0 +1,88 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.unfinished.account'
+    compileSdk build_versions.compile_sdk
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation project(':common')
+    implementation project(':data')
+    implementation project(':runtime')
+
+    implementation deps.support.core_ktx
+    implementation deps.support.app_compat
+    implementation deps.support.material
+    implementation deps.support.constraint_layout
+
+    implementation deps.daggerHilt.hilt_android
+    kapt deps.daggerHilt.android_compiler
+    kapt deps.daggerHilt.hilt_compiler
+
+    implementation deps.room.runtime
+    implementation deps.room.ktx
+    kapt deps.room.compiler
+
+    androidTestImplementation deps.test.hilt_testing
+    kaptAndroidTest deps.test.hilt_compiler
+
+    implementation deps.retrofit.converter_gson
+
+    implementation deps.extension.viewmodel_ktx
+    implementation deps.extension.livedata_ktx
+    implementation deps.extension.fragment_ktx
+    implementation deps.extension.lifecycle_ktx
+
+    implementation deps.coroutines.core
+    implementation deps.coroutines.android
+
+    implementation deps.other.bouncycastle
+    implementation deps.nova.fearless_utils
+
+    implementation deps.support.biometric
+
+    implementation deps.other.zxing
+    implementation deps.other.zxing_android
+    implementation deps.other.coil
+    implementation deps.other.coil_svg
+    implementation deps.other.websocket
+    
+    implementation deps.navigation.navigation_fragment_ktx
+    implementation deps.navigation.navigation_ui_ktx
+
+    implementation deps.test.runner
+    implementation deps.test.rules
+    implementation deps.test.ext_junit
+}

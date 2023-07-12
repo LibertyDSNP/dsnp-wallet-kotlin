@@ -19,6 +19,6 @@ rootProject.name = "dsnp-wallet-kotlin"
 include ':app'
 include ':common'
 include ':runtime'
-include ':feature_account'
+include ':features:account'
 include ':uikit'
 include ':data'

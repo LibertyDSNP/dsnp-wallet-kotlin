@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/backupMnemonicFragment"
-        android:name="com.unfinished.feature_account.presentation.mnemonic.backup.BackupMnemonicFragment"
+        android:name="com.unfinished.account.presentation.mnemonic.backup.BackupMnemonicFragment"
         android:label="fragment_backup_mnemonic"
         tools:layout="@layout/fragment_backup_mnemonic">
 
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/confirmMnemonicFragment"
-        android:name="com.unfinished.feature_account.presentation.mnemonic.confirm.ConfirmMnemonicFragment"
+        android:name="com.unfinished.account.presentation.mnemonic.confirm.ConfirmMnemonicFragment"
         android:label="fragment_confirm_mnemonic"
         tools:layout="@layout/fragment_confirm_mnemonic">
 

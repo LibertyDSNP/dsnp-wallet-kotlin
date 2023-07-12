@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/createHandleFragment"
-        android:name="com.unfinished.feature_account.presentation.handle.create.CreateHandleFragment"
+        android:name="com.unfinished.account.presentation.handle.create.CreateHandleFragment"
         android:label="fragment_create_handle"
         tools:layout="@layout/fragment_create_handle">
 
@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/confirmHandleFragment"
-        android:name="com.unfinished.feature_account.presentation.handle.confirm.ConfirmHandleFragment"
+        android:name="com.unfinished.account.presentation.handle.confirm.ConfirmHandleFragment"
         android:label="fragment_confirm_handle"
         tools:layout="@layout/fragment_confirm_handle">
 
@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/termsHandleFragment"
-        android:name="com.unfinished.feature_account.presentation.handle.terms.TermsHandleFragment"
+        android:name="com.unfinished.account.presentation.handle.terms.TermsHandleFragment"
         android:label="fragment_terms_handle"
         tools:layout="@layout/fragment_terms_handle">
 

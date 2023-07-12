@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/testFragment"
-        android:name="com.unfinished.feature_account.presentation.test.TestFragment"
+        android:name="com.unfinished.account.presentation.test.TestFragment"
         android:label="TestFragment" />
 
 </navigation>

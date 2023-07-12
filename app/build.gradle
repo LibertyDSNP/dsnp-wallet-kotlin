@@ -105,8 +105,7 @@ android {
 }
 
 dependencies {
-
-    implementation project(":feature_account")
+    implementation project(":features:account")
     implementation project(":common")
     implementation project(':runtime')
     implementation project(':uikit')

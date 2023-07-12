@@ -1,9 +1,9 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding
 
 import androidx.lifecycle.MutableLiveData
-import com.unfinished.feature_account.presentation.mixin.importType.ImportTypeChooserMixin
-import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
-import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
+import com.unfinished.account.presentation.mixin.importType.ImportTypeChooserMixin
+import com.unfinished.account.presentation.model.account.add.AddAccountPayload
+import com.unfinished.account.presentation.model.account.add.ImportAccountPayload
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unfinished.common.base.BaseViewModel
 import com.unfinished.common.mixin.api.Browserable

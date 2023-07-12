@@ -5,7 +5,7 @@ import androidx.compose.ui.viewinterop.AndroidViewBinding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.unfinished.dsnp_wallet_kotlin.databinding.TestScreenBinding
 import com.unfinished.dsnp_wallet_kotlin.ui.TestNavGraph
-import com.unfinished.feature_account.presentation.test.TestFragment
+import com.unfinished.account.presentation.test.TestFragment
 
 @TestNavGraph(start = true)
 @Destination
