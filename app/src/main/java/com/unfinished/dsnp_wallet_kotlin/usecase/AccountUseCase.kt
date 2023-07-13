@@ -11,6 +11,7 @@ import com.unfinished.feature_account.presentation.lastResponseOrDefault
 import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class AccountUseCase @Inject constructor(
     private val accountInteractor: AccountInteractor,
@@ -19,6 +20,12 @@ class AccountUseCase @Inject constructor(
     private val addAccountInteractor: AddAccountInteractor,
     private val advancedEncryptionCommunicator: AdvancedEncryptionCommunicator
 ) {
+    /**
+     * This is temp and will be removed once we implement fetching a user's account
+     */
+    private companion object {
+        var tempHandle: String = "neverendingwinter"
+    }
 
     suspend fun fetchMnemoic(): Mnemonic {
         /**
@@ -53,4 +60,10 @@ class AccountUseCase @Inject constructor(
             addAccountType
         )
     }
+
+    suspend fun createHandle(handle: String) {
+        tempHandle = handle
+    }
+
+    suspend fun fetchHandle(): String = "$tempHandle.23"
 }

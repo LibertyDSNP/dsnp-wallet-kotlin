@@ -19,7 +19,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,13 +26,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
-import com.unfinished.dsnp_wallet_kotlin.ui.NavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.destinations.SocialSetupScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.MainScreenDestination
-import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.SocialSetupScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
@@ -45,6 +42,7 @@ import com.unfinished.uikit.UiState
 import com.unfinished.uikit.components.Bullet
 import com.unfinished.uikit.components.Handle
 import com.unfinished.uikit.components.InputTextField
+import com.unfinished.uikit.components.Loading
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PullDown
 import com.unfinished.uikit.exts.tag
@@ -247,7 +245,10 @@ private fun ConfirmHandleScreen(
 
 @Composable
 private fun AgreeToTermsScreen(
-    handle: String, suffix: String, agreeClick: () -> Unit
+    handle: String,
+    suffix: String,
+    showLoading: Boolean,
+    agreeClick: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.Bottom
@@ -275,7 +276,10 @@ private fun AgreeToTermsScreen(
             AgreeText()
 
             Spacer(modifier = Modifier.size(30.dp))
-            PrimaryButton(
+
+            if (showLoading) Box(modifier = Modifier.fillMaxWidth()) {
+                Loading(modifier = Modifier.align(Alignment.Center))
+            } else PrimaryButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .tag(Tag.CreateIdentityScreen.agree),

@@ -1,19 +1,23 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel
 
+import androidx.lifecycle.viewModelScope
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityTask
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
+import com.unfinished.dsnp_wallet_kotlin.usecase.AccountUseCase
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class IdentityViewModel @Inject constructor(
-
+    private val accountUseCase: AccountUseCase
 ) : BaseViewModel() {
 
     private val _uiStateFLow =
@@ -25,22 +29,30 @@ class IdentityViewModel @Inject constructor(
          * TODO: make calls to fetch info for ui state
          */
 
-        _uiStateFLow.value = IdentityUiModel(
-            iconUrl = null,
-            username = "neverendingwinter.23",
-            identityTasks = listOf(
-                IdentityTask(
-                    title = R.string.set_avatar
-                ),
-                IdentityTask(
-                    title = R.string.backup_seed_phrase
-                ),
-                IdentityTask(
-                    title = R.string.choose_a_handle,
-                    isComplete = true
-                )
-            )
-        ).toDataLoaded()
+        viewModelScope.launch {
+            runCatching {
+                accountUseCase.fetchHandle()
+            }.onSuccess {
+                _uiStateFLow.value = IdentityUiModel(
+                    iconUrl = null,
+                    username = it,
+                    identityTasks = listOf(
+                        IdentityTask(
+                            title = R.string.set_avatar
+                        ),
+                        IdentityTask(
+                            title = R.string.backup_seed_phrase
+                        ),
+                        IdentityTask(
+                            title = R.string.choose_a_handle,
+                            isComplete = true
+                        )
+                    )
+                ).toDataLoaded()
+            }.onFailure {
+                Timber.e(it)
+            }
+        }
     }
 
     fun backUpSeedCompleted() {
