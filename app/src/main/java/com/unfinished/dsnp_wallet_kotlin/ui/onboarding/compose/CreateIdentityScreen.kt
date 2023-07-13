@@ -180,7 +180,7 @@ private fun CreateHandleScreen(
                 imeAction = ImeAction.Next
             ),
             keyboardActions = KeyboardActions(
-                onNext = { nextClick() }
+                onNext = { if (handleIsValid) nextClick() }
             )
         )
 
