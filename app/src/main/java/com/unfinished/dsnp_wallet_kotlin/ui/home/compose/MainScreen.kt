@@ -21,6 +21,7 @@ import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomS
 import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.common.snackbar.compose.Snackbar
 import com.unfinished.dsnp_wallet_kotlin.ui.common.snackbar.viewmodel.SnackbarViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.SocialSetupScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseViewModel
 
@@ -31,8 +32,8 @@ import com.unfinished.dsnp_wallet_kotlin.ui.recovery.viewmodel.RecoveryPhraseVie
 fun MainScreen(
     navigator: DestinationsNavigator,
     identityViewModel: IdentityViewModel,
-    bottomSheetViewModel: BottomSheetViewModel = hiltViewModel(),
-    dialogViewModel: DialogViewModel = hiltViewModel(),
+    bottomSheetViewModel: BottomSheetViewModel,
+    dialogViewModel: DialogViewModel,
     snackbarViewModel: SnackbarViewModel = hiltViewModel(),
     directionRoute: String? = null
 ) {
