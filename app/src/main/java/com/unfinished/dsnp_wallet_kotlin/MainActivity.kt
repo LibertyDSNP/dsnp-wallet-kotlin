@@ -28,11 +28,10 @@ import com.ramcosta.composedestinations.spec.NavHostEngine
 import com.unfinished.dsnp_wallet_kotlin.deeplink.DeeplinkViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
 import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.debug.DebugToolbar
-import com.unfinished.dsnp_wallet_kotlin.ui.destinations.LandingPageScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.compose.CloseableDialog
 import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.debug.DebugToolbar
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.LandingPageScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.exts.safeGetBackStackEntry
 import com.unfinished.uikit.MainTheme
@@ -41,7 +40,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val identityViewModel: IdentityViewModel by viewModels()
     private val dialogViewModel: DialogViewModel by viewModels()
     private val bottomSheetViewModel: BottomSheetViewModel by viewModels()
 
@@ -99,7 +97,6 @@ class MainActivity : AppCompatActivity() {
                                 hiltViewModel<CreateIdentityViewModel>(parentEntry)
                             }
 
-                            dependency(identityViewModel)
                             dependency(dialogViewModel)
                             dependency(bottomSheetViewModel)
                             dependency(deeplinkViewModel)
