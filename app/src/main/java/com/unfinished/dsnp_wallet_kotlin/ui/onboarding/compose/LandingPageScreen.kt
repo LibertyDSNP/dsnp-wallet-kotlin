@@ -20,10 +20,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,8 +35,8 @@ import com.unfinished.dsnp_wallet_kotlin.deeplink.DeeplinkViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.compose.BottomSheet
 import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RestoreWalletScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RestoreWalletScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
@@ -238,7 +235,11 @@ fun LandingPageScreen(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-        TermsAndPrivacy(modifier = Modifier.tag(Tag.LandingPageScreen.termsAndPrivacy))
+        TermsAndPrivacy(
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .tag(Tag.LandingPageScreen.termsAndPrivacy)
+        )
 
         Spacer(modifier = Modifier.size(32.dp))
     }
@@ -247,7 +248,8 @@ fun LandingPageScreen(
 @Composable
 fun TermsAndPrivacy(
     modifier: Modifier = Modifier,
-    textColor: Color = MainColors.onBackground
+    textColor: Color = MainColors.onBackground,
+    textAlign: TextAlign = TextAlign.Center
 ) {
     val context = LocalContext.current
     val termsLink = stringResource(id = R.string.terms_link)
@@ -256,10 +258,10 @@ fun TermsAndPrivacy(
     val privacyPolicy = stringResource(id = R.string.privacy_policy)
 
     HyperlinkText(
-        modifier = modifier.padding(horizontal = 24.dp),
+        modifier = modifier,
         style = MainTypography.body.copy(
             color = textColor,
-            textAlign = TextAlign.Center
+            textAlign = textAlign
         ),
         fullText = stringResource(id = R.string.signing_up_terms),
         clickableTexts = listOf(

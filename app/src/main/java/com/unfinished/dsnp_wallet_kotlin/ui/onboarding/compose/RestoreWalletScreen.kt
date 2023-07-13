@@ -197,7 +197,9 @@ fun RestoreWalletScreen(
             )
         }
 
-        TermsAndPrivacy()
+        TermsAndPrivacy(
+            modifier = Modifier.padding(horizontal = 24.dp)
+        )
         Spacer(modifier = Modifier.size(32.dp))
     }
 }
