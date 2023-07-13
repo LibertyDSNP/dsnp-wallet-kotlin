@@ -138,7 +138,8 @@ fun CreateIdentityScreen(
             3 -> AgreeToTermsScreen(
                 handle = createIdentityUiModel.handle,
                 suffix = createIdentityUiModel.suffix,
-                agreeClick = nextClick
+                agreeClick = nextClick,
+                showLoading = createIdentityUiModel.showLoading
             )
         }
     }
