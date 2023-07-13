@@ -5,8 +5,11 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,29 +32,40 @@ fun BottomBar(
     val currentDestination: Destination = navController.appCurrentDestinationAsState().value
         ?: NavGraphs.root.startAppDestination
 
+    var currentBottomBarDestination: BottomBarDestination by remember {
+        mutableStateOf(BottomBarDestination.values().first())
+    }
+
+    BottomBarDestination.values().firstOrNull { it.direction == currentDestination }?.let {
+        currentBottomBarDestination = it
+    }
+
     BottomNavigation(
         backgroundColor = MainColors.background
     ) {
         BottomBarDestination.values().forEach { destination ->
-            val isSelected = destination.isSelected(currentDestination)
+            val isSelected = destination == currentBottomBarDestination
             val iconColor =
                 if (isSelected) MainColors.bottomBarIcon else MainColors.bottomBarIconNotSelected
             BottomNavigationItem(
                 selected = isSelected,
                 onClick = {
-                    if (!isSelected) navController.navigate(
-                        route = destination.direction.route,
-                        navOptions = navOptions {
-                            launchSingleTop = true
+                    if (!isSelected) {
+                        currentBottomBarDestination = destination
+                        navController.navigate(
+                            route = destination.direction.route,
+                            navOptions = navOptions {
+                                launchSingleTop = true
 
-                            popUpTo(
-                                route = NavGraphs.root.route,
-                                popUpToBuilder = {
-                                    inclusive = true
-                                }
-                            )
-                        }
-                    )
+                                popUpTo(
+                                    route = NavGraphs.root.route,
+                                    popUpToBuilder = {
+                                        inclusive = true
+                                    }
+                                )
+                            }
+                        )
+                    }
                 },
                 icon = {
                     Icon(
