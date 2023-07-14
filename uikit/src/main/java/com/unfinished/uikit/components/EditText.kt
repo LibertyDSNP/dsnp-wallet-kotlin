@@ -81,6 +81,8 @@ fun OutlinedText(
     text: String,
     hint: String,
     isError: Boolean = false,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     onTextChange: (String) -> Unit
 ) {
     OutlinedTextField(
@@ -103,7 +105,9 @@ fun OutlinedText(
         },
         shape = MainShapes.input,
         textStyle = MainTypography.stepCounter,
-        isError = isError
+        isError = isError,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions
     )
 }
 
