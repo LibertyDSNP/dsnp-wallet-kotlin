@@ -1,9 +1,12 @@
 
 object Versions {
-    const val kotlin = "1.8.21"
+    const val kotlin = "1.8.22"
+    const val ksp = "1.8.22-1.0.11"
     const val compilerExtension = "1.4.8"
-    const val android_gradle_plugin = "2.43.2"
+    const val android_gradle_plugin = "8.0.2"
+    const val hilt_gradle_plugin = "2.43.2"
     const val args_gradle_plugin = "2.5.3"
+    const val mozila_rust_gradle_plugin = "0.9.0"
 
     const val core_ktx = "1.7.0"
     const val appcompat = "1.4.1"
@@ -18,7 +21,7 @@ object Versions {
     const val runner = "1.4.0"
     const val rules = "1.4.0"
     const val hilt_testing = "2.44"
-    const val hilt_compiler = "2.44"
+    const val hilt_compiler = "1.0.0"
 
     const val navigation_fragment_ktx = "2.5.3"
     const val navigation_ui_ktx = "2.5.3"
@@ -82,6 +85,8 @@ object Versions {
 
     const val streamsupport = "1.6.0"
     const val chrome_tabs = "1.5.0"
+
+    const val lazyColumnScrollbar = "1.6.3"
 
 }
 

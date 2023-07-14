@@ -135,5 +135,6 @@ sealed class Dependencies {
         val ksp =
             "io.github.raamcosta.compose-destinations:ksp:${Versions.compose_destinations}"
         val viewbinding = "androidx.compose.ui:ui-viewbinding:${Versions.compose_viewbinding}"
+        val lazyColumnScrollbar = "com.github.nanihadesuka:LazyColumnScrollbar:${Versions.lazyColumnScrollbar}"
     }
 }

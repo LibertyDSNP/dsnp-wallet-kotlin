@@ -25,7 +25,7 @@ android {
         buildConfigField "String", "GITHUB_URL", "\"https://github.com/nova-wallet\""
         buildConfigField "String", "TELEGRAM_URL", "\"https://t.me/novawallet\""
         buildConfigField "String", "TWITTER_URL", "\"https://twitter.com/novawalletapp\""
-        buildConfigField "String", "RATE_URL", "\"market://details?id=${rootProject.applicationId}.${releaseApplicationSuffix}\""
+        buildConfigField "String", "RATE_URL", "\"market://details?id=com.unfinished.dsnp_wallet_kotlin.market\""
         buildConfigField "String", "EMAIL", "\"support@novawallet.io\""
         buildConfigField "String", "YOUTUBE_URL", "\"https://www.youtube.com/channel/UChoQr3YPETJKKVvhQ0AfV6A\""
 

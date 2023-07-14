@@ -6,7 +6,4 @@ plugins {
 
 repositories {
     mavenCentral()
-    google()
-    maven(url = "https://jitpack.io")
-    maven(url = "https://plugins.gradle.org/m2/")
 }

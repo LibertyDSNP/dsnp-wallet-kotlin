@@ -31,7 +31,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     buildFeatures {
@@ -48,7 +48,7 @@ dependencies {
     implementation(Dependencies.Support.app_compat)
     implementation(Dependencies.Support.material)
 
-    platform(Dependencies.Compose.bom)
+    implementation(platform(Dependencies.Compose.bom))
     api(Dependencies.Compose.material3)
     api(Dependencies.Compose.material2)
     api(Dependencies.Compose.foundation)

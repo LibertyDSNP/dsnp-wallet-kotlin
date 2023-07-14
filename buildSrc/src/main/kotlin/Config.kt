@@ -7,9 +7,18 @@ object Config {
     const val MINIMUM_SDK = 21
     const val TARGET_SDK = 33
 
-    const val APPLICATION_ID = "com.theteampotato.gifit"
+    const val APPLICATION_ID = "com.unfinished.dsnp_wallet_kotlin"
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0"
 
+    val DEEP_LINK_JUMP_TO_APP = BuildConfigField(
+        type = "String",
+        key = "DEEP_LINK_JUMP_TO_APP",
+        value = "\"/jumpIntoTheApp\""
+    )
+    val deepLinkJumpToApp = ManifestPlaceHolder(
+        key = "WEB_URL",
+        value = "\"/jumpIntoTheApp\""
+    )
 }
 
