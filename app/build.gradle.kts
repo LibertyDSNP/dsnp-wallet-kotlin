@@ -10,7 +10,7 @@ plugins {
     id(Plugins.KOTLIN_KAPT)
     id(Plugins.DAGGER_HILT_ANDROID_PLUGIN)
     id(Plugins.ANDROID_NAVIGATION_SAFE_ARGS)
-    id(Plugins.GOOGLE_DEVTOOLS_KSP) version "1.8.22-1.0.11"
+    id(Plugins.GOOGLE_DEVTOOLS_KSP) version Versions.ksp
 }
 
 
@@ -70,14 +70,18 @@ android {
             signingConfig = signingConfigs.getByName(Flavors.DEV)
 
             buildConfigField(Flavors.Dev.WEB_URL.type, Flavors.Dev.WEB_URL.key, Flavors.Dev.WEB_URL.value)
+            buildConfigField(Flavors.Dev.APP_URL.type, Flavors.Dev.APP_URL.key, Flavors.Dev.APP_URL.value)
             manifestPlaceholders["webUrl"] = Flavors.Dev.webUrl.value
+            manifestPlaceholders["appUrl"] = Flavors.Dev.appUrl.value
         }
         create(Flavors.PROD) {
             dimension = Flavors.dimension
             signingConfig = signingConfigs.getByName(Flavors.PROD)
 
             buildConfigField(Flavors.Prod.WEB_URL.type, Flavors.Prod.WEB_URL.key, Flavors.Prod.WEB_URL.value)
+            buildConfigField(Flavors.Prod.APP_URL.type, Flavors.Prod.APP_URL.key, Flavors.Prod.APP_URL.value)
             manifestPlaceholders["webUrl"] = Flavors.Prod.webUrl.value
+            manifestPlaceholders["appUrl"] = Flavors.Prod.appUrl.value
         }
     }
 
@@ -106,6 +110,7 @@ android {
 
 dependencies {
     implementation(project(Modules.Features.ACCOUNT))
+    implementation(project(Modules.DATA))
     implementation(project(Modules.COMMON))
     implementation(project(Modules.RUNTIME))
     implementation(project(Modules.UIKIT))

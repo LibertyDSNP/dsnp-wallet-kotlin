@@ -5,8 +5,8 @@ import com.unfinished.dsnp_wallet_kotlin.ui.setting.uimodel.SettingsUiModel
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.data.storage.Preferences
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.data.storage.Preferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
