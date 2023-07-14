@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -270,7 +271,7 @@ private fun SeedGuessItem(
                 shape = MainShapes.button
             )
             .background(if (seedKey != null) MainColors.seedChoice else Color.Transparent)
-            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .padding(vertical = 4.dp)
             .tag("${Tag.RecoveryTestScreenScreen.guessSeed}_$prefix")
             .then(
                 if (seedKey != null) Modifier.clickable {
@@ -281,15 +282,19 @@ private fun SeedGuessItem(
         Text(
             text = prefix,
             style = MainTypography.seedTextBold,
-            color = MainColors.onSeedChoice
+            color = MainColors.onSeedChoice,
+            modifier = Modifier.padding(start = 12.dp)
         )
 
         if (seedKey != null) Text(
-            modifier = Modifier.weight(1F),
+            modifier = Modifier
+                .weight(1F)
+                .offset(x = (-12).dp),
             text = seedKey.key,
             textAlign = TextAlign.Center,
             style = MainTypography.seedText,
-            color = MainColors.onSeedChoice
+            color = MainColors.onSeedChoice,
+            maxLines = 1
         )
     }
 }
@@ -316,7 +321,7 @@ private fun SeedGuessButton(
                     )
                     .background(Color.Transparent)
             )
-            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .padding(vertical = 4.dp)
             .tag("${Tag.RecoveryTestScreenScreen.choiceSeed}_$prefix")
             .then(
                 if (seedKey != null) Modifier.clickable {
@@ -329,7 +334,8 @@ private fun SeedGuessButton(
             text = seedKey?.key ?: "",
             textAlign = TextAlign.Center,
             style = MainTypography.seedText,
-            color = MainColors.onSeedChoice
+            color = MainColors.onSeedChoice,
+            maxLines = 1
         )
     }
 }
