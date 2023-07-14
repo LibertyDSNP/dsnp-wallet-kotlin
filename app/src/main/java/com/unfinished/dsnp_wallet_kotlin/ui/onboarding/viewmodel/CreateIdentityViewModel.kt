@@ -81,7 +81,10 @@ class CreateIdentityViewModel @Inject constructor(
     fun showRecoveryPhrase() {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
             _uiStateFLow.value = it.copy(
-                restoreWalletUiModel = it.restoreWalletUiModel.copy(state = RestoreWalletUiModel.State.Init)
+                restoreWalletUiModel = it.restoreWalletUiModel.copy(
+                    state = RestoreWalletUiModel.State.Init,
+                    recoveryPhrase = ""
+                )
             ).toDataLoaded()
         }
     }
@@ -135,5 +138,4 @@ class CreateIdentityViewModel @Inject constructor(
 
     class GoToIdentityFromCreate(val username: String) : UiState<CreateIdentityUiModel>
     object GoToIdentityFromImport : UiState<CreateIdentityUiModel>
-
 }

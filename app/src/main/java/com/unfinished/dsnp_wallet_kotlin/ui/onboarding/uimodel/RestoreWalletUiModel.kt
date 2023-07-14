@@ -9,5 +9,5 @@ data class RestoreWalletUiModel(
     }
 
     val continueEnabled: Boolean
-        get() = recoveryPhrase.isNotBlank()
+        get() = recoveryPhrase.split(" ").filter { it.isNotBlank() }.size == 12
 }
