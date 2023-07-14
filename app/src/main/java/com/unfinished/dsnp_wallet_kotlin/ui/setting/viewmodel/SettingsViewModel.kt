@@ -5,14 +5,15 @@ import com.unfinished.dsnp_wallet_kotlin.ui.setting.uimodel.SettingsUiModel
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.unfinished.common.base.BaseViewModel
+import io.novafoundation.nova.common.base.BaseViewModel
+import io.novafoundation.nova.common.data.storage.Preferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-
+    private val preferences: Preferences
 ) : BaseViewModel() {
 
     private val _uiStateFLow =
@@ -29,18 +30,6 @@ class SettingsViewModel @Inject constructor(
     private val _logoutDialogStateFlow = MutableStateFlow<Logout>(Logout.Hide)
     val logoutDialogStateFlow = _logoutDialogStateFlow.asStateFlow()
 
-    fun showSnackbar() {
-        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
-            _uiStateFLow.value = it.copy(showSnackbar = true).toDataLoaded()
-        }
-    }
-
-    fun hideSnackbar() {
-        (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
-            _uiStateFLow.value = it.copy(showSnackbar = false).toDataLoaded()
-        }
-    }
-
     fun showLogoutDialog() {
         _logoutDialogStateFlow.value = Logout.Show
     }
@@ -53,6 +42,7 @@ class SettingsViewModel @Inject constructor(
         /**
          * TODO
          */
+        preferences.clear()
     }
 
     sealed class Logout : UiState<Unit> {

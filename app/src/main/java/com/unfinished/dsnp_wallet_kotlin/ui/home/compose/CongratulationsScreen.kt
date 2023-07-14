@@ -22,6 +22,7 @@ import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.components.PrimaryButton
+import com.unfinished.uikit.exts.tag
 
 @Composable
 fun CongratulationsScreen(
@@ -39,7 +40,7 @@ fun CongratulationsScreen(
             text = stringResource(id = R.string.congratulations),
             color = MainColors.onDialog,
             style = MainTypography.dialogTitle,
-            modifier = Modifier.testTag(Tag.CongratulationsScreen.header)
+            modifier = Modifier.tag(Tag.CongratulationsScreen.header)
         )
 
         Spacer(modifier = Modifier.size(4.dp))
@@ -47,7 +48,7 @@ fun CongratulationsScreen(
             text = username,
             color = MainColors.onDialog,
             style = MainTypography.bodySmall,
-            modifier = Modifier.testTag(Tag.CongratulationsScreen.username)
+            modifier = Modifier.tag(Tag.CongratulationsScreen.username)
         )
 
         Spacer(modifier = Modifier.size(26.dp))
@@ -55,14 +56,14 @@ fun CongratulationsScreen(
             text = "lorem ipsum",
             color = MainColors.onDialog,
             style = MainTypography.bodySmall,
-            modifier = Modifier.testTag(Tag.CongratulationsScreen.desc)
+            modifier = Modifier.tag(Tag.CongratulationsScreen.desc)
         )
 
         Spacer(modifier = Modifier.size(28.dp))
         PrimaryButton(
             modifier = Modifier
                 .width(223.dp)
-                .testTag(Tag.CongratulationsScreen.letsGo),
+                .tag(Tag.CongratulationsScreen.letsGo),
             text = stringResource(R.string.let_s_go),
             onClick = letsGoClick
         )
@@ -75,7 +76,7 @@ fun CongratulationsScreen(
             textDecoration = TextDecoration.Underline,
             modifier = Modifier
                 .clickable(onClick = onDismiss)
-                .testTag(Tag.CongratulationsScreen.skip)
+                .tag(Tag.CongratulationsScreen.skip)
         )
     }
 

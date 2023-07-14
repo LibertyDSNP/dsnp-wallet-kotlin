@@ -19,7 +19,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +27,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.BottomBarNavGraph
-import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.SocialSetupScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityTask
 import com.unfinished.dsnp_wallet_kotlin.ui.home.uimodel.IdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
@@ -37,12 +36,12 @@ import com.unfinished.uikit.MainColors
 import com.unfinished.uikit.MainTheme
 import com.unfinished.uikit.MainTypography
 import com.unfinished.uikit.UiState
-import com.unfinished.uikit.components.CloseableDialog
 import com.unfinished.uikit.components.Edit
 import com.unfinished.uikit.components.Handle
 import com.unfinished.uikit.components.Overlay
 import com.unfinished.uikit.components.Profile
 import com.unfinished.uikit.components.RoundedProgressBar
+import com.unfinished.uikit.exts.tag
 import com.unfinished.uikit.toDataLoaded
 
 @BottomBarNavGraph(start = true)
@@ -60,7 +59,7 @@ fun IdentityScreen(
             //TODO
         },
         seeAllClick = {
-            navigator.navigate(NavGraphs.socialSetup)
+            navigator.navigate(SocialSetupScreenDestination)
         }
     )
 }
@@ -127,7 +126,7 @@ private fun ProfileRow(
             Profile(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .testTag(Tag.IdentityScreen.profile),
+                    .tag(Tag.IdentityScreen.profile),
                 iconUrl = iconUrl
             )
 
@@ -138,7 +137,7 @@ private fun ProfileRow(
                     .background(MainColors.button)
                     .align(Alignment.BottomEnd)
                     .clickable(onClick = editProfileClick)
-                    .testTag(Tag.IdentityScreen.edit),
+                    .tag(Tag.IdentityScreen.edit),
                 contentAlignment = Alignment.Center
             ) {
                 Edit()
@@ -147,7 +146,7 @@ private fun ProfileRow(
 
         Spacer(modifier = Modifier.size(10.dp))
         Handle(
-            modifier = Modifier.testTag(Tag.IdentityScreen.username),
+            modifier = Modifier.tag(Tag.IdentityScreen.username),
             handle = name,
             suffix = number
         )
@@ -167,7 +166,7 @@ fun SocialProcessBar(
     val progress = currentCount.toFloat() / totalCount.toFloat()
 
     Row(
-        modifier = Modifier.testTag(socialProgressTestTag)
+        modifier = Modifier.tag(socialProgressTestTag)
     ) {
         Text(
             text = stringResource(R.string.social_identity_complete),
@@ -185,7 +184,7 @@ fun SocialProcessBar(
 
     Spacer(modifier = Modifier.size(12.dp))
     RoundedProgressBar(
-        modifier = Modifier.testTag(socialProgressBarTestTag),
+        modifier = Modifier.tag(socialProgressBarTestTag),
         progress = progress
     )
 }
@@ -218,7 +217,7 @@ private fun SocialProcessRow(
             modifier = Modifier
                 .align(Alignment.End)
                 .clickable(onClick = seeAllClick)
-                .testTag(Tag.IdentityScreen.seeAll)
+                .tag(Tag.IdentityScreen.seeAll)
         )
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -21,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +30,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.RecoveryNavGraph
+import com.unfinished.dsnp_wallet_kotlin.ui.common.snackbar.viewmodel.SnackbarViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.RecoveryPhraseUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKey
 import com.unfinished.dsnp_wallet_kotlin.ui.recovery.uimodel.SeedKeyState
@@ -45,12 +47,15 @@ import com.unfinished.uikit.components.Loading
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.SimpleToolbar
 import com.unfinished.uikit.exts.dashedBorder
+import com.unfinished.uikit.exts.tag
 
 @RecoveryNavGraph
 @Destination
 @Composable
 fun RecoveryTestScreenScreen(
     navigator: DestinationsNavigator,
+    snackbarViewModel: SnackbarViewModel,
+    identityViewModel: IdentityViewModel,
     recoveryPhraseViewModel: RecoveryPhraseViewModel
 ) {
     val uiStateFlow = recoveryPhraseViewModel.uiStateFLow.collectAsState()
@@ -78,7 +83,11 @@ fun RecoveryTestScreenScreen(
                     continueClick = { recoveryPhraseViewModel.verifySeedKeys() }
                 )
 
-                if (uiState.data.seedKeyState == SeedKeyState.Finish) navigator.popBackStack()
+                if (uiState.data.seedKeyState == SeedKeyState.Finish) {
+                    snackbarViewModel.showSuccess(stringResource(R.string.congratulations))
+                    identityViewModel.backUpSeedCompleted()
+                    navigator.popBackStack()
+                }
             }
         }
     }
@@ -107,7 +116,7 @@ fun RecoveryTestScreenScreen(
                 text = stringResource(R.string.this_is_the_test),
                 style = MainTypography.largeButtonText,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RecoveryTestScreenScreen.header)
+                modifier = Modifier.tag(Tag.RecoveryTestScreenScreen.header)
             )
 
             Spacer(modifier = Modifier.size(12.dp))
@@ -115,7 +124,7 @@ fun RecoveryTestScreenScreen(
                 text = stringResource(R.string.tap_the_words),
                 style = MainTypography.body,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RecoveryTestScreenScreen.desc)
+                modifier = Modifier.tag(Tag.RecoveryTestScreenScreen.desc)
             )
 
             Spacer(modifier = Modifier.size(36.dp))
@@ -136,7 +145,7 @@ fun RecoveryTestScreenScreen(
                     onClick = continueClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .testTag(Tag.RecoveryTestScreenScreen.continueBtn),
+                        .tag(Tag.RecoveryTestScreenScreen.continueBtn),
                     enabled = recoveryPhraseUiModel.continueEnabled
                 )
 
@@ -194,7 +203,7 @@ private fun SeedTestRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 12.dp)
-                .testTag(Tag.RecoveryTestScreenScreen.error),
+                .tag(Tag.RecoveryTestScreenScreen.error),
             textAlign = TextAlign.Center,
             color = MainColors.error,
             style = MainTypography.bodyMediumBold
@@ -262,8 +271,8 @@ private fun SeedGuessItem(
                 shape = MainShapes.button
             )
             .background(if (seedKey != null) MainColors.seedChoice else Color.Transparent)
-            .padding(horizontal = 12.dp, vertical = 4.dp)
-            .testTag("${Tag.RecoveryTestScreenScreen.guessSeed}_$prefix")
+            .padding(vertical = 4.dp)
+            .tag("${Tag.RecoveryTestScreenScreen.guessSeed}_$prefix")
             .then(
                 if (seedKey != null) Modifier.clickable {
                     removeSeedKeyClick(seedKey)
@@ -273,15 +282,19 @@ private fun SeedGuessItem(
         Text(
             text = prefix,
             style = MainTypography.seedTextBold,
-            color = MainColors.onSeedChoice
+            color = MainColors.onSeedChoice,
+            modifier = Modifier.padding(start = 12.dp)
         )
 
         if (seedKey != null) Text(
-            modifier = Modifier.weight(1F),
+            modifier = Modifier
+                .weight(1F)
+                .offset(x = (-12).dp),
             text = seedKey.key,
             textAlign = TextAlign.Center,
             style = MainTypography.seedText,
-            color = MainColors.onSeedChoice
+            color = MainColors.onSeedChoice,
+            maxLines = 1
         )
     }
 }
@@ -308,8 +321,8 @@ private fun SeedGuessButton(
                     )
                     .background(Color.Transparent)
             )
-            .padding(horizontal = 12.dp, vertical = 4.dp)
-            .testTag("${Tag.RecoveryTestScreenScreen.choiceSeed}_$prefix")
+            .padding(vertical = 4.dp)
+            .tag("${Tag.RecoveryTestScreenScreen.choiceSeed}_$prefix")
             .then(
                 if (seedKey != null) Modifier.clickable {
                     addSeedKeyClick(seedKey)
@@ -321,7 +334,8 @@ private fun SeedGuessButton(
             text = seedKey?.key ?: "",
             textAlign = TextAlign.Center,
             style = MainTypography.seedText,
-            color = MainColors.onSeedChoice
+            color = MainColors.onSeedChoice,
+            maxLines = 1
         )
     }
 }

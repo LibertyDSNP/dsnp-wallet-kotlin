@@ -1,38 +1,42 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
-import com.unfinished.dsnp_wallet_kotlin.ui.NavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.destinations.MainScreenDestination
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.SocialSetupScreenDestination
-import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
@@ -44,9 +48,11 @@ import com.unfinished.uikit.UiState
 import com.unfinished.uikit.components.Bullet
 import com.unfinished.uikit.components.Handle
 import com.unfinished.uikit.components.InputTextField
+import com.unfinished.uikit.components.Loading
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PullDown
-import kotlinx.coroutines.delay
+import com.unfinished.uikit.exts.tag
+import kotlinx.coroutines.launch
 
 @Composable
 fun CreateIdentityScreen(
@@ -74,7 +80,7 @@ fun CreateIdentityScreen(
         is CreateIdentityViewModel.GoToIdentityFromCreate -> {
             dialogViewModel.showCongratulation(
                 userName = value.username,
-                letsGoDirection = SocialSetupScreenDestination
+                letsGoDirection = MainScreenDestination(directionRoute = SocialSetupScreenDestination.route)
             )
             navigator.navigateWithNoBackstack(NavGraphs.main)
         }
@@ -91,14 +97,13 @@ fun CreateIdentityScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(.7F)
             .background(MainColors.bottomSheetBackground)
             .padding(horizontal = 36.dp, vertical = 12.dp)
     ) {
 
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             PullDown(
-                modifier = Modifier.testTag(Tag.CreateIdentityScreen.pullDown)
+                modifier = Modifier.tag(Tag.CreateIdentityScreen.pullDown)
             )
         }
 
@@ -111,13 +116,13 @@ fun CreateIdentityScreen(
             ),
             style = MainTypography.stepCounter,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.stepTracker)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.stepTracker)
         )
         Text(
             text = stringResource(R.string.create_digital_identity),
             style = MainTypography.bodyMedium,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.title)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.title)
         )
 
         when (createIdentityUiModel.currentStep) {
@@ -138,14 +143,15 @@ fun CreateIdentityScreen(
             3 -> AgreeToTermsScreen(
                 handle = createIdentityUiModel.handle,
                 suffix = createIdentityUiModel.suffix,
-                agreeClick = nextClick
+                agreeClick = nextClick,
+                showLoading = createIdentityUiModel.showLoading
             )
         }
     }
 
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun CreateHandleScreen(
     handle: String,
@@ -155,7 +161,9 @@ private fun CreateHandleScreen(
     nextClick: () -> Unit
 ) {
     val focusRequester = remember { FocusRequester() }
-    val keyboard = LocalSoftwareKeyboardController.current
+
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
+    val coroutineScope = rememberCoroutineScope()
 
     Column {
         Spacer(modifier = Modifier.size(6.dp))
@@ -163,7 +171,7 @@ private fun CreateHandleScreen(
             text = stringResource(R.string.your_unique_handle),
             style = MainTypography.body,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.header)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.header)
         )
 
         Spacer(modifier = Modifier.size(20.dp))
@@ -172,7 +180,19 @@ private fun CreateHandleScreen(
             text = handle,
             onTextChange = handleChange,
             focusRequester = focusRequester,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.claimHandle)
+            modifier = Modifier
+                .onFocusEvent { focusState ->
+                    if (focusState.isFocused) coroutineScope.launch {
+                        bringIntoViewRequester.bringIntoView()
+                    }
+                }
+                .tag(Tag.CreateIdentityScreen.claimHandle),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { if (handleIsValid) nextClick() }
+            )
         )
 
         Spacer(modifier = Modifier.size(12.dp))
@@ -180,14 +200,16 @@ private fun CreateHandleScreen(
             text = stringResource(R.string.handle_rules),
             style = MainTypography.body,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.handleRequirements)
+            modifier = Modifier
+                .bringIntoViewRequester(bringIntoViewRequester)
+                .tag(Tag.CreateIdentityScreen.handleRequirements)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.CreateIdentityScreen.next),
+                .tag(Tag.CreateIdentityScreen.next),
             text = stringResource(R.string.next),
             enabled = handleIsValid,
             onClick = nextClick
@@ -197,8 +219,6 @@ private fun CreateHandleScreen(
     LaunchedEffect(showKeyboard) {
         if (showKeyboard) {
             focusRequester.requestFocus()
-            delay(100)
-            keyboard?.show()
         }
     }
 }
@@ -213,7 +233,7 @@ private fun ConfirmHandleScreen(
             text = stringResource(R.string.confirm_your_handle),
             style = MainTypography.title.copy(lineHeight = 34.sp),
             color = MainColors.onEditTextTitle,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.header)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.header)
         )
 
         Spacer(modifier = Modifier.size(18.dp))
@@ -221,16 +241,7 @@ private fun ConfirmHandleScreen(
             handle = handle,
             suffix = suffix,
             handleColor = MainColors.primary,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.handle)
-        )
-
-        Spacer(modifier = Modifier.size(30.dp))
-        PrimaryButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .testTag(Tag.CreateIdentityScreen.next),
-            text = stringResource(R.string.next),
-            onClick = nextClick
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.handle)
         )
 
         Spacer(modifier = Modifier.size(10.dp))
@@ -238,53 +249,65 @@ private fun ConfirmHandleScreen(
             text = stringResource(R.string.numerical_suffix_auto_assigned),
             style = MainTypography.body,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.numberDesc)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.numberDesc)
+        )
+
+        Spacer(modifier = Modifier.size(30.dp))
+        PrimaryButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .tag(Tag.CreateIdentityScreen.next),
+            text = stringResource(R.string.next),
+            onClick = nextClick
         )
     }
 }
 
 @Composable
 private fun AgreeToTermsScreen(
-    handle: String, suffix: String, agreeClick: () -> Unit
+    handle: String,
+    suffix: String,
+    showLoading: Boolean,
+    agreeClick: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.Bottom
     ) {
-        Column(
-            modifier = Modifier.weight(1F)
-        ) {
-            Spacer(modifier = Modifier.size(26.dp))
-            Text(
-                text = stringResource(R.string.agree_to_terms),
-                style = MainTypography.title.copy(lineHeight = 34.sp),
-                color = MainColors.onEditTextTitle,
-                modifier = Modifier.testTag(Tag.CreateIdentityScreen.header)
-            )
+        Spacer(modifier = Modifier.size(26.dp))
+        Text(
+            text = stringResource(R.string.agree_to_terms),
+            style = MainTypography.title.copy(lineHeight = 34.sp),
+            color = MainColors.onEditTextTitle,
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.header)
+        )
 
-            Spacer(modifier = Modifier.size(18.dp))
-            Handle(
-                handle = handle,
-                suffix = suffix,
-                handleColor = MainColors.primary,
-                modifier = Modifier.testTag(Tag.CreateIdentityScreen.handle)
-            )
+        Spacer(modifier = Modifier.size(18.dp))
+        Handle(
+            handle = handle,
+            suffix = suffix,
+            handleColor = MainColors.primary,
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.handle)
+        )
 
-            Spacer(modifier = Modifier.size(30.dp))
-            AgreeText()
+        Spacer(modifier = Modifier.size(30.dp))
+        AgreeText()
 
-            Spacer(modifier = Modifier.size(30.dp))
-            PrimaryButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag(Tag.CreateIdentityScreen.agree),
-                text = stringResource(R.string.agree),
-                onClick = agreeClick
-            )
-        }
-
+        Spacer(modifier = Modifier.size(18.dp))
         TermsAndPrivacy(
             textColor = MainColors.onBottomSheetBackground,
-            modifier = Modifier.testTag(Tag.CreateIdentityScreen.termsAndPrivacy)
+            modifier = Modifier.tag(Tag.CreateIdentityScreen.termsAndPrivacy),
+            textAlign = TextAlign.Start
+        )
+
+        Spacer(modifier = Modifier.size(30.dp))
+        if (showLoading) Box(modifier = Modifier.fillMaxWidth()) {
+            Loading(modifier = Modifier.align(Alignment.Center))
+        } else PrimaryButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .tag(Tag.CreateIdentityScreen.agree),
+            text = stringResource(R.string.agree),
+            onClick = agreeClick
         )
     }
 }
@@ -292,7 +315,7 @@ private fun AgreeToTermsScreen(
 @Composable
 private fun AgreeText() {
     Column(
-        modifier = Modifier.testTag(Tag.CreateIdentityScreen.agreeTextBlock)
+        modifier = Modifier.tag(Tag.CreateIdentityScreen.agreeTextBlock)
     ) {
         Text(
             text = stringResource(R.string.by_agreeing),

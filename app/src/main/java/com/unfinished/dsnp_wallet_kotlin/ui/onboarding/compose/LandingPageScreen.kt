@@ -1,5 +1,6 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -15,10 +16,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -32,10 +33,10 @@ import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.deeplink.Deeplink
 import com.unfinished.dsnp_wallet_kotlin.deeplink.DeeplinkViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.compose.BottomSheet
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.compose.BottomSheet
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.RestoreWalletScreenDestination
-import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
 import com.unfinished.uikit.MainColors
@@ -45,6 +46,7 @@ import com.unfinished.uikit.components.HyperlinkText
 import com.unfinished.uikit.components.LogoLayout
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.exts.launchChromeTab
+import com.unfinished.uikit.exts.tag
 
 enum class LandingDirection {
     Init, CreateIdentity, HaveId, RestoreAccount
@@ -55,6 +57,8 @@ enum class LandingDirection {
     deepLinks = [
         DeepLink(
             uriPattern = Deeplink.JUMP_TO_APP
+        ), DeepLink(
+            uriPattern = Deeplink.APP_JUMP_TO_APP
         )
     ]
 )
@@ -154,16 +158,16 @@ fun LandingPageScreen(
             if (deeplink is Deeplink.Valid) {
                 val path = deeplink.path
                 when {
-                    path == BuildConfig.DEEP_LINK_JUMP_TO_APP -> context.launchChromeTab(
-                        url = "https://${BuildConfig.WEB_URL}/test/redirector",
-                        showBackButton = true
-                    )
+                    path == BuildConfig.DEEP_LINK_JUMP_TO_APP -> Toast.makeText(
+                        context, "The app was deep linked", Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LandingPageScreen(
     createIdentityClick: () -> Unit,
@@ -180,7 +184,7 @@ fun LandingPageScreen(
             style = MainTypography.title,
             color = MainColors.onBackground,
             textAlign = TextAlign.Center,
-            modifier = Modifier.testTag(Tag.LandingPageScreen.title)
+            modifier = Modifier.tag(Tag.LandingPageScreen.title)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
@@ -190,7 +194,7 @@ fun LandingPageScreen(
             color = MainColors.onBackground,
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.LandingPageScreen.desc),
+                .tag(Tag.LandingPageScreen.desc),
             textAlign = TextAlign.Center
         )
 
@@ -198,7 +202,7 @@ fun LandingPageScreen(
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.LandingPageScreen.createIdentity),
+                .tag(Tag.LandingPageScreen.createIdentity),
             text = stringResource(id = R.string.landing_create_identity_btn),
             onClick = createIdentityClick
         )
@@ -207,7 +211,7 @@ fun LandingPageScreen(
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(Tag.LandingPageScreen.haveId),
+                .tag(Tag.LandingPageScreen.haveId),
             text = stringResource(id = R.string.landing_have_identity),
             onClick = haveIdClick
         )
@@ -222,7 +226,7 @@ fun LandingPageScreen(
                 color = MainColors.onBackground,
                 modifier = Modifier
                     .clickable(onClick = restoreAccountClick)
-                    .testTag(Tag.LandingPageScreen.restoreAccount)
+                    .tag(Tag.LandingPageScreen.restoreAccount)
                     .padding(16.dp)
                     .align(Alignment.Center),
                 textAlign = TextAlign.Center,
@@ -231,7 +235,11 @@ fun LandingPageScreen(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-        TermsAndPrivacy(modifier = Modifier.testTag(Tag.LandingPageScreen.termsAndPrivacy))
+        TermsAndPrivacy(
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .tag(Tag.LandingPageScreen.termsAndPrivacy)
+        )
 
         Spacer(modifier = Modifier.size(32.dp))
     }
@@ -240,7 +248,8 @@ fun LandingPageScreen(
 @Composable
 fun TermsAndPrivacy(
     modifier: Modifier = Modifier,
-    textColor: Color = MainColors.onBackground
+    textColor: Color = MainColors.onBackground,
+    textAlign: TextAlign = TextAlign.Center
 ) {
     val context = LocalContext.current
     val termsLink = stringResource(id = R.string.terms_link)
@@ -249,10 +258,10 @@ fun TermsAndPrivacy(
     val privacyPolicy = stringResource(id = R.string.privacy_policy)
 
     HyperlinkText(
-        modifier = modifier.padding(horizontal = 24.dp),
+        modifier = modifier,
         style = MainTypography.body.copy(
             color = textColor,
-            textAlign = TextAlign.Center
+            textAlign = textAlign
         ),
         fullText = stringResource(id = R.string.signing_up_terms),
         clickableTexts = listOf(

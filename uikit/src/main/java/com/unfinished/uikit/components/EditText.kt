@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -18,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unfinished.uikit.MainColors
@@ -33,6 +36,8 @@ fun InputTextField(
     text: String,
     labelColor: Color = MainColors.grey90,
     focusRequester: FocusRequester? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     onTextChange: (String) -> Unit
 ) {
     Column(
@@ -61,7 +66,10 @@ fun InputTextField(
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
-            shape = MainShapes.button
+            shape = MainShapes.button,
+            singleLine = true,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions
         )
     }
 }
@@ -73,6 +81,8 @@ fun OutlinedText(
     text: String,
     hint: String,
     isError: Boolean = false,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     onTextChange: (String) -> Unit
 ) {
     OutlinedTextField(
@@ -95,7 +105,9 @@ fun OutlinedText(
         },
         shape = MainShapes.input,
         textStyle = MainTypography.stepCounter,
-        isError = isError
+        isError = isError,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions
     )
 }
 

@@ -3,6 +3,7 @@ package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.RestoreWalletUiModel
+import com.unfinished.dsnp_wallet_kotlin.usecase.AccountUseCase
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,12 +12,19 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class CreateIdentityViewModel @Inject constructor(
-
+    private val accountUseCase: AccountUseCase
 ) : BaseViewModel() {
+
+    private companion object {
+        const val MIN_HANDLE_LENGTH = 4
+        const val MAX_HANDLE_LENGTH = 16
+    }
+
     private val _uiStateFLow =
         MutableStateFlow<UiState<CreateIdentityUiModel>>(CreateIdentityUiModel().toDataLoaded())
     val uiStateFLow = _uiStateFLow.asStateFlow()
@@ -46,18 +54,18 @@ class CreateIdentityViewModel @Inject constructor(
                     _uiStateFLow.value = it.copy(currentStep = it.currentStep + 1).toDataLoaded()
                 }
 
-                it.currentStep == it.totalSteps -> {
-                    _uiStateFLow.value = GoToIdentityFromCreate(username = it.handle)
-                }
+                it.currentStep == it.totalSteps -> createHandle(it)
             }
         }
     }
 
     fun updateHandle(handle: String) {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
+            if (handle.length > MAX_HANDLE_LENGTH) return
+
             _uiStateFLow.value = it.copy(
                 handle = handle,
-                handleIsValid = handle.isNotBlank()
+                handleIsValid = handle.isNotBlank() && handle.length >= MIN_HANDLE_LENGTH
             ).toDataLoaded()
         }
     }
@@ -73,7 +81,10 @@ class CreateIdentityViewModel @Inject constructor(
     fun showRecoveryPhrase() {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
             _uiStateFLow.value = it.copy(
-                restoreWalletUiModel = it.restoreWalletUiModel.copy(state = RestoreWalletUiModel.State.Init)
+                restoreWalletUiModel = it.restoreWalletUiModel.copy(
+                    state = RestoreWalletUiModel.State.Init,
+                    recoveryPhrase = ""
+                )
             ).toDataLoaded()
         }
     }
@@ -110,7 +121,21 @@ class CreateIdentityViewModel @Inject constructor(
         }
     }
 
+    private fun createHandle(uiModel: CreateIdentityUiModel) {
+        _uiStateFLow.value = uiModel.copy(showLoading = true).toDataLoaded()
+
+        viewModelScope.launch {
+            runCatching {
+                accountUseCase.createHandle(uiModel.handle)
+                accountUseCase.fetchHandle()
+            }.onSuccess {
+                _uiStateFLow.value = GoToIdentityFromCreate(username = it)
+            }.onFailure {
+                Timber.e(it)
+            }
+        }
+    }
+
     class GoToIdentityFromCreate(val username: String) : UiState<CreateIdentityUiModel>
     object GoToIdentityFromImport : UiState<CreateIdentityUiModel>
-
 }

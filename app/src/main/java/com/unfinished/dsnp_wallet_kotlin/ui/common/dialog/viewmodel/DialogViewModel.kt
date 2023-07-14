@@ -1,10 +1,11 @@
-package com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel
+package com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel
 
-import com.unfinished.common.base.BaseViewModel
+import com.ramcosta.composedestinations.spec.Direction
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.destinations.DirectionDestination
 import com.unfinished.uikit.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.novafoundation.nova.common.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class DialogViewModel @Inject constructor(
 
     fun showCongratulation(
         userName: String,
-        letsGoDirection: DirectionDestination
+        letsGoDirection: Direction
     ) {
         _stateFlow.value = State.Congratulation(
             userName = userName,
@@ -34,7 +35,7 @@ class DialogViewModel @Inject constructor(
         object Hide : State()
         class Congratulation(
             val userName: String,
-            val letsGoDirection: DirectionDestination
+            val letsGoDirection: Direction
         ) : State()
     }
 }

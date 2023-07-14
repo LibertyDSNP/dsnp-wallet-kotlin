@@ -1,5 +1,6 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,17 +12,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,10 +39,9 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.unfinished.dsnp_wallet_kotlin.R
 import com.unfinished.dsnp_wallet_kotlin.ui.LandingNavGraph
 import com.unfinished.dsnp_wallet_kotlin.ui.NavGraphs
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.compose.BottomSheet
-import com.unfinished.dsnp_wallet_kotlin.ui.bottomsheet.viewmodel.BottomSheetViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.dialog.viewmodel.DialogViewModel
-import com.unfinished.dsnp_wallet_kotlin.ui.home.viewmmodel.IdentityViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.compose.BottomSheet
+import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel.BottomSheetViewModel
+import com.unfinished.dsnp_wallet_kotlin.ui.common.dialog.viewmodel.DialogViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.RestoreWalletUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel.CreateIdentityViewModel
 import com.unfinished.dsnp_wallet_kotlin.util.Tag
@@ -49,6 +56,8 @@ import com.unfinished.uikit.components.LogoLayout
 import com.unfinished.uikit.components.OutlinedText
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.SecondaryButton
+import com.unfinished.uikit.exts.tag
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @LandingNavGraph
@@ -92,11 +101,12 @@ fun RestoreWalletScreen(
             }
         },
         backPress = {
-            if(createIdentityViewModel.previousStep()) bottomSheetViewModel.hide()
+            if (createIdentityViewModel.previousStep()) bottomSheetViewModel.hide()
         }
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun RestoreWalletScreen(
     restoreWalletUiModel: RestoreWalletUiModel,
@@ -106,6 +116,10 @@ fun RestoreWalletScreen(
     tryAgainClick: () -> Unit,
     createIdentityClick: () -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
+    val coroutineScope = rememberCoroutineScope()
+
     LogoLayout(
         modifier = Modifier, logoTestTag = Tag.RestoreWalletScreen.logo
     ) {
@@ -120,7 +134,7 @@ fun RestoreWalletScreen(
                 text = stringResource(R.string.import_account),
                 style = MainTypography.bodyLargeBold,
                 color = MainColors.onBackground,
-                modifier = Modifier.testTag(Tag.RestoreWalletScreen.title)
+                modifier = Modifier.tag(Tag.RestoreWalletScreen.title)
             )
 
             Spacer(modifier = Modifier.size(24.dp))
@@ -138,7 +152,7 @@ fun RestoreWalletScreen(
                     .padding(
                         horizontal = 12.dp, vertical = 32.dp
                     )
-                    .testTag(Tag.RestoreWalletScreen.recoveryPhraseError),
+                    .tag(Tag.RestoreWalletScreen.recoveryPhraseError),
                 text = stringResource(R.string.invalid_phrase),
                 style = MainTypography.stepCounter,
                 color = MainColors.onBackground,
@@ -148,10 +162,24 @@ fun RestoreWalletScreen(
                     .fillMaxWidth()
                     .height(190.dp)
                     .padding(horizontal = 28.dp)
-                    .testTag(Tag.RestoreWalletScreen.recoveryPhrase),
+                    .onFocusEvent { focusState ->
+                        if (focusState.isFocused) coroutineScope.launch {
+                            bringIntoViewRequester.bringIntoView()
+                        }
+                    }
+                    .tag(Tag.RestoreWalletScreen.recoveryPhrase),
                 text = restoreWalletUiModel.recoveryPhrase,
                 hint = stringResource(R.string.import_hint),
-                onTextChange = onRecoveryChange
+                onTextChange = onRecoveryChange,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                        if (restoreWalletUiModel.continueEnabled) connectClick()
+                    }
+                )
             )
 
             Spacer(modifier = Modifier.size(26.dp))
@@ -162,7 +190,8 @@ fun RestoreWalletScreen(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth(.65F)
-                    .testTag(Tag.RestoreWalletScreen.recoveryPhraseDesc)
+                    .bringIntoViewRequester(bringIntoViewRequester)
+                    .tag(Tag.RestoreWalletScreen.recoveryPhraseDesc)
             )
 
             Spacer(modifier = Modifier.size(16.dp))
@@ -171,7 +200,7 @@ fun RestoreWalletScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 46.dp)
-                        .testTag(Tag.RestoreWalletScreen.connect),
+                        .tag(Tag.RestoreWalletScreen.connect),
                     text = stringResource(R.string.connect),
                     onClick = connectClick,
                     enabled = restoreWalletUiModel.continueEnabled
@@ -192,11 +221,13 @@ fun RestoreWalletScreen(
                 textDecoration = TextDecoration.Underline,
                 modifier = Modifier
                     .clickable(onClick = cancelClick)
-                    .testTag(Tag.RestoreWalletScreen.cancel)
+                    .tag(Tag.RestoreWalletScreen.cancel)
             )
         }
 
-        TermsAndPrivacy()
+        TermsAndPrivacy(
+            modifier = Modifier.padding(horizontal = 24.dp)
+        )
         Spacer(modifier = Modifier.size(32.dp))
     }
 }
@@ -215,7 +246,7 @@ private fun TryAgainRow(
             text = stringResource(R.string.try_again),
             modifier = Modifier
                 .weight(.55F)
-                .testTag(Tag.RestoreWalletScreen.tryAgain),
+                .tag(Tag.RestoreWalletScreen.tryAgain),
             onClick = tryAgainClick
         )
         Spacer(modifier = Modifier.size(8.dp))
@@ -223,7 +254,7 @@ private fun TryAgainRow(
             text = stringResource(R.string.create_identity),
             modifier = Modifier
                 .weight(.4F)
-                .testTag(Tag.RestoreWalletScreen.createIdentity),
+                .tag(Tag.RestoreWalletScreen.createIdentity),
             onClick = createIdentityClick
         )
     }
