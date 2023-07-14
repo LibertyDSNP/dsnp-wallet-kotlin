@@ -1,5 +1,6 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.compose
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
@@ -15,11 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -49,7 +52,7 @@ import com.unfinished.uikit.components.Loading
 import com.unfinished.uikit.components.PrimaryButton
 import com.unfinished.uikit.components.PullDown
 import com.unfinished.uikit.exts.tag
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun CreateIdentityScreen(
@@ -148,7 +151,7 @@ fun CreateIdentityScreen(
 
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun CreateHandleScreen(
     handle: String,
@@ -158,7 +161,9 @@ private fun CreateHandleScreen(
     nextClick: () -> Unit
 ) {
     val focusRequester = remember { FocusRequester() }
-    val keyboard = LocalSoftwareKeyboardController.current
+
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
+    val coroutineScope = rememberCoroutineScope()
 
     Column {
         Spacer(modifier = Modifier.size(6.dp))
@@ -175,12 +180,18 @@ private fun CreateHandleScreen(
             text = handle,
             onTextChange = handleChange,
             focusRequester = focusRequester,
-            modifier = Modifier.tag(Tag.CreateIdentityScreen.claimHandle),
+            modifier = Modifier
+                .onFocusEvent { focusState ->
+                    if (focusState.isFocused) coroutineScope.launch {
+                        bringIntoViewRequester.bringIntoView()
+                    }
+                }
+                .tag(Tag.CreateIdentityScreen.claimHandle),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next
             ),
             keyboardActions = KeyboardActions(
-                onNext = { nextClick() }
+                onNext = { if (handleIsValid) nextClick() }
             )
         )
 
@@ -189,7 +200,9 @@ private fun CreateHandleScreen(
             text = stringResource(R.string.handle_rules),
             style = MainTypography.body,
             color = MainColors.onBottomSheetBackground,
-            modifier = Modifier.tag(Tag.CreateIdentityScreen.handleRequirements)
+            modifier = Modifier
+                .bringIntoViewRequester(bringIntoViewRequester)
+                .tag(Tag.CreateIdentityScreen.handleRequirements)
         )
 
         Spacer(modifier = Modifier.size(16.dp))
@@ -206,8 +219,6 @@ private fun CreateHandleScreen(
     LaunchedEffect(showKeyboard) {
         if (showKeyboard) {
             focusRequester.requestFocus()
-            delay(100)
-            keyboard?.show()
         }
     }
 }
