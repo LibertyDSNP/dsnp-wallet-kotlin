@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
@@ -50,7 +51,10 @@ fun LogoutScreen(
             text = stringResource(R.string.logout_dialog_desc),
             color = MainColors.onDialog,
             style = MainTypography.bodySmall,
-            modifier = Modifier.tag(Tag.LogoutScreen.desc)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .tag(Tag.LogoutScreen.desc)
         )
 
         Spacer(modifier = Modifier.size(28.dp))
@@ -71,6 +75,8 @@ fun LogoutScreen(
             onClick = viewRecoveryPhraseClick,
             textColor = MainColors.primary
         )
+
+        Spacer(modifier = Modifier.size(8.dp))
     }
 }
 

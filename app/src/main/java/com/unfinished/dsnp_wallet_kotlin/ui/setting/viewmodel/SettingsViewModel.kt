@@ -6,13 +6,14 @@ import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.novafoundation.nova.common.base.BaseViewModel
+import io.novafoundation.nova.common.data.storage.Preferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-
+    private val preferences: Preferences
 ) : BaseViewModel() {
 
     private val _uiStateFLow =
@@ -41,6 +42,7 @@ class SettingsViewModel @Inject constructor(
         /**
          * TODO
          */
+        preferences.clear()
     }
 
     sealed class Logout : UiState<Unit> {

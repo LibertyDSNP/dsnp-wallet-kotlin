@@ -108,4 +108,8 @@ class PreferencesImpl(
             sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
         }
     }
+
+    override fun clear() {
+        sharedPreferences.edit().clear().apply()
+    }
 }
