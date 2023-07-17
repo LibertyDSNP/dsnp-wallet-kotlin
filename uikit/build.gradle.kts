@@ -48,11 +48,12 @@ dependencies {
     implementation(Dependencies.Support.app_compat)
     implementation(Dependencies.Support.material)
 
-    implementation(platform(Dependencies.Compose.bom))
+    api(platform(Dependencies.Compose.bom))
+    api(Dependencies.Compose.ui)
     api(Dependencies.Compose.material3)
     api(Dependencies.Compose.material2)
     api(Dependencies.Compose.foundation)
-    api(Dependencies.Compose.ui)
+
     api(Dependencies.Compose.preview)
     api(Dependencies.Compose.ui_tooling)
     api(Dependencies.Compose.junit)
