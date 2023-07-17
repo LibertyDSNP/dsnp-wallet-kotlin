@@ -13,14 +13,15 @@ sealed class Flavors {
             key = "WEB_URL",
             value = "\"dev-custodial-wallet.liberti.social\""
         )
+        val webUrl = ManifestPlaceHolder(
+            key = "WEB_URL",
+            value = "\"dev-custodial-wallet.liberti.social\""
+        )
+
         val APP_URL = BuildConfigField(
             type = "String",
             key = "APP_URL",
             value = "\"com.unfinished.us.DSNPWalletApp\""
-        )
-        val webUrl = ManifestPlaceHolder(
-            key = "WEB_URL",
-            value = "\"dev-custodial-wallet.liberti.social\""
         )
         val appUrl = ManifestPlaceHolder(
             key = "appUrl",
@@ -34,14 +35,15 @@ sealed class Flavors {
             key = "WEB_URL",
             value = "\"dev-custodial-wallet.liberti.social\""
         )
+        val webUrl = ManifestPlaceHolder(
+            key = "webUrl",
+            value = "\"dev-custodial-wallet.liberti.social\""
+        )
+
         val APP_URL = BuildConfigField(
             type = "String",
             key = "APP_URL",
             value = "\"com.unfinished.us.DSNPWalletApp\""
-        )
-        val webUrl = ManifestPlaceHolder(
-            key = "webUrl",
-            value = "\"dev-custodial-wallet.liberti.social\""
         )
         val appUrl = ManifestPlaceHolder(
             key = "appUrl",

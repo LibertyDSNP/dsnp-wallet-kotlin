@@ -1,6 +1,7 @@
 package com.unfinished.data.db
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -26,7 +27,7 @@ import com.unfinished.data.db.model.chain.ChainRuntimeInfoLocal
 import com.unfinished.data.db.model.chain.MetaAccountLocal
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [
         AccountLocal::class,
         NodeLocal::class,
@@ -40,6 +41,10 @@ import com.unfinished.data.db.model.chain.MetaAccountLocal
         ChainAccountLocal::class,
         StorageEntryLocal::class
     ],
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration (from = 1, to = 2)
+    ]
 )
 @TypeConverters(
     CryptoTypeConverters::class,
