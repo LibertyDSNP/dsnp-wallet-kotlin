@@ -97,9 +97,13 @@ fun LandingPageScreen(
                     showBackButton = true
                 )
 
-                LandingDirection.RestoreAccount -> navigator.navigate(
-                    RestoreWalletScreenDestination
-                )
+                LandingDirection.RestoreAccount -> {
+                    createIdentityViewModel.showRecoveryPhrase()
+
+                    navigator.navigate(
+                        RestoreWalletScreenDestination
+                    )
+                }
             }
         }
     }

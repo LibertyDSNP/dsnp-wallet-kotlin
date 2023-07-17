@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unfinished.dsnp_wallet_kotlin.R
@@ -51,6 +52,7 @@ fun LogoutScreen(
             text = stringResource(R.string.logout_dialog_desc),
             color = MainColors.onDialog,
             style = MainTypography.bodySmall,
+            textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
