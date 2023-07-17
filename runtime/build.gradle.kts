@@ -41,7 +41,7 @@ dependencies {
 
     implementation(project(Modules.DATA))
 
-    implementation(Dependencies.Extension.lifecycle_ktx)
+    implementation(Dependencies.Lifecycle.extensions)
 
     implementation(Dependencies.Coroutines.core)
 
