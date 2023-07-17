@@ -104,6 +104,23 @@ jobs:
           icon: ":red_circle:"
           message: "The Circle Ci build has failed!\\n 
           *Ci Build URL*: $CIRCLE_BUILD_URL"
+  dev_prs:
+    executor:
+      name: android/android-machine
+      resource-class: large
+      tag: 2022.12.1
+    steps:
+      - checkout
+      - run:
+          name: Apt update
+          command: |
+            sudo apt update
+      - android/change-java-version:
+          java-version: 17
+      - dev_signing
+      - run:
+          name: Build Debug APK
+          command: ./gradlew clean assembleDevDebug
       
 workflows:
   version: 2
@@ -113,4 +130,11 @@ workflows:
           filters:
             branches:
               only:
+                - dev
+  dev_prs_workflow:
+    jobs:
+      - dev_prs:
+          filters:
+            branches:
+              ignore:
                 - dev
