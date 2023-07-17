@@ -47,7 +47,7 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        getByName(BuildTypes.RELEASE) {
             isMinifyEnabled = BuildTypes.Release.isMinifyEnabled
             isShrinkResources = BuildTypes.Release.isShrinkResources
             proguardFiles(
@@ -55,7 +55,7 @@ android {
                 "proguard-rules.pro"
             )
         }
-        getByName("debug") {
+        getByName(BuildTypes.DEBUG) {
             signingConfig = null
             isDebuggable = BuildTypes.Debug.isDebuggable
         }
