@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/landing_create_identity"
             android:layout_width="0dp"
@@ -69,7 +69,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sub_title" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/landing_have_an_id"
             android:layout_width="0dp"
@@ -121,7 +121,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/landing_privacy_policy" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/landing_test_screen"
             android:layout_width="wrap_content"

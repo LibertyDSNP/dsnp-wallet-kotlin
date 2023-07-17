@@ -6,9 +6,8 @@ import android.content.res.Configuration
 import coil.ImageLoader
 import com.unfinished.dsnp_wallet_kotlin.util.ReleaseTree
 import dagger.hilt.android.HiltAndroidApp
-import io.novafoundation.nova.common.data.network.rpc.SocketSingleRequestExecutor
-import io.novafoundation.nova.common.di.CommonApi
-import io.novafoundation.nova.common.resources.*
+import com.unfinished.common.di.CommonApi
+import com.unfinished.common.resources.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -18,7 +17,6 @@ class MyApplication: Application(), CommonApi {
     @Inject lateinit var imageLoader: ImageLoader
     @Inject lateinit var clipboardManager: ClipboardManager
     @Inject lateinit var contextManager: ContextManager
-    @Inject lateinit var singleRequestExecutor: SocketSingleRequestExecutor
     private val languagesHolder: LanguagesHolder = LanguagesHolder()
 
     override fun attachBaseContext(base: Context) {
@@ -35,7 +33,7 @@ class MyApplication: Application(), CommonApi {
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree());
+            Timber.plant(Timber.DebugTree())
         } else {
             Timber.plant(ReleaseTree())
         }
@@ -44,5 +42,4 @@ class MyApplication: Application(), CommonApi {
     override fun imageLoader() = imageLoader
     override fun provideClipboardManager() = clipboardManager
     override fun contextManager() = contextManager
-    override fun socketSingleRequestExecutor() = singleRequestExecutor
 }

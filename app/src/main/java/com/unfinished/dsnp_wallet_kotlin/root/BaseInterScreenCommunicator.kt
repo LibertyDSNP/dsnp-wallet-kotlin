@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.asFlow
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import io.novafoundation.nova.common.navigation.InterScreenCommunicator
+import com.unfinished.common.navigation.InterScreenCommunicator
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 

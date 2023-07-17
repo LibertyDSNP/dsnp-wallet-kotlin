@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
 
-    <io.novafoundation.nova.common.view.PrimaryButton
+    <com.unfinished.common.view.PrimaryButton
         style="@style/Widget.Nova.Button.Primary"
         android:id="@+id/settings_recovery_phrase"
         android:layout_width="0dp"

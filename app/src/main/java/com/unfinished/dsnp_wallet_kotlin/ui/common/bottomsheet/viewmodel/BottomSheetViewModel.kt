@@ -1,10 +1,10 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel
 
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.data.storage.Preferences
 import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.uimodel.BottomSheetUiModel
 import com.unfinished.uikit.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.data.storage.Preferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject

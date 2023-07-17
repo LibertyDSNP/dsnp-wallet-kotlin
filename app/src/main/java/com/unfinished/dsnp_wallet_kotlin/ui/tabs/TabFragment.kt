@@ -10,8 +10,8 @@ import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentTabBinding
 import com.unfinished.dsnp_wallet_kotlin.ui.base.BaseFragment
 import com.unfinished.dsnp_wallet_kotlin.ui.tabs.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.resources.commonString
-import io.novafoundation.nova.common.view.dialog.dialog
+import com.unfinished.common.resources.commonString
+import com.unfinished.common.view.dialog.dialog
 
 @AndroidEntryPoint
 class TabFragment : BaseFragment<FragmentTabBinding>(FragmentTabBinding::inflate) {

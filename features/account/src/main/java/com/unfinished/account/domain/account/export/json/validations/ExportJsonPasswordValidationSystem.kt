@@ -1,0 +1,7 @@
+package com.unfinished.account.domain.account.export.json.validations
+
+import com.unfinished.common.validation.Validation
+import com.unfinished.common.validation.ValidationSystem
+
+typealias ExportJsonPasswordValidationSystem = ValidationSystem<ExportJsonPasswordValidationPayload, ExportJsonPasswordValidationFailure>
+typealias ExportJsonPasswordValidation = Validation<ExportJsonPasswordValidationPayload, ExportJsonPasswordValidationFailure>

@@ -1,7 +1,0 @@
-package com.unfinished.feature_account.domain.account.export.json.validations
-
-import io.novafoundation.nova.common.validation.Validation
-import io.novafoundation.nova.common.validation.ValidationSystem
-
-typealias ExportJsonPasswordValidationSystem = ValidationSystem<ExportJsonPasswordValidationPayload, ExportJsonPasswordValidationFailure>
-typealias ExportJsonPasswordValidation = Validation<ExportJsonPasswordValidationPayload, ExportJsonPasswordValidationFailure>

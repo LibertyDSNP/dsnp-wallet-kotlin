@@ -1,0 +1,21 @@
+package com.unfinished.common.navigation
+
+import kotlinx.coroutines.flow.Flow
+
+interface InterScreenCommunicator<I, O> : InterScreenRequester<I, O>, InterScreenResponder<I, O>
+
+interface InterScreenRequester<I, O> {
+
+    val latestResponse: O?
+
+    val responseFlow: Flow<O>
+
+    fun openRequest(request: I)
+}
+
+interface InterScreenResponder<I, O> {
+
+    val lastState: O?
+
+    fun respond(response: O)
+}

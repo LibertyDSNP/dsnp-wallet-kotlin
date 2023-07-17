@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.novafoundation.nova.common.resources.ContextManager
+import com.unfinished.common.resources.ContextManager
 import javax.inject.Singleton
 
 @Module

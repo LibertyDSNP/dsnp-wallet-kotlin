@@ -32,7 +32,7 @@ class VerifyCodeFragment(private val inputText: String, private val icon: Int) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.sentTo.setText(inputText)
+        binding.sentTo.text = inputText
         binding.icon.setImageResource(icon)
         binding.cancel.setOnClickListener {
             this.dismiss()

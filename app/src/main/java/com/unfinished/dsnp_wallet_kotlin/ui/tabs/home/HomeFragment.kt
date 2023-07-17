@@ -18,7 +18,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = requireContext().createComposeView {
+    ): View = requireContext().createComposeView {
         //IdentityScreen()
     }
 

@@ -2,8 +2,8 @@ package com.unfinished.dsnp_wallet_kotlin.root.account
 
 import com.unfinished.dsnp_wallet_kotlin.root.BaseInterScreenCommunicator
 import com.unfinished.dsnp_wallet_kotlin.root.NavigationHolder
-import com.unfinished.feature_account.presentation.AdvancedEncryptionCommunicator
-import com.unfinished.feature_account.presentation.model.account.AdvancedEncryptionPayload
+import com.unfinished.account.presentation.AdvancedEncryptionCommunicator
+import com.unfinished.account.presentation.model.account.AdvancedEncryptionPayload
 
 class AdvancedEncryptionCommunicatorImpl(
     navigationHolder: NavigationHolder

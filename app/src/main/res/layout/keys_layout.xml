@@ -53,7 +53,7 @@
             app:layout_constraintEnd_toStartOf="@+id/backup"
             app:layout_constraintTop_toTopOf="@+id/root_key_label" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/backup"
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             tools:itemCount="3"
             tools:listitem="@layout/keys_item_layout" />
 
-        <io.novafoundation.nova.common.view.PrimaryButton
+        <com.unfinished.common.view.PrimaryButton
             style="@style/Widget.Nova.Button.Primary"
             android:id="@+id/connect_device"
             android:layout_width="150dp"

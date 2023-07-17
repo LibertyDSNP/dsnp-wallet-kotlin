@@ -1,10 +1,10 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.splash
 
 import androidx.lifecycle.viewModelScope
-import com.unfinished.feature_account.domain.interfaces.AccountRepository
+import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.uikit.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.base.BaseViewModel
+import com.unfinished.common.base.BaseViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

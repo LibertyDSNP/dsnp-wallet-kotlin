@@ -12,14 +12,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.unfinished.dsnp_wallet_kotlin.R
-import com.unfinished.dsnp_wallet_kotlin.ccodepicker.Country
-import com.unfinished.dsnp_wallet_kotlin.ccodepicker.CountryCodeSheet
 import com.unfinished.dsnp_wallet_kotlin.databinding.FragmentLookupBinding
 import com.unfinished.dsnp_wallet_kotlin.util.*
 import dagger.hilt.android.AndroidEntryPoint
-import io.novafoundation.nova.common.base.BaseFragment
-import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
-import io.novafoundation.nova.common.R as commonR
+import com.unfinished.common.base.BaseFragment
+import com.unfinished.common.mixin.impl.observeBrowserEvents
+import com.unfinished.common.R as commonR
 
 
 @AndroidEntryPoint
@@ -27,7 +25,6 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
 
     override val viewModel by activityViewModels<LandingViewModel>()
     lateinit var binding: FragmentLookupBinding
-    private var selectedCountry: Country? = null
     private var isEmail: Boolean = true
 
     override fun onCreateView(
@@ -54,12 +51,7 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
         }
 
         binding.countryCode.setOnClickListener {
-           val countryCodeSheet =  CountryCodeSheet()
-            countryCodeSheet.onSetDismissListener {
-                this.selectedCountry = it
-                binding.countryCode.text = it.dial_code
-            }
-            countryCodeSheet.show(childFragmentManager,"ccodepicker_sheet")
+
         }
 
         binding.sendAuthCode.setOnClickListener {
@@ -86,7 +78,7 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
     }
 
     private fun showDefaultUI(){
-        binding.textinputError.setText(getText(R.string.lookup_temp_error))
+        binding.textinputError.text = getText(R.string.lookup_temp_error)
         binding.textinputError.hide()
         binding.countryCodeBaseline.setBackgroundTintColorId(commonR.color.input_field_line)
         binding.phoneBaseline.setBackgroundTintColorId(commonR.color.input_field_line)
@@ -96,7 +88,7 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
     }
 
     private fun showPhoneErrorUI(){
-        binding.textinputError.setText(getText(R.string.lookup_temp_error))
+        binding.textinputError.text = getText(R.string.lookup_temp_error)
         binding.textinputError.show()
         binding.countryCodeBaseline.setBackgroundTintColorId(commonR.color.orange)
         binding.phoneBaseline.setBackgroundTintColorId(commonR.color.orange)
@@ -104,7 +96,7 @@ class LookupFragment : BaseFragment<LandingViewModel>() {
     }
 
     private fun showEmailErrorUI(){
-        binding.textinputError.setText(getText(R.string.lookup_temp_error))
+        binding.textinputError.text = getText(R.string.lookup_temp_error)
         binding.textinputError.show()
         binding.emailBaseline.setBackgroundTintColorId(commonR.color.orange)
         binding.buttonSwitcher.displayedChild = 1

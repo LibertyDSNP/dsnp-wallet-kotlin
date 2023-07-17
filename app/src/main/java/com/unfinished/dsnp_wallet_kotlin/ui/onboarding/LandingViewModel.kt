@@ -1,14 +1,14 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding
 
 import androidx.lifecycle.MutableLiveData
-import com.unfinished.feature_account.presentation.mixin.importType.ImportTypeChooserMixin
-import com.unfinished.feature_account.presentation.model.account.add.AddAccountPayload
-import com.unfinished.feature_account.presentation.model.account.add.ImportAccountPayload
+import com.unfinished.account.presentation.mixin.importType.ImportTypeChooserMixin
+import com.unfinished.account.presentation.model.account.add.AddAccountPayload
+import com.unfinished.account.presentation.model.account.add.ImportAccountPayload
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.novafoundation.nova.common.base.BaseViewModel
-import io.novafoundation.nova.common.data.network.AppLinksProvider
-import io.novafoundation.nova.common.mixin.api.Browserable
-import io.novafoundation.nova.common.utils.Event
+import com.unfinished.common.base.BaseViewModel
+import com.unfinished.common.mixin.api.Browserable
+import com.unfinished.common.utils.AppLinksProvider
+import com.unfinished.common.utils.Event
 import javax.inject.Inject
 
 @HiltViewModel
