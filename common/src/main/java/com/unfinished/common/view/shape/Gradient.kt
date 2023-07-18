@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
 import com.unfinished.common.utils.dpF
-import com.unfinished.data.util.quantize
+import com.unfinished.common.utils.quantize
 
 fun Context.gradientDrawable(
     colors: IntArray,

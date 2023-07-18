@@ -1,7 +1,6 @@
 package com.unfinished.data.storage
 
 import android.content.SharedPreferences
-import com.unfinished.data.model.Language
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -61,23 +60,6 @@ class PreferencesImpl(
 
     override fun getLong(field: String, defaultValue: Long): Long {
         return sharedPreferences.getLong(field, defaultValue)
-    }
-
-    override fun getCurrentLanguage(): Language? {
-        return if (sharedPreferences.contains(PREFS_SELECTED_LANGUAGE)) {
-            Language(
-                sharedPreferences.getString(
-                    PREFS_SELECTED_LANGUAGE,
-                    ""
-                )!!
-            )
-        } else {
-            null
-        }
-    }
-
-    override fun saveCurrentLanguage(languageIsoCode: String) {
-        sharedPreferences.edit().putString(PREFS_SELECTED_LANGUAGE, languageIsoCode).apply()
     }
 
     override fun removeField(field: String) {

@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.lifecycle.Lifecycle
 import com.unfinished.common.R
-import com.unfinished.common.utils.formatting.format
+import com.unfinished.common.utils.format
 import com.unfinished.common.utils.onDestroy
 import kotlin.time.Duration
 import kotlin.time.DurationUnit

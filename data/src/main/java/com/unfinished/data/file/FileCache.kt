@@ -1,6 +1,5 @@
-package com.unfinished.interfaces
+package com.unfinished.data.file
 
-import com.unfinished.data.file.FileProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose

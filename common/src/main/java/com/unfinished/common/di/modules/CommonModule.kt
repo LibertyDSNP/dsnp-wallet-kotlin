@@ -22,6 +22,8 @@ import com.unfinished.common.mixin.api.NetworkStateMixin
 import com.unfinished.common.mixin.hints.ResourcesHintsMixinFactory
 import com.unfinished.common.mixin.impl.CustomDialogProvider
 import com.unfinished.common.mixin.impl.NetworkStateProvider
+import com.unfinished.common.pref.Preferences
+import com.unfinished.common.pref.PreferencesImpl
 import com.unfinished.common.resources.AppVersionProvider
 import com.unfinished.common.resources.ClipboardManager
 import com.unfinished.common.resources.ContextManager
@@ -51,6 +53,11 @@ annotation class Caching
 @InstallIn(SingletonComponent::class)
 class CommonModule {
 
+    @Provides
+    @Singleton
+    fun providePreferences(sharedPreferences: SharedPreferences): Preferences {
+        return PreferencesImpl(sharedPreferences)
+    }
 
     @Provides
     @Singleton

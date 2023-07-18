@@ -1,10 +1,8 @@
 package com.unfinished.data.storage
 
-import com.unfinished.data.model.Language
 import kotlinx.coroutines.flow.Flow
 
 typealias InitialValueProducer<T> = suspend () -> T
-
 interface Preferences {
     fun contains(field: String): Boolean
 
@@ -25,10 +23,6 @@ interface Preferences {
     fun putLong(field: String, value: Long)
 
     fun getLong(field: String, defaultValue: Long): Long
-
-    fun getCurrentLanguage(): Language?
-
-    fun saveCurrentLanguage(languageIsoCode: String)
 
     fun removeField(field: String)
 

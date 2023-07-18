@@ -24,6 +24,8 @@ android {
                 arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
+        buildConfigField("String", "CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/chains/v5/chains.json\"")
+        buildConfigField("String", "TEST_CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/tests/chains_for_testBalance.json\"")
     }
 
     buildTypes {
@@ -33,6 +35,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "CHAINS_URL", "\"https://raw.githubusercontent.com/DannyAhmedApex/nova-utils/master/chains/v5/chains.json\"")
         }
     }
 
@@ -65,4 +68,13 @@ dependencies {
 
     implementation(Dependencies.Nova.bouncycastle)
     implementation(Dependencies.Nova.fearless_utils)
+    implementation(Dependencies.Nova.websocket)
+
+    implementation(Dependencies.Retrofit.okhttp)
+    implementation(Dependencies.Retrofit.retrofit)
+    implementation(Dependencies.Retrofit.converter_gson)
+    implementation(Dependencies.Retrofit.converter_scalars)
+    implementation(Dependencies.Retrofit.interceptor)
+
+    
 }

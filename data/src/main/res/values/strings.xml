@@ -2,4 +2,18 @@
 <resources>
     <string name="undefined_error_message">Please, try again with another input. If the error appears again, please, contact support.</string>
     <string name="connection_error_message_v2_2_0">Please, check your connection or try again later</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="today">Today</string>
+    <plurals name="staking_main_lockup_period_value">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <plurals name="common_hours_format">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="common_minutes_format">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
 </resources>

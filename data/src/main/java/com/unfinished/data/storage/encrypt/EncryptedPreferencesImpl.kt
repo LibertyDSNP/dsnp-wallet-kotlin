@@ -2,6 +2,7 @@ package com.unfinished.data.storage.encrypt
 
 import com.unfinished.data.storage.Preferences
 
+
 class EncryptedPreferencesImpl(
     private val preferences: Preferences,
     private val encryptionUtil: EncryptionUtil
