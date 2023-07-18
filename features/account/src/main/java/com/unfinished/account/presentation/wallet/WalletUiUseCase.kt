@@ -1,7 +1,7 @@
 package com.unfinished.account.presentation.wallet
 
 import android.graphics.drawable.Drawable
-import com.unfinished.account.domain.model.MetaAccount
+import com.unfinished.data.model.MetaAccount
 import kotlinx.coroutines.flow.Flow
 
 class WalletModel(val name: String, val icon: Drawable?)

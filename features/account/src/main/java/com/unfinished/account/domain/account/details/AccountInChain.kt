@@ -1,6 +1,6 @@
 package com.unfinished.account.domain.account.details
 
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 
 class AccountInChain(

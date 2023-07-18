@@ -1,8 +1,8 @@
 package com.unfinished.account.domain.updaters
 
-import com.unfinished.runtime.network.updaters.UpdateScope
 import com.unfinished.account.domain.interfaces.AccountRepository
-import com.unfinished.account.domain.model.MetaAccount
+import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.multiNetwork.storage.updaters.UpdateScope
 import kotlinx.coroutines.flow.Flow
 
 class AccountUpdateScope(

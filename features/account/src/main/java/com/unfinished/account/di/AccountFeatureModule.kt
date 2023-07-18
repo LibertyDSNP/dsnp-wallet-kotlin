@@ -2,16 +2,11 @@ package com.unfinished.account.di
 
 import com.google.gson.Gson
 import com.unfinished.account.BuildConfig
-import com.unfinished.account.data.blockchain.AccountSubstrateSource
-import com.unfinished.account.data.blockchain.AccountSubstrateSourceImpl
-import com.unfinished.account.data.extrinsic.ExtrinsicService
-import com.unfinished.account.data.extrinsic.RealExtrinsicService
 import com.unfinished.account.data.repository.AccountRepositoryImpl
 import com.unfinished.account.data.repository.AddAccountRepository
 import com.unfinished.account.data.repository.datasource.AccountDataSourceImpl
 import com.unfinished.account.data.repository.datasource.migration.AccountDataMigration
 import com.unfinished.account.data.secrets.AccountSecretsFactory
-import com.unfinished.account.data.signer.SignerProvider
 import com.unfinished.account.domain.account.add.AddAccountInteractor
 import com.unfinished.account.domain.account.details.AccountDetailsInteractor
 import com.unfinished.account.domain.interactor.AccountInteractorImpl
@@ -33,10 +28,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import com.unfinished.common.address.AddressIconGenerator
-import com.unfinished.runtime.network.rpc.SocketSingleRequestExecutor
+import com.unfinished.common.pref.CommonPreferences
 import com.unfinished.data.secrets.v1.SecretStoreV1
 import com.unfinished.data.secrets.v2.SecretStoreV2
-import com.unfinished.data.storage.Preferences
 import com.unfinished.data.storage.encrypt.EncryptedPreferences
 import com.unfinished.common.resources.ClipboardManager
 import com.unfinished.common.resources.LanguagesHolder
@@ -45,10 +39,17 @@ import com.unfinished.common.utils.systemCall.SystemCallExecutor
 import com.unfinished.data.db.dao.AccountDao
 import com.unfinished.data.db.dao.MetaAccountDao
 import com.unfinished.data.db.dao.NodeDao
-import com.unfinished.runtime.extrinsic.ExtrinsicBuilderFactory
-import com.unfinished.runtime.multiNetwork.ChainRegistry
-import com.unfinished.runtime.multiNetwork.qr.MultiChainQrSharingFactory
-import com.unfinished.runtime.network.rpc.RpcCalls
+import com.unfinished.data.multiNetwork.ChainRegistry
+import com.unfinished.data.multiNetwork.extrinsic.ExtrinsicBuilderFactory
+import com.unfinished.data.multiNetwork.extrinsic.blockchain.AccountSubstrateSource
+import com.unfinished.data.multiNetwork.extrinsic.blockchain.AccountSubstrateSourceImpl
+import com.unfinished.data.multiNetwork.extrinsic.service.ExtrinsicService
+import com.unfinished.data.multiNetwork.extrinsic.service.RealExtrinsicService
+import com.unfinished.data.multiNetwork.qr.MultiChainQrSharingFactory
+import com.unfinished.data.multiNetwork.rpc.RpcCalls
+import com.unfinished.data.multiNetwork.rpc.SocketSingleRequestExecutor
+import com.unfinished.data.signer.SignerProvider
+import com.unfinished.data.storage.Preferences
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedEncoder
 
@@ -58,13 +59,11 @@ object AccountFeatureModule {
 
     @Provides
     fun provideExtrinsicService(
-        accountRepository: AccountRepository,
         rpcCalls: RpcCalls,
         extrinsicBuilderFactory: ExtrinsicBuilderFactory,
         signerProvider: SignerProvider
     ): ExtrinsicService = RealExtrinsicService(
         rpcCalls,
-        accountRepository,
         extrinsicBuilderFactory,
         signerProvider
     )
@@ -110,7 +109,7 @@ object AccountFeatureModule {
 
     @Provides
     fun provideAccountDataSource(
-        preferences: Preferences,
+        preferences: CommonPreferences,
         encryptedPreferences: EncryptedPreferences,
         nodeDao: NodeDao,
         secretStoreV1: SecretStoreV1,

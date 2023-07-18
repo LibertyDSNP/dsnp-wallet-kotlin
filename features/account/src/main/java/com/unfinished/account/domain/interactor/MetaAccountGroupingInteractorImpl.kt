@@ -3,13 +3,13 @@ package com.unfinished.account.domain.interactor
 import com.unfinished.data.util.removed
 import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.account.domain.interfaces.MetaAccountGroupingInteractor
-import com.unfinished.account.domain.model.LightMetaAccount
-import com.unfinished.account.domain.model.MetaAccount
-import com.unfinished.account.domain.model.addressIn
-import com.unfinished.account.domain.model.hasAccountIn
-import com.unfinished.runtime.multiNetwork.ChainRegistry
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.data.model.LightMetaAccount
+import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.addressIn
+import com.unfinished.data.model.hasAccountIn
+import com.unfinished.data.multiNetwork.ChainRegistry
+import com.unfinished.data.multiNetwork.chain.model.Chain
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 
 class MetaAccountGroupingInteractorImpl(
     private val chainRegistry: ChainRegistry,
@@ -27,7 +27,7 @@ class MetaAccountGroupingInteractorImpl(
         val selectedMetaAccount = accountRepository.getSelectedMetaAccount()
         val fromChainAddress = selectedMetaAccount.addressIn(from)
         return accountRepository.allMetaAccounts()
-            .removed { fromChainAddress == it.addressIn(destination) }
+            .removed<MetaAccount> { fromChainAddress == it.addressIn(destination) }
             .filter { it.type != LightMetaAccount.Type.WATCH_ONLY }
     }
 

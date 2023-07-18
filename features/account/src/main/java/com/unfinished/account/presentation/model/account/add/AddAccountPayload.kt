@@ -1,7 +1,7 @@
 package com.unfinished.account.presentation.model.account.add
 
 import android.os.Parcelable
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 import kotlinx.android.parcel.Parcelize
 
 sealed class AddAccountPayload : Parcelable {

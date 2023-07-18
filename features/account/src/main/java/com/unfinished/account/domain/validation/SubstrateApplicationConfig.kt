@@ -1,8 +1,8 @@
 package com.unfinished.account.domain.validation
 
 
-import com.unfinished.runtime.util.Geneses
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.util.Geneses
+import com.unfinished.data.multiNetwork.chain.model.Chain
 
 class SubstrateApplicationConfig(
     val chainId: String,

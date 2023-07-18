@@ -112,7 +112,6 @@ dependencies {
     implementation(project(Modules.Features.ACCOUNT))
     implementation(project(Modules.DATA))
     implementation(project(Modules.COMMON))
-    implementation(project(Modules.RUNTIME))
     implementation(project(Modules.UIKIT))
 
     implementation(Dependencies.Support.core_ktx)

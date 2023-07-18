@@ -1,6 +1,6 @@
 package com.unfinished.dsnp_wallet_kotlin.usecase
 
-import com.unfinished.account.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
+import com.unfinished.account.data.repository.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
 import com.unfinished.account.domain.account.add.AddAccountInteractor
 import com.unfinished.account.domain.account.export.mnemonic.ExportMnemonicInteractor
 import com.unfinished.account.domain.interactor.AdvancedEncryptionInteractor

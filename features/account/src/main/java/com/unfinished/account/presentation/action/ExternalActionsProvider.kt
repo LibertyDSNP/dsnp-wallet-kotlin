@@ -1,17 +1,17 @@
 package com.unfinished.account.presentation.action
 
 import androidx.lifecycle.MutableLiveData
-import com.unfinished.account.data.mappers.mapChainToUi
+import com.unfinished.account.data.repository.data.mappers.mapChainToUi
 import com.unfinished.account.presentation.icon.createAccountAddressModel
 import com.unfinished.common.R
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.resources.ClipboardManager
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.utils.Event
-import com.unfinished.runtime.util.accountUrlOf
-import com.unfinished.runtime.util.eventUrlOf
-import com.unfinished.runtime.util.extrinsicUrlOf
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.util.accountUrlOf
+import com.unfinished.data.util.eventUrlOf
+import com.unfinished.data.util.extrinsicUrlOf
+import com.unfinished.data.multiNetwork.chain.model.Chain
 
 class ExternalActionsProvider(
     private val clipboardManager: ClipboardManager,

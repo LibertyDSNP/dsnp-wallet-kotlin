@@ -10,7 +10,7 @@ import com.unfinished.common.view.bottomSheet.list.fixed.item
 import com.unfinished.account.presentation.action.CopyCallback
 import com.unfinished.account.presentation.action.ExternalActionsSheet
 import com.unfinished.account.presentation.action.ExternalViewCallback
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.multiNetwork.chain.model.Chain
 
 class ChainAccountActionsSheet(
     context: Context,

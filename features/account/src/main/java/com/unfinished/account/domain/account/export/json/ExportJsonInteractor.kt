@@ -1,8 +1,8 @@
 package com.unfinished.account.domain.account.export.json
 
 import com.unfinished.account.domain.interfaces.AccountRepository
-import com.unfinished.runtime.multiNetwork.ChainRegistry
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.data.multiNetwork.ChainRegistry
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 
 class ExportJsonInteractor(
     private val accountRepository: AccountRepository,

@@ -1,6 +1,6 @@
 package com.unfinished.account.domain.model
 
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 
 sealed class AddAccountType {
 

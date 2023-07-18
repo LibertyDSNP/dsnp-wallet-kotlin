@@ -7,8 +7,8 @@ import com.unfinished.common.utils.makeGone
 import com.unfinished.common.utils.makeVisible
 import com.unfinished.common.view.bottomSheet.list.fixed.FixedListBottomSheet
 import com.unfinished.common.view.bottomSheet.list.fixed.item
-import com.unfinished.runtime.util.availableExplorersFor
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.util.availableExplorersFor
+import com.unfinished.data.multiNetwork.chain.model.Chain
 
 typealias ExternalViewCallback = (Chain.Explorer, ExternalActions.Type) -> Unit
 typealias CopyCallback = (String) -> Unit

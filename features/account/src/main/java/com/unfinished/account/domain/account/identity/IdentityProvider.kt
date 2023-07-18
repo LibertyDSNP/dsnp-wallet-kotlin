@@ -1,7 +1,7 @@
 package com.unfinished.account.domain.account.identity
 
 import com.unfinished.common.address.AccountIdKey
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 
 interface IdentityProvider {

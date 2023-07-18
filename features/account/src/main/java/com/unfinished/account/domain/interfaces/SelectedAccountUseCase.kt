@@ -3,12 +3,12 @@ package com.unfinished.account.domain.interfaces
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import com.unfinished.common.R
-import com.unfinished.account.domain.model.LightMetaAccount
-import com.unfinished.account.domain.model.MetaAccount
 import com.unfinished.account.presentation.icon.createAccountAddressModel
 import com.unfinished.account.presentation.wallet.WalletUiUseCase
 import com.unfinished.common.address.AddressIconGenerator
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.model.LightMetaAccount
+import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

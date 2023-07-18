@@ -1,12 +1,12 @@
 package com.unfinished.account.domain.interfaces
 
 import com.unfinished.data.model.CryptoType
-import com.unfinished.data.model.Language
 import com.unfinished.data.model.Node
 import com.unfinished.account.domain.model.Account
-import com.unfinished.account.domain.model.MetaAccount
-import com.unfinished.account.domain.model.PreferredCryptoType
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.common.model.Language
+import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.PreferredCryptoType
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import kotlinx.coroutines.flow.Flow
 

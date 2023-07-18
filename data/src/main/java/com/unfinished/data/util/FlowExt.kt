@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transformWhile
 
 inline fun <T, R> Flow<List<T>>.mapList(crossinline mapper: suspend (T) -> R) = map { list ->
     list.map { item -> mapper(item) }
@@ -46,3 +47,13 @@ inline fun <T> flowOfAll(crossinline producer: suspend () -> Flow<T>): Flow<T> =
 }
 
 fun <T> singleReplaySharedFlow() = MutableSharedFlow<T>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+
+
+/**
+ * Similar to [Flow.takeWhile] but emits last element too
+ */
+fun <T> Flow<T>.takeWhileInclusive(predicate: suspend (T) -> Boolean) = transformWhile {
+    emit(it)
+
+    predicate(it)
+}

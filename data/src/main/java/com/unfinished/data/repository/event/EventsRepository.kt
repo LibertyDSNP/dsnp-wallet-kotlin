@@ -10,6 +10,7 @@ import com.unfinished.data.multiNetwork.extrinsic.create
 import com.unfinished.data.multiNetwork.getRuntime
 import com.unfinished.data.multiNetwork.rpc.RpcCalls
 import com.unfinished.data.model.EventType
+import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.storage.source.StorageDataSource
 import com.unfinished.data.multiNetwork.storage.source.queryNonNull
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
@@ -40,7 +41,7 @@ interface EventsRepository {
 
 class RemoteEventsRepository(
     private val rpcCalls: RpcCalls,
-    private val chainRegistry: _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry,
+    private val chainRegistry: ChainRegistry,
     private val remoteStorageSource: StorageDataSource
 ) : EventsRepository {
 

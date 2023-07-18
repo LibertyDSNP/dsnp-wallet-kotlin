@@ -6,14 +6,14 @@ import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unfinished.common.base.BaseViewModel
-import com.unfinished.data.storage.Preferences
+import com.unfinished.common.pref.CommonPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val preferences: Preferences
+    private val preferences: CommonPreferences
 ) : BaseViewModel() {
 
     private val _uiStateFLow =

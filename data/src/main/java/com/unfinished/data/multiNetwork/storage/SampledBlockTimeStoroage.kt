@@ -1,10 +1,10 @@
 package com.unfinished.data.multiNetwork.storage
 
 import com.google.gson.Gson
-import com.unfinished.common.prefs.Preferences
 import com.unfinished.data.util.fromJson
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.storage.updaters.SampledBlockTime
+import com.unfinished.data.storage.Preferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.math.BigInteger
@@ -22,7 +22,7 @@ private const val KEY = "SampledBlockTime"
 
 internal class PrefsSampledBlockTimeStorage(
     private val gson: Gson,
-    private val sharedPreferences: com.unfinished.common.prefs.Preferences,
+    private val sharedPreferences: Preferences,
 ) : SampledBlockTimeStorage {
 
     override suspend fun get(chainId: ChainId): SampledBlockTime {

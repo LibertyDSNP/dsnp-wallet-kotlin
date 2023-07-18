@@ -19,8 +19,8 @@ import com.unfinished.account.presentation.mixin.addressInput.myselfBehavior.Cro
 import com.unfinished.account.presentation.mixin.addressInput.myselfBehavior.MyselfBehavior
 import com.unfinished.account.presentation.mixin.addressInput.myselfBehavior.MyselfBehaviorProvider
 import com.unfinished.account.presentation.mixin.addressInput.myselfBehavior.NoMyselfBehaviorProvider
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
-import com.unfinished.runtime.multiNetwork.qr.MultiChainQrSharingFactory
+import com.unfinished.data.multiNetwork.chain.model.Chain
+import com.unfinished.data.multiNetwork.qr.MultiChainQrSharingFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers

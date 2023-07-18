@@ -1,9 +1,8 @@
 package com.unfinished.account.domain.interactor
 
 import com.unfinished.account.data.secrets.getAccountSecrets
-import com.unfinished.account.domain.account.advancedEncryption.AdvancedEncryptionInput
+import com.unfinished.account.domain.advancedEncryption.AdvancedEncryptionInput
 import com.unfinished.account.domain.interfaces.AccountRepository
-import com.unfinished.account.domain.model.chainAccountFor
 import com.unfinished.account.presentation.model.account.AdvancedEncryptionPayload
 import com.unfinished.account.presentation.model.account.add.chainIdOrNull
 import com.unfinished.data.mappers.mapEncryptionToCryptoType
@@ -11,7 +10,7 @@ import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.data.secrets.v2.derivationPath
 import com.unfinished.data.secrets.v2.ethereumDerivationPath
 import com.unfinished.data.secrets.v2.substrateDerivationPath
-import com.unfinished.runtime.util.DEFAULT_DERIVATION_PATH
+import com.unfinished.data.util.DEFAULT_DERIVATION_PATH
 import com.unfinished.data.util.fold
 import com.unfinished.common.utils.input.Input
 import com.unfinished.common.utils.input.disabledInput
@@ -19,8 +18,9 @@ import com.unfinished.common.utils.input.modifiableInput
 import com.unfinished.common.utils.input.unmodifiableInput
 import com.unfinished.data.util.nullIfEmpty
 import com.unfinished.data.model.CryptoType
-import com.unfinished.runtime.multiNetwork.ChainRegistry
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.data.model.chainAccountFor
+import com.unfinished.data.multiNetwork.ChainRegistry
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder

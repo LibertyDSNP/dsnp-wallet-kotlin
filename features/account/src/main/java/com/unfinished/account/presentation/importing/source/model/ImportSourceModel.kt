@@ -8,7 +8,6 @@ import com.unfinished.account.data.secrets.AccountSecretsFactory
 import com.unfinished.account.domain.account.add.AddAccountInteractor
 import com.unfinished.account.domain.interactor.AdvancedEncryptionInteractor
 import com.unfinished.account.domain.model.AddAccountType
-import com.unfinished.account.domain.model.ImportJsonMetaData
 import com.unfinished.account.presentation.AdvancedEncryptionRequester
 import com.unfinished.common.R
 import com.unfinished.common.base.BaseFragment
@@ -26,6 +25,7 @@ import com.unfinished.account.presentation.importing.source.view.SeedImportView
 import com.unfinished.account.presentation.lastAdvancedEncryptionOrDefault
 import com.unfinished.account.presentation.mixin.AccountNameChooserMixin
 import com.unfinished.account.presentation.model.account.add.AddAccountPayload
+import com.unfinished.data.model.ImportJsonMetaData
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecodingException.IncorrectPasswordException
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecodingException.InvalidJsonException
 import jp.co.soramitsu.fearless_utils.exceptions.Bip39Exception

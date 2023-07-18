@@ -3,13 +3,13 @@ package com.unfinished.account.presentation.icon
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import com.unfinished.account.domain.account.identity.IdentityProvider
-import com.unfinished.account.domain.model.MetaAccount
-import com.unfinished.account.domain.model.addressIn
+import com.unfinished.data.model.MetaAccount
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.address.AddressModel
-import com.unfinished.runtime.util.accountIdOf
-import com.unfinished.runtime.util.addressOf
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.model.addressIn
+import com.unfinished.data.util.accountIdOf
+import com.unfinished.data.util.addressOf
+import com.unfinished.data.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 
 suspend fun AddressIconGenerator.createAddressModel(

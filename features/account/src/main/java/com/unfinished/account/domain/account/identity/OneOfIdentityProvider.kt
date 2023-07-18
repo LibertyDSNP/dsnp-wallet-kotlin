@@ -1,6 +1,6 @@
 package com.unfinished.account.domain.account.identity
 
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.extensions.tryFindNonNull
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import kotlinx.coroutines.Dispatchers

@@ -4,8 +4,8 @@ import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.data.secrets.v2.entropy
 import com.unfinished.account.data.secrets.getAccountSecrets
 import com.unfinished.account.domain.interfaces.AccountRepository
-import com.unfinished.runtime.multiNetwork.ChainRegistry
-import com.unfinished.runtime.multiNetwork.chain.model.ChainId
+import com.unfinished.data.multiNetwork.ChainRegistry
+import com.unfinished.data.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator
 import kotlinx.coroutines.Dispatchers

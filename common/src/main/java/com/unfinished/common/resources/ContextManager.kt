@@ -3,7 +3,7 @@ package com.unfinished.common.resources
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.unfinished.common.di.modules.SHARED_PREFERENCES_FILE
-import com.unfinished.common.pref.PreferencesImpl
+import com.unfinished.common.pref.CommonPreferencesImpl
 import com.unfinished.common.utils.SingletonHolder
 import java.util.Locale
 import javax.inject.Inject
@@ -45,7 +45,7 @@ class ContextManager @Inject constructor(
     }
 
     private fun updateResources(context: Context): Context {
-        val prefs = PreferencesImpl(context.getSharedPreferences(SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE))
+        val prefs = CommonPreferencesImpl(context.getSharedPreferences(SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE))
 
         val currentLanguage = if (prefs.getCurrentLanguage() == null) {
             val currentLocale = Locale.getDefault()

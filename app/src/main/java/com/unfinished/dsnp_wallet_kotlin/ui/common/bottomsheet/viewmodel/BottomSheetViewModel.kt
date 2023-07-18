@@ -1,7 +1,7 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.viewmodel
 
 import com.unfinished.common.base.BaseViewModel
-import com.unfinished.data.storage.Preferences
+import com.unfinished.common.pref.CommonPreferences
 import com.unfinished.dsnp_wallet_kotlin.ui.common.bottomsheet.uimodel.BottomSheetUiModel
 import com.unfinished.uikit.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BottomSheetViewModel @Inject constructor(
-    private val preferences: Preferences
+    private val preferences: CommonPreferences
 ) : BaseViewModel() {
 
     private companion object {

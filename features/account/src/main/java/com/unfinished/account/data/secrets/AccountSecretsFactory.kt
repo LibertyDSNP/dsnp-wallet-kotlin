@@ -6,7 +6,7 @@ import com.unfinished.data.secrets.v2.ChainAccountSecrets
 import com.unfinished.data.secrets.v2.MetaAccountSecrets
 import com.unfinished.data.secrets.v2.mapKeypairStructToKeypair
 import com.unfinished.data.util.castOrNull
-import com.unfinished.runtime.util.deriveSeed32
+import com.unfinished.data.util.deriveSeed32
 import com.unfinished.data.model.CryptoType
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecoder

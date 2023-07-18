@@ -1,10 +1,10 @@
 package com.unfinished.data.multiNetwork.extrinsic.service
 
 import com.unfinished.data.model.FeeResponse
+import com.unfinished.data.model.MetaAccount
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.extrinsic.ExtrinsicStatus
-import com.unfinished.runtime.model.MetaAccount
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.ExtrinsicBuilder
 import kotlinx.coroutines.flow.Flow

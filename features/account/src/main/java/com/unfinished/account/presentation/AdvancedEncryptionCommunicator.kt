@@ -1,9 +1,9 @@
 package com.unfinished.account.presentation
 
 import android.os.Parcelable
-import com.unfinished.account.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
-import com.unfinished.account.data.mappers.mapAdvancedEncryptionStateToResponse
-import com.unfinished.account.domain.account.advancedEncryption.AdvancedEncryption
+import com.unfinished.account.data.repository.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
+import com.unfinished.account.data.repository.data.mappers.mapAdvancedEncryptionStateToResponse
+import com.unfinished.account.domain.advancedEncryption.AdvancedEncryption
 import com.unfinished.account.domain.interactor.AdvancedEncryptionInteractor
 import com.unfinished.account.presentation.model.account.AdvancedEncryptionPayload
 import com.unfinished.account.presentation.model.account.add.AddAccountPayload

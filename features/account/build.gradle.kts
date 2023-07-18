@@ -46,7 +46,6 @@ dependencies {
 
     implementation(project(Modules.DATA))
     implementation(project(Modules.COMMON))
-    implementation(project(Modules.RUNTIME))
 
     implementation(Dependencies.Support.core_ktx)
     implementation(Dependencies.Support.app_compat)

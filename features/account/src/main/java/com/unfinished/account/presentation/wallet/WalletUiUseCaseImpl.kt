@@ -2,7 +2,7 @@ package com.unfinished.account.presentation.wallet
 
 import android.graphics.drawable.Drawable
 import com.unfinished.account.domain.interfaces.AccountRepository
-import com.unfinished.account.domain.model.MetaAccount
+import com.unfinished.data.model.MetaAccount
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.address.AddressIconGenerator.Companion.BACKGROUND_DEFAULT
 import com.unfinished.common.address.AddressIconGenerator.Companion.BACKGROUND_TRANSPARENT
@@ -65,8 +65,8 @@ class WalletUiUseCaseImpl(
 
     private fun MetaAccount.walletIconSeed(): ByteArray {
         return when {
-            substrateAccountId != null -> substrateAccountId
-            ethereumAddress != null -> ethereumAddress
+            substrateAccountId != null -> substrateAccountId!!
+            ethereumAddress != null -> ethereumAddress!!
 
             // if both default accounts are null there MUST be at least one chain account. Otherwise wallet is in invalid state
             else -> {

@@ -2,6 +2,7 @@ plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_KAPT)
+    id(Plugins.KOTLIN_PARCELIZE)
     id(Plugins.GOOGLE_DEVTOOLS_KSP) version Versions.ksp
 }
 
@@ -76,5 +77,7 @@ dependencies {
     implementation(Dependencies.Retrofit.converter_scalars)
     implementation(Dependencies.Retrofit.interceptor)
 
+    //There is a part of code that needs this to support for under api 24
+    implementation(Dependencies.Other.streamsupport)
     
 }

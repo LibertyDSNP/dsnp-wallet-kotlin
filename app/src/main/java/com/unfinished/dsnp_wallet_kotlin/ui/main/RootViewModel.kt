@@ -6,7 +6,7 @@ import com.unfinished.common.base.BaseViewModel
 import com.unfinished.common.mixin.api.NetworkStateMixin
 import com.unfinished.common.mixin.api.NetworkStateUi
 import com.unfinished.common.resources.ResourceManager
-import com.unfinished.runtime.multiNetwork.connection.ChainConnection
+import com.unfinished.data.multiNetwork.connection.ChainConnection
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 

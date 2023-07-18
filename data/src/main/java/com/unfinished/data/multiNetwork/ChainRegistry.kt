@@ -94,44 +94,44 @@ class ChainRegistry(
     suspend fun getChain(chainId: String): Chain = chainsById.first().getValue(chainId.removeHexPrefix())
 }
 
-suspend fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.getChainOrNull(chainId: String): Chain? {
+suspend fun ChainRegistry.getChainOrNull(chainId: String): Chain? {
     return chainsById.first()[chainId.removeHexPrefix()]
 }
 
-suspend fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.chainWithAssetOrNull(chainId: String, assetId: Int): _root_ide_package_.com.unfinished.data.multiNetwork.ChainWithAsset? {
+suspend fun ChainRegistry.chainWithAssetOrNull(chainId: String, assetId: Int): ChainWithAsset? {
     val chain = getChainOrNull(chainId) ?: return null
     val chainAsset = chain.assetsById[assetId] ?: return null
 
-    return _root_ide_package_.com.unfinished.data.multiNetwork.ChainWithAsset(chain, chainAsset)
+    return ChainWithAsset(chain, chainAsset)
 }
 
-suspend fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.chainWithAsset(chainId: String, assetId: Int): _root_ide_package_.com.unfinished.data.multiNetwork.ChainWithAsset {
+suspend fun ChainRegistry.chainWithAsset(chainId: String, assetId: Int): ChainWithAsset {
     val chain = chainsById.first().getValue(chainId)
 
-    return _root_ide_package_.com.unfinished.data.multiNetwork.ChainWithAsset(
+    return ChainWithAsset(
         chain,
         chain.assetsById.getValue(assetId)
     )
 }
 
-suspend fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.asset(chainId: String, assetId: Int): Chain.Asset {
+suspend fun ChainRegistry.asset(chainId: String, assetId: Int): Chain.Asset {
     val chain = chainsById.first().getValue(chainId)
 
     return chain.assetsById.getValue(assetId)
 }
-suspend fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.asset(fullChainAssetId: FullChainAssetId): Chain.Asset {
+suspend fun ChainRegistry.asset(fullChainAssetId: FullChainAssetId): Chain.Asset {
     return asset(fullChainAssetId.chainId, fullChainAssetId.assetId)
 }
 
-suspend inline fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.findChain(predicate: (Chain) -> Boolean): Chain? = currentChains.first().firstOrNull(predicate)
-suspend inline fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.findChains(predicate: (Chain) -> Boolean): List<Chain> = currentChains.first().filter(predicate)
+suspend inline fun ChainRegistry.findChain(predicate: (Chain) -> Boolean): Chain? = currentChains.first().firstOrNull(predicate)
+suspend inline fun ChainRegistry.findChains(predicate: (Chain) -> Boolean): List<Chain> = currentChains.first().filter(predicate)
 
-suspend fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.getRuntime(chainId: String) = getRuntimeProvider(chainId).get()
+suspend fun ChainRegistry.getRuntime(chainId: String) = getRuntimeProvider(chainId).get()
 
-fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.getSocket(chainId: String) = getConnection(chainId).socketService
+fun ChainRegistry.getSocket(chainId: String) = getConnection(chainId).socketService
 
-fun _root_ide_package_.com.unfinished.data.multiNetwork.ChainRegistry.getService(chainId: String) =
-    _root_ide_package_.com.unfinished.data.multiNetwork.ChainService(
+fun ChainRegistry.getService(chainId: String) =
+    ChainService(
         runtimeProvider = getRuntimeProvider(chainId),
         connection = getConnection(chainId)
     )

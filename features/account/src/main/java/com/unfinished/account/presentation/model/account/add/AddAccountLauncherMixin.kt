@@ -1,10 +1,10 @@
 package com.unfinished.account.presentation.model.account.add
 
 import androidx.lifecycle.LiveData
-import com.unfinished.account.domain.model.MetaAccount
+import com.unfinished.data.model.MetaAccount
 import com.unfinished.account.presentation.mixin.importType.ImportTypeChooserMixin
 import com.unfinished.common.utils.Event
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.multiNetwork.chain.model.Chain
 
 interface AddAccountLauncherMixin {
 

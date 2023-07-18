@@ -4,12 +4,11 @@ import com.unfinished.common.validation.Validation
 import com.unfinished.common.validation.ValidationStatus
 import com.unfinished.common.validation.ValidationSystemBuilder
 import com.unfinished.common.validation.validationError
-import com.unfinished.account.domain.model.LightMetaAccount.Type.LEDGER
-import com.unfinished.account.domain.model.LightMetaAccount.Type.PARITY_SIGNER
-import com.unfinished.account.domain.model.MetaAccount
-import com.unfinished.account.domain.model.hasAccountIn
+import com.unfinished.data.model.MetaAccount
 import com.unfinished.account.domain.validation.NoChainAccountFoundError.AddAccountState
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.model.LightMetaAccount
+import com.unfinished.data.model.hasAccountIn
+import com.unfinished.data.multiNetwork.chain.model.Chain
 
 interface NoChainAccountFoundError {
     val chain: Chain
@@ -33,10 +32,10 @@ class HasChainAccountValidation<P, E>(
 
         return when {
             account.hasAccountIn(chain) -> ValidationStatus.Valid()
-            account.type == LEDGER && !SubstrateApplicationConfig.supports(chain.id) -> {
+            account.type == LightMetaAccount.Type.LEDGER && !SubstrateApplicationConfig.supports(chain.id) -> {
                 errorProducer(chain, account, AddAccountState.LEDGER_NOT_SUPPORTED).validationError()
             }
-            account.type == PARITY_SIGNER && chain.isEthereumBased -> {
+            account.type == LightMetaAccount.Type.PARITY_SIGNER && chain.isEthereumBased -> {
                 errorProducer(chain, account, AddAccountState.PARITY_SIGNER_NOT_SUPPORTED).validationError()
             }
             else -> errorProducer(chain, account, AddAccountState.CAN_ADD).validationError()

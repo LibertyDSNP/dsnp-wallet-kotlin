@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import com.unfinished.data.storage.cache.StorageCache
 import com.unfinished.data.db.dao.ChainDao
 import com.unfinished.data.db.dao.StorageDao
-import com.unfinished.common.prefs.Preferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,6 +34,7 @@ import com.unfinished.data.multiNetwork.storage.SampledBlockTimeStorage
 import com.unfinished.data.multiNetwork.storage.source.LocalStorageSource
 import com.unfinished.data.multiNetwork.storage.source.RemoteStorageSource
 import com.unfinished.data.multiNetwork.storage.source.StorageDataSource
+import com.unfinished.data.storage.Preferences
 import javax.inject.Named
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -86,7 +86,7 @@ class RuntimeModule {
     @Singleton
     fun provideSampledBlockTimeStorage(
         gson: Gson,
-        preferences: com.unfinished.common.prefs.Preferences,
+        preferences: Preferences,
     ): SampledBlockTimeStorage = PrefsSampledBlockTimeStorage(gson, preferences)
 
     @Provides

@@ -2,9 +2,9 @@ package com.unfinished.account.presentation.mixin.addressInput.inputSpec
 
 import android.graphics.drawable.Drawable
 import com.unfinished.common.address.AddressIconGenerator
-import com.unfinished.runtime.util.accountIdOf
-import com.unfinished.runtime.util.isValidAddress
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.util.accountIdOf
+import com.unfinished.data.util.isValidAddress
+import com.unfinished.data.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

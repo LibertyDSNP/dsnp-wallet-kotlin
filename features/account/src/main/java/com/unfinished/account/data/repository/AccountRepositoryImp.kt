@@ -1,13 +1,14 @@
 package com.unfinished.account.data.repository
 
+import com.unfinished.account.data.repository.data.mappers.mapNodeLocalToNode
 import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.data.secrets.v2.getAccountSecrets
 import com.unfinished.data.secrets.v2.seed
 import com.unfinished.common.resources.LanguagesHolder
 import com.unfinished.common.utils.mapList
-import com.unfinished.runtime.util.networkType
+import com.unfinished.data.util.networkType
 import com.unfinished.data.model.CryptoType
-import com.unfinished.data.model.Language
+import com.unfinished.common.model.Language
 import com.unfinished.data.model.Network
 import com.unfinished.data.model.Node
 import com.unfinished.data.db.dao.AccountDao
@@ -17,20 +18,19 @@ import com.unfinished.data.db.model.NodeLocal
 import com.unfinished.account.data.secrets.keypair
 import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.account.domain.model.Account
-import com.unfinished.account.domain.model.AuthType
-import com.unfinished.account.domain.model.MetaAccount
-import com.unfinished.account.domain.model.MetaAccountOrdering
-import com.unfinished.account.domain.model.accountIdIn
-import com.unfinished.account.domain.model.addressIn
-import com.unfinished.account.domain.model.multiChainEncryptionIn
-import com.unfinished.account.domain.model.publicKeyIn
-import com.unfinished.account.data.mappers.mapNodeLocalToNode
-import com.unfinished.account.data.blockchain.AccountSubstrateSource
+import com.unfinished.data.model.AuthType
+import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.MetaAccountOrdering
+import com.unfinished.data.model.accountIdIn
+import com.unfinished.data.model.addressIn
+import com.unfinished.data.model.multiChainEncryptionIn
+import com.unfinished.data.model.publicKeyIn
+import com.unfinished.data.multiNetwork.extrinsic.blockchain.AccountSubstrateSource
 import com.unfinished.account.domain.interfaces.AccountDataSource
-import com.unfinished.runtime.util.genesisHash
-import com.unfinished.runtime.util.isValidAddress
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
-import com.unfinished.runtime.multiNetwork.qr.MultiChainQrSharingFactory
+import com.unfinished.data.multiNetwork.chain.model.Chain
+import com.unfinished.data.multiNetwork.qr.MultiChainQrSharingFactory
+import com.unfinished.data.util.genesisHash
+import com.unfinished.data.util.isValidAddress
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedEncoder
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator
@@ -67,7 +67,9 @@ class AccountRepositoryImpl(
     }
 
     override suspend fun getSelectedNodeOrDefault(): Node {
-        return accountDataSource.getSelectedNode() ?: mapNodeLocalToNode(nodeDao.getFirstNode())
+        return accountDataSource.getSelectedNode() ?: mapNodeLocalToNode(
+            nodeDao.getFirstNode()
+        )
     }
 
     override suspend fun selectNode(node: Node) {
@@ -75,7 +77,11 @@ class AccountRepositoryImpl(
     }
 
     override suspend fun getDefaultNode(networkType: Node.NetworkType): Node {
-        return mapNodeLocalToNode(nodeDao.getDefaultNodeFor(networkType.ordinal))
+        return mapNodeLocalToNode(
+            nodeDao.getDefaultNodeFor(
+                networkType.ordinal
+            )
+        )
     }
 
     override suspend fun selectAccount(account: Account, newNode: Node?) {

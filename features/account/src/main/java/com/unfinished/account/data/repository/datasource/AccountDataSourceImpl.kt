@@ -5,12 +5,11 @@ import com.unfinished.data.secrets.v2.ChainAccountSecrets
 import com.unfinished.data.secrets.v2.KeyPairSchema
 import com.unfinished.data.secrets.v2.MetaAccountSecrets
 import com.unfinished.data.secrets.v2.SecretStoreV2
-import com.unfinished.data.storage.Preferences
 import com.unfinished.data.storage.encrypt.EncryptedPreferences
 import com.unfinished.common.utils.inBackground
-import com.unfinished.runtime.util.substrateAccountId
+import com.unfinished.data.util.substrateAccountId
 import com.unfinished.data.model.CryptoType
-import com.unfinished.data.model.Language
+import com.unfinished.common.model.Language
 import com.unfinished.data.model.Node
 import com.unfinished.data.db.dao.MetaAccountDao
 import com.unfinished.data.db.dao.NodeDao
@@ -18,18 +17,19 @@ import com.unfinished.data.db.model.chain.ChainAccountLocal
 import com.unfinished.data.db.model.chain.MetaAccountLocal
 import com.unfinished.data.db.model.chain.MetaAccountPositionUpdate
 import com.unfinished.account.domain.model.Account
-import com.unfinished.account.domain.model.AuthType
-import com.unfinished.account.domain.model.MetaAccount
-import com.unfinished.account.domain.model.MetaAccountOrdering
-import com.unfinished.account.data.mappers.mapChainAccountToAccount
-import com.unfinished.account.data.mappers.mapMetaAccountLocalToMetaAccount
-import com.unfinished.account.data.mappers.mapMetaAccountToAccount
-import com.unfinished.account.data.mappers.mapNodeLocalToNode
+import com.unfinished.data.model.AuthType
+import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.MetaAccountOrdering
+import com.unfinished.account.data.repository.data.mappers.mapChainAccountToAccount
+import com.unfinished.account.data.repository.data.mappers.mapMetaAccountLocalToMetaAccount
+import com.unfinished.account.data.repository.data.mappers.mapMetaAccountToAccount
+import com.unfinished.account.data.repository.data.mappers.mapNodeLocalToNode
 import com.unfinished.account.data.repository.datasource.migration.AccountDataMigration
 import com.unfinished.account.domain.interfaces.AccountDataSource
-import com.unfinished.runtime.util.accountIdOf
-import com.unfinished.runtime.multiNetwork.ChainRegistry
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.common.pref.CommonPreferences
+import com.unfinished.data.multiNetwork.ChainRegistry
+import com.unfinished.data.multiNetwork.chain.model.Chain
+import com.unfinished.data.util.accountIdOf
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey
 import jp.co.soramitsu.fearless_utils.extensions.toAccountId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
@@ -50,7 +50,7 @@ private const val PREFS_AUTH_TYPE = "auth_type"
 private const val PREFS_PIN_CODE = "pin_code"
 
 class AccountDataSourceImpl(
-    private val preferences: Preferences,
+    private val preferences: CommonPreferences,
     private val encryptedPreferences: EncryptedPreferences,
     private val nodeDao: NodeDao,
     private val metaAccountDao: MetaAccountDao,
@@ -155,7 +155,10 @@ class AccountDataSourceImpl(
 
     override suspend fun findMetaAccount(accountId: ByteArray): MetaAccount? {
         return metaAccountDao.getMetaAccountInfo(accountId)?.let {
-            mapMetaAccountLocalToMetaAccount(chainRegistry.chainsById.first(), it)
+            mapMetaAccountLocalToMetaAccount(
+                chainRegistry.chainsById.first(),
+                it
+            )
         }
     }
 
@@ -207,7 +210,10 @@ class AccountDataSourceImpl(
     override suspend fun getMetaAccount(metaId: Long): MetaAccount {
         val joinedMetaAccountInfo = metaAccountDao.getJoinedMetaAccountInfo(metaId)
 
-        return mapMetaAccountLocalToMetaAccount(chainRegistry.chainsById.first(), joinedMetaAccountInfo)
+        return mapMetaAccountLocalToMetaAccount(
+            chainRegistry.chainsById.first(),
+            joinedMetaAccountInfo
+        )
     }
 
     override suspend fun updateMetaAccountName(metaId: Long, newName: String) {

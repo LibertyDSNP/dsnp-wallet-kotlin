@@ -2,9 +2,9 @@ package com.unfinished.account.domain.account.add
 
 import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.account.domain.model.AddAccountType
-import com.unfinished.account.domain.model.ImportJsonMetaData
 import com.unfinished.account.data.repository.AddAccountRepository
-import com.unfinished.account.domain.account.advancedEncryption.AdvancedEncryption
+import com.unfinished.account.domain.advancedEncryption.AdvancedEncryption
+import com.unfinished.data.model.ImportJsonMetaData
 
 class AddAccountInteractor(
     private val addAccountRepository: AddAccountRepository,

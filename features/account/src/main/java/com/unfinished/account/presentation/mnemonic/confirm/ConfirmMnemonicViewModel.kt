@@ -1,9 +1,9 @@
 package com.unfinished.account.presentation.mnemonic.confirm
 
 import androidx.lifecycle.*
-import com.unfinished.account.data.mappers.mapAddAccountPayloadToAddAccountType
-import com.unfinished.account.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
-import com.unfinished.account.data.mappers.mapOptionalNameToNameChooserState
+import com.unfinished.account.data.repository.data.mappers.mapAddAccountPayloadToAddAccountType
+import com.unfinished.account.data.repository.data.mappers.mapAdvancedEncryptionResponseToAdvancedEncryption
+import com.unfinished.account.data.repository.data.mappers.mapOptionalNameToNameChooserState
 import com.unfinished.common.R
 import com.unfinished.account.domain.account.add.AddAccountInteractor
 import com.unfinished.account.domain.interfaces.AccountInteractor

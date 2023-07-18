@@ -2,9 +2,9 @@ package com.unfinished.account.presentation.mixin.addressInput.myselfBehavior
 
 import com.unfinished.data.util.invoke
 import com.unfinished.account.domain.interfaces.SelectedAccountUseCase
-import com.unfinished.account.domain.model.addressIn
-import com.unfinished.account.domain.model.hasAccountIn
-import com.unfinished.runtime.multiNetwork.chain.model.Chain
+import com.unfinished.data.model.addressIn
+import com.unfinished.data.model.hasAccountIn
+import com.unfinished.data.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

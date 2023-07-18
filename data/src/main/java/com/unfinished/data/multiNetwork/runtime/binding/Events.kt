@@ -1,6 +1,19 @@
 package com.unfinished.data.multiNetwork.runtime.binding
 
-import com.unfinished.data.network.runtime.model.event.*
+import com.unfinished.data.model.DispatchInfoClass
+import com.unfinished.data.model.DispatchInfoPaysFee
+import com.unfinished.data.model.DispatchInfoWeight
+import com.unfinished.data.model.DisptachError
+import com.unfinished.data.model.DisptachInfo
+import com.unfinished.data.model.EventType
+import com.unfinished.data.model.EventTypes
+import com.unfinished.data.model.Extrinsic
+import com.unfinished.data.model.MsaCreated
+import com.unfinished.data.model.MsaValue
+import com.unfinished.data.model.TransactionFee
+import com.unfinished.data.model.TransactionFeeValue
+import com.unfinished.data.model.Withdraw
+import com.unfinished.data.model.WithdrawValue
 import com.unfinished.data.util.byteToInt
 import com.unfinished.data.util.system
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
