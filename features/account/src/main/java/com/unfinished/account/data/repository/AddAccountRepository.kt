@@ -3,7 +3,7 @@ package com.unfinished.account.data.repository
 import android.database.sqlite.SQLiteConstraintException
 import com.unfinished.account.data.secrets.AccountSecretsFactory
 import com.unfinished.data.mappers.mapEncryptionToCryptoType
-import com.unfinished.data.util.removeHexPrefix
+import com.unfinished.data.util.ext.removeHexPrefix
 import com.unfinished.data.model.CryptoType
 import com.unfinished.account.domain.interfaces.AccountAlreadyExistsException
 import com.unfinished.account.domain.model.AddAccountType

@@ -1,7 +1,7 @@
 package com.unfinished.account.domain.validation
 
 
-import com.unfinished.data.util.Geneses
+import com.unfinished.data.util.ext.Geneses
 import com.unfinished.data.multiNetwork.chain.model.Chain
 
 class SubstrateApplicationConfig(

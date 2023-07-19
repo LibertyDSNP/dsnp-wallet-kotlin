@@ -1,9 +1,9 @@
 package com.unfinished.data.repository.event
 
 import com.unfinished.data.multiNetwork.runtime.binding.*
-import com.unfinished.data.util.extrinsicHash
-import com.unfinished.data.util.msa
-import com.unfinished.data.util.system
+import com.unfinished.data.util.ext.extrinsicHash
+import com.unfinished.data.util.ext.msa
+import com.unfinished.data.util.ext.system
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.extrinsic.create

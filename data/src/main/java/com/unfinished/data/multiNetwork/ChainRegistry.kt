@@ -2,10 +2,10 @@ package com.unfinished.data.multiNetwork
 
 import com.google.gson.Gson
 import com.unfinished.data.db.dao.ChainDao
-import com.unfinished.data.util.diffed
-import com.unfinished.data.util.inBackground
-import com.unfinished.data.util.mapList
-import com.unfinished.data.util.removeHexPrefix
+import com.unfinished.data.util.ext.diffed
+import com.unfinished.data.util.ext.inBackground
+import com.unfinished.data.util.ext.mapList
+import com.unfinished.data.util.ext.removeHexPrefix
 import com.unfinished.data.multiNetwork.chain.ChainSyncService
 import com.unfinished.data.multiNetwork.chain.mapChainLocalToChain
 import com.unfinished.data.multiNetwork.chain.model.Chain

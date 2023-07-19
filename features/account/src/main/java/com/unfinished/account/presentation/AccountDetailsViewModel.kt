@@ -16,11 +16,11 @@ import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.base.BaseViewModel
 import com.unfinished.common.list.TextHeader
 import com.unfinished.common.resources.ResourceManager
-import com.unfinished.data.util.filterToSet
+import com.unfinished.data.util.ext.filterToSet
 import com.unfinished.common.utils.flowOf
 import com.unfinished.common.view.AlertView
 import com.unfinished.data.model.LightMetaAccount
-import com.unfinished.data.util.invoke
+import com.unfinished.data.util.ext.invoke
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.Dispatchers

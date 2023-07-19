@@ -14,7 +14,7 @@ import dagger.assisted.AssistedInject
 import com.unfinished.common.base.BaseViewModel
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.utils.Event
-import com.unfinished.data.util.modified
+import com.unfinished.data.util.ext.modified
 import com.unfinished.common.utils.sendEvent
 import com.unfinished.common.vibration.DeviceVibrator
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder

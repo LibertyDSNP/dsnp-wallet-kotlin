@@ -1,7 +1,7 @@
 package com.unfinished.data.multiNetwork.runtime.binding
 
-import com.unfinished.data.util.decodeValue
-import com.unfinished.data.util.msa
+import com.unfinished.data.util.ext.decodeValue
+import com.unfinished.data.util.ext.msa
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage
 import java.lang.Exception

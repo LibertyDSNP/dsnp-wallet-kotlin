@@ -3,13 +3,13 @@ package com.unfinished.data.multiNetwork.storage.updaters
 import android.util.Log
 import com.unfinished.data.multiNetwork.chain.ChainIdHolder
 import com.unfinished.data.util.LOG_TAG
-import com.unfinished.data.util.zipWithPrevious
+import com.unfinished.data.util.ext.zipWithPrevious
 import com.unfinished.data.multiNetwork.runtime.binding.BlockHash
 import com.unfinished.data.multiNetwork.runtime.binding.BlockNumber
 import com.unfinished.data.multiNetwork.runtime.binding.bindNumber
-import com.unfinished.data.util.decodeValue
-import com.unfinished.data.util.system
-import com.unfinished.data.util.timestamp
+import com.unfinished.data.util.ext.decodeValue
+import com.unfinished.data.util.ext.system
+import com.unfinished.data.util.ext.timestamp
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.getRuntime

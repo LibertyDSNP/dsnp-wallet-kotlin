@@ -1,7 +1,7 @@
 package com.unfinished.data.model
 
 import com.google.gson.annotations.SerializedName
-import com.unfinished.data.util.removeHexPrefix
+import com.unfinished.data.util.ext.removeHexPrefix
 
 class SignedBlock(val block: Block, val justification: Any?) {
     class Block(val extrinsics: List<String>, val header: Header) {

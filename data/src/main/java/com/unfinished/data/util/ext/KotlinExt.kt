@@ -1,4 +1,4 @@
-package com.unfinished.data.util
+package com.unfinished.data.util.ext
 
 import android.net.Uri
 import kotlinx.coroutines.CoroutineScope

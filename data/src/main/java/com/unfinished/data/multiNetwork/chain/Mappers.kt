@@ -6,10 +6,10 @@ import com.unfinished.data.db.model.chain.ChainExplorerLocal
 import com.unfinished.data.db.model.chain.ChainLocal
 import com.unfinished.data.db.model.chain.ChainNodeLocal
 import com.unfinished.data.db.model.chain.JoinedChainInfo
-import com.unfinished.data.util.asGsonParsedNumberOrNull
-import com.unfinished.data.util.fromJson
-import com.unfinished.data.util.fromJsonOrNull
-import com.unfinished.data.util.parseArbitraryObject
+import com.unfinished.data.util.ext.asGsonParsedNumberOrNull
+import com.unfinished.data.util.ext.fromJson
+import com.unfinished.data.util.ext.fromJsonOrNull
+import com.unfinished.data.util.ext.parseArbitraryObject
 import com.unfinished.data.multiNetwork.chain.model.BuyProviderArguments
 import com.unfinished.data.multiNetwork.chain.model.BuyProviderId
 import com.unfinished.data.multiNetwork.chain.model.Chain

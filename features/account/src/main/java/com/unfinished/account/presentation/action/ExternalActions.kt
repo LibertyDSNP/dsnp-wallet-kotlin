@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import com.unfinished.account.presentation.model.chain.ChainUi
 import com.unfinished.common.mixin.api.Browserable
 import com.unfinished.common.utils.Event
-import com.unfinished.data.util.addressOf
+import com.unfinished.data.util.ext.addressOf
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ExplorerTemplateExtractor
 import jp.co.soramitsu.fearless_utils.runtime.AccountId

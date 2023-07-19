@@ -2,6 +2,8 @@ package com.unfinished.data.util
 
 import android.os.Build
 import com.unfinished.data.multiNetwork.chain.model.Chain
+import com.unfinished.data.util.ext.ChainGeneses
+import com.unfinished.data.util.ext.genesisHash
 import java8.util.Comparators
 
 val Chain.relaychainsFirstAscendingOrder

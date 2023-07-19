@@ -2,7 +2,7 @@ package com.unfinished.data.repository.chain
 
 import com.unfinished.data.multiNetwork.runtime.binding.ParaId
 import com.unfinished.data.multiNetwork.runtime.binding.bindNumber
-import com.unfinished.data.util.parachainInfoOrNull
+import com.unfinished.data.util.ext.parachainInfoOrNull
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.storage.source.StorageDataSource
 import jp.co.soramitsu.fearless_utils.runtime.metadata.storage

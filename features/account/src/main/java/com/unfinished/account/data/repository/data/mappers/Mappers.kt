@@ -8,7 +8,7 @@ import com.unfinished.account.presentation.model.advance.encryption.CryptoTypeMo
 import com.unfinished.account.presentation.model.advance.network.NetworkModel
 import com.unfinished.account.presentation.model.advance.network.NodeModel
 import com.unfinished.common.resources.ResourceManager
-import com.unfinished.data.util.filterNotNull
+import com.unfinished.data.util.ext.filterNotNull
 import com.unfinished.data.model.CryptoType
 import com.unfinished.data.model.Node
 import com.unfinished.data.model.Node.NetworkType
@@ -23,8 +23,8 @@ import com.unfinished.data.model.MetaAccountAssetBalance
 import com.unfinished.data.model.addressIn
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId
-import com.unfinished.data.util.addressOf
-import com.unfinished.data.util.hexAccountIdOf
+import com.unfinished.data.util.ext.addressOf
+import com.unfinished.data.util.ext.hexAccountIdOf
 import jp.co.soramitsu.fearless_utils.extensions.toHexString
 
 fun mapNetworkTypeToNetworkModel(networkType: NetworkType): NetworkModel {

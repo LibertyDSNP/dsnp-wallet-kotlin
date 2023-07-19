@@ -2,13 +2,13 @@ package com.unfinished.data.repository.chain
 
 import com.unfinished.data.multiNetwork.runtime.binding.BlockNumber
 import com.unfinished.data.multiNetwork.runtime.binding.bindBlockNumber
-import com.unfinished.data.util.babe
-import com.unfinished.data.util.babeOrNull
-import com.unfinished.data.util.isParachain
-import com.unfinished.data.util.numberConstant
-import com.unfinished.data.util.optionalNumberConstant
-import com.unfinished.data.util.system
-import com.unfinished.data.util.timestampOrNull
+import com.unfinished.data.util.ext.babe
+import com.unfinished.data.util.ext.babeOrNull
+import com.unfinished.data.util.ext.isParachain
+import com.unfinished.data.util.ext.numberConstant
+import com.unfinished.data.util.ext.optionalNumberConstant
+import com.unfinished.data.util.ext.system
+import com.unfinished.data.util.ext.timestampOrNull
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.getRuntime

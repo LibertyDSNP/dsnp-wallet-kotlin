@@ -1,6 +1,6 @@
 package com.unfinished.data.multiNetwork.extrinsic.calls
 
-import com.unfinished.data.util.Modules
+import com.unfinished.data.util.ext.Modules
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.DictEnum
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.ExtrinsicBuilder

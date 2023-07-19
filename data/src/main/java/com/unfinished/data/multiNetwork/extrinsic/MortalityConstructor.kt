@@ -1,6 +1,6 @@
 package com.unfinished.data.multiNetwork.extrinsic
 
-import com.unfinished.data.util.invoke
+import com.unfinished.data.util.ext.invoke
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.rpc.RpcCalls
 import com.unfinished.data.repository.chain.ChainStateRepository

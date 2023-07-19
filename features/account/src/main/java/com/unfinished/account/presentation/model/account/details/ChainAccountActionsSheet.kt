@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.unfinished.account.presentation.action.ExternalActions
 import com.unfinished.common.R
-import com.unfinished.data.util.castOrNull
+import com.unfinished.data.util.ext.castOrNull
 import com.unfinished.common.view.bottomSheet.list.fixed.item
 import com.unfinished.account.presentation.action.CopyCallback
 import com.unfinished.account.presentation.action.ExternalActionsSheet

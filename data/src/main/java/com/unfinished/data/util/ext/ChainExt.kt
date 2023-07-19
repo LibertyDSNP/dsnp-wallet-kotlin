@@ -1,4 +1,4 @@
-package com.unfinished.data.util
+package com.unfinished.data.util.ext
 
 import com.unfinished.data.multiNetwork.runtime.binding.MultiAddress
 import com.unfinished.data.multiNetwork.runtime.binding.bindOrNull
@@ -7,6 +7,7 @@ import com.unfinished.data.multiNetwork.chain.model.Chain.Asset.Type
 import com.unfinished.data.multiNetwork.chain.model.ExplorerTemplateExtractor
 import com.unfinished.data.multiNetwork.chain.model.FullChainAssetId
 import com.unfinished.data.multiNetwork.chain.model.TypesUsage
+import com.unfinished.data.util.substrateAccountId
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumAccountId
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumAddress
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey

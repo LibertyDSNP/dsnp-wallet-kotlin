@@ -1,6 +1,6 @@
 package com.unfinished.data.secrets.v2
 
-import com.unfinished.data.util.invoke
+import com.unfinished.data.util.ext.invoke
 import jp.co.soramitsu.fearless_utils.encrypt.keypair.Keypair
 import jp.co.soramitsu.fearless_utils.encrypt.keypair.substrate.Sr25519Keypair
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct

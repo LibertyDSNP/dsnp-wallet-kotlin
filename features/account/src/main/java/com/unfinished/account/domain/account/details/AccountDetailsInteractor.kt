@@ -4,7 +4,7 @@ import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.data.secrets.v2.entropy
 import com.unfinished.data.secrets.v2.getAccountSecrets
 import com.unfinished.data.secrets.v2.seed
-import com.unfinished.data.util.mapToSet
+import com.unfinished.data.util.ext.mapToSet
 import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.data.model.MetaAccount
 import com.unfinished.account.domain.account.details.AccountInChain.From

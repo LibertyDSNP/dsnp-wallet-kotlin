@@ -1,7 +1,7 @@
 package com.unfinished.data.multiNetwork.storage
 
 import com.google.gson.Gson
-import com.unfinished.data.util.fromJson
+import com.unfinished.data.util.ext.fromJson
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.storage.updaters.SampledBlockTime
 import com.unfinished.data.storage.Preferences

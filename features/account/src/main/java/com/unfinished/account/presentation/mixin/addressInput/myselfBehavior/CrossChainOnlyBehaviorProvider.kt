@@ -1,6 +1,6 @@
 package com.unfinished.account.presentation.mixin.addressInput.myselfBehavior
 
-import com.unfinished.data.util.invoke
+import com.unfinished.data.util.ext.invoke
 import com.unfinished.account.domain.interfaces.SelectedAccountUseCase
 import com.unfinished.data.model.addressIn
 import com.unfinished.data.model.hasAccountIn

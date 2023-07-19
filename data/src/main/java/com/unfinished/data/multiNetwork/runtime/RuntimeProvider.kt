@@ -2,7 +2,7 @@ package com.unfinished.data.multiNetwork.runtime
 
 import android.util.Log
 import com.unfinished.data.util.LOG_TAG
-import com.unfinished.data.util.typesUsage
+import com.unfinished.data.util.ext.typesUsage
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.TypesUsage
 import com.unfinished.data.multiNetwork.runtime.types.BaseTypeSynchronizer

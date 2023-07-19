@@ -1,6 +1,6 @@
 package com.unfinished.data.multiNetwork.extrinsic
 
-import com.unfinished.data.util.accountIdOf
+import com.unfinished.data.util.ext.accountIdOf
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption

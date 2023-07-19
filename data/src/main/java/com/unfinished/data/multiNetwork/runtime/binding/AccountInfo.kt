@@ -1,6 +1,6 @@
 package com.unfinished.data.multiNetwork.runtime.binding
 
-import com.unfinished.data.util.system
+import com.unfinished.data.util.ext.system
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.Struct
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.fromHexOrNull

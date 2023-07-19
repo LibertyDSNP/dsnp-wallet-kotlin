@@ -3,9 +3,9 @@ package com.unfinished.data.model
 import com.unfinished.data.mappers.mapCryptoTypeToEncryption
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId
-import com.unfinished.data.util.DEFAULT_PREFIX
-import com.unfinished.data.util.addressOf
-import com.unfinished.data.util.toEthereumAddress
+import com.unfinished.data.util.ext.DEFAULT_PREFIX
+import com.unfinished.data.util.ext.addressOf
+import com.unfinished.data.util.ext.toEthereumAddress
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey
 import jp.co.soramitsu.fearless_utils.extensions.toAccountId

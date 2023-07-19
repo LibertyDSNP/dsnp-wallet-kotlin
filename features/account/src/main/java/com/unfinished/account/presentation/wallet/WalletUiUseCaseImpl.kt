@@ -6,7 +6,7 @@ import com.unfinished.data.model.MetaAccount
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.address.AddressIconGenerator.Companion.BACKGROUND_DEFAULT
 import com.unfinished.common.address.AddressIconGenerator.Companion.BACKGROUND_TRANSPARENT
-import com.unfinished.data.util.ByteArrayComparator
+import com.unfinished.data.util.ext.ByteArrayComparator
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest

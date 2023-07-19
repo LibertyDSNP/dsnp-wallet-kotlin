@@ -6,7 +6,7 @@ import com.unfinished.data.secrets.v2.getAccountSecrets
 import com.unfinished.data.secrets.v2.seed
 import com.unfinished.common.resources.LanguagesHolder
 import com.unfinished.common.utils.mapList
-import com.unfinished.data.util.networkType
+import com.unfinished.data.util.ext.networkType
 import com.unfinished.data.model.CryptoType
 import com.unfinished.common.model.Language
 import com.unfinished.data.model.Network
@@ -29,8 +29,8 @@ import com.unfinished.data.multiNetwork.extrinsic.blockchain.AccountSubstrateSou
 import com.unfinished.account.domain.interfaces.AccountDataSource
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.qr.MultiChainQrSharingFactory
-import com.unfinished.data.util.genesisHash
-import com.unfinished.data.util.isValidAddress
+import com.unfinished.data.util.ext.genesisHash
+import com.unfinished.data.util.ext.isValidAddress
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedEncoder
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.MnemonicCreator

@@ -8,7 +8,7 @@ import com.unfinished.data.storage.encrypt.EncryptedPreferences
 import jp.co.soramitsu.fearless_utils.encrypt.keypair.substrate.Sr25519Keypair
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.unfinished.data.util.invoke
+import com.unfinished.data.util.ext.invoke
 
 interface SecretStoreV1 {
 

@@ -14,8 +14,8 @@ import com.unfinished.data.model.TransactionFee
 import com.unfinished.data.model.TransactionFeeValue
 import com.unfinished.data.model.Withdraw
 import com.unfinished.data.model.WithdrawValue
-import com.unfinished.data.util.byteToInt
-import com.unfinished.data.util.system
+import com.unfinished.data.util.ext.byteToInt
+import com.unfinished.data.util.ext.system
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.DictEnum
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.Struct

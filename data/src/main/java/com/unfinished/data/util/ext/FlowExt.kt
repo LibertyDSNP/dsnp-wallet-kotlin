@@ -1,4 +1,4 @@
-package com.unfinished.data.util
+package com.unfinished.data.util.ext
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow

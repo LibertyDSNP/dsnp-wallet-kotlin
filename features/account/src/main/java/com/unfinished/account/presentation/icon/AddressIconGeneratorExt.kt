@@ -7,8 +7,8 @@ import com.unfinished.data.model.MetaAccount
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.address.AddressModel
 import com.unfinished.data.model.addressIn
-import com.unfinished.data.util.accountIdOf
-import com.unfinished.data.util.addressOf
+import com.unfinished.data.util.ext.accountIdOf
+import com.unfinished.data.util.ext.addressOf
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 

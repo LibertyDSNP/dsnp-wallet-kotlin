@@ -1,4 +1,4 @@
-package com.unfinished.data.util
+package com.unfinished.data.util.ext
 
 import io.emeraldpay.polkaj.scale.ScaleCodecReader
 import io.emeraldpay.polkaj.scale.ScaleCodecWriter

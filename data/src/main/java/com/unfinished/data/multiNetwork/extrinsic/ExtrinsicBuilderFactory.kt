@@ -1,7 +1,7 @@
 package com.unfinished.data.multiNetwork.extrinsic
 
-import com.unfinished.data.util.orZero
-import com.unfinished.data.util.addressOf
+import com.unfinished.data.util.ext.orZero
+import com.unfinished.data.util.ext.addressOf
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.getRuntime

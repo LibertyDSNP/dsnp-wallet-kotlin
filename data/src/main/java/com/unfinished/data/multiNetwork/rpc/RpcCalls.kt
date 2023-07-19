@@ -7,8 +7,8 @@ import com.unfinished.data.multiNetwork.runtime.binding.fromHexOrIncompatible
 import com.unfinished.data.model.FeeResponse
 import com.unfinished.data.model.SignedBlock
 import com.unfinished.data.model.SignedBlock.Block.Header
-import com.unfinished.data.util.extrinsicHash
-import com.unfinished.data.util.removeHexPrefix
+import com.unfinished.data.util.ext.extrinsicHash
+import com.unfinished.data.util.ext.removeHexPrefix
 import com.unfinished.data.multiNetwork.extrinsic.ExtrinsicStatus
 import com.unfinished.data.multiNetwork.extrinsic.asExtrinsicStatus
 import com.unfinished.data.multiNetwork.ChainRegistry

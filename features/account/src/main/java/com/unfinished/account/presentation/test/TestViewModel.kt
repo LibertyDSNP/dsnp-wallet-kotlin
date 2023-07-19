@@ -27,7 +27,7 @@ import com.unfinished.data.model.FeeResponse
 import com.unfinished.data.model.LightMetaAccount
 import com.unfinished.data.model.SignedBlock
 import com.unfinished.data.util.substrateAccountId
-import com.unfinished.data.util.system
+import com.unfinished.data.util.ext.system
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.connection.ChainConnectionFactory
@@ -52,9 +52,9 @@ import com.unfinished.data.multiNetwork.runtime.binding.bindAccountInfo
 import com.unfinished.data.multiNetwork.runtime.binding.checkIfExtrinsicFailed
 import com.unfinished.data.repository.event.EventsRepository
 import com.unfinished.data.signer.SignerProvider
-import com.unfinished.data.util.accountIdOf
-import com.unfinished.data.util.addressOf
-import com.unfinished.data.util.hexAccountIdOf
+import com.unfinished.data.util.ext.accountIdOf
+import com.unfinished.data.util.ext.addressOf
+import com.unfinished.data.util.ext.hexAccountIdOf
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder

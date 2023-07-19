@@ -1,6 +1,6 @@
 package com.unfinished.data.repository.event
 
-import com.unfinished.data.util.Modules
+import com.unfinished.data.util.ext.Modules
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Extrinsic
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.GenericEvent
 

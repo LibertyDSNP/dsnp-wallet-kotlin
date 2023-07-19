@@ -29,7 +29,7 @@ import com.unfinished.account.domain.interfaces.AccountDataSource
 import com.unfinished.common.pref.CommonPreferences
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.Chain
-import com.unfinished.data.util.accountIdOf
+import com.unfinished.data.util.ext.accountIdOf
 import jp.co.soramitsu.fearless_utils.extensions.asEthereumPublicKey
 import jp.co.soramitsu.fearless_utils.extensions.toAccountId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId

@@ -1,6 +1,6 @@
 package com.unfinished.account.domain.interactor
 
-import com.unfinished.data.util.removed
+import com.unfinished.data.util.ext.removed
 import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.account.domain.interfaces.MetaAccountGroupingInteractor
 import com.unfinished.data.model.LightMetaAccount
