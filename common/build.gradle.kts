@@ -2,6 +2,7 @@ plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_KAPT)
+    id(Plugins.GOOGLE_DEVTOOLS_KSP) version Versions.ksp
 }
 
 android {

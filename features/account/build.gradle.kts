@@ -1,9 +1,10 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
-    id(Plugins.KOTLIN_KAPT)
     id(Plugins.KOTLIN_PARCELIZE)
     id(Plugins.DAGGER_HILT_ANDROID_PLUGIN)
+    id(Plugins.KOTLIN_KAPT)
+    id(Plugins.GOOGLE_DEVTOOLS_KSP) version Versions.ksp
 }
 
 android {
@@ -59,7 +60,7 @@ dependencies {
     kapt(Dependencies.DaggerHilt.hilt_compiler)
 
     androidTestImplementation(Dependencies.Test.hilt_testing)
-    kaptAndroidTest(Dependencies.Test.hilt_compiler)
+    kaptAndroidTest(Dependencies.DaggerHilt.hilt_compiler)
 
     implementation(Dependencies.Retrofit.converter_gson)
 

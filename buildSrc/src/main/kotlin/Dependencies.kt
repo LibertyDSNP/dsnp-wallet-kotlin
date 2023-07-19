@@ -21,8 +21,7 @@ sealed class Dependencies {
         val mockito_inline = "org.mockito:mockito-inline:${Versions.mockito_inline}"
         val runner = "androidx.test:runner:${Versions.runner}"
         val rules = "androidx.test:rules:${Versions.rules}"
-        val hilt_testing = "com.google.dagger:hilt-android-testing:${Versions.hilt_testing}"
-        val hilt_compiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt_compiler}"
+        val hilt_testing = "com.google.dagger:hilt-android-testing:${Versions.hilt}"
     }
 
     object Navigation {
@@ -55,18 +54,18 @@ sealed class Dependencies {
     }
 
     object Room {
-        val runtime = "androidx.room:room-runtime:${Versions.runtime}"
-        val ktx = "androidx.room:room-ktx:${Versions.ktx}"
-        val compiler = "androidx.room:room-compiler:${Versions.compiler}"
-        val testing = "androidx.room:room-testing:${Versions.testing}"
+        val runtime = "androidx.room:room-runtime:${Versions.room}"
+        val ktx = "androidx.room:room-ktx:${Versions.room}"
+        val compiler = "androidx.room:room-compiler:${Versions.room}"
+        val testing = "androidx.room:room-testing:${Versions.room}"
     }
 
     object DaggerHilt {
-        val hilt_android = "com.google.dagger:hilt-android:${Versions.hilt_android}"
+        val hilt_android = "com.google.dagger:hilt-android:${Versions.hilt}"
         val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.viewmodel}"
         val android_compiler =
-            "com.google.dagger:hilt-android-compiler:${Versions.android_compiler}"
-        val hilt_compiler = "androidx.hilt:hilt-compiler:${Versions.hilt_compiler}"
+            "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+        val hilt_compiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
     }
 
     object Retrofit {
