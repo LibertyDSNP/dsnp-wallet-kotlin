@@ -2,6 +2,8 @@
 
 package com.unfinished.data.model
 
+import com.unfinished.data.model.runtime.RuntimeConfiguration
+
 data class Node(
     val id: Int,
     val name: String,

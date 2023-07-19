@@ -1,4 +1,4 @@
-package com.unfinished.data.model
+package com.unfinished.data.model.block
 
 import com.google.gson.annotations.SerializedName
 import com.unfinished.data.util.ext.removeHexPrefix

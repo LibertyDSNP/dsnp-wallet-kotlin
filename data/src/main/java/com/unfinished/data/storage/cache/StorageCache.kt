@@ -1,5 +1,5 @@
 package com.unfinished.data.storage.cache
-import com.unfinished.data.model.StorageEntry
+import com.unfinished.data.model.storage.StorageEntry
 import kotlinx.coroutines.flow.Flow
 
 interface StorageCache {

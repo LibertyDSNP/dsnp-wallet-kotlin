@@ -4,10 +4,10 @@ import com.unfinished.common.validation.Validation
 import com.unfinished.common.validation.ValidationStatus
 import com.unfinished.common.validation.ValidationSystemBuilder
 import com.unfinished.common.validation.validationError
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import com.unfinished.account.domain.validation.NoChainAccountFoundError.AddAccountState
-import com.unfinished.data.model.LightMetaAccount
-import com.unfinished.data.model.hasAccountIn
+import com.unfinished.data.model.account.LightMetaAccount
+import com.unfinished.data.model.account.hasAccountIn
 import com.unfinished.data.multiNetwork.chain.model.Chain
 
 interface NoChainAccountFoundError {

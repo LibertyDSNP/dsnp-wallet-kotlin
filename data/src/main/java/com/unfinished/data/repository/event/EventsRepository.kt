@@ -9,7 +9,7 @@ import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.extrinsic.create
 import com.unfinished.data.multiNetwork.getRuntime
 import com.unfinished.data.multiNetwork.rpc.RpcCalls
-import com.unfinished.data.model.EventType
+import com.unfinished.data.model.event.EventType
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.storage.source.StorageDataSource
 import com.unfinished.data.multiNetwork.storage.source.queryNonNull
@@ -55,7 +55,6 @@ class RemoteEventsRepository(
             at = blockHash
         )
     }
-//
     override suspend fun getMsaIdFromFrequencyChain(chain: Chain, runtimeSnapshot: RuntimeSnapshot, accountId: AccountId): Result<BigInteger?> {
         return remoteStorageSource.query(
             chainId = chain.id,

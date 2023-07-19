@@ -10,8 +10,8 @@ import com.unfinished.data.secrets.v2.mapMetaAccountSecretsToDerivationPath
 import com.unfinished.data.secrets.v2.mapMetaAccountSecretsToKeypair
 import com.unfinished.data.util.fold
 import jp.co.soramitsu.fearless_utils.encrypt.keypair.Keypair
-import com.unfinished.data.model.MetaAccount
-import com.unfinished.data.model.accountIdIn
+import com.unfinished.data.model.account.MetaAccount
+import com.unfinished.data.model.account.accountIdIn
 
 suspend fun SecretStoreV2.getAccountSecrets(
     metaAccount: MetaAccount,

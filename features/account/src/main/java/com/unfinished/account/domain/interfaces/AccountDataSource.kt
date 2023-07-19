@@ -8,8 +8,8 @@ import com.unfinished.data.model.Node
 import com.unfinished.account.domain.model.Account
 import com.unfinished.common.model.Language
 import com.unfinished.data.model.AuthType
-import com.unfinished.data.model.MetaAccount
-import com.unfinished.data.model.MetaAccountOrdering
+import com.unfinished.data.model.account.MetaAccount
+import com.unfinished.data.model.account.MetaAccountOrdering
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId

@@ -1,6 +1,7 @@
-package com.unfinished.data.model
+package com.unfinished.data.model.account
 
 import com.unfinished.data.mappers.mapCryptoTypeToEncryption
+import com.unfinished.data.model.CryptoType
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.util.ext.DEFAULT_PREFIX

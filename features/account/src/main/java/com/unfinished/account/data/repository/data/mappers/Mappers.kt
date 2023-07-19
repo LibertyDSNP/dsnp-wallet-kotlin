@@ -17,10 +17,10 @@ import com.unfinished.data.db.model.NodeLocal
 import com.unfinished.data.db.model.chain.ChainAccountLocal
 import com.unfinished.data.db.model.chain.JoinedMetaAccountInfo
 import com.unfinished.data.db.model.chain.MetaAccountLocal
-import com.unfinished.data.model.LightMetaAccount
-import com.unfinished.data.model.MetaAccount
-import com.unfinished.data.model.MetaAccountAssetBalance
-import com.unfinished.data.model.addressIn
+import com.unfinished.data.model.account.LightMetaAccount
+import com.unfinished.data.model.account.MetaAccount
+import com.unfinished.data.model.account.MetaAccountAssetBalance
+import com.unfinished.data.model.account.addressIn
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.util.ext.addressOf

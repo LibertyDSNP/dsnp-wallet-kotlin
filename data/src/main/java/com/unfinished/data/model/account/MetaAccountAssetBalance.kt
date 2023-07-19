@@ -1,4 +1,4 @@
-package com.unfinished.data.model
+package com.unfinished.data.model.account
 
 import java.math.BigDecimal
 import java.math.BigInteger

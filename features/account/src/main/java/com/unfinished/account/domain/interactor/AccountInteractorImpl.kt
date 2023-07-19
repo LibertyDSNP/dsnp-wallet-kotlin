@@ -8,10 +8,10 @@ import com.unfinished.account.domain.model.Account
 import com.unfinished.account.domain.errors.NodeAlreadyExistsException
 import com.unfinished.account.domain.errors.UnsupportedNetworkException
 import com.unfinished.common.model.Language
-import com.unfinished.data.model.MetaAccount
-import com.unfinished.data.model.MetaAccountOrdering
+import com.unfinished.data.model.account.MetaAccount
+import com.unfinished.data.model.account.MetaAccountOrdering
 import com.unfinished.data.model.PreferredCryptoType
-import com.unfinished.data.model.addressIn
+import com.unfinished.data.model.account.addressIn
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic

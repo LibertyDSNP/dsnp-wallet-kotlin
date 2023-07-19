@@ -4,9 +4,9 @@ import com.unfinished.data.multiNetwork.runtime.binding.BlockNumber
 import com.unfinished.data.multiNetwork.runtime.binding.bindNumber
 import com.unfinished.data.multiNetwork.runtime.binding.castToStruct
 import com.unfinished.data.multiNetwork.runtime.binding.fromHexOrIncompatible
-import com.unfinished.data.model.FeeResponse
-import com.unfinished.data.model.SignedBlock
-import com.unfinished.data.model.SignedBlock.Block.Header
+import com.unfinished.data.multiNetwork.extrinsic.model.FeeResponse
+import com.unfinished.data.model.block.SignedBlock
+import com.unfinished.data.model.block.SignedBlock.Block.Header
 import com.unfinished.data.util.ext.extrinsicHash
 import com.unfinished.data.util.ext.removeHexPrefix
 import com.unfinished.data.multiNetwork.extrinsic.ExtrinsicStatus

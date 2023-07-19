@@ -10,7 +10,7 @@ import com.unfinished.account.domain.interfaces.AccountAlreadyExistsException
 import com.unfinished.account.domain.interfaces.AccountDataSource
 import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.account.domain.model.AddAccountType
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import com.unfinished.account.presentation.importing.source.model.ImportError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unfinished.common.R
@@ -22,10 +22,10 @@ import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.common.resources.ResourceManager
 import com.unfinished.common.utils.*
 import com.unfinished.data.model.CryptoType
-import com.unfinished.data.model.EventType
-import com.unfinished.data.model.FeeResponse
-import com.unfinished.data.model.LightMetaAccount
-import com.unfinished.data.model.SignedBlock
+import com.unfinished.data.model.event.EventType
+import com.unfinished.data.multiNetwork.extrinsic.model.FeeResponse
+import com.unfinished.data.model.account.LightMetaAccount
+import com.unfinished.data.model.block.SignedBlock
 import com.unfinished.data.util.substrateAccountId
 import com.unfinished.data.util.ext.system
 import com.unfinished.data.multiNetwork.ChainRegistry
@@ -40,7 +40,9 @@ import com.unfinished.data.multiNetwork.extrinsic.calls.createProvider
 import com.unfinished.data.multiNetwork.extrinsic.calls.deletePublicKeyToMsa
 import com.unfinished.data.multiNetwork.extrinsic.calls.retireMsa
 import com.unfinished.data.multiNetwork.extrinsic.calls.transferCall
+import com.unfinished.data.multiNetwork.extrinsic.model.MsaResponse
 import com.unfinished.data.multiNetwork.extrinsic.service.ExtrinsicService
+import com.unfinished.data.multiNetwork.extrinsic.service.RealExtrinsicService
 import com.unfinished.data.multiNetwork.getRuntime
 import com.unfinished.data.multiNetwork.getSocket
 import com.unfinished.data.multiNetwork.rpc.RpcCalls
@@ -52,6 +54,7 @@ import com.unfinished.data.multiNetwork.runtime.binding.bindAccountInfo
 import com.unfinished.data.multiNetwork.runtime.binding.checkIfExtrinsicFailed
 import com.unfinished.data.repository.event.EventsRepository
 import com.unfinished.data.signer.SignerProvider
+import com.unfinished.data.usecase.extrinsic.MsaUseCase
 import com.unfinished.data.util.ext.accountIdOf
 import com.unfinished.data.util.ext.addressOf
 import com.unfinished.data.util.ext.hexAccountIdOf
@@ -98,10 +101,11 @@ class TestViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val signerProvider: SignerProvider,
     private val resourceManager: ResourceManager,
+    private val testresourceManager: com.unfinished.data.util.resource.ResourceManager,
     private val chainConnectionFactory: ChainConnectionFactory,
     private val eventsRepository: EventsRepository,
     private val gson: Gson,
-    private val secreteStoreV2: SecretStoreV2
+    private val secreteStoreV2: SecretStoreV2,
 ) : BaseViewModel() {
 
     val chainId = "496e2f8a93bf4576317f998d01480f9068014b368856ec088a63e57071cd1d49"
@@ -466,6 +470,21 @@ class TestViewModel @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
+    suspend fun testCreateMsa(chain: Chain) = withContext(Dispatchers.IO) {
+        val case = MsaUseCase(
+            realExtrinsicService = extrinsicService,
+            resourceManager = testresourceManager
+        )
+        val metaAccount =
+            accountRepository.findMetaAccount(chain.accountIdOf(accountAddresForMsa))
+        case.createMsa(chain = chain, metaAccount = metaAccount!!) {
+            it.onSuccess {
+                Log.e("Test", gson.toJson(it))
+            }.onFailure {
+                Log.e("Test", it.message ?: "")
+            }
+        }
+    }
     suspend fun createMsa(chain: Chain, paymentInfo: (FeeResponse) -> Unit) = flow {
         kotlin.runCatching {
             val metaAccount =

@@ -19,7 +19,7 @@ import com.unfinished.common.resources.ResourceManager
 import com.unfinished.data.util.ext.filterToSet
 import com.unfinished.common.utils.flowOf
 import com.unfinished.common.view.AlertView
-import com.unfinished.data.model.LightMetaAccount
+import com.unfinished.data.model.account.LightMetaAccount
 import com.unfinished.data.util.ext.invoke
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.Chain

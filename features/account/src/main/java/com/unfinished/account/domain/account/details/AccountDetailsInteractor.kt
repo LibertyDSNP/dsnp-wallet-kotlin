@@ -6,12 +6,12 @@ import com.unfinished.data.secrets.v2.getAccountSecrets
 import com.unfinished.data.secrets.v2.seed
 import com.unfinished.data.util.ext.mapToSet
 import com.unfinished.account.domain.interfaces.AccountRepository
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import com.unfinished.account.domain.account.details.AccountInChain.From
 import com.unfinished.account.domain.validation.SubstrateApplicationConfig
 import com.unfinished.account.presentation.model.account.add.SecretType
-import com.unfinished.data.model.LightMetaAccount
-import com.unfinished.data.model.accountIdIn
+import com.unfinished.data.model.account.LightMetaAccount
+import com.unfinished.data.model.account.accountIdIn
 import com.unfinished.data.util.defaultComparatorFrom
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.Chain

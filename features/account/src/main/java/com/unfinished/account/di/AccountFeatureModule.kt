@@ -48,6 +48,7 @@ import com.unfinished.data.multiNetwork.extrinsic.service.RealExtrinsicService
 import com.unfinished.data.multiNetwork.qr.MultiChainQrSharingFactory
 import com.unfinished.data.multiNetwork.rpc.RpcCalls
 import com.unfinished.data.multiNetwork.rpc.SocketSingleRequestExecutor
+import com.unfinished.data.repository.event.EventsRepository
 import com.unfinished.data.signer.SignerProvider
 import com.unfinished.data.storage.Preferences
 import jp.co.soramitsu.fearless_utils.encrypt.json.JsonSeedDecoder
@@ -61,11 +62,13 @@ object AccountFeatureModule {
     fun provideExtrinsicService(
         rpcCalls: RpcCalls,
         extrinsicBuilderFactory: ExtrinsicBuilderFactory,
-        signerProvider: SignerProvider
+        signerProvider: SignerProvider,
+        eventsRepository: EventsRepository
     ): ExtrinsicService = RealExtrinsicService(
         rpcCalls,
         extrinsicBuilderFactory,
-        signerProvider
+        signerProvider,
+        eventsRepository
     )
 
     @Provides

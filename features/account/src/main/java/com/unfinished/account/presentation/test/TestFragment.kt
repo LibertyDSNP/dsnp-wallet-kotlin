@@ -17,7 +17,7 @@ import com.unfinished.account.data.secrets.AccountSecretsFactory
 import com.unfinished.account.databinding.FragmentTestBinding
 import com.unfinished.account.domain.advancedEncryption.AdvancedEncryption
 import com.unfinished.account.domain.model.AddAccountType
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import dagger.hilt.android.AndroidEntryPoint
 import com.unfinished.common.base.BaseFragment
 import com.unfinished.common.utils.setOnSafeClickListener
@@ -240,35 +240,36 @@ class TestFragment : BaseFragment<TestViewModel>() {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     viewModel.getChain()?.let { chain ->
-                        viewModel.createMsa(
-                            chain = chain,
-                            paymentInfo = { feeResponse ->
-                                Log.e(
-                                    "Fee",
-                                    "Fee for this transaction ${feeResponse.partialFee} UNIT"
-                                )
-                            }
-                        ).catch {
-                            binding.createMsa.text = it.message ?: "Invalid Transaction"
-                        }.collectLatest {
-                            if (it.third.isNullOrEmpty()) {
-                                val builer = java.lang.StringBuilder()
-                                builer.append("Event: ${it.second?.name}").append("\n")
-                                builer.append("Publick Key: ${it.second?.value?.value?.key}")
-                                    .append("\n")
-                                builer.append("Msa ID: ${it.second?.value?.value?.msa_id}")
-                                    .append("\n")
-                                builer.append("Block Hash: ${it.first}").append("\n")
-                                binding.createMsa.text = builer.toString()
-                            } else {
-                                binding.createMsa.text = it.third ?: "Error create msa id"
-                                Toast.makeText(
-                                    requireContext(),
-                                    it.third ?: "Error create msa id",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
+                        viewModel.testCreateMsa(chain)
+//                        viewModel.createMsa(
+//                            chain = chain,
+//                            paymentInfo = { feeResponse ->
+//                                Log.e(
+//                                    "Fee",
+//                                    "Fee for this transaction ${feeResponse.partialFee} UNIT"
+//                                )
+//                            }
+//                        ).catch {
+//                            binding.createMsa.text = it.message ?: "Invalid Transaction"
+//                        }.collectLatest {
+//                            if (it.third.isNullOrEmpty()) {
+//                                val builer = java.lang.StringBuilder()
+//                                builer.append("Event: ${it.second?.name}").append("\n")
+//                                builer.append("Publick Key: ${it.second?.value?.value?.key}")
+//                                    .append("\n")
+//                                builer.append("Msa ID: ${it.second?.value?.value?.msa_id}")
+//                                    .append("\n")
+//                                builer.append("Block Hash: ${it.first}").append("\n")
+//                                binding.createMsa.text = builer.toString()
+//                            } else {
+//                                binding.createMsa.text = it.third ?: "Error create msa id"
+//                                Toast.makeText(
+//                                    requireContext(),
+//                                    it.third ?: "Error create msa id",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
+//                        }
                     }
                 }
             }

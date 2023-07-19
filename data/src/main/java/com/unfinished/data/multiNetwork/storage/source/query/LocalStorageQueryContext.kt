@@ -1,7 +1,7 @@
 package com.unfinished.data.multiNetwork.storage.source.query
 
 import com.unfinished.data.multiNetwork.runtime.binding.BlockHash
-import com.unfinished.data.model.StorageEntry
+import com.unfinished.data.model.storage.StorageEntry
 import com.unfinished.data.storage.cache.StorageCache
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot

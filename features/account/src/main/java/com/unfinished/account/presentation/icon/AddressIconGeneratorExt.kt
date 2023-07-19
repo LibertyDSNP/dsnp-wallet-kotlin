@@ -3,10 +3,10 @@ package com.unfinished.account.presentation.icon
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import com.unfinished.account.domain.account.identity.IdentityProvider
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.address.AddressModel
-import com.unfinished.data.model.addressIn
+import com.unfinished.data.model.account.addressIn
 import com.unfinished.data.util.ext.accountIdOf
 import com.unfinished.data.util.ext.addressOf
 import com.unfinished.data.multiNetwork.chain.model.Chain

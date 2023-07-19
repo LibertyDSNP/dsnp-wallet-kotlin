@@ -3,10 +3,10 @@ package com.unfinished.account.domain.interactor
 import com.unfinished.data.util.ext.removed
 import com.unfinished.account.domain.interfaces.AccountRepository
 import com.unfinished.account.domain.interfaces.MetaAccountGroupingInteractor
-import com.unfinished.data.model.LightMetaAccount
-import com.unfinished.data.model.MetaAccount
-import com.unfinished.data.model.addressIn
-import com.unfinished.data.model.hasAccountIn
+import com.unfinished.data.model.account.LightMetaAccount
+import com.unfinished.data.model.account.MetaAccount
+import com.unfinished.data.model.account.addressIn
+import com.unfinished.data.model.account.hasAccountIn
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId

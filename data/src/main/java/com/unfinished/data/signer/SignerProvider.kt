@@ -1,7 +1,7 @@
 package com.unfinished.data.signer
 
 import com.unfinished.data.multiNetwork.chain.model.Chain
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.Signer
 
 interface SignerProvider {

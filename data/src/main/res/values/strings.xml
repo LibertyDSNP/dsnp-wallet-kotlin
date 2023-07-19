@@ -4,6 +4,7 @@
     <string name="connection_error_message_v2_2_0">Please, check your connection or try again later</string>
     <string name="yesterday">Yesterday</string>
     <string name="today">Today</string>
+    <string name="create_msa_error">Create msa failed!</string>
     <plurals name="staking_main_lockup_period_value">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>

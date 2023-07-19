@@ -2,7 +2,7 @@ package com.unfinished.data.repository.runtime
 
 import com.unfinished.data.db.dao.ChainDao
 import com.unfinished.data.db.model.chain.ChainRuntimeInfoLocal
-import com.unfinished.data.model.RuntimeVersion
+import com.unfinished.data.model.runtime.RuntimeVersion
 
 interface RuntimeVersionsRepository {
 

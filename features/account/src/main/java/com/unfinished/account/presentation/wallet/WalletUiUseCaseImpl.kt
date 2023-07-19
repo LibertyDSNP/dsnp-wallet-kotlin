@@ -2,7 +2,7 @@ package com.unfinished.account.presentation.wallet
 
 import android.graphics.drawable.Drawable
 import com.unfinished.account.domain.interfaces.AccountRepository
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import com.unfinished.common.address.AddressIconGenerator
 import com.unfinished.common.address.AddressIconGenerator.Companion.BACKGROUND_DEFAULT
 import com.unfinished.common.address.AddressIconGenerator.Companion.BACKGROUND_TRANSPARENT

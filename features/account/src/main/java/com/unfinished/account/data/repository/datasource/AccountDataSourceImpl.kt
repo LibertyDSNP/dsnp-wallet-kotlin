@@ -18,8 +18,8 @@ import com.unfinished.data.db.model.chain.MetaAccountLocal
 import com.unfinished.data.db.model.chain.MetaAccountPositionUpdate
 import com.unfinished.account.domain.model.Account
 import com.unfinished.data.model.AuthType
-import com.unfinished.data.model.MetaAccount
-import com.unfinished.data.model.MetaAccountOrdering
+import com.unfinished.data.model.account.MetaAccount
+import com.unfinished.data.model.account.MetaAccountOrdering
 import com.unfinished.account.data.repository.data.mappers.mapChainAccountToAccount
 import com.unfinished.account.data.repository.data.mappers.mapMetaAccountLocalToMetaAccount
 import com.unfinished.account.data.repository.data.mappers.mapMetaAccountToAccount

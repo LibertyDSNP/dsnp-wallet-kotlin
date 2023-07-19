@@ -1,7 +1,7 @@
 package com.unfinished.data.multiNetwork.storage.updaters
 
-import com.unfinished.data.model.StorageChange
-import com.unfinished.data.model.StorageEntry
+import com.unfinished.data.model.storage.StorageChange
+import com.unfinished.data.model.storage.StorageEntry
 import com.unfinished.data.storage.cache.StorageCache
 import com.unfinished.data.multiNetwork.chain.ChainIdHolder
 import com.unfinished.data.multiNetwork.ChainRegistry

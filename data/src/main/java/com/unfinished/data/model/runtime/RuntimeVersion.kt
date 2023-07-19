@@ -1,4 +1,4 @@
-package com.unfinished.data.model
+package com.unfinished.data.model.runtime
 
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 

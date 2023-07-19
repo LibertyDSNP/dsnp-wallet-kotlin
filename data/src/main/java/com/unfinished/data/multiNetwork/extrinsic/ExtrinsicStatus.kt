@@ -71,41 +71,6 @@ fun SubscriptionChange.asExtrinsicStatus(extrinsicHash: String): ExtrinsicStatus
         else -> unknownStructure()
     }
 }
-
-fun RpcResponse.asExtrinsicStatus(extrinsicHash: String): ExtrinsicStatus {
-    return when (val result = result) {
-        STATUS_READY -> ExtrinsicStatus.Ready(extrinsicHash)
-        is Map<*, *> -> when {
-            STATUS_BROADCAST in result -> ExtrinsicStatus.Broadcast(extrinsicHash)
-            STATUS_FUTURE in result -> ExtrinsicStatus.Future(extrinsicHash)
-            STATUS_RETRACTED in result -> ExtrinsicStatus.Retracted(extrinsicHash)
-            STATUS_USURPED in result -> ExtrinsicStatus.Usurped(extrinsicHash)
-            STATUS_DROPPED in result -> ExtrinsicStatus.Dropped(extrinsicHash)
-            STATUS_INVALID in result -> ExtrinsicStatus.Invalid(extrinsicHash)
-            STATUS_IN_BLOCK in result -> ExtrinsicStatus.InBlock(
-                extractBlockHash(
-                    result,
-                    STATUS_IN_BLOCK
-                ), extrinsicHash
-            )
-            STATUS_FINALIZED in result -> ExtrinsicStatus.Finalized(
-                extractBlockHash(
-                    result,
-                    STATUS_FINALIZED
-                ), extrinsicHash
-            )
-            STATUS_FINALITY_TIMEOUT in result -> ExtrinsicStatus.Finalized(
-                extractBlockHash(
-                    result,
-                    STATUS_FINALITY_TIMEOUT
-                ), extrinsicHash
-            )
-            else -> ExtrinsicStatus.Other(extrinsicHash)
-        }
-        else -> unknownStructure()
-    }
-}
-
 private fun extractBlockHash(map: Map<*, *>, key: String): String {
     return map[key] as? String ?: unknownStructure()
 }

@@ -2,7 +2,7 @@ package com.unfinished.data.storage.cache
 
 import com.unfinished.data.db.dao.StorageDao
 import com.unfinished.data.db.model.StorageEntryLocal
-import com.unfinished.data.model.StorageEntry
+import com.unfinished.data.model.storage.StorageEntry
 import com.unfinished.data.util.ext.mapList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

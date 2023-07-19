@@ -6,8 +6,8 @@ import com.unfinished.common.R
 import com.unfinished.account.presentation.icon.createAccountAddressModel
 import com.unfinished.account.presentation.wallet.WalletUiUseCase
 import com.unfinished.common.address.AddressIconGenerator
-import com.unfinished.data.model.LightMetaAccount
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.LightMetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

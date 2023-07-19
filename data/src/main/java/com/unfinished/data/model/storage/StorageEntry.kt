@@ -1,4 +1,4 @@
-package com.unfinished.data.model
+package com.unfinished.data.model.storage
 
 class StorageEntry(
     val storageKey: String,

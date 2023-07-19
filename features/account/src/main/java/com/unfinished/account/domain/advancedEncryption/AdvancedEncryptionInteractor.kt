@@ -15,8 +15,8 @@ import com.unfinished.data.util.ext.nullIfEmpty
 import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.account.data.secrets.getAccountSecrets
-import com.unfinished.data.model.MetaAccount
-import com.unfinished.data.model.chainAccountFor
+import com.unfinished.data.model.account.MetaAccount
+import com.unfinished.data.model.account.chainAccountFor
 import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder

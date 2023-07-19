@@ -3,8 +3,8 @@ package com.unfinished.data.signer.secrets
 import com.unfinished.data.secrets.v2.SecretStoreV2
 import com.unfinished.data.secrets.v2.getChainAccountKeypair
 import com.unfinished.data.secrets.v2.getMetaAccountKeypair
-import com.unfinished.data.model.MetaAccount
-import com.unfinished.data.model.multiChainEncryptionFor
+import com.unfinished.data.model.account.MetaAccount
+import com.unfinished.data.model.account.multiChainEncryptionFor
 import jp.co.soramitsu.fearless_utils.encrypt.MultiChainEncryption
 import jp.co.soramitsu.fearless_utils.encrypt.SignatureWrapper
 import jp.co.soramitsu.fearless_utils.runtime.AccountId

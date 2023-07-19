@@ -1,4 +1,4 @@
-package com.unfinished.data.model
+package com.unfinished.data.multiNetwork.extrinsic.model
 
 import java.math.BigInteger
 

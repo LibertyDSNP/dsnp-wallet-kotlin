@@ -1,7 +1,7 @@
 package com.unfinished.account.presentation.model.account.add
 
 import androidx.lifecycle.LiveData
-import com.unfinished.data.model.MetaAccount
+import com.unfinished.data.model.account.MetaAccount
 import com.unfinished.account.presentation.mixin.importType.ImportTypeChooserMixin
 import com.unfinished.common.utils.Event
 import com.unfinished.data.multiNetwork.chain.model.Chain
