@@ -1,8 +1,5 @@
-package com.unfinished.dsnp_wallet_kotlin.di.navigation
+package com.unfinished.account.di
 
-import com.unfinished.dsnp_wallet_kotlin.root.NavigationHolder
-import com.unfinished.dsnp_wallet_kotlin.root.Navigator
-import com.unfinished.dsnp_wallet_kotlin.root.account.AdvancedEncryptionCommunicatorImpl
 import com.unfinished.account.presentation.AccountRouter
 import com.unfinished.account.presentation.AdvancedEncryptionCommunicator
 import dagger.Module
@@ -17,9 +14,8 @@ class AccountNavigationModule {
 
     @Provides
     @Singleton
-    fun provideAdvancedEncryptionCommunicator(
-        navigationHolder: NavigationHolder
-    ): AdvancedEncryptionCommunicator = AdvancedEncryptionCommunicatorImpl(navigationHolder)
+    fun provideAdvancedEncryptionCommunicator(): AdvancedEncryptionCommunicator =
+        AdvancedEncryptionCommunicatorImpl()
 
     @Provides
     @Singleton
