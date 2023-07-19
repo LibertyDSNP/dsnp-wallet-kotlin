@@ -1,13 +1,13 @@
 package com.unfinished.dsnp_wallet_kotlin.ui.onboarding.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.unfinished.common.base.BaseViewModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.CreateIdentityUiModel
 import com.unfinished.dsnp_wallet_kotlin.ui.onboarding.uimodel.RestoreWalletUiModel
 import com.unfinished.dsnp_wallet_kotlin.usecase.AccountUseCase
 import com.unfinished.uikit.UiState
 import com.unfinished.uikit.toDataLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.unfinished.common.base.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,6 +30,8 @@ class CreateIdentityViewModel @Inject constructor(
     val uiStateFLow = _uiStateFLow.asStateFlow()
 
     private var tempFlagForLoading: Boolean = false
+
+    private val handleRegex = "^[a-zA-Z0-9_]*\$".toRegex()
 
     /**
      * Returns true if we want to trigger the back button
@@ -61,7 +63,10 @@ class CreateIdentityViewModel @Inject constructor(
 
     fun updateHandle(handle: String) {
         (_uiStateFLow.value as? UiState.DataLoaded)?.data?.let {
-            if (handle.length > MAX_HANDLE_LENGTH) return
+            when {
+                handle.length > MAX_HANDLE_LENGTH -> return
+                !handleRegex.matches(handle) -> return
+            }
 
             _uiStateFLow.value = it.copy(
                 handle = handle,
