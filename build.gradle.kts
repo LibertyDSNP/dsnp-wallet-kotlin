@@ -1,6 +1,3 @@
-apply{
-    from("versions.gradle")
-}
 buildscript {
     repositories {
         google()

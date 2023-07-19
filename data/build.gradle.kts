@@ -15,14 +15,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//        ksp {
-//            arg("room.schemaLocation", "$projectDir/schemas")
-//        }
-
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
     }
 
@@ -57,7 +51,7 @@ dependencies {
 
     implementation(Dependencies.Room.runtime)
     implementation(Dependencies.Room.ktx)
-    kapt(Dependencies.Room.compiler)
+    ksp(Dependencies.Room.compiler)
     implementation(Dependencies.Room.testing)
 
     implementation(Dependencies.Coroutines.core)

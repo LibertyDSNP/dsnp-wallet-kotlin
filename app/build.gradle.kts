@@ -7,9 +7,9 @@ plugins {
     id(Plugins.ANDROID_APPLICATION)
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_PARCELIZE)
-    id(Plugins.KOTLIN_KAPT)
     id(Plugins.DAGGER_HILT_ANDROID_PLUGIN)
     id(Plugins.ANDROID_NAVIGATION_SAFE_ARGS)
+    id(Plugins.KOTLIN_KAPT)
     id(Plugins.GOOGLE_DEVTOOLS_KSP) version Versions.ksp
 }
 
@@ -145,7 +145,7 @@ dependencies {
     implementation(Dependencies.Retrofit.interceptor)
 
     implementation(Dependencies.Glide.glide)
-    kapt(Dependencies.Glide.glide_compiler)
+    ksp(Dependencies.Glide.glide_compiler)
 
     implementation(Dependencies.Other.timber)
     implementation(Dependencies.Other.pincode_view)

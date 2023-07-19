@@ -4,7 +4,6 @@ object Versions {
     const val ksp = "1.8.22-1.0.11"
     const val compilerExtension = "1.4.8"
     const val android_gradle_plugin = "8.0.2"
-    const val hilt_gradle_plugin = "2.43.2"
     const val args_gradle_plugin = "2.5.3"
     const val mozila_rust_gradle_plugin = "0.9.0"
 
@@ -20,8 +19,9 @@ object Versions {
     const val mockito_inline = "4.6.1"
     const val runner = "1.4.0"
     const val rules = "1.4.0"
-    const val hilt_testing = "2.44"
-    const val hilt_compiler = "1.0.0"
+
+    const val hilt = "2.46.1"
+    const val androidXHiltCompiler = "1.0.0"
 
     const val navigation_fragment_ktx = "2.5.3"
     const val navigation_ui_ktx = "2.5.3"
@@ -39,14 +39,10 @@ object Versions {
     const val lifecycle_compiler = "2.4.1"
     const val lifecycle_extensions = "2.2.0"
 
-    const val hilt_android = "2.43.2"
     const val viewmodel = "1.0.0-alpha03"
     const val android_compiler = "2.43.2"
 
-    const val runtime = "2.4.3"
-    const val ktx = "2.4.3"
-    const val compiler = "2.4.3"
-    const val testing = "2.2.0"
+    const val room = "2.5.2"
 
     const val okhttp = "5.0.0-alpha.2"
     const val retrofit = "2.9.0"
