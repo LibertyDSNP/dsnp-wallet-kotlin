@@ -5,7 +5,9 @@ import com.unfinished.data.model.account.MetaAccount
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.chain.model.ChainId
 import com.unfinished.data.multiNetwork.extrinsic.ExtrinsicStatus
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.DictEnum
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.ExtrinsicBuilder
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.Signer
 import kotlinx.coroutines.flow.Flow
 import java.math.BigInteger
 interface ExtrinsicService {
@@ -22,7 +24,7 @@ interface ExtrinsicService {
         chain: Chain,
         metaAccount: MetaAccount,
         encodedExtrinsic: EncodedExtrinsic,
-        fromExtrinsic: suspend ExtrinsicBuilder.() -> Unit,
+        extrinsicCall: suspend ExtrinsicBuilder.() -> Unit,
     ): Flow<ExtrinsicStatus>
 
     suspend fun paymentInfo(
@@ -36,4 +38,8 @@ interface ExtrinsicService {
     ): BigInteger
 
     suspend fun estimateFee(chainId: ChainId, extrinsic: String): BigInteger
+    suspend fun generateSignatureProof(
+        payload: ByteArray,
+        metaAccount: MetaAccount
+    ): DictEnum.Entry<*>
 }

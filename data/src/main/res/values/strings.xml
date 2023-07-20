@@ -5,6 +5,11 @@
     <string name="yesterday">Yesterday</string>
     <string name="today">Today</string>
     <string name="create_msa_error">Create msa failed!</string>
+    <string name="add_public_key_to_msa_error">Add public key to msa failed</string>
+    <string name="delete_public_key_to_msa_error">Delete public key to msa failed!</string>
+    <string name="retire_msa_error">Retire Msa failed!</string>
+    <string name="create_provider_error">Create provider failed!</string>
+    <string name="transfer_error">Transfer failed!\n</string>
     <plurals name="staking_main_lockup_period_value">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>

@@ -18,13 +18,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:text="Test screen for extrinsics and RPC calls"
+            android:text="Test screen for Frequency Chain"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/chain_url"
+            android:id="@+id/et_chain_connection_url"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -38,18 +38,19 @@
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <Button
-            android:id="@+id/set_chain_url"
+            android:id="@+id/btn_chain_connection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Set Chain Url"
+            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.578"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chain_url" />
+            app:layout_constraintTop_toBottomOf="@+id/et_chain_connection_url" />
 
         <EditText
-            android:id="@+id/account_name"
+            android:id="@+id/et_new_account_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -62,10 +63,10 @@
             android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/set_chain_url" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_chain_connection" />
 
         <EditText
-            android:id="@+id/importMnemonicContent"
+            android:id="@+id/et_mnemonic_phrase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -78,10 +79,10 @@
             android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/account_name" />
+            app:layout_constraintTop_toBottomOf="@+id/et_new_account_name" />
 
         <Button
-            android:id="@+id/create_account"
+            android:id="@+id/btn_create_account"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -89,54 +90,54 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.578"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/importMnemonicContent" />
+            app:layout_constraintTop_toBottomOf="@+id/et_mnemonic_phrase" />
 
         <TextView
-            android:id="@+id/created_accounts"
+            android:id="@+id/tv_account_list_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Created Accounts"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_account" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_create_account" />
 
         <Spinner
-            android:id="@+id/accounts"
+            android:id="@+id/sp_account_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_account_list_label" />
 
         <TextView
-            android:id="@+id/account_address"
+            android:id="@+id/tv_account_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Address"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/accounts"/>
+            app:layout_constraintTop_toBottomOf="@id/sp_account_list"/>
 
         <LinearLayout
-            android:id="@+id/extrinsic_storage_query"
+            android:id="@+id/ll_runtime_metadata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/test_bg"
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/account_address">
+            app:layout_constraintTop_toBottomOf="@+id/tv_account_address">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="state_getStorage" />
+                android:text="Rpc: state_getMetaData" />
 
             <TextView
-                android:id="@+id/storage_query"
+                android:id="@+id/tv_runtime_metadata"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -144,11 +145,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_storage_query"
+                android:id="@+id/btn_runtime_metadata"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Get Storage Query"
+                android:text="Runtime MetaData"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,7 +158,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_runtime_metadata"
+            android:id="@+id/ll_runtime_version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -165,15 +166,15 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_storage_query">
+            app:layout_constraintTop_toBottomOf="@+id/ll_runtime_metadata">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="state_getMetaData" />
+                android:text="Rpc: chain_getRuntimeVersion" />
 
             <TextView
-                android:id="@+id/state_getMetaData"
+                android:id="@+id/tv_runtime_version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -181,11 +182,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_state_getMetaData"
+                android:id="@+id/btn_runtime_version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Get Runtime MetaData"
+                android:text="Runtime Version"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +195,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_runtime_version"
+            android:id="@+id/ll_get_block"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -202,15 +203,15 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_runtime_metadata">
+            app:layout_constraintTop_toBottomOf="@+id/ll_runtime_version">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="chain_getRuntimeVersion" />
+                android:text="Rpc: chain_getBlock" />
 
             <TextView
-                android:id="@+id/runtime_version"
+                android:id="@+id/tv_chain_getBlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -218,11 +219,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_runtime_version"
+                android:id="@+id/btn_chain_getBlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Get Runtime Version"
+                android:text="Chain Block"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -231,7 +232,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_chain_getBlock"
+            android:id="@+id/ll_chain_getBlockHash"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -239,15 +240,15 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_runtime_version">
+            app:layout_constraintTop_toBottomOf="@+id/ll_get_block">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="chain_getBlock" />
+                android:text="Rpc: chain_getBlockHash" />
 
             <TextView
-                android:id="@+id/chain_getBlock"
+                android:id="@+id/tv_chain_getBlockHash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -255,11 +256,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_chain_getBlock"
+                android:id="@+id/btn_block_hash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Get Chain Block"
+                android:text="Chain Block Hash"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -268,7 +269,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_chain_getBlockHash"
+            android:id="@+id/ll_account_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -276,49 +277,12 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_chain_getBlock">
+            app:layout_constraintTop_toBottomOf="@+id/ll_chain_getBlockHash">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="chain_getBlockHash" />
-
-            <TextView
-                android:id="@+id/chain_getBlockHash"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
-
-            <Button
-                android:id="@+id/fire_block_hash"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Get Chain Block Hash"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.578"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/importMnemonicContent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/extrinsic_get_balance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/test_bg"
-            android:orientation="vertical"
-            android:padding="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_chain_getBlockHash">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Check Balance" />
+                android:text="Storage Query: Account Balance" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -329,7 +293,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/create_account" />
 
             <Spinner
-                android:id="@+id/balance_account"
+                android:id="@+id/sp_for_account_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -338,7 +302,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
 
             <TextView
-                android:id="@+id/balance_result"
+                android:id="@+id/tv_account_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -346,11 +310,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_balance"
+                android:id="@+id/btn_account_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Get Balance"
+                android:text="Check Balance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -359,7 +323,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_transfer"
+            android:id="@+id/ll_transfer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -367,12 +331,12 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_get_balance">
+            app:layout_constraintTop_toBottomOf="@+id/ll_account_balance">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Transfer Amount Query" />
+                android:text="Transfer Balance" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -383,7 +347,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/create_account" />
 
             <Spinner
-                android:id="@+id/to_account"
+                android:id="@+id/sp_to_transfer_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -392,7 +356,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
 
             <EditText
-                android:id="@+id/balance"
+                android:id="@+id/et_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -401,7 +365,7 @@
                 android:textColor="@color/text_primary" />
 
             <TextView
-                android:id="@+id/transfer_result"
+                android:id="@+id/tv_transfer_balance_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -410,11 +374,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_transfer_amount"
+                android:id="@+id/btn_transfer_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Do Transfer Amount"
+                android:text="Transfer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -423,7 +387,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_create_msa"
+            android:id="@+id/ll_create_msa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -431,7 +395,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_transfer">
+            app:layout_constraintTop_toBottomOf="@+id/ll_transfer">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -447,7 +411,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/create_account" />
 
             <Spinner
-                android:id="@+id/msa_id_account"
+                android:id="@+id/sp_for_create_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -456,7 +420,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
 
             <TextView
-                android:id="@+id/create_msa"
+                android:id="@+id/tv_create_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -464,7 +428,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_create_msa_id"
+                android:id="@+id/btn_create_msa_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -477,7 +441,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/publicKeyToMsaId_ll"
+            android:id="@+id/ll_find_msa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -485,16 +449,16 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_create_msa">
+            app:layout_constraintTop_toBottomOf="@+id/ll_create_msa">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Find Msa id for" />
+                android:text="Storage Query: Find Msa id for" />
 
             <Spinner
-                android:id="@+id/publicKeyToMsaId"
+                android:id="@+id/sp_for_find_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -509,7 +473,7 @@
                 android:text="MsaId" />
 
             <TextView
-                android:id="@+id/publicKeyToMsaId_tv"
+                android:id="@+id/tv_find_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -517,11 +481,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_chain_publicKeyToMsaId"
+                android:id="@+id/btn_find_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Get Public Key To MsaId"
+                android:text="Find Msa Id"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.578"
                 app:layout_constraintStart_toStartOf="parent"
@@ -530,7 +494,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_public_key_msa"
+            android:id="@+id/ll_attach_public_key_to_msa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -538,7 +502,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/publicKeyToMsaId_ll">
+            app:layout_constraintTop_toBottomOf="@+id/ll_find_msa">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -552,7 +516,7 @@
                 android:text="Msa Owner PublicKey" />
 
             <Spinner
-                android:id="@+id/msa_owner_account"
+                android:id="@+id/sp_for_msa_owner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -567,7 +531,7 @@
                 android:text="New Key Owner PublicKey" />
 
             <Spinner
-                android:id="@+id/new_key_owner_account"
+                android:id="@+id/sp_for_new_key_owner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -576,7 +540,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/created_accounts" />
 
             <EditText
-                android:id="@+id/msa_id"
+                android:id="@+id/et_msa_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -589,7 +553,7 @@
 
 
             <EditText
-                android:id="@+id/expiration"
+                android:id="@+id/et_expiration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -601,7 +565,7 @@
                 android:textColor="@color/text_primary" />
 
             <TextView
-                android:id="@+id/new_public_key"
+                android:id="@+id/tv_new_public_key"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -610,7 +574,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <TextView
-                android:id="@+id/public_key_to_msa"
+                android:id="@+id/tv_public_key_to_msa_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -618,7 +582,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_public_key_to_msa"
+                android:id="@+id/btn_public_key_to_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -631,7 +595,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_delete_public_key_msa"
+            android:id="@+id/ll_delete_public_key_msa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -639,7 +603,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_public_key_msa">
+            app:layout_constraintTop_toBottomOf="@+id/ll_attach_public_key_to_msa">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -648,7 +612,7 @@
                 android:text="Owner Msa Id" />
 
             <Spinner
-                android:id="@+id/deleteOwnerPublicKeyToMsaId"
+                android:id="@+id/sp_for_delete_owner_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -663,7 +627,7 @@
                 android:text="New Public Key Msa Id" />
 
             <Spinner
-                android:id="@+id/deletePublicKeyToMsaId"
+                android:id="@+id/sp_for_delete_key_owner_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -678,7 +642,7 @@
                 android:text="Result" />
 
             <TextView
-                android:id="@+id/deletePublicKeyToMsaId_tv"
+                android:id="@+id/tv_delete_pulic_key_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -686,7 +650,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_chain_deletePublicKeyToMsaId"
+                android:id="@+id/btn_delete_public_key_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -699,7 +663,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_retire_msa"
+            android:id="@+id/ll_retire_msa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -707,7 +671,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_delete_public_key_msa">
+            app:layout_constraintTop_toBottomOf="@+id/ll_delete_public_key_msa">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -716,7 +680,7 @@
                 android:text="Account for Msa Retire" />
 
             <Spinner
-                android:id="@+id/retireMsaAccount"
+                android:id="@+id/sp_for_retire_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -731,7 +695,7 @@
                 android:text="Result" />
 
             <TextView
-                android:id="@+id/retire_msa_tv"
+                android:id="@+id/tv_retire_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -739,7 +703,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_chain_retireMsa"
+                android:id="@+id/btn_retire_msa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -752,7 +716,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/extrinsic_msa_create_provider"
+            android:id="@+id/ll_create_provider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -760,7 +724,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/extrinsic_retire_msa">
+            app:layout_constraintTop_toBottomOf="@+id/ll_retire_msa">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -769,7 +733,7 @@
                 android:text="Account for Msa Retire" />
 
             <Spinner
-                android:id="@+id/createProviderAccount"
+                android:id="@+id/sp_for_create_provider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -779,7 +743,7 @@
 
 
             <EditText
-                android:id="@+id/create_provider_et"
+                android:id="@+id/et_create_provider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -797,7 +761,7 @@
                 android:text="Result" />
 
             <TextView
-                android:id="@+id/create_provider_result"
+                android:id="@+id/tv_create_provider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -805,7 +769,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/storage_query_label" />
 
             <Button
-                android:id="@+id/fire_chain_create_provider"
+                android:id="@+id/btn_create_provider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

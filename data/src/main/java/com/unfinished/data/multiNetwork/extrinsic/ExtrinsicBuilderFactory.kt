@@ -6,10 +6,12 @@ import com.unfinished.data.multiNetwork.ChainRegistry
 import com.unfinished.data.multiNetwork.chain.model.Chain
 import com.unfinished.data.multiNetwork.getRuntime
 import com.unfinished.data.multiNetwork.rpc.RpcCalls
+import com.unfinished.data.util.ext.genesisHash
 import jp.co.soramitsu.fearless_utils.extensions.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.ExtrinsicBuilder
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.Signer
+import java.math.BigInteger
 
 class ExtrinsicBuilderFactory(
     private val rpcCalls: RpcCalls,
@@ -43,13 +45,14 @@ class ExtrinsicBuilderFactory(
         val nonce = rpcCalls.getNonce(chain.id, accountAddress)
         val runtimeVersion = rpcCalls.getRuntimeVersion(chain.id)
         val mortality = mortalityConstructor.constructMortality(chain.id)
+        val gensisHash = rpcCalls.getBlockHash(chain.id, BigInteger.ZERO)
 
         return ExtrinsicBuilder(
             tip = chain.additional?.defaultTip.orZero(),
             runtime = runtime,
             nonce = nonce,
             runtimeVersion = runtimeVersion,
-            genesisHash = (chain.ghash ?: "0x5b9ae6fd47d88a084767da3d544d3334e5804c1201005c1bd6dd59f23ed57350").fromHex(),
+            genesisHash = gensisHash.fromHex(),
             blockHash = mortality.blockHash.fromHex(),
             era = mortality.era,
             customSignedExtensions = CustomSignedExtensions.extensionsWithValues(runtime),

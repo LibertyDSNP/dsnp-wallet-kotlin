@@ -17,9 +17,16 @@ import com.unfinished.data.multiNetwork.runtime.binding.checkIfExtrinsicFailed
 import com.unfinished.data.repository.event.EventsRepository
 import com.unfinished.data.signer.SignerProvider
 import com.unfinished.data.util.ext.takeWhileInclusive
+import jp.co.soramitsu.fearless_utils.encrypt.EncryptionType
+import jp.co.soramitsu.fearless_utils.runtime.AccountId
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.composite.DictEnum
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.fromHex
 import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.Extrinsic
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.MultiSignature
+import jp.co.soramitsu.fearless_utils.runtime.definitions.types.generics.prepareForEncoding
 import jp.co.soramitsu.fearless_utils.runtime.extrinsic.ExtrinsicBuilder
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.Signer
+import jp.co.soramitsu.fearless_utils.runtime.extrinsic.signer.SignerPayloadRaw
 import jp.co.soramitsu.fearless_utils.wsrpc.exception.RpcException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -130,5 +137,16 @@ class RealExtrinsicService(
         val extrinsicBuilder = extrinsicBuilderFactory.create(chain, signer, accountId)
         extrinsicBuilder.extrinsicCall()
         return extrinsicBuilder.build(useBatchAll = true)
+    }
+
+    override suspend fun generateSignatureProof(
+        payload: ByteArray,
+        metaAccount: MetaAccount
+    ): DictEnum.Entry<*> {
+        val signature = signerProvider.signerFor(metaAccount).signRaw(SignerPayloadRaw(payload, metaAccount.substrateAccountId!!)).signature
+        return MultiSignature(
+            EncryptionType.SR25519,
+            signature
+        ).prepareForEncoding() as DictEnum.Entry<*>
     }
 }
